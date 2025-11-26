@@ -216,13 +216,21 @@ def generate_csv_exports():
             sys.executable, "export_results.py", "--segmented"
         ], capture_output=True, text=True, timeout=120)  # 2 minute timeout
         
+        # Also run technical indicators export
+        tech_export_result = subprocess.run([
+            sys.executable, "export_results.py", "--technical-segmented"
+        ], capture_output=True, text=True, timeout=180)  # 3 minute timeout
+        
         # Count generated CSV files
         csv_files = list(results_dir.glob("*.csv"))
         csv_files = [f.name for f in csv_files if f.stat().st_mtime > (datetime.now().timestamp() - 3600)]  # Files from last hour
         
-        if export_result.returncode == 0:
+        if export_result.returncode == 0 and tech_export_result.returncode == 0:
             logging.info(f"✅ CSV exports completed successfully")
             logging.info(f"📁 Generated files: {', '.join(csv_files)}")
+            return True, csv_files
+        elif export_result.returncode == 0:
+            logging.warning(f"⚠️ Basic CSV export succeeded, but technical export had issues: {tech_export_result.stderr}")
             return True, csv_files
         else:
             logging.warning(f"⚠️ Basic CSV export succeeded, but advanced export had issues: {export_result.stderr}")

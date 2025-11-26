@@ -60,6 +60,8 @@ class ResultsExporter:
         # Format based on export format
         if export_format == 'enhanced':
             export_df = self._create_enhanced_format(filtered_results)
+        elif export_format == 'technical':
+            export_df = self._create_technical_indicators_format(filtered_results)
         elif export_format == 'summary':
             export_df = self._create_summary_format(filtered_results)
         elif export_format == 'trading':
@@ -177,6 +179,110 @@ class ResultsExporter:
         
         return df.reindex(columns=[col for col in column_order if col in df.columns])
     
+    def _create_technical_indicators_format(self, results):
+        """Create detailed technical indicators CSV format showing all MACD/SMA/EMA values"""
+        df = results.copy()
+        df['export_timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Get the raw feature data with technical indicators
+        enhanced_df = self._get_technical_indicators_data(df)
+        
+        # Add analysis columns
+        enhanced_df['confidence_percentage'] = (enhanced_df['confidence'] * 100).round(1)
+        enhanced_df['signal_strength'] = enhanced_df.apply(
+            lambda row: 'Strong' if row['confidence'] > 0.8 else 'Moderate' if row['confidence'] > 0.6 else 'Weak',
+            axis=1
+        )
+        
+        # MACD analysis
+        if 'macd' in enhanced_df.columns and 'macd_signal' in enhanced_df.columns:
+            enhanced_df['macd_trend'] = enhanced_df.apply(
+                lambda row: 'Bullish' if row['macd'] > row['macd_signal'] else 'Bearish',
+                axis=1
+            )
+        
+        # Price vs Moving Averages analysis
+        if 'price_vs_sma20' in enhanced_df.columns:
+            enhanced_df['price_vs_sma20_pct'] = ((enhanced_df['price_vs_sma20'] - 1) * 100).round(2)
+        if 'price_vs_sma50' in enhanced_df.columns:
+            enhanced_df['price_vs_sma50_pct'] = ((enhanced_df['price_vs_sma50'] - 1) * 100).round(2)
+        
+        # Trend analysis
+        if 'sma20_vs_sma50' in enhanced_df.columns:
+            enhanced_df['trend_direction'] = enhanced_df['sma20_vs_sma50'].apply(
+                lambda x: 'Uptrend' if x > 1.02 else 'Downtrend' if x < 0.98 else 'Sideways'
+            )
+        
+        # Define column order for technical analysis
+        column_order = [
+            'export_timestamp', 'trading_date', 'ticker', 'company',
+            'predicted_signal', 'confidence', 'confidence_percentage', 'signal_strength',
+            'close_price', 'RSI',
+            # Moving Averages
+            'sma_5', 'sma_10', 'sma_20', 'sma_50',
+            'ema_5', 'ema_10', 'ema_20', 'ema_50',
+            # MACD
+            'macd', 'macd_signal', 'macd_histogram', 'macd_trend',
+            # Price relationships
+            'price_vs_sma20', 'price_vs_sma20_pct',
+            'price_vs_sma50', 'price_vs_sma50_pct',
+            'price_vs_ema20',
+            # Trend relationships
+            'sma20_vs_sma50', 'ema20_vs_ema50', 'trend_direction',
+            'sma5_vs_sma20',
+            # Volume indicators
+            'volume_sma_20', 'volume_sma_ratio',
+            # Additional momentum
+            'price_momentum_5', 'price_momentum_10',
+            'rsi_momentum', 'daily_volatility'
+        ]
+        
+        # Return only columns that exist in the dataframe
+        available_columns = [col for col in column_order if col in enhanced_df.columns]
+        return enhanced_df.reindex(columns=available_columns)
+    
+    def _get_technical_indicators_data(self, base_df):
+        """Get the full dataset with technical indicators for the specified tickers"""
+        try:
+            # Get the tickers from the base dataframe
+            tickers = base_df['ticker'].unique().tolist()
+            
+            # Get recent data with all technical indicators
+            recent_data = self.predictor.get_latest_data(days_back=10)
+            
+            # Filter for specific tickers if provided
+            if tickers:
+                recent_data = recent_data[recent_data['ticker'].isin(tickers)]
+            
+            # Apply feature engineering to get all technical indicators
+            feature_data = self.predictor.engineer_features(recent_data)
+            
+            # Get the most recent date for each ticker
+            feature_data_latest = feature_data.groupby('ticker').last().reset_index()
+            
+            # Merge with the base prediction data
+            merged_df = base_df.merge(
+                feature_data_latest, 
+                on=['ticker'], 
+                how='left',
+                suffixes=('', '_tech')
+            )
+            
+            # Clean up duplicate columns and use the latest date
+            for col in ['trading_date', 'company', 'close_price', 'RSI']:
+                tech_col = f"{col}_tech"
+                if tech_col in merged_df.columns:
+                    # Use technical data if available, otherwise keep original
+                    merged_df[col] = merged_df[tech_col].fillna(merged_df[col])
+                    merged_df.drop(tech_col, axis=1, inplace=True)
+            
+            return merged_df
+        
+        except Exception as e:
+            print(f"[WARNING] Could not get technical indicators data: {e}")
+            # Return base dataframe if technical indicators can't be retrieved
+            return base_df
+    
     def _generate_filename(self, ticker, date, filter_type, export_format):
         """Generate appropriate filename for the export"""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -251,6 +357,46 @@ class ResultsExporter:
             trading_format = self._create_trading_format(trading_signals)
             trading_format.to_csv(filepath, index=False)
             print(f"[SUCCESS] Trading signals summary exported: {filepath} ({len(trading_signals)} signals)")
+    
+    def export_batch_with_technical_indicators(self, confidence_threshold=0.7):
+        """Export batch results with detailed technical indicators (MACD, SMA, EMA)"""
+        print("[PROCESSING] Generating technical indicators export...")
+        
+        # Get all predictions
+        results = self.predictor.predict_signals(confidence_threshold=0.5)  # Lower threshold to get all
+        
+        if results is None or results.empty:
+            print("[ERROR] No predictions available")
+            return
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Export high confidence with technical indicators
+        high_conf = results[results['confidence'] > 0.7]
+        if not high_conf.empty:
+            filename = f"high_confidence_technical_{timestamp}.csv"
+            filepath = self.results_dir / filename
+            technical_high = self._create_technical_indicators_format(high_conf)
+            technical_high.to_csv(filepath, index=False)
+            print(f"[SUCCESS] High confidence with technical indicators: {filepath} ({len(high_conf)} signals)")
+        
+        # Export medium confidence with technical indicators
+        medium_conf = results[(results['confidence'] > 0.6) & (results['confidence'] <= 0.7)]
+        if not medium_conf.empty:
+            filename = f"medium_confidence_technical_{timestamp}.csv"
+            filepath = self.results_dir / filename
+            technical_medium = self._create_technical_indicators_format(medium_conf)
+            technical_medium.to_csv(filepath, index=False)
+            print(f"[SUCCESS] Medium confidence with technical indicators: {filepath} ({len(medium_conf)} signals)")
+        
+        # Export all signals with full technical analysis
+        filename = f"all_signals_technical_analysis_{timestamp}.csv"
+        filepath = self.results_dir / filename
+        technical_all = self._create_technical_indicators_format(results)
+        technical_all.to_csv(filepath, index=False)
+        print(f"[SUCCESS] Complete technical analysis exported: {filepath} ({len(results)} signals)")
+        
+        print("[SUCCESS] Technical indicators export completed!")
 
 def main():
     """Main CLI interface for CSV export utility"""
@@ -260,25 +406,37 @@ def main():
     parser.add_argument('--batch', action='store_true', help='Export batch predictions')
     parser.add_argument('--confidence', type=float, default=0.7, help='Confidence threshold')
     parser.add_argument('--export-csv', action='store_true', help='Export to CSV')
-    parser.add_argument('--format', choices=['standard', 'enhanced', 'summary', 'trading'], 
+    parser.add_argument('--format', choices=['standard', 'enhanced', 'summary', 'trading', 'technical'], 
                        default='standard', help='CSV format type')
     parser.add_argument('--filter', choices=['all', 'high-confidence', 'buy-signals', 'sell-signals', 'medium-high'],
                        default='all', help='Filter type for export')
     parser.add_argument('--results-dir', type=str, default='results', help='Results directory')
     parser.add_argument('--segmented', action='store_true', help='Export segmented by confidence levels')
+    parser.add_argument('--technical', action='store_true', help='Export with detailed technical indicators (MACD, SMA, EMA)')
+    parser.add_argument('--technical-segmented', action='store_true', help='Export segmented with technical indicators')
     
     args = parser.parse_args()
     
-    if not args.export_csv and not args.segmented:
-        print("[ERROR] Please specify --export-csv or --segmented to export results")
+    if not args.export_csv and not args.segmented and not args.technical and not args.technical_segmented:
+        print("[ERROR] Please specify --export-csv, --segmented, --technical, or --technical-segmented to export results")
         return 1
     
     # Initialize exporter
     exporter = ResultsExporter(args.results_dir)
     
     try:
-        if args.segmented:
+        if args.technical_segmented:
+            exporter.export_batch_with_technical_indicators(args.confidence)
+        elif args.segmented:
             exporter.export_batch_with_segments(args.confidence)
+        elif args.technical:
+            # Export single file with technical indicators
+            exporter.export_predictions(
+                ticker=args.ticker,
+                confidence_threshold=args.confidence,
+                export_format='technical',
+                filter_type=args.filter
+            )
         elif args.batch:
             exporter.export_predictions(
                 confidence_threshold=args.confidence,
