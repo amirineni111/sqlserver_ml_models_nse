@@ -225,6 +225,9 @@ class ModelRetrainer:
         df_features['rsi_overbought'] = (df_features['RSI'] > 70).astype(int)
         df_features['rsi_momentum'] = df_features.groupby('ticker')['RSI'].diff()
         
+        # Enhanced technical indicators (proven to improve model accuracy)
+        df_features = self.add_enhanced_features(df_features)
+        
         # Time features
         df_features['trading_date'] = pd.to_datetime(df_features['trading_date'])
         df_features['day_of_week'] = df_features['trading_date'].dt.dayofweek
@@ -235,6 +238,72 @@ class ModelRetrainer:
         
         print(f"✅ Feature engineering complete: {df_features.shape[1]} total features")
         return df_features
+    
+    def add_enhanced_features(self, df):
+        """Add enhanced technical indicators (MACD, SMA, EMA)"""
+        print("📈 Adding enhanced technical indicators...")
+        df_copy = df.copy()
+        
+        # Apply enhanced feature engineering per ticker
+        df_copy = df_copy.groupby('ticker').apply(self._calculate_technical_indicators).reset_index(drop=True)
+        
+        return df_copy
+    
+    def _calculate_technical_indicators(self, group_df):
+        """Calculate technical indicators for a single ticker"""
+        df = group_df.copy()
+        
+        # Use close_price column name (database naming convention)
+        price_col = 'close_price'
+        volume_col = 'volume'
+        
+        # Simple Moving Averages
+        df['sma_5'] = df[price_col].rolling(window=5).mean()
+        df['sma_10'] = df[price_col].rolling(window=10).mean()
+        df['sma_20'] = df[price_col].rolling(window=20).mean()
+        df['sma_50'] = df[price_col].rolling(window=50).mean()
+        
+        # Exponential Moving Averages
+        df['ema_5'] = df[price_col].ewm(span=5).mean()
+        df['ema_10'] = df[price_col].ewm(span=10).mean()
+        df['ema_20'] = df[price_col].ewm(span=20).mean()
+        df['ema_50'] = df[price_col].ewm(span=50).mean()
+        
+        # MACD Calculation
+        ema_12 = df[price_col].ewm(span=12).mean()
+        ema_26 = df[price_col].ewm(span=26).mean()
+        df['macd'] = ema_12 - ema_26
+        df['macd_signal'] = df['macd'].ewm(span=9).mean()
+        df['macd_histogram'] = df['macd'] - df['macd_signal']
+        
+        # Price vs Moving Average ratios (proven high impact features)
+        df['price_vs_sma20'] = df[price_col] / df['sma_20']
+        df['price_vs_sma50'] = df[price_col] / df['sma_50']
+        df['price_vs_ema20'] = df[price_col] / df['ema_20']
+        
+        # Moving Average relationships
+        df['sma20_vs_sma50'] = df['sma_20'] / df['sma_50']
+        df['ema20_vs_ema50'] = df['ema_20'] / df['ema_50']
+        df['sma5_vs_sma20'] = df['sma_5'] / df['sma_20']
+        
+        # Volume indicators
+        df['volume_sma_20'] = df[volume_col].rolling(window=20).mean()
+        df['volume_sma_ratio'] = df[volume_col] / df['volume_sma_20']
+        
+        # Price momentum features
+        df['price_momentum_5'] = df[price_col] / df[price_col].shift(5)
+        df['price_momentum_10'] = df[price_col] / df[price_col].shift(10)
+        
+        # Volatility features
+        df['price_volatility_10'] = df[price_col].pct_change().rolling(window=10).std()
+        df['price_volatility_20'] = df[price_col].pct_change().rolling(window=20).std()
+        
+        # Trend strength indicators
+        df['trend_strength_10'] = df[price_col].rolling(window=10).apply(
+            lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0
+        )
+        
+        return df
     
     def prepare_ml_dataset(self, df_features):
         """Prepare dataset for machine learning"""
@@ -247,10 +316,22 @@ class ModelRetrainer:
         X = df_features[feature_cols].copy()
         y = df_features[target_column].copy()
         
-        # Remove rows with missing target
-        valid_mask = y.notna()
+        # Remove rows with missing target (handle both NaN and None values)
+        valid_mask = y.notna() & (y != 'None') & (y.astype(str) != 'None')
         X = X[valid_mask]
         y = y[valid_mask]
+        
+        # Convert any remaining None values to a default class if needed
+        y = y.astype(str)
+        
+        # Remove any remaining problematic values
+        valid_classes = ['Overbought (Sell)', 'Oversold (Buy)']
+        class_mask = y.isin(valid_classes)
+        X = X[class_mask]
+        y = y[class_mask]
+        
+        if len(y) == 0:
+            raise ValueError("No valid target data found after filtering")
         
         # Encode target
         target_encoder = LabelEncoder()

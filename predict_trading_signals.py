@@ -58,8 +58,8 @@ class TradingSignalPredictor:
     def __init__(self, model_path=None, scaler_path=None, encoder_path=None):
         """Initialize the predictor with saved model artifacts"""
         
-        # Default paths
-        self.model_path = model_path or 'data/best_model_gradient_boosting.joblib'
+        # Default paths (updated for enhanced features model)
+        self.model_path = model_path or 'data/best_model_logistic_regression.joblib'
         self.scaler_path = scaler_path or 'data/scaler.joblib'
         self.encoder_path = encoder_path or 'data/target_encoder.joblib'
         
@@ -75,7 +75,17 @@ class TradingSignalPredictor:
             'RSI', 'daily_volatility', 'daily_return', 'volume_millions',
             'price_range', 'price_position', 'gap', 'volume_price_trend',
             'rsi_oversold', 'rsi_overbought', 'rsi_momentum',
-            'day_of_week', 'month'        ]
+            'sma_5', 'sma_10', 'sma_20', 'sma_50',
+            'ema_5', 'ema_10', 'ema_20', 'ema_50',
+            'macd', 'macd_signal', 'macd_histogram',
+            'price_vs_sma20', 'price_vs_sma50', 'price_vs_ema20',
+            'sma20_vs_sma50', 'ema20_vs_ema50', 'sma5_vs_sma20',
+            'volume_sma_20', 'volume_sma_ratio',
+            'price_momentum_5', 'price_momentum_10',
+            'price_volatility_10', 'price_volatility_20',
+            'trend_strength_10',
+            'day_of_week', 'month'
+        ]
     
     def load_model_artifacts(self):
         """Load the trained model, scaler, and encoder"""
@@ -155,6 +165,9 @@ class TradingSignalPredictor:
         df_features['rsi_overbought'] = (df_features['RSI'] > 70).astype(int)
         df_features['rsi_momentum'] = df_features.groupby('ticker')['RSI'].diff()
         
+        # Enhanced technical indicators (proven to improve model accuracy)
+        df_features = self.add_enhanced_features(df_features)
+        
         # Time features
         df_features['trading_date'] = pd.to_datetime(df_features['trading_date'])
         df_features['day_of_week'] = df_features['trading_date'].dt.dayofweek
@@ -164,6 +177,71 @@ class TradingSignalPredictor:
         df_features = df_features.fillna(method='bfill').fillna(0)
         
         return df_features
+    
+    def add_enhanced_features(self, df):
+        """Add enhanced technical indicators (MACD, SMA, EMA)"""
+        df_copy = df.copy()
+        
+        # Apply enhanced feature engineering per ticker
+        df_copy = df_copy.groupby('ticker').apply(self._calculate_technical_indicators).reset_index(drop=True)
+        
+        return df_copy
+    
+    def _calculate_technical_indicators(self, group_df):
+        """Calculate technical indicators for a single ticker"""
+        df = group_df.copy()
+        
+        # Use close_price column name (database naming convention)
+        price_col = 'close_price'
+        volume_col = 'volume'
+        
+        # Simple Moving Averages
+        df['sma_5'] = df[price_col].rolling(window=5).mean()
+        df['sma_10'] = df[price_col].rolling(window=10).mean()
+        df['sma_20'] = df[price_col].rolling(window=20).mean()
+        df['sma_50'] = df[price_col].rolling(window=50).mean()
+        
+        # Exponential Moving Averages
+        df['ema_5'] = df[price_col].ewm(span=5).mean()
+        df['ema_10'] = df[price_col].ewm(span=10).mean()
+        df['ema_20'] = df[price_col].ewm(span=20).mean()
+        df['ema_50'] = df[price_col].ewm(span=50).mean()
+        
+        # MACD Calculation
+        ema_12 = df[price_col].ewm(span=12).mean()
+        ema_26 = df[price_col].ewm(span=26).mean()
+        df['macd'] = ema_12 - ema_26
+        df['macd_signal'] = df['macd'].ewm(span=9).mean()
+        df['macd_histogram'] = df['macd'] - df['macd_signal']
+        
+        # Price vs Moving Average ratios (proven high impact features)
+        df['price_vs_sma20'] = df[price_col] / df['sma_20']
+        df['price_vs_sma50'] = df[price_col] / df['sma_50']
+        df['price_vs_ema20'] = df[price_col] / df['ema_20']
+        
+        # Moving Average relationships
+        df['sma20_vs_sma50'] = df['sma_20'] / df['sma_50']
+        df['ema20_vs_ema50'] = df['ema_20'] / df['ema_50']
+        df['sma5_vs_sma20'] = df['sma_5'] / df['sma_20']
+        
+        # Volume indicators
+        df['volume_sma_20'] = df[volume_col].rolling(window=20).mean()
+        df['volume_sma_ratio'] = df[volume_col] / df['volume_sma_20']
+        
+        # Price momentum features
+        df['price_momentum_5'] = df[price_col] / df[price_col].shift(5)
+        df['price_momentum_10'] = df[price_col] / df[price_col].shift(10)
+        
+        # Volatility features
+        df['price_volatility_10'] = df[price_col].pct_change().rolling(window=10).std()
+        df['price_volatility_20'] = df[price_col].pct_change().rolling(window=20).std()
+        
+        # Trend strength indicators
+        df['trend_strength_10'] = df[price_col].rolling(window=10).apply(
+            lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0
+        )
+        
+        return df
     
     def predict_signals(self, ticker=None, date=None, confidence_threshold=0.7):
         """Make trading signal predictions"""
@@ -182,7 +260,7 @@ class TradingSignalPredictor:
         if date:
             target_date = pd.to_datetime(date)
             df_features = df_features[df_features['trading_date'].dt.date == target_date.date()]
-              if df_features.empty:
+            if df_features.empty:
                 safe_print(f"⚠️  No data found for date: {date}")
                 return None
         
@@ -214,7 +292,8 @@ class TradingSignalPredictor:
         results['high_confidence'] = results['confidence'] > confidence_threshold
         
         return results
-      def format_prediction_output(self, results, show_all=False):
+    
+    def format_prediction_output(self, results, show_all=False):
         """Format prediction results for display"""
         if results is None or results.empty:
             return "No predictions available"

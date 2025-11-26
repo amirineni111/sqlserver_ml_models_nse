@@ -213,7 +213,7 @@ def generate_csv_exports():
         
         # Run advanced export utility
         export_result = subprocess.run([
-            sys.executable, "export_results.py"
+            sys.executable, "export_results.py", "--segmented"
         ], capture_output=True, text=True, timeout=120)  # 2 minute timeout
         
         # Count generated CSV files

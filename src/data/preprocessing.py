@@ -205,8 +205,12 @@ class DataPreprocessor:
         """
         df_copy = df.copy()
         
-        # Example feature engineering operations
-        # Add more specific feature engineering based on your data
+        # Sort by Symbol and Date to ensure proper calculation
+        if 'Symbol' in df_copy.columns and 'Date' in df_copy.columns:
+            df_copy = df_copy.sort_values(['Symbol', 'Date']).reset_index(drop=True)
+        
+        # Enhanced technical analysis features for stock trading
+        df_copy = self._create_technical_indicators(df_copy)
         
         # Date-based features if datetime columns exist
         datetime_columns = df_copy.select_dtypes(include=['datetime64']).columns
@@ -223,10 +227,102 @@ class DataPreprocessor:
             # Create some interaction features (be careful not to create too many)
             for i, col1 in enumerate(numerical_columns[:3]):  # Limit to first 3 columns
                 for col2 in numerical_columns[i+1:4]:  # Limit interactions
-                    df_copy[f'{col1}_x_{col2}'] = df_copy[col1] * df_copy[col2]
+                    if col1 != col2:
+                        df_copy[f'{col1}_x_{col2}'] = df_copy[col1] * df_copy[col2]
         
         logger.info(f"Feature engineering completed. Added {len(df_copy.columns) - len(df.columns)} new features")
         return df_copy
+    
+    def _create_technical_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Create technical indicators for stock trading analysis.
+        
+        Args:
+            df: Input DataFrame with stock price data
+            
+        Returns:
+            DataFrame with technical indicators added
+        """
+        df_copy = df.copy()
+        
+        # Check if we have the necessary columns
+        required_cols = ['Close', 'Volume']
+        if not all(col in df_copy.columns for col in required_cols):
+            logger.warning("Missing required columns for technical indicators. Skipping technical analysis.")
+            return df_copy
+        
+        # Group by symbol to calculate indicators per stock
+        if 'Symbol' in df_copy.columns:
+            df_copy = df_copy.groupby('Symbol').apply(self._calculate_indicators_per_symbol).reset_index(drop=True)
+        else:
+            df_copy = self._calculate_indicators_per_symbol(df_copy)
+        
+        return df_copy
+    
+    def _calculate_indicators_per_symbol(self, group_df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculate technical indicators for a single symbol's data.
+        
+        Args:
+            group_df: DataFrame containing data for a single symbol
+            
+        Returns:
+            DataFrame with indicators calculated
+        """
+        df = group_df.copy()
+        
+        # Simple Moving Averages
+        df['sma_5'] = df['Close'].rolling(window=5).mean()
+        df['sma_10'] = df['Close'].rolling(window=10).mean()
+        df['sma_20'] = df['Close'].rolling(window=20).mean()
+        df['sma_50'] = df['Close'].rolling(window=50).mean()
+        
+        # Exponential Moving Averages
+        df['ema_5'] = df['Close'].ewm(span=5).mean()
+        df['ema_10'] = df['Close'].ewm(span=10).mean()
+        df['ema_20'] = df['Close'].ewm(span=20).mean()
+        df['ema_50'] = df['Close'].ewm(span=50).mean()
+        
+        # MACD Calculation
+        ema_12 = df['Close'].ewm(span=12).mean()
+        ema_26 = df['Close'].ewm(span=26).mean()
+        df['macd'] = ema_12 - ema_26
+        df['macd_signal'] = df['macd'].ewm(span=9).mean()
+        df['macd_histogram'] = df['macd'] - df['macd_signal']
+        
+        # Price vs Moving Average ratios
+        df['price_vs_sma20'] = df['Close'] / df['sma_20']
+        df['price_vs_sma50'] = df['Close'] / df['sma_50']
+        df['price_vs_ema20'] = df['Close'] / df['ema_20']
+        
+        # Moving Average relationships
+        df['sma20_vs_sma50'] = df['sma_20'] / df['sma_50']
+        df['ema20_vs_ema50'] = df['ema_20'] / df['ema_50']
+        df['sma5_vs_sma20'] = df['sma_5'] / df['sma_20']
+        
+        # Volume indicators
+        df['volume_sma_20'] = df['Volume'].rolling(window=20).mean()
+        df['volume_sma_ratio'] = df['Volume'] / df['volume_sma_20']
+        
+        # Price momentum features
+        df['price_momentum_5'] = df['Close'] / df['Close'].shift(5)
+        df['price_momentum_10'] = df['Close'] / df['Close'].shift(10)
+        
+        # Volatility features
+        df['price_volatility_10'] = df['Close'].pct_change().rolling(window=10).std()
+        df['price_volatility_20'] = df['Close'].pct_change().rolling(window=20).std()
+        
+        # Trend strength indicators
+        df['trend_strength_10'] = df['Close'].rolling(window=10).apply(
+            lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0
+        )
+        
+        # High-low spreads
+        if 'High' in df.columns and 'Low' in df.columns:
+            df['hl_spread'] = (df['High'] - df['Low']) / df['Close']
+            df['hl_spread_sma_5'] = df['hl_spread'].rolling(window=5).mean()
+        
+        return df
     
     def prepare_for_ml(
         self, 
