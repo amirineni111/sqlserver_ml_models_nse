@@ -221,16 +221,33 @@ def generate_csv_exports():
             sys.executable, "export_results.py", "--technical-segmented"
         ], capture_output=True, text=True, timeout=180)  # 3 minute timeout
         
+        # Export to database
+        db_export_result = subprocess.run([
+            sys.executable, "export_to_database.py", "--batch"
+        ], capture_output=True, text=True, timeout=180)  # 3 minute timeout
+        
         # Count generated CSV files
         csv_files = list(results_dir.glob("*.csv"))
         csv_files = [f.name for f in csv_files if f.stat().st_mtime > (datetime.now().timestamp() - 3600)]  # Files from last hour
         
-        if export_result.returncode == 0 and tech_export_result.returncode == 0:
+        # Check results
+        csv_success = export_result.returncode == 0
+        tech_success = tech_export_result.returncode == 0
+        db_success = db_export_result.returncode == 0
+        
+        if csv_success and tech_success and db_success:
             logging.info(f"✅ CSV exports completed successfully")
+            logging.info(f"✅ Database export completed successfully")
             logging.info(f"📁 Generated files: {', '.join(csv_files)}")
             return True, csv_files
-        elif export_result.returncode == 0:
-            logging.warning(f"⚠️ Basic CSV export succeeded, but technical export had issues: {tech_export_result.stderr}")
+        elif csv_success and db_success:
+            logging.warning(f"⚠️ CSV and DB export succeeded, but technical CSV had issues: {tech_export_result.stderr}")
+            return True, csv_files
+        elif csv_success:
+            if not db_success:
+                logging.warning(f"⚠️ CSV export succeeded, but database export failed: {db_export_result.stderr}")
+            if not tech_success:
+                logging.warning(f"⚠️ CSV export succeeded, but technical export had issues: {tech_export_result.stderr}")
             return True, csv_files
         else:
             logging.warning(f"⚠️ Basic CSV export succeeded, but advanced export had issues: {export_result.stderr}")
