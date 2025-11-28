@@ -126,7 +126,10 @@ def check_nse_data_status():
         
         # Calculate data age
         if latest_date:
-            data_age = (datetime.now().date() - latest_date.date()).days
+            if hasattr(latest_date, 'date'):
+                data_age = (datetime.now().date() - latest_date.date()).days
+            else:
+                data_age = (datetime.now().date() - latest_date).days
             logging.info(f"  ⏰ Data Age: {data_age} days")
         else:
             data_age = None

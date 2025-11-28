@@ -1,20 +1,7 @@
 """
-NSE 500 Trading Signal Prediction Deployment Script
+NSE 500 Trading Signal Prediction Script
 
-This script provides a production-ready interface for making trading signal predictions
-using the trained machine learning models for NSE 500 stocks.
-
-Features:
-- Reads data from NSE 500 historical data table
-- Calculates technical indicators (RSI, SMA, EMA, MACD, BB, ATR)
-- Generates ML predictions for Buy/Sell/Hold signals
-- Stores results in NSE-specific result tables
-- Supports both single ticker and batch processing
-
-Usage:
-    python predict_nse_signals.py --ticker RELIANCE.NS --date 2025-11-28
-    python predict_nse_signals.py --batch --file nse_tickers.csv
-    python predict_nse_signals.py --all-nse  # Process all NSE 500 stocks
+This script generates trading signals for NSE 500 stocks using machine learning models.
 """
 
 import argparse
@@ -33,37 +20,20 @@ from database.connection import SQLServerConnection
 
 warnings.filterwarnings('ignore')
 
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
 def safe_print(text):
     """Print text with safe encoding handling for Windows console."""
     try:
         print(text)
     except UnicodeEncodeError:
-        # Replace emoji with text equivalents for Windows console
         emoji_replacements = {
             '✅': '[SUCCESS]',
             '❌': '[ERROR]',
             '📊': '[DATA]',
-            '💡': '[TIP]',
-            '🎯': '[TARGET]',
+            '🇮🇳': '[NSE]',
             '📈': '[PREDICTION]',
             '⚠️': '[WARN]',
-            '🔍': '[INFO]',
-            '📋': '[RESULTS]',
-            '📁': '[FILE]',
-            '🚀': '[START]',
-            '🔄': '[PROCESSING]',
-            '💾': '[SAVE]',
-            '🟢': '[BUY]',
-            '🔴': '[SELL]',
-            '🟡': '[HOLD]',
-            '🇮🇳': '[NSE]'
+            '🎯': '[TARGET]',
+            '🔄': '[PROCESSING]'
         }
         for emoji, replacement in emoji_replacements.items():
             text = text.replace(emoji, replacement)
@@ -75,7 +45,7 @@ class NSETradingSignalPredictor:
     def __init__(self, model_path=None, scaler_path=None, encoder_path=None):
         """Initialize the NSE predictor with saved model artifacts"""
         
-        # Default paths (use the same trained models but adapt for NSE data)
+        # Default paths
         self.model_path = model_path or 'data/best_model_extra_trees.joblib'
         self.scaler_path = scaler_path or 'data/scaler.joblib'
         self.encoder_path = encoder_path or 'data/target_encoder.joblib'
@@ -86,7 +56,7 @@ class NSETradingSignalPredictor:
         # Database connection
         self.db = SQLServerConnection()
         
-        # Feature columns (adapted for NSE data)
+        # Feature columns (must match training)
         self.feature_columns = [
             'open_price', 'high_price', 'low_price', 'close_price', 'volume', 
             'RSI', 'daily_volatility', 'daily_return', 'volume_millions',
@@ -95,8 +65,6 @@ class NSETradingSignalPredictor:
             'sma_5', 'sma_10', 'sma_20', 'sma_50',
             'ema_5', 'ema_10', 'ema_20', 'ema_50',
             'macd', 'macd_signal', 'macd_histogram',
-            'bb_upper', 'bb_middle', 'bb_lower', 'bb_width',
-            'atr', 'atr_percentage',
             'price_vs_sma20', 'price_vs_sma50', 'price_vs_ema20',
             'sma20_vs_sma50', 'ema20_vs_ema50', 'sma5_vs_sma20',
             'volume_sma_20', 'volume_sma_ratio',
@@ -112,7 +80,7 @@ class NSETradingSignalPredictor:
             self.model = joblib.load(self.model_path)
             self.scaler = joblib.load(self.scaler_path)
             self.target_encoder = joblib.load(self.encoder_path)
-            safe_print("✅ Model artifacts loaded successfully for NSE prediction")
+            safe_print("✅ Model artifacts loaded successfully")
             
             # Get class names
             self.class_names = self.target_encoder.classes_
@@ -120,22 +88,18 @@ class NSETradingSignalPredictor:
             
         except FileNotFoundError as e:
             safe_print(f"❌ Error loading model artifacts: {e}")
-            safe_print("Please ensure the model has been trained and saved.")
             sys.exit(1)
     
-    def get_nse_latest_data(self, ticker=None, days_back=5):
-        """Fetch latest NSE stock data for prediction"""
+    def get_nse_data(self, ticker=None, days_back=60):
+        """Fetch NSE stock data for prediction"""
         
         if ticker:
-            # Remove .NS suffix if present and add it back consistently
-            ticker_clean = ticker.replace('.NS', '')
-            ticker_filter = f"AND h.ticker = '{ticker_clean}.NS'"
+            ticker_filter = f"AND h.ticker = '{ticker}'"
         else:
             ticker_filter = ""
         
-        # Query NSE 500 historical data
         query = f"""
-        SELECT TOP 1000
+        SELECT 
             h.trading_date,
             h.ticker,
             h.company,
@@ -147,7 +111,7 @@ class NSETradingSignalPredictor:
         FROM dbo.nse_500_hist_data h
         WHERE h.trading_date >= DATEADD(day, -{days_back}, CAST(GETDATE() AS DATE))
             {ticker_filter}
-        ORDER BY h.trading_date DESC, h.ticker
+        ORDER BY h.ticker, h.trading_date
         """
         
         try:
@@ -155,10 +119,7 @@ class NSETradingSignalPredictor:
             if df.empty:
                 safe_print(f"⚠️  No NSE data found for ticker: {ticker}")
                 return None
-            
-            safe_print(f"🇮🇳 Retrieved {len(df)} NSE records")
             return df
-            
         except Exception as e:
             safe_print(f"❌ Error fetching NSE data: {e}")
             return None
@@ -168,461 +129,367 @@ class NSETradingSignalPredictor:
         if df is None or df.empty:
             return None
         
-        df_calc = df.copy()
-        df_calc = df_calc.sort_values(['ticker', 'trading_date']).reset_index(drop=True)
-        
-        # Group by ticker to calculate indicators
-        result_dfs = []
-        
-        for ticker in df_calc['ticker'].unique():
-            ticker_df = df_calc[df_calc['ticker'] == ticker].copy()
-            
-            if len(ticker_df) < 50:  # Need sufficient data for indicators
-                continue
-                
-            # Calculate RSI
-            ticker_df['rsi'] = self.calculate_rsi(ticker_df['close_price'])
-            
-            # Calculate SMAs
-            ticker_df['sma_5'] = ticker_df['close_price'].rolling(window=5).mean()
-            ticker_df['sma_10'] = ticker_df['close_price'].rolling(window=10).mean()
-            ticker_df['sma_20'] = ticker_df['close_price'].rolling(window=20).mean()
-            ticker_df['sma_50'] = ticker_df['close_price'].rolling(window=50).mean()
-            
-            # Calculate EMAs
-            ticker_df['ema_5'] = ticker_df['close_price'].ewm(span=5).mean()
-            ticker_df['ema_10'] = ticker_df['close_price'].ewm(span=10).mean()
-            ticker_df['ema_20'] = ticker_df['close_price'].ewm(span=20).mean()
-            ticker_df['ema_50'] = ticker_df['close_price'].ewm(span=50).mean()
-            
-            # Calculate MACD
-            exp1 = ticker_df['close_price'].ewm(span=12).mean()
-            exp2 = ticker_df['close_price'].ewm(span=26).mean()
-            ticker_df['macd'] = exp1 - exp2
-            ticker_df['macd_signal'] = ticker_df['macd'].ewm(span=9).mean()
-            ticker_df['macd_histogram'] = ticker_df['macd'] - ticker_df['macd_signal']
-            
-            # Calculate Bollinger Bands
-            ticker_df['bb_middle'] = ticker_df['close_price'].rolling(window=20).mean()
-            bb_std = ticker_df['close_price'].rolling(window=20).std()
-            ticker_df['bb_upper'] = ticker_df['bb_middle'] + (bb_std * 2)
-            ticker_df['bb_lower'] = ticker_df['bb_middle'] - (bb_std * 2)
-            ticker_df['bb_width'] = ticker_df['bb_upper'] - ticker_df['bb_lower']
-            
-            # Calculate ATR (Average True Range)
-            ticker_df['tr1'] = ticker_df['high_price'] - ticker_df['low_price']
-            ticker_df['tr2'] = abs(ticker_df['high_price'] - ticker_df['close_price'].shift(1))
-            ticker_df['tr3'] = abs(ticker_df['low_price'] - ticker_df['close_price'].shift(1))
-            ticker_df['tr'] = ticker_df[['tr1', 'tr2', 'tr3']].max(axis=1)
-            ticker_df['atr'] = ticker_df['tr'].rolling(window=14).mean()
-            ticker_df['atr_percentage'] = (ticker_df['atr'] / ticker_df['close_price']) * 100
-            
-            # Remove temporary columns
-            ticker_df = ticker_df.drop(['tr1', 'tr2', 'tr3', 'tr'], axis=1)
-            
-            result_dfs.append(ticker_df)
-        
-        if result_dfs:
-            return pd.concat(result_dfs, ignore_index=True)
-        else:
-            return None
-    
-    def calculate_rsi(self, prices, period=14):
-        """Calculate RSI indicator"""
-        delta = prices.diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-        rs = gain / loss
-        rsi = 100 - (100 / (1 + rs))
-        return rsi
-    
-    def engineer_features(self, df):
-        """Apply feature engineering to NSE data"""
-        if df is None or df.empty:
-            return None
-        
         df_features = df.copy()
+        df_features = df_features.sort_values(['ticker', 'trading_date'])
         
-        # Calculate additional features
-        df_features['daily_return'] = df_features.groupby('ticker')['close_price'].pct_change()
-        df_features['daily_volatility'] = df_features.groupby('ticker')['daily_return'].rolling(10).std().reset_index(0, drop=True)
+        safe_print(f"🔄 Calculating technical indicators for {df_features['ticker'].nunique()} stocks...")
         
-        # Volume features
-        df_features['volume_millions'] = df_features['volume'] / 1_000_000
-        df_features['volume_sma_20'] = df_features.groupby('ticker')['volume'].rolling(20).mean().reset_index(0, drop=True)
-        df_features['volume_sma_ratio'] = df_features['volume'] / df_features['volume_sma_20']
+        # Group by ticker for technical calculations
+        grouped_results = []
         
-        # Price features
-        df_features['price_range'] = df_features['high_price'] - df_features['low_price']
-        df_features['price_position'] = (df_features['close_price'] - df_features['low_price']) / df_features['price_range']
-        df_features['gap'] = df_features['open_price'] - df_features.groupby('ticker')['close_price'].shift(1)
+        for ticker, group in df_features.groupby('ticker'):
+            group = group.sort_values('trading_date').reset_index(drop=True)
+            
+            # Skip if insufficient data
+            if len(group) < 30:
+                continue
+            
+            # Basic features
+            group['daily_return'] = group['close_price'].pct_change()
+            group['daily_volatility'] = group['daily_return'].rolling(window=10).std()
+            group['volume_millions'] = group['volume'] / 1_000_000
+            group['price_range'] = group['high_price'] - group['low_price']
+            group['price_position'] = (group['close_price'] - group['low_price']) / (group['high_price'] - group['low_price'])
+            group['gap'] = (group['open_price'] - group['close_price'].shift(1)) / group['close_price'].shift(1)
+            
+            # RSI calculation
+            delta = group['close_price'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+            rs = gain / loss
+            group['RSI'] = 100 - (100 / (1 + rs))
+            
+            # RSI features
+            group['rsi_oversold'] = (group['RSI'] < 30).astype(int)
+            group['rsi_overbought'] = (group['RSI'] > 70).astype(int)
+            group['rsi_momentum'] = group['RSI'].diff()
+            
+            # Moving averages
+            for period in [5, 10, 20, 50]:
+                group[f'sma_{period}'] = group['close_price'].rolling(window=period).mean()
+                
+            # Exponential moving averages
+            for period in [5, 10, 20, 50]:
+                group[f'ema_{period}'] = group['close_price'].ewm(span=period).mean()
+            
+            # MACD
+            ema_12 = group['close_price'].ewm(span=12).mean()
+            ema_26 = group['close_price'].ewm(span=26).mean()
+            group['macd'] = ema_12 - ema_26
+            group['macd_signal'] = group['macd'].ewm(span=9).mean()
+            group['macd_histogram'] = group['macd'] - group['macd_signal']
+            
+            # Price vs MA ratios
+            group['price_vs_sma20'] = group['close_price'] / group['sma_20']
+            group['price_vs_sma50'] = group['close_price'] / group['sma_50']
+            group['price_vs_ema20'] = group['close_price'] / group['ema_20']
+            
+            # MA crossovers
+            group['sma20_vs_sma50'] = group['sma_20'] / group['sma_50']
+            group['ema20_vs_ema50'] = group['ema_20'] / group['ema_50']
+            group['sma5_vs_sma20'] = group['sma_5'] / group['sma_20']
+            
+            # Volume indicators
+            group['volume_sma_20'] = group['volume'].rolling(window=20).mean()
+            group['volume_sma_ratio'] = group['volume'] / group['volume_sma_20']
+            group['volume_price_trend'] = (group['close_price'].pct_change() * group['volume']).rolling(window=10).mean()
+            
+            # Price momentum
+            group['price_momentum_5'] = group['close_price'] / group['close_price'].shift(5)
+            group['price_momentum_10'] = group['close_price'] / group['close_price'].shift(10)
+            
+            # Volatility
+            group['price_volatility_10'] = group['close_price'].rolling(window=10).std() / group['close_price'].rolling(window=10).mean()
+            group['price_volatility_20'] = group['close_price'].rolling(window=20).std() / group['close_price'].rolling(window=20).mean()
+            
+            # Trend strength
+            group['trend_strength_10'] = abs(group['close_price'].rolling(window=10).apply(lambda x: np.polyfit(range(len(x)), x, 1)[0]))
+            
+            # Date features
+            group['day_of_week'] = pd.to_datetime(group['trading_date']).dt.dayofweek
+            group['month'] = pd.to_datetime(group['trading_date']).dt.month
+            
+            grouped_results.append(group)
         
-        # Technical indicator features
-        df_features['rsi_oversold'] = (df_features['rsi'] < 30).astype(int)
-        df_features['rsi_overbought'] = (df_features['rsi'] > 70).astype(int)
-        df_features['rsi_momentum'] = df_features.groupby('ticker')['rsi'].diff()
+        if not grouped_results:
+            safe_print("⚠️  No valid data after technical indicator calculation")
+            return None
         
-        # Price vs indicators
-        df_features['price_vs_sma20'] = df_features['close_price'] / df_features['sma_20']
-        df_features['price_vs_sma50'] = df_features['close_price'] / df_features['sma_50']
-        df_features['price_vs_ema20'] = df_features['close_price'] / df_features['ema_20']
+        result_df = pd.concat(grouped_results, ignore_index=True)
+        safe_print(f"✅ Technical indicators calculated for {len(result_df)} records")
         
-        # Indicator crossovers
-        df_features['sma20_vs_sma50'] = df_features['sma_20'] / df_features['sma_50']
-        df_features['ema20_vs_ema50'] = df_features['ema_20'] / df_features['ema_50']
-        df_features['sma5_vs_sma20'] = df_features['sma_5'] / df_features['sma_20']
-        
-        # Momentum features
-        df_features['price_momentum_5'] = df_features['close_price'] / df_features.groupby('ticker')['close_price'].shift(5)
-        df_features['price_momentum_10'] = df_features['close_price'] / df_features.groupby('ticker')['close_price'].shift(10)
-        
-        # Volatility features
-        df_features['price_volatility_10'] = df_features.groupby('ticker')['close_price'].rolling(10).std().reset_index(0, drop=True)
-        df_features['price_volatility_20'] = df_features.groupby('ticker')['close_price'].rolling(20).std().reset_index(0, drop=True)
-        
-        # Trend strength
-        df_features['trend_strength_10'] = abs(df_features['close_price'] - df_features.groupby('ticker')['close_price'].shift(10)) / df_features['close_price']
-        
-        # Volume price trend
-        df_features['volume_price_trend'] = df_features['volume_sma_ratio'] * df_features['daily_return']
-        
-        # Date features
-        df_features['trading_date'] = pd.to_datetime(df_features['trading_date'])
-        df_features['day_of_week'] = df_features['trading_date'].dt.dayofweek
-        df_features['month'] = df_features['trading_date'].dt.month
-        
-        # Fill NaN values
-        df_features = df_features.fillna(method='ffill')
-        df_features = df_features.fillna(0)
-        
-        return df_features
+        return result_df
     
-    def predict_signals(self, df):
-        """Make trading signal predictions for NSE stocks"""
+    def make_predictions(self, df):
+        """Make trading signal predictions"""
         if df is None or df.empty:
             return None
         
-        # Prepare features for prediction
-        features_df = df[self.feature_columns].copy()
+        safe_print("🎯 Making ML predictions...")
         
-        # Handle missing columns by setting to 0
-        for col in self.feature_columns:
-            if col not in features_df.columns:
-                features_df[col] = 0
+        # Get the latest data for each ticker
+        latest_data = df.groupby('ticker').tail(1).copy()
+        
+        # Prepare features
+        feature_data = latest_data[self.feature_columns].copy()
+        
+        # Handle missing values
+        feature_data = feature_data.fillna(0)
         
         # Scale features
-        features_scaled = self.scaler.transform(features_df)
+        scaled_features = self.scaler.transform(feature_data)
         
         # Make predictions
-        predictions = self.model.predict(features_scaled)
-        probabilities = self.model.predict_proba(features_scaled)
+        predictions = self.model.predict(scaled_features)
+        probabilities = self.model.predict_proba(scaled_features)
         
-        # Create results dataframe
-        results = df[['trading_date', 'ticker', 'company', 'close_price', 'volume', 'rsi']].copy()
-        
-        # Map predictions back to original labels
-        results['predicted_signal'] = [self.class_names[pred] for pred in predictions]
-        
-        # Add probabilities
-        for i, class_name in enumerate(self.class_names):
-            results[f'{class_name.lower()}_probability'] = probabilities[:, i]
+        # Add predictions to dataframe
+        latest_data['predicted_signal'] = predictions
+        latest_data['buy_probability'] = probabilities[:, 0] if probabilities.shape[1] > 0 else 0
+        latest_data['sell_probability'] = probabilities[:, 1] if probabilities.shape[1] > 1 else 0
         
         # Calculate confidence
-        results['confidence'] = np.max(probabilities, axis=1)
-        results['confidence_percentage'] = results['confidence'] * 100
+        latest_data['confidence'] = np.max(probabilities, axis=1)
+        latest_data['confidence_percentage'] = latest_data['confidence'] * 100
         
-        # Determine signal strength
-        results['signal_strength'] = pd.cut(results['confidence'], 
-                                          bins=[0, 0.6, 0.8, 1.0], 
-                                          labels=['Low', 'Medium', 'High'])
+        # Determine confidence levels
+        latest_data['high_confidence'] = (latest_data['confidence'] >= 0.8).astype(int)
+        latest_data['medium_confidence'] = ((latest_data['confidence'] >= 0.6) & (latest_data['confidence'] < 0.8)).astype(int)
+        latest_data['low_confidence'] = (latest_data['confidence'] < 0.6).astype(int)
         
-        # Set confidence flags
-        results['high_confidence'] = (results['confidence'] >= 0.8).astype(int)
-        results['medium_confidence'] = ((results['confidence'] >= 0.6) & (results['confidence'] < 0.8)).astype(int)
-        results['low_confidence'] = (results['confidence'] < 0.6).astype(int)
+        # Signal strength
+        latest_data['signal_strength'] = latest_data.apply(
+            lambda x: 'High' if x['high_confidence'] else ('Medium' if x['medium_confidence'] else 'Low'), axis=1
+        )
         
-        # RSI category
-        results['rsi_category'] = pd.cut(results['rsi'], 
-                                       bins=[0, 30, 70, 100], 
-                                       labels=['Oversold', 'Neutral', 'Overbought'])
+        safe_print(f"✅ Predictions completed for {len(latest_data)} stocks")
         
-        return results
+        return latest_data
     
-    def save_technical_indicators(self, df):
-        """Save technical indicators to ml_nse_technical_indicators table"""
-        if df is None or df.empty:
+    def save_predictions_to_db(self, predictions_df):
+        """Save predictions to NSE database tables"""
+        if predictions_df is None or predictions_df.empty:
             return False
+        
+        safe_print("💾 Saving predictions to database...")
         
         try:
-            # Prepare data for insertion
-            indicators_data = []
+            # Prepare prediction records
+            prediction_records = []
+            technical_records = []
             
-            for _, row in df.iterrows():
-                indicators_data.append({
+            for _, row in predictions_df.iterrows():
+                # Prediction record
+                pred_record = {
                     'trading_date': row['trading_date'],
                     'ticker': row['ticker'],
-                    'sma_5': row.get('sma_5'),
-                    'sma_10': row.get('sma_10'),
-                    'sma_20': row.get('sma_20'),
-                    'sma_50': row.get('sma_50'),
-                    'ema_5': row.get('ema_5'),
-                    'ema_10': row.get('ema_10'),
-                    'ema_20': row.get('ema_20'),
-                    'ema_50': row.get('ema_50'),
-                    'macd': row.get('macd'),
-                    'macd_signal': row.get('macd_signal'),
-                    'macd_histogram': row.get('macd_histogram'),
-                    'rsi': row.get('rsi'),
-                    'rsi_oversold': row.get('rsi_oversold'),
-                    'rsi_overbought': row.get('rsi_overbought'),
-                    'rsi_momentum': row.get('rsi_momentum'),
-                    'bb_upper': row.get('bb_upper'),
-                    'bb_middle': row.get('bb_middle'),
-                    'bb_lower': row.get('bb_lower'),
-                    'bb_width': row.get('bb_width'),
-                    'atr': row.get('atr'),
-                    'atr_percentage': row.get('atr_percentage'),
-                    'price_vs_sma20': row.get('price_vs_sma20'),
-                    'price_vs_sma50': row.get('price_vs_sma50'),
-                    'price_vs_ema20': row.get('price_vs_ema20'),
-                    'sma20_vs_sma50': row.get('sma20_vs_sma50'),
-                    'ema20_vs_ema50': row.get('ema20_vs_ema50'),
-                    'sma5_vs_sma20': row.get('sma5_vs_sma20'),
-                    'trend_direction': self.get_trend_direction(row),
-                    'volume_sma_20': row.get('volume_sma_20'),
-                    'volume_sma_ratio': row.get('volume_sma_ratio'),
-                    'price_momentum_5': row.get('price_momentum_5'),
-                    'price_momentum_10': row.get('price_momentum_10'),
-                    'daily_volatility': row.get('daily_volatility'),
-                    'price_volatility_10': row.get('price_volatility_10'),
-                    'price_volatility_20': row.get('price_volatility_20'),
-                    'trend_strength_10': row.get('trend_strength_10'),
-                    'volume_price_trend': row.get('volume_price_trend'),
-                    'gap': row.get('gap')
-                })
-            
-            # Convert to DataFrame and save
-            indicators_df = pd.DataFrame(indicators_data)
-            
-            # Use SQLAlchemy to insert data
-            engine = self.db.get_sqlalchemy_engine()
-            indicators_df.to_sql('ml_nse_technical_indicators', engine, if_exists='append', index=False)
-            
-            safe_print(f"💾 Saved {len(indicators_df)} technical indicator records to database")
-            return True
-            
-        except Exception as e:
-            safe_print(f"❌ Error saving technical indicators: {e}")
-            return False
-    
-    def save_predictions(self, df):
-        """Save predictions to ml_nse_trading_predictions table"""
-        if df is None or df.empty:
-            return False
-        
-        try:
-            # Prepare data for insertion
-            predictions_data = []
-            
-            for _, row in df.iterrows():
-                predictions_data.append({
-                    'trading_date': row['trading_date'],
-                    'ticker': row['ticker'],
-                    'company': row.get('company'),
+                    'company': row['company'],
                     'predicted_signal': row['predicted_signal'],
                     'confidence': row['confidence'],
                     'confidence_percentage': row['confidence_percentage'],
-                    'signal_strength': str(row['signal_strength']),
+                    'signal_strength': row['signal_strength'],
                     'close_price': row['close_price'],
-                    'volume': row.get('volume'),
-                    'rsi': row.get('rsi'),
-                    'rsi_category': str(row.get('rsi_category')),
+                    'volume': row['volume'],
+                    'rsi': row['RSI'],
                     'high_confidence': row['high_confidence'],
                     'medium_confidence': row['medium_confidence'],
                     'low_confidence': row['low_confidence'],
-                    'sell_probability': row.get('sell_probability', row.get('Sell_probability')),
-                    'buy_probability': row.get('buy_probability', row.get('Buy_probability')),
-                    'hold_probability': row.get('hold_probability', row.get('Hold_probability'))
-                })
+                    'sell_probability': row['sell_probability'],
+                    'buy_probability': row['buy_probability']
+                }
+                prediction_records.append(pred_record)
+                
+                # Technical indicators record
+                tech_record = {
+                    'trading_date': row['trading_date'],
+                    'ticker': row['ticker'],
+                    'rsi': row['RSI'],
+                    'sma_5': row['sma_5'],
+                    'sma_10': row['sma_10'],
+                    'sma_20': row['sma_20'],
+                    'sma_50': row['sma_50'],
+                    'ema_5': row['ema_5'],
+                    'ema_10': row['ema_10'],
+                    'ema_20': row['ema_20'],
+                    'ema_50': row['ema_50'],
+                    'macd': row['macd'],
+                    'macd_signal': row['macd_signal'],
+                    'macd_histogram': row['macd_histogram'],
+                    'price_vs_sma20': row['price_vs_sma20'],
+                    'price_vs_sma50': row['price_vs_sma50'],
+                    'price_vs_ema20': row['price_vs_ema20'],
+                    'sma20_vs_sma50': row['sma20_vs_sma50'],
+                    'ema20_vs_ema50': row['ema20_vs_ema50'],
+                    'sma5_vs_sma20': row['sma5_vs_sma20'],
+                    'volume_sma_20': row['volume_sma_20'],
+                    'volume_sma_ratio': row['volume_sma_ratio'],
+                    'price_momentum_5': row['price_momentum_5'],
+                    'price_momentum_10': row['price_momentum_10'],
+                    'daily_volatility': row['daily_volatility'],
+                    'rsi_oversold': row['rsi_oversold'],
+                    'rsi_overbought': row['rsi_overbought'],
+                    'rsi_momentum': row['rsi_momentum']
+                }
+                technical_records.append(tech_record)
             
-            # Convert to DataFrame and save
-            predictions_df = pd.DataFrame(predictions_data)
+            # Clear existing data for today
+            today = datetime.now().strftime('%Y-%m-%d')
             
-            # Use SQLAlchemy to insert data
+            clear_predictions = f"""
+            DELETE FROM ml_nse_trading_predictions 
+            WHERE trading_date = '{today}'
+            """
+            
+            clear_technical = f"""
+            DELETE FROM ml_nse_technical_indicators 
+            WHERE trading_date = '{today}'
+            """
+            
+            self.db.execute_query(clear_predictions)
+            self.db.execute_query(clear_technical)
+            
+            # Insert new predictions
+            pred_df = pd.DataFrame(prediction_records)
+            tech_df = pd.DataFrame(technical_records)
+            
+            # Use pandas to_sql to insert data
             engine = self.db.get_sqlalchemy_engine()
-            predictions_df.to_sql('ml_nse_trading_predictions', engine, if_exists='append', index=False)
             
-            safe_print(f"💾 Saved {len(predictions_df)} prediction records to database")
+            pred_df.to_sql('ml_nse_trading_predictions', engine, if_exists='append', index=False, schema='dbo')
+            tech_df.to_sql('ml_nse_technical_indicators', engine, if_exists='append', index=False, schema='dbo')
+            
+            safe_print(f"✅ Saved {len(prediction_records)} predictions and {len(technical_records)} technical indicators")
+            
+            # Create summary
+            self.create_prediction_summary(predictions_df)
+            
             return True
             
         except Exception as e:
-            safe_print(f"❌ Error saving predictions: {e}")
+            safe_print(f"❌ Error saving to database: {e}")
             return False
     
-    def get_trend_direction(self, row):
-        """Determine trend direction based on technical indicators"""
+    def create_prediction_summary(self, predictions_df):
+        """Create daily prediction summary"""
         try:
-            sma20_vs_sma50 = row.get('sma20_vs_sma50', 1)
-            price_vs_sma20 = row.get('price_vs_sma20', 1)
+            today = datetime.now().strftime('%Y-%m-%d')
             
-            if sma20_vs_sma50 > 1.02 and price_vs_sma20 > 1.02:
-                return 'Uptrend'
-            elif sma20_vs_sma50 < 0.98 and price_vs_sma20 < 0.98:
-                return 'Downtrend'
-            else:
-                return 'Sideways'
-        except:
-            return 'Unknown'
-    
-    def generate_summary(self, predictions_df):
-        """Generate summary statistics and save to ml_nse_predict_summary table"""
-        if predictions_df is None or predictions_df.empty:
-            return None
-        
-        try:
-            analysis_date = predictions_df['trading_date'].max()
+            # Calculate summary statistics
+            total_predictions = len(predictions_df)
+            total_buy_signals = len(predictions_df[predictions_df['predicted_signal'] == 'Buy'])
+            total_sell_signals = len(predictions_df[predictions_df['predicted_signal'] == 'Sell'])
+            total_hold_signals = len(predictions_df[predictions_df['predicted_signal'] == 'Hold'])
             
+            high_confidence_count = predictions_df['high_confidence'].sum()
+            medium_confidence_count = predictions_df['medium_confidence'].sum()
+            low_confidence_count = predictions_df['low_confidence'].sum()
+            
+            high_conf_buys = len(predictions_df[(predictions_df['predicted_signal'] == 'Buy') & (predictions_df['high_confidence'] == 1)])
+            high_conf_sells = len(predictions_df[(predictions_df['predicted_signal'] == 'Sell') & (predictions_df['high_confidence'] == 1)])
+            
+            avg_confidence = predictions_df['confidence'].mean()
+            avg_rsi = predictions_df['RSI'].mean()
+            
+            # Clear existing summary for today
+            clear_summary = f"DELETE FROM ml_nse_predict_summary WHERE analysis_date = '{today}'"
+            self.db.execute_query(clear_summary)
+            
+            # Insert summary
             summary_data = {
-                'analysis_date': analysis_date,
-                'total_predictions': len(predictions_df),
-                'total_buy_signals': len(predictions_df[predictions_df['predicted_signal'] == 'Buy']),
-                'total_sell_signals': len(predictions_df[predictions_df['predicted_signal'] == 'Sell']),
-                'total_hold_signals': len(predictions_df[predictions_df['predicted_signal'] == 'Hold']),
-                'high_confidence_count': len(predictions_df[predictions_df['high_confidence'] == 1]),
-                'medium_confidence_count': len(predictions_df[predictions_df['medium_confidence'] == 1]),
-                'low_confidence_count': len(predictions_df[predictions_df['low_confidence'] == 1]),
-                'avg_confidence': predictions_df['confidence'].mean(),
-                'avg_rsi': predictions_df['rsi'].mean() if 'rsi' in predictions_df.columns else None,
-                'avg_buy_probability': predictions_df.get('buy_probability', predictions_df.get('Buy_probability', pd.Series([None]))).mean(),
-                'avg_sell_probability': predictions_df.get('sell_probability', predictions_df.get('Sell_probability', pd.Series([None]))).mean(),
-                'processing_time_seconds': None,  # To be filled by caller
-                'total_stocks_processed': len(predictions_df['ticker'].unique()),
-                'failed_predictions': 0,  # To be updated based on errors
-                'notes': f'NSE 500 analysis for {analysis_date}'
+                'analysis_date': today,
+                'total_predictions': total_predictions,
+                'total_buy_signals': total_buy_signals,
+                'total_sell_signals': total_sell_signals,
+                'total_hold_signals': total_hold_signals,
+                'high_confidence_count': high_confidence_count,
+                'medium_confidence_count': medium_confidence_count,
+                'low_confidence_count': low_confidence_count,
+                'high_conf_buys': high_conf_buys,
+                'high_conf_sells': high_conf_sells,
+                'avg_confidence': avg_confidence,
+                'avg_rsi': avg_rsi,
+                'total_stocks_processed': total_predictions
             }
             
-            # Convert to DataFrame and save
             summary_df = pd.DataFrame([summary_data])
-            
             engine = self.db.get_sqlalchemy_engine()
-            summary_df.to_sql('ml_nse_predict_summary', engine, if_exists='append', index=False)
+            summary_df.to_sql('ml_nse_predict_summary', engine, if_exists='append', index=False, schema='dbo')
             
-            safe_print(f"📋 Saved summary for {summary_data['total_predictions']} predictions")
-            return summary_data
+            safe_print(f"✅ Summary created: {total_predictions} predictions, {high_conf_buys} high-conf buys, {high_conf_sells} high-conf sells")
             
         except Exception as e:
-            safe_print(f"❌ Error generating summary: {e}")
-            return None
+            safe_print(f"❌ Error creating summary: {e}")
+    
+    def run_prediction(self, ticker=None):
+        """Run complete prediction workflow"""
+        safe_print("🇮🇳 Starting NSE 500 prediction workflow...")
+        
+        # Get data
+        df = self.get_nse_data(ticker)
+        if df is None:
+            return False
+        
+        # Calculate technical indicators
+        df_with_indicators = self.calculate_technical_indicators(df)
+        if df_with_indicators is None:
+            return False
+        
+        # Make predictions
+        predictions = self.make_predictions(df_with_indicators)
+        if predictions is None:
+            return False
+        
+        # Save to database
+        success = self.save_predictions_to_db(predictions)
+        
+        if success:
+            safe_print("🎉 NSE prediction workflow completed successfully!")
+        else:
+            safe_print("❌ NSE prediction workflow failed")
+        
+        return success
 
 def main():
     """Main function for command line usage"""
-    parser = argparse.ArgumentParser(description='NSE 500 Trading Signal Prediction')
-    parser.add_argument('--ticker', help='NSE ticker symbol (e.g., RELIANCE.NS)')
-    parser.add_argument('--date', help='Trading date (YYYY-MM-DD)')
-    parser.add_argument('--batch', action='store_true', help='Batch processing mode')
-    parser.add_argument('--file', help='CSV file with tickers for batch processing')
+    parser = argparse.ArgumentParser(description='NSE 500 Trading Signal Predictions')
+    parser.add_argument('--ticker', help='Specific NSE ticker to predict (e.g., RELIANCE.NS)')
     parser.add_argument('--all-nse', action='store_true', help='Process all NSE 500 stocks')
-    parser.add_argument('--days-back', type=int, default=60, help='Number of days to look back for data')
+    parser.add_argument('--check-only', action='store_true', help='Only check data availability')
     
     args = parser.parse_args()
     
-    # Initialize predictor
-    safe_print("🇮🇳 Initializing NSE 500 Trading Signal Predictor...")
-    predictor = NSETradingSignalPredictor()
-    
-    start_time = datetime.now()
-    
     try:
+        predictor = NSETradingSignalPredictor()
+        
+        if args.check_only:
+            safe_print("🔍 Checking NSE data availability...")
+            df = predictor.get_nse_data()
+            if df is not None:
+                safe_print(f"✅ Found data for {df['ticker'].nunique()} NSE stocks")
+                safe_print(f"📅 Date range: {df['trading_date'].min()} to {df['trading_date'].max()}")
+            return
+        
         if args.all_nse:
-            # Process all NSE 500 stocks
-            safe_print("🚀 Processing all NSE 500 stocks...")
-            data = predictor.get_nse_latest_data(days_back=args.days_back)
-            
+            safe_print("🇮🇳 Processing all NSE 500 stocks...")
+            success = predictor.run_prediction()
         elif args.ticker:
-            # Process single ticker
-            safe_print(f"🚀 Processing single NSE ticker: {args.ticker}")
-            data = predictor.get_nse_latest_data(args.ticker, days_back=args.days_back)
-            
-        elif args.batch and args.file:
-            # Process batch from file
-            safe_print(f"🚀 Processing batch from file: {args.file}")
-            # TODO: Implement batch processing from file
-            safe_print("❌ Batch processing from file not implemented yet")
-            return
-            
+            safe_print(f"🇮🇳 Processing ticker: {args.ticker}")
+            success = predictor.run_prediction(args.ticker)
         else:
-            safe_print("❌ Please specify --ticker, --all-nse, or --batch with --file")
-            return
+            safe_print("🇮🇳 Processing all NSE 500 stocks (default)...")
+            success = predictor.run_prediction()
         
-        if data is None or data.empty:
-            safe_print("❌ No data retrieved. Exiting.")
-            return
-        
-        # Calculate technical indicators
-        safe_print("🔄 Calculating technical indicators...")
-        data_with_indicators = predictor.calculate_technical_indicators(data)
-        
-        if data_with_indicators is None:
-            safe_print("❌ Failed to calculate technical indicators")
-            return
-        
-        # Engineer features
-        safe_print("🔄 Engineering features...")
-        features_df = predictor.engineer_features(data_with_indicators)
-        
-        if features_df is None:
-            safe_print("❌ Failed to engineer features")
-            return
-        
-        # Make predictions
-        safe_print("📈 Making predictions...")
-        predictions = predictor.predict_signals(features_df)
-        
-        if predictions is None:
-            safe_print("❌ Failed to make predictions")
-            return
-        
-        # Get latest predictions only (most recent date per ticker)
-        latest_predictions = predictions.loc[predictions.groupby('ticker')['trading_date'].idxmax()]
-        
-        safe_print(f"📋 Generated {len(latest_predictions)} predictions")
-        
-        # Save technical indicators
-        safe_print("💾 Saving technical indicators...")
-        predictor.save_technical_indicators(features_df.loc[features_df.groupby('ticker')['trading_date'].idxmax()])
-        
-        # Save predictions
-        safe_print("💾 Saving predictions...")
-        predictor.save_predictions(latest_predictions)
-        
-        # Generate and save summary
-        safe_print("📊 Generating summary...")
-        processing_time = (datetime.now() - start_time).total_seconds()
-        summary = predictor.generate_summary(latest_predictions)
-        
-        # Print results
-        safe_print("\n" + "="*60)
-        safe_print("🇮🇳 NSE 500 TRADING SIGNAL PREDICTION RESULTS")
-        safe_print("="*60)
-        safe_print(f"📅 Analysis Date: {latest_predictions['trading_date'].iloc[0]}")
-        safe_print(f"📊 Total Predictions: {len(latest_predictions)}")
-        safe_print(f"🟢 Buy Signals: {len(latest_predictions[latest_predictions['predicted_signal'] == 'Buy'])}")
-        safe_print(f"🔴 Sell Signals: {len(latest_predictions[latest_predictions['predicted_signal'] == 'Sell'])}")
-        safe_print(f"🟡 Hold Signals: {len(latest_predictions[latest_predictions['predicted_signal'] == 'Hold'])}")
-        safe_print(f"⏱️  Processing Time: {processing_time:.2f} seconds")
-        
-        # Show high confidence signals
-        high_conf = latest_predictions[latest_predictions['high_confidence'] == 1]
-        if not high_conf.empty:
-            safe_print(f"\n🎯 High Confidence Signals ({len(high_conf)}):")
-            for _, row in high_conf.head(10).iterrows():
-                safe_print(f"  {row['ticker']}: {row['predicted_signal']} ({row['confidence_percentage']:.1f}%)")
-        
-        safe_print("\n✅ NSE 500 prediction completed successfully!")
-        
+        if success:
+            safe_print("\n✅ NSE prediction completed successfully!")
+            safe_print("💾 Check the following tables for results:")
+            safe_print("  • ml_nse_trading_predictions")
+            safe_print("  • ml_nse_technical_indicators")
+            safe_print("  • ml_nse_predict_summary")
+        else:
+            safe_print("❌ NSE prediction failed")
+    
     except Exception as e:
-        safe_print(f"❌ Error during prediction: {e}")
-        logger.error(f"Prediction error: {e}", exc_info=True)
+        safe_print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
     main()
