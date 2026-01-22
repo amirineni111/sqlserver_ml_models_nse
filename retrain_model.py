@@ -25,6 +25,16 @@ import shutil
 import joblib
 from pathlib import Path
 
+# Configure UTF-8 encoding for Windows console compatibility
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except AttributeError:
+        import codecs
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'replace')
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'replace')
+
 # ML imports
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier
 from sklearn.linear_model import LogisticRegression
@@ -65,7 +75,7 @@ class ModelRetrainer:
         if not self.backup_old:
             return
         
-        print("📦 Backing up existing model artifacts...")
+        print("[BACKUP] Backing up existing model artifacts...")
         
         files_to_backup = [
             'best_model_gradient_boosting.joblib',
@@ -82,9 +92,9 @@ class ModelRetrainer:
                 backup_path = self.backup_dir / f"{self.timestamp}_{file_name}"
                 shutil.copy2(src_path, backup_path)
                 backup_count += 1
-                print(f"  ✅ Backed up {file_name}")
+                print(f"  [SUCCESS] Backed up {file_name}")
         
-        print(f"📦 Backup complete: {backup_count} files backed up to {self.backup_dir}")
+        print(f"[BACKUP] Backup complete: {backup_count} files backed up to {self.backup_dir}")
     
     def load_latest_data(self, days_back=None):
         """Load the latest data from SQL Server"""
@@ -140,13 +150,13 @@ class ModelRetrainer:
             old_shape = old_results['data_shape']
             new_shape = new_df.shape
             
-            print(f"📈 Data comparison:")
+            print(f"[DATA] Data comparison:")
             print(f"  Previous: {old_shape[0]:,} records")
             print(f"  Current:  {new_shape[0]:,} records")
             print(f"  New data: {new_shape[0] - old_shape[0]:,} records")
             
             if new_shape[0] <= old_shape[0]:
-                print("⚠️  Warning: No new data found. Consider checking data sources.")
+                print("[WARN]  Warning: No new data found. Consider checking data sources.")
             
         except FileNotFoundError:
             print("[DATA] No previous data found - performing fresh analysis")
@@ -154,10 +164,10 @@ class ModelRetrainer:
     def perform_eda(self, df):
         """Perform exploratory data analysis"""
         if self.quick_mode:
-            print("⏩ Skipping detailed EDA (quick mode)")
+            print("[SKIP] Skipping detailed EDA (quick mode)")
             return {'data_shape': df.shape, 'target_column': 'rsi_trade_signal', 'target_exists': True}
         
-        print("🔍 Performing exploratory data analysis...")
+        print("[INFO] Performing exploratory data analysis...")
         
         # Basic statistics
         print(f"  Data shape: {df.shape}")
@@ -204,7 +214,7 @@ class ModelRetrainer:
     
     def engineer_features(self, df):
         """Apply feature engineering"""
-        print("⚙️  Performing feature engineering...")
+        print("[PROCESS]  Performing feature engineering...")
         
         df_features = df.copy()
         
@@ -242,7 +252,7 @@ class ModelRetrainer:
     
     def add_enhanced_features(self, df):
         """Add enhanced technical indicators (MACD, SMA, EMA)"""
-        print("📈 Adding enhanced technical indicators...")
+        print("[DATA] Adding enhanced technical indicators...")
         df_copy = df.copy()
         
         # Apply enhanced feature engineering per ticker
@@ -308,7 +318,7 @@ class ModelRetrainer:
     
     def prepare_ml_dataset(self, df_features):
         """Prepare dataset for machine learning"""
-        print("🧮 Preparing ML dataset...")
+        print("[CALC] Preparing ML dataset...")
         
         target_column = 'rsi_trade_signal'
         exclude_cols = ['trading_date', 'ticker', 'company', target_column]
@@ -347,7 +357,7 @@ class ModelRetrainer:
     
     def train_models(self, X, y, feature_cols):
         """Train and compare ML models"""
-        print("🤖 Training machine learning models...")
+        print("[MODEL] Training machine learning models...")
         
         # Time-aware split
         df_temp = pd.DataFrame({'y': y}, index=X.index)
@@ -430,14 +440,14 @@ class ModelRetrainer:
                 print(f"    F1: {f1:.3f}, CV: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})")
                 
             except Exception as e:
-                print(f"    ❌ Error: {e}")
+                print(f"    [ERROR] Error: {e}")
         
         # Find best model
         best_model_name = max(model_results.keys(), 
                              key=lambda k: model_results[k]['f1_score'])
         best_model = trained_models[best_model_name]
         
-        print(f"🏆 Best model: {best_model_name} (F1: {model_results[best_model_name]['f1_score']:.3f})")
+        print(f"[BEST] Best model: {best_model_name} (F1: {model_results[best_model_name]['f1_score']:.3f})")
         
         return {
             'model_results': model_results,
@@ -454,7 +464,7 @@ class ModelRetrainer:
     
     def save_model_artifacts(self, training_results, target_encoder):
         """Save trained model and preprocessing artifacts"""
-        print("💾 Saving model artifacts...")
+        print("[SAVE] Saving model artifacts...")
         
         # Save best model
         model_path = f"data/best_model_{training_results['best_model_name'].lower().replace(' ', '_')}.joblib"
@@ -500,7 +510,7 @@ class ModelRetrainer:
                 new_best = training_results['best_model_name']
                 new_f1 = training_results['model_results'][new_best]['f1_score']
                 
-                print(f"\n📈 Model Performance Comparison:")
+                print(f"\n[DATA] Model Performance Comparison:")
                 print(f"  Previous: {old_best} (F1: {old_f1:.3f})")
                 print(f"  Current:  {new_best} (F1: {new_f1:.3f})")
                 
@@ -508,7 +518,7 @@ class ModelRetrainer:
                 if improvement > 0:
                     print(f"  [IMPROVEMENT] Improvement: +{improvement:.3f} ({improvement/old_f1*100:.1f}%)")
                 else:
-                    print(f"  📉 Decline: {improvement:.3f} ({improvement/old_f1*100:.1f}%)")
+                    print(f"  [DECLINE] Decline: {improvement:.3f} ({improvement/old_f1*100:.1f}%)")
             
         except (FileNotFoundError, KeyError):
             print("[DATA] No previous model found for comparison")
@@ -551,9 +561,9 @@ class ModelRetrainer:
             
             print("=" * 80)
             print("[SUCCESS] RETRAINING COMPLETE!")
-            print(f"🏆 Best Model: {training_results['best_model_name']}")
+            print(f"[BEST] Best Model: {training_results['best_model_name']}")
             print(f"[DATA] F1-Score: {training_results['model_results'][training_results['best_model_name']]['f1_score']:.3f}")
-            print(f"📅 Timestamp: {self.timestamp}")
+            print(f"[DATE] Timestamp: {self.timestamp}")
             
             return True
             
@@ -577,7 +587,7 @@ def main():
     success = retrainer.run_full_retrain()
     
     if success:
-        print("\n🎯 Next Steps:")
+        print("\n[TARGET] Next Steps:")
         print("1. Test the new model: python predict_trading_signals.py --batch")
         print("2. Review performance: Check reports/ folder")
         print("3. Deploy if satisfied with results")

@@ -5,6 +5,13 @@
 
 setlocal enabledelayedexpansion
 
+:: Set UTF-8 code page for proper character encoding
+chcp 65001 >nul 2>&1
+
+:: Set Python UTF-8 mode (Python 3.7+)
+set PYTHONUTF8=1
+set PYTHONIOENCODING=utf-8
+
 :: Set log file with timestamp
 set TIMESTAMP=%date:~-4,4%%date:~-10,2%%date:~-7,2%_%time:~0,2%%time:~3,2%%time:~6,2%
 set TIMESTAMP=%TIMESTAMP: =0%
@@ -48,7 +55,7 @@ set RETRAIN_RESULT=%errorlevel%
 :: Test new models with a quick prediction
 if %RETRAIN_RESULT%==0 (
     echo Testing retrained models...
-    python -c "from predict_nse_simple import SimpleNSEPredictor; p = SimpleNSEPredictor(); print('✅ Model test successful')"
+    python -c "from predict_nse_simple import SimpleNSEPredictor; p = SimpleNSEPredictor(); print('[SUCCESS] Model test successful')"
     set TEST_RESULT=%errorlevel%
 ) else (
     set TEST_RESULT=1
@@ -60,22 +67,22 @@ echo ============================================================
 echo WEEKLY RETRAINING SUMMARY - %date% %time%
 echo ============================================================
 if %RETRAIN_RESULT%==0 (
-    echo ✅ Model Retraining: SUCCESS
+    echo [SUCCESS] Model Retraining: SUCCESS
 ) else (
-    echo ❌ Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
-    echo 🔄 Restoring backup models...
+    echo [ERROR] Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
+    echo [RESTORE] Restoring backup models...
     copy "%BACKUP_DIR%\*.joblib" "%~dp0data\" >nul 2>&1
-    echo 📋 Backup restored
+    echo [INFO] Backup restored
 )
 
 if %TEST_RESULT%==0 (
-    echo ✅ Model Testing: SUCCESS
+    echo [SUCCESS] Model Testing: SUCCESS
 ) else (
-    echo ❌ Model Testing: FAILED (Exit Code: %TEST_RESULT%)
+    echo [ERROR] Model Testing: FAILED (Exit Code: %TEST_RESULT%)
 )
 
-echo 📁 Backup location: %BACKUP_DIR%
-echo 📝 Log saved to: %LOGFILE%
+echo [FILE] Backup location: %BACKUP_DIR%
+echo [LOG] Log saved to: %LOGFILE%
 echo ============================================================
 
 :: Return overall result

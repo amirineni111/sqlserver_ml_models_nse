@@ -25,6 +25,18 @@ import subprocess
 import json
 import time
 
+# Configure UTF-8 encoding for Windows console compatibility
+if sys.platform == 'win32':
+    # Reconfigure stdout with UTF-8 encoding, ignore errors for Task Scheduler
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except AttributeError:
+        # For older Python versions
+        import codecs
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'replace')
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'replace')
+
 # Add src to path
 sys.path.append(os.path.join(os.getcwd(), 'src'))
 from database.connection import SQLServerConnection
@@ -41,10 +53,10 @@ def setup_nse_logging():
             formatted = super().format(record)
             # Replace emoji with text for console output
             emoji_replacements = {
-                '🇮🇳': '[NSE]', '🔍': '[INFO]', '🚀': '[START]', '📝': '[LOG]',
-                '❌': '[ERROR]', '✅': '[SUCCESS]', '📊': '[DATA]', '🔄': '[PROCESS]',
-                '📁': '[FILES]', '⏰': '[TIMEOUT]', '📈': '[PREDICTION]', '📅': '[DATE]',
-                '⚠️': '[WARN]', '🎉': '[COMPLETE]', '📋': '[SUMMARY]', '💾': '[SAVE]'
+                '[NSE]': '[NSE]', '[INFO]': '[INFO]', '[START]': '[START]', '[LOG]': '[LOG]',
+                '[ERROR]': '[ERROR]', '[SUCCESS]': '[SUCCESS]', '[DATA]': '[DATA]', '[PROCESS]': '[PROCESS]',
+                '[FILE]': '[FILES]', '[TIME]': '[TIMEOUT]', '[PREDICTION]': '[PREDICTION]', '[DATE]': '[DATE]',
+                '[WARN]': '[WARN]', '[COMPLETE]': '[COMPLETE]', '[SUMMARY]': '[SUMMARY]', '[SAVE]': '[SAVE]'
             }
             for emoji, replacement in emoji_replacements.items():
                 formatted = formatted.replace(emoji, replacement)
@@ -69,32 +81,39 @@ def setup_nse_logging():
     return log_filename
 
 def safe_print(text):
-    """Print with safe encoding."""
+    """Print with safe encoding for Windows Task Scheduler compatibility."""
+    # Convert text to string if it's not already
+    text = str(text)
+    
+    # Just in case any emojis slipped through, replace common ones
+    emoji_map = {
+        '💡': '[TIP]', '🎯': '[TARGET]', '🟢': '[BUY]',
+        '🔴': '[SELL]', '🟡': '[MEDIUM]', '⚡': '[FAST]', '🔔': '[NOTIFY]'
+    }
+    
+    for emoji, replacement in emoji_map.items():
+        text = text.replace(emoji, replacement)
+    
     try:
         print(text)
-    except UnicodeEncodeError:
-        emoji_replacements = {
-            '🇮🇳': '[NSE]', '✅': '[SUCCESS]', '❌': '[ERROR]', '📊': '[DATA]',
-            '🚀': '[START]', '🔄': '[PROCESS]', '📈': '[PREDICTION]', '📁': '[FILE]',
-            '⚠️': '[WARN]', '🎉': '[COMPLETE]', '💾': '[SAVE]', '📋': '[SUMMARY]'
-        }
-        for emoji, replacement in emoji_replacements.items():
-            text = text.replace(emoji, replacement)
-        print(text)
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        # If still failing, encode to ascii ignoring errors
+        safe_text = text.encode('ascii', 'ignore').decode('ascii')
+        print(safe_text)
 
 def check_nse_data_status():
     """Check NSE data availability and quality."""
     try:
-        logging.info("🇮🇳 🔍 Checking NSE data status and connectivity...")
+        logging.info("[INFO] Checking NSE data status and connectivity...")
         
         db = SQLServerConnection()
         
         # Test database connection
         if not db.test_connection():
-            logging.error("❌ Database connection failed")
+            logging.error("[ERROR] Database connection failed")
             return False, None, None, None
         
-        logging.info("✅ Database connection successful")
+        logging.info("[SUCCESS] Database connection successful")
         
         # Check NSE historical data
         nse_data_query = """
@@ -110,7 +129,7 @@ def check_nse_data_status():
         nse_result = db.execute_query(nse_data_query)
         
         if nse_result.empty:
-            logging.error("❌ No NSE historical data found")
+            logging.error("[ERROR] No NSE historical data found")
             return False, None, None, None
         
         total_records = nse_result.iloc[0]['total_records']
@@ -118,11 +137,11 @@ def check_nse_data_status():
         unique_tickers = nse_result.iloc[0]['unique_tickers']
         unique_dates = nse_result.iloc[0]['unique_dates']
         
-        logging.info(f"📊 NSE Historical Data Status:")
-        logging.info(f"  📅 Latest Date: {latest_date}")
-        logging.info(f"  📊 Total Records: {total_records:,}")
-        logging.info(f"  🏢 Unique Tickers: {unique_tickers}")
-        logging.info(f"  📅 Unique Dates: {unique_dates}")
+        logging.info(f"[DATA] NSE Historical Data Status:")
+        logging.info(f"  [DATE] Latest Date: {latest_date}")
+        logging.info(f"  [DATA] Total Records: {total_records:,}")
+        logging.info(f"  [COMPANY] Unique Tickers: {unique_tickers}")
+        logging.info(f"  [DATE] Unique Dates: {unique_dates}")
         
         # Calculate data age
         if latest_date:
@@ -130,7 +149,7 @@ def check_nse_data_status():
                 data_age = (datetime.now().date() - latest_date.date()).days
             else:
                 data_age = (datetime.now().date() - latest_date).days
-            logging.info(f"  ⏰ Data Age: {data_age} days")
+            logging.info(f"  [TIME] Data Age: {data_age} days")
         else:
             data_age = None
         
@@ -147,27 +166,27 @@ def check_nse_data_status():
         prediction_count = pred_result.iloc[0]['prediction_count'] if not pred_result.empty else 0
         latest_prediction_date = pred_result.iloc[0]['latest_prediction_date'] if not pred_result.empty else None
         
-        logging.info(f"📈 Recent NSE Predictions:")
-        logging.info(f"  📊 Last 7 Days: {prediction_count} predictions")
-        logging.info(f"  📅 Latest Prediction: {latest_prediction_date}")
+        logging.info(f"[PREDICTION] Recent NSE Predictions:")
+        logging.info(f"  [DATA] Last 7 Days: {prediction_count} predictions")
+        logging.info(f"  [DATE] Latest Prediction: {latest_prediction_date}")
         
         return True, data_age, latest_date, total_records
         
     except Exception as e:
-        logging.error(f"❌ Error checking NSE data status: {e}")
+        logging.error(f"[ERROR] Error checking NSE data status: {e}")
         return False, None, None, None
 
 def run_nse_predictions(target_date=None):
     """Run NSE trading signal predictions."""
     try:
-        logging.info("🇮🇳 🚀 Running NSE 500 predictions...")
+        logging.info("[START] Running NSE 500 predictions...")
         
         cmd_args = [sys.executable, "predict_nse_signals.py", "--all-nse"]
         
         if target_date:
             cmd_args.extend(["--date", target_date])
         
-        logging.info(f"🔄 Executing: {' '.join(cmd_args)}")
+        logging.info(f"[PROCESS] Executing: {' '.join(cmd_args)}")
         
         result = subprocess.run(
             cmd_args,
@@ -179,30 +198,30 @@ def run_nse_predictions(target_date=None):
         )
         
         if result.returncode == 0:
-            logging.info("✅ NSE predictions completed successfully")
+            logging.info("[SUCCESS] NSE predictions completed successfully")
             # Log some output for visibility
             output_lines = result.stdout.strip().split('\n')
             for line in output_lines[-10:]:  # Last 10 lines
                 if line.strip():
-                    logging.info(f"📊 {line}")
+                    logging.info(f"[DATA] {line}")
             return True
         else:
-            logging.error(f"❌ NSE predictions failed with return code: {result.returncode}")
+            logging.error(f"[ERROR] NSE predictions failed with return code: {result.returncode}")
             if result.stderr:
                 logging.error(f"Error output: {result.stderr}")
             return False
         
     except subprocess.TimeoutExpired:
-        logging.error("⏰ NSE predictions timed out after 30 minutes")
+        logging.error("[TIME] NSE predictions timed out after 30 minutes")
         return False
     except Exception as e:
-        logging.error(f"❌ Error running NSE predictions: {e}")
+        logging.error(f"[ERROR] Error running NSE predictions: {e}")
         return False
 
 def export_nse_results(target_date=None):
     """Export NSE results to CSV files."""
     try:
-        logging.info("📁 Exporting NSE results to CSV...")
+        logging.info("[FILE] Exporting NSE results to CSV...")
         
         # Export all results
         cmd_args = [sys.executable, "export_nse_results.py", "--all"]
@@ -220,20 +239,20 @@ def export_nse_results(target_date=None):
         )
         
         if result.returncode == 0:
-            logging.info("✅ NSE results export completed")
+            logging.info("[SUCCESS] NSE results export completed")
             return True
         else:
-            logging.error(f"❌ NSE export failed: {result.stderr}")
+            logging.error(f"[ERROR] NSE export failed: {result.stderr}")
             return False
         
     except Exception as e:
-        logging.error(f"❌ Error exporting NSE results: {e}")
+        logging.error(f"[ERROR] Error exporting NSE results: {e}")
         return False
 
 def export_trading_watchlist(target_date=None):
     """Export focused trading watchlist."""
     try:
-        logging.info("📋 Creating NSE trading watchlist...")
+        logging.info("[SUMMARY] Creating NSE trading watchlist...")
         
         cmd_args = [sys.executable, "export_nse_results.py", "--watchlist"]
         
@@ -250,20 +269,20 @@ def export_trading_watchlist(target_date=None):
         )
         
         if result.returncode == 0:
-            logging.info("✅ Trading watchlist created successfully")
+            logging.info("[SUCCESS] Trading watchlist created successfully")
             return True
         else:
-            logging.error(f"❌ Watchlist creation failed: {result.stderr}")
+            logging.error(f"[ERROR] Watchlist creation failed: {result.stderr}")
             return False
         
     except Exception as e:
-        logging.error(f"❌ Error creating watchlist: {e}")
+        logging.error(f"[ERROR] Error creating watchlist: {e}")
         return False
 
 def generate_daily_report(target_date=None):
     """Generate daily NSE analysis report."""
     try:
-        logging.info("📝 Generating daily NSE report...")
+        logging.info("[LOG] Generating daily NSE report...")
         
         db = SQLServerConnection()
         
@@ -314,19 +333,19 @@ def generate_daily_report(target_date=None):
         # Create report
         report_date = target_date or datetime.now().strftime('%Y-%m-%d')
         report_content = f"""
-🇮🇳 NSE 500 Daily Trading Report
+NSE 500 Daily Trading Report
 ================================
-📅 Date: {report_date}
-⏰ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+[DATE] Date: {report_date}
+[TIME] Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
 """
         
         if not summary_result.empty:
             row = summary_result.iloc[0]
             report_content += f"""
-📊 PREDICTION SUMMARY
+[DATA] PREDICTION SUMMARY
 --------------------
-📈 Total Predictions: {row['total_predictions']}
+[PREDICTION] Total Predictions: {row['total_predictions']}
 🟢 Buy Signals: {row['total_buy_signals']}
 🔴 Sell Signals: {row['total_sell_signals']}
 🟡 Hold Signals: {row['total_hold_signals']}
@@ -334,15 +353,15 @@ def generate_daily_report(target_date=None):
 🎯 CONFIDENCE BREAKDOWN
 -----------------------
 🔥 High Confidence: {row['high_confidence_count']}
-📊 Medium Confidence: {row['medium_confidence_count']}
+[DATA] Medium Confidence: {row['medium_confidence_count']}
 📉 Low Confidence: {row['low_confidence_count']}
 
-📈 ANALYSIS METRICS
+[PREDICTION] ANALYSIS METRICS
 -------------------
 ⭐ Average Confidence: {row['avg_confidence']:.2f}
-📊 Average RSI: {row.get('avg_rsi', 0):.1f}
-🏢 Stocks Processed: {row['total_stocks_processed']}
-⏱️ Processing Time: {row.get('processing_time_seconds', 0):.1f} seconds
+[DATA] Average RSI: {row.get('avg_rsi', 0):.1f}
+[COMPANY] Stocks Processed: {row['total_stocks_processed']}
+[TIME] Processing Time: {row.get('processing_time_seconds', 0):.1f} seconds
 
 """
         
@@ -377,13 +396,13 @@ def generate_daily_report(target_date=None):
         with open(json_filename, 'w', encoding='utf-8') as f:
             json.dump(json_report, f, indent=2, default=str)
         
-        logging.info(f"📝 Daily report saved: {report_filename}")
-        logging.info(f"📊 JSON summary saved: {json_filename}")
+        logging.info(f"[LOG] Daily report saved: {report_filename}")
+        logging.info(f"[DATA] JSON summary saved: {json_filename}")
         
         return True
         
     except Exception as e:
-        logging.error(f"❌ Error generating daily report: {e}")
+        logging.error(f"[ERROR] Error generating daily report: {e}")
         return False
 
 def main():
@@ -402,9 +421,9 @@ def main():
     
     start_time = datetime.now()
     
-    safe_print("🇮🇳 🚀 Starting Daily NSE 500 Automation")
-    safe_print(f"📅 Target Date: {args.date or 'Today'}")
-    safe_print(f"📝 Log File: {log_filename}")
+    safe_print("[START] Starting Daily NSE 500 Automation")
+    safe_print(f"[DATE] Target Date: {args.date or 'Today'}")
+    safe_print(f"[LOG] Log File: {log_filename}")
     
     success_count = 0
     total_steps = 0
@@ -413,91 +432,91 @@ def main():
         # Step 1: Check data status
         total_steps += 1
         logging.info("=" * 60)
-        logging.info("🔍 STEP 1: Checking NSE Data Status")
+        logging.info("[INFO] STEP 1: Checking NSE Data Status")
         logging.info("=" * 60)
         
         is_connected, data_age, latest_date, total_records = check_nse_data_status()
         
         if not is_connected:
-            logging.error("❌ Cannot proceed without database connectivity")
+            logging.error("[ERROR] Cannot proceed without database connectivity")
             return
         
         success_count += 1
         
         if args.check_only:
-            logging.info("✅ Data status check completed")
+            logging.info("[SUCCESS] Data status check completed")
             return
         
         # Step 2: Run predictions (unless skipped)
         if not args.export_only and not args.skip_predictions:
             total_steps += 1
             logging.info("=" * 60)
-            logging.info("🇮🇳 📈 STEP 2: Running NSE Predictions")
+            logging.info("[PREDICTION] STEP 2: Running NSE Predictions")
             logging.info("=" * 60)
             
             prediction_success = run_nse_predictions(args.date)
             if prediction_success:
                 success_count += 1
-                logging.info("✅ NSE predictions completed successfully")
+                logging.info("[SUCCESS] NSE predictions completed successfully")
             else:
-                logging.error("❌ NSE predictions failed")
+                logging.error("[ERROR] NSE predictions failed")
         
         # Step 3: Export results (unless skipped)
         if not args.skip_exports:
             total_steps += 1
             logging.info("=" * 60)
-            logging.info("📁 STEP 3: Exporting NSE Results")
+            logging.info("[FILE] STEP 3: Exporting NSE Results")
             logging.info("=" * 60)
             
             export_success = export_nse_results(args.date)
             if export_success:
                 success_count += 1
-                logging.info("✅ NSE results exported successfully")
+                logging.info("[SUCCESS] NSE results exported successfully")
             else:
-                logging.error("❌ NSE results export failed")
+                logging.error("[ERROR] NSE results export failed")
             
             # Create trading watchlist
             watchlist_success = export_trading_watchlist(args.date)
             if watchlist_success:
-                logging.info("✅ Trading watchlist created successfully")
+                logging.info("[SUCCESS] Trading watchlist created successfully")
         
         # Step 4: Generate daily report
         total_steps += 1
         logging.info("=" * 60)
-        logging.info("📝 STEP 4: Generating Daily Report")
+        logging.info("[LOG] STEP 4: Generating Daily Report")
         logging.info("=" * 60)
         
         report_success = generate_daily_report(args.date)
         if report_success:
             success_count += 1
-            logging.info("✅ Daily report generated successfully")
+            logging.info("[SUCCESS] Daily report generated successfully")
         else:
-            logging.error("❌ Daily report generation failed")
+            logging.error("[ERROR] Daily report generation failed")
         
         # Final summary
         end_time = datetime.now()
         processing_time = (end_time - start_time).total_seconds()
         
         logging.info("=" * 60)
-        logging.info("🇮🇳 🎉 NSE AUTOMATION SUMMARY")
+        logging.info("[COMPLETE] NSE AUTOMATION SUMMARY")
         logging.info("=" * 60)
-        logging.info(f"⏱️ Total Processing Time: {processing_time:.1f} seconds")
-        logging.info(f"✅ Successful Steps: {success_count}/{total_steps}")
-        logging.info(f"📅 Date Processed: {args.date or datetime.now().strftime('%Y-%m-%d')}")
+        logging.info(f"[TIME] Total Processing Time: {processing_time:.1f} seconds")
+        logging.info(f"[SUCCESS] Successful Steps: {success_count}/{total_steps}")
+        logging.info(f"[DATE] Date Processed: {args.date or datetime.now().strftime('%Y-%m-%d')}")
         
         if success_count == total_steps:
-            safe_print("🎉 NSE automation completed successfully!")
-            logging.info("🎉 All automation steps completed successfully")
+            safe_print("[COMPLETE] NSE automation completed successfully!")
+            logging.info("[COMPLETE] All automation steps completed successfully")
         else:
-            safe_print(f"⚠️ NSE automation completed with {total_steps - success_count} failures")
+            safe_print(f"[WARN] NSE automation completed with {total_steps - success_count} failures")
             logging.warning(f"Automation completed with {total_steps - success_count} failed steps")
     
     except KeyboardInterrupt:
-        logging.info("🛑 NSE automation interrupted by user")
-        safe_print("🛑 Process interrupted by user")
+        logging.info("[STOP] NSE automation interrupted by user")
+        safe_print("[STOP] Process interrupted by user")
     except Exception as e:
-        logging.error(f"❌ Fatal error in NSE automation: {e}")
-        safe_print(f"❌ Fatal error: {e}")
+        logging.error(f"[ERROR] Fatal error in NSE automation: {e}")
+        safe_print(f"[ERROR] Fatal error: {e}")
 
 if __name__ == "__main__":
     main()

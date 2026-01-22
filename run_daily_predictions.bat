@@ -5,6 +5,13 @@
 
 setlocal enabledelayedexpansion
 
+:: Set UTF-8 code page for proper character encoding
+chcp 65001 >nul 2>&1
+
+:: Set Python UTF-8 mode (Python 3.7+)
+set PYTHONUTF8=1
+set PYTHONIOENCODING=utf-8
+
 :: Set log file with timestamp
 set TIMESTAMP=%date:~-4,4%%date:~-10,2%%date:~-7,2%_%time:~0,2%%time:~3,2%%time:~6,2%
 set TIMESTAMP=%TIMESTAMP: =0%
