@@ -4,13 +4,12 @@ Daily NSE 500 Automation Script
 This script provides automated daily workflow for NSE 500 trading signals:
 1. Checks NSE data availability and quality
 2. Runs NSE predictions for all stocks
-3. Generates CSV exports for trading decisions
+3. Saves predictions to database
 4. Creates daily reports and summaries
 5. Handles errors and logging
 
 Usage:
     python daily_nse_automation.py                    # Full automated daily process
-    python daily_nse_automation.py --export-only     # Only generate exports (skip prediction)
     python daily_nse_automation.py --check-only      # Only check data status
     python daily_nse_automation.py --date 2025-11-28 # Run for specific date
 """
@@ -218,66 +217,7 @@ def run_nse_predictions(target_date=None):
         logging.error(f"[ERROR] Error running NSE predictions: {e}")
         return False
 
-def export_nse_results(target_date=None):
-    """Export NSE results to CSV files."""
-    try:
-        logging.info("[FILE] Exporting NSE results to CSV...")
-        
-        # Export all results
-        cmd_args = [sys.executable, "export_nse_results.py", "--all"]
-        
-        if target_date:
-            cmd_args.extend(["--date", target_date])
-        
-        result = subprocess.run(
-            cmd_args,
-            capture_output=True,
-            text=True,
-            timeout=300,  # 5 minutes timeout
-            encoding='utf-8',
-            errors='replace'
-        )
-        
-        if result.returncode == 0:
-            logging.info("[SUCCESS] NSE results export completed")
-            return True
-        else:
-            logging.error(f"[ERROR] NSE export failed: {result.stderr}")
-            return False
-        
-    except Exception as e:
-        logging.error(f"[ERROR] Error exporting NSE results: {e}")
-        return False
 
-def export_trading_watchlist(target_date=None):
-    """Export focused trading watchlist."""
-    try:
-        logging.info("[SUMMARY] Creating NSE trading watchlist...")
-        
-        cmd_args = [sys.executable, "export_nse_results.py", "--watchlist"]
-        
-        if target_date:
-            cmd_args.extend(["--date", target_date])
-        
-        result = subprocess.run(
-            cmd_args,
-            capture_output=True,
-            text=True,
-            timeout=300,
-            encoding='utf-8',
-            errors='replace'
-        )
-        
-        if result.returncode == 0:
-            logging.info("[SUCCESS] Trading watchlist created successfully")
-            return True
-        else:
-            logging.error(f"[ERROR] Watchlist creation failed: {result.stderr}")
-            return False
-        
-    except Exception as e:
-        logging.error(f"[ERROR] Error creating watchlist: {e}")
-        return False
 
 def generate_daily_report(target_date=None):
     """Generate daily NSE analysis report."""
@@ -409,10 +349,8 @@ def main():
     """Main automation function."""
     parser = argparse.ArgumentParser(description='Daily NSE 500 Automation')
     parser.add_argument('--check-only', action='store_true', help='Only check data status')
-    parser.add_argument('--export-only', action='store_true', help='Only export results (skip predictions)')
     parser.add_argument('--date', help='Target date for analysis (YYYY-MM-DD)')
     parser.add_argument('--skip-predictions', action='store_true', help='Skip prediction generation')
-    parser.add_argument('--skip-exports', action='store_true', help='Skip CSV exports')
     
     args = parser.parse_args()
     
@@ -448,7 +386,7 @@ def main():
             return
         
         # Step 2: Run predictions (unless skipped)
-        if not args.export_only and not args.skip_predictions:
+        if not args.skip_predictions:
             total_steps += 1
             logging.info("=" * 60)
             logging.info("[PREDICTION] STEP 2: Running NSE Predictions")
@@ -457,33 +395,14 @@ def main():
             prediction_success = run_nse_predictions(args.date)
             if prediction_success:
                 success_count += 1
-                logging.info("[SUCCESS] NSE predictions completed successfully")
+                logging.info("[SUCCESS] NSE predictions completed successfully (saved to database)")
             else:
                 logging.error("[ERROR] NSE predictions failed")
         
-        # Step 3: Export results (unless skipped)
-        if not args.skip_exports:
-            total_steps += 1
-            logging.info("=" * 60)
-            logging.info("[FILE] STEP 3: Exporting NSE Results")
-            logging.info("=" * 60)
-            
-            export_success = export_nse_results(args.date)
-            if export_success:
-                success_count += 1
-                logging.info("[SUCCESS] NSE results exported successfully")
-            else:
-                logging.error("[ERROR] NSE results export failed")
-            
-            # Create trading watchlist
-            watchlist_success = export_trading_watchlist(args.date)
-            if watchlist_success:
-                logging.info("[SUCCESS] Trading watchlist created successfully")
-        
-        # Step 4: Generate daily report
+        # Step 3: Generate daily report
         total_steps += 1
         logging.info("=" * 60)
-        logging.info("[LOG] STEP 4: Generating Daily Report")
+        logging.info("[LOG] STEP 3: Generating Daily Report")
         logging.info("=" * 60)
         
         report_success = generate_daily_report(args.date)
