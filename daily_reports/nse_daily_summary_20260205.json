@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-05",
+  "generated_at": "2026-02-05T07:31:13.457068",
+  "summary": {
+    "analysis_date": "2026-02-05",
+    "total_predictions": 525,
+    "total_buy_signals": 111,
+    "total_sell_signals": 414,
+    "total_hold_signals": 0,
+    "high_confidence_count": 80,
+    "medium_confidence_count": 120,
+    "low_confidence_count": 325,
+    "avg_confidence": 0.6239797989375445,
+    "avg_rsi": 48.83440180202163,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AARTIIND.NS",
+      "company": "Aarti Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.59433098902005,
+      "close_price": 453.6,
+      "rsi": 86.77928755049575
+    },
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.35971833189164,
+      "close_price": 1081.2,
+      "rsi": 80.04990123713482
+    },
+    {
+      "ticker": "VRLLOG.NS",
+      "company": "VRL Logistics",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.28851890667468,
+      "close_price": 279.4,
+      "rsi": 85.89493737188104
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.20509015820993,
+      "close_price": 1162.1,
+      "rsi": 16.861717255485104
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.17384763683515,
+      "close_price": 459.5,
+      "rsi": 8.582834331337295
+    },
+    {
+      "ticker": "SYRMA.NS",
+      "company": "Syrma SGS Technology Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.85081896306448,
+      "close_price": 860.6,
+      "rsi": 79.77872340425533
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "company": "KPIT Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.4127787083366,
+      "close_price": 959.5,
+      "rsi": 6.082830025884306
+    },
+    {
+      "ticker": "CUMMINSIND.NS",
+      "company": "Cummins India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.4123102027822,
+      "close_price": 4391.4,
+      "rsi": 70.3791737408036
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 93.85924172883078,
+      "close_price": 545.95,
+      "rsi": 12.005621361172416
+    },
+    {
+      "ticker": "RAINBOW.NS",
+      "company": "Rainbow Children's Medicare Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 93.70288830601113,
+      "close_price": 1128.3,
+      "rsi": 18.6570743405276
+    }
+  ]
+}

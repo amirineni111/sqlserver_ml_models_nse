@@ -1,7 +1,19 @@
 @echo off
 :: NSE 500 Daily Predictions - Windows Task Scheduler
 :: Run this script daily to generate NSE trading signals
-:: Recommended schedule: Monday-Friday at 9:30 AM (after market open)
+:: Schedule: Monday-Friday at 7:30 AM EST
+::
+:: DATA PIPELINE (EST):
+::   3:30 PM IST (~5:00 AM EST) - NSE market closes
+::   7:00 AM EST - yfinance data fetch loads today's NSE data into DB
+::   7:30 AM EST - THIS SCRIPT runs ML predictions on fresh data
+::
+:: This calls daily_nse_automation.py which handles:
+::   1. Data status check (verifies today's NSE data is loaded)
+::   2. Model status check (auto-retrain if needed)
+::   3. NSE predictions using NSE-trained ensemble models
+::   4. Model performance monitoring
+::   5. Daily report generation
 
 setlocal enabledelayedexpansion
 
@@ -26,8 +38,9 @@ exit /b %errorlevel%
 
 :MAIN
 echo ============================================================
-echo NSE 500 Daily Predictions - %date% %time%
+echo NSE 500 Daily Predictions - %date% %time% (EST)
 echo ============================================================
+echo Data pipeline: yfinance fetch at 7 AM EST, ML predictions at 7:30 AM EST
 
 :: Set working directory
 cd /d "%~dp0"
@@ -39,36 +52,31 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Run the simple prediction script (most reliable)
-echo Running NSE 500 predictions...
-python predict_nse_simple.py
-set PRED_RESULT=%errorlevel%
-
-:: Also run the full automation for reports
-echo Running full automation for reports...
+:: Run the full daily automation (handles model check + predictions + reports)
+echo.
+echo Running NSE daily automation...
+echo (includes: data check, model check, predictions, performance monitoring, reports)
+echo.
 python daily_nse_automation.py
 set AUTO_RESULT=%errorlevel%
 
 :: Log results
 echo.
 echo ============================================================
-echo DAILY PREDICTIONS SUMMARY - %date% %time%
+echo DAILY PREDICTIONS SUMMARY - %date% %time% (EST)
 echo ============================================================
-if %PRED_RESULT%==0 (
-    echo ✅ Predictions: SUCCESS
-) else (
-    echo ❌ Predictions: FAILED (Exit Code: %PRED_RESULT%)
-)
-
 if %AUTO_RESULT%==0 (
-    echo ✅ Reports: SUCCESS
+    echo [SUCCESS] NSE Daily Automation: SUCCESS
+    echo [INFO] Predictions saved to: ml_nse_trading_predictions
+    echo [INFO] Technical indicators saved to: ml_nse_technical_indicators
+    echo [INFO] Summary saved to: ml_nse_predict_summary
+    echo [INFO] Report saved to: daily_reports\
 ) else (
-    echo ❌ Reports: FAILED (Exit Code: %AUTO_RESULT%)
+    echo [ERROR] NSE Daily Automation: FAILED (Exit Code: %AUTO_RESULT%)
+    echo [INFO] Check log for details: %LOGFILE%
 )
 
-echo Log saved to: %LOGFILE%
+echo [LOG] Log saved to: %LOGFILE%
 echo ============================================================
 
-:: Return overall result (0 if both succeeded, 1 if either failed)
-if %PRED_RESULT%==0 if %AUTO_RESULT%==0 exit /b 0
-exit /b 1
+exit /b %AUTO_RESULT%

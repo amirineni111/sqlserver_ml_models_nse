@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-27",
+  "generated_at": "2026-01-27T07:30:49.857480",
+  "summary": {
+    "analysis_date": "2026-01-27",
+    "total_predictions": 520,
+    "total_buy_signals": 365,
+    "total_sell_signals": 155,
+    "total_hold_signals": 0,
+    "high_confidence_count": 276,
+    "medium_confidence_count": 30,
+    "low_confidence_count": 214,
+    "avg_confidence": 0.7423761151307684,
+    "avg_rsi": 30.787464979571293,
+    "total_stocks_processed": 520,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.38766306210624,
+      "close_price": 1151.3,
+      "rsi": 7.354756696778551
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.98316984483722,
+      "close_price": 368.9,
+      "rsi": 1.0950080515297742
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.98101003662154,
+      "close_price": 489.7,
+      "rsi": 6.225241384426809
+    },
+    {
+      "ticker": "TECHNOE.NS",
+      "company": "Techno Electric & Engineering Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.9206228390805,
+      "close_price": 903.4,
+      "rsi": 11.843819319895374
+    },
+    {
+      "ticker": "LODHA.NS",
+      "company": "Macrotech Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.69425689275671,
+      "close_price": 907.2,
+      "rsi": 13.13789243304629
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.64583397651924,
+      "close_price": 604.95,
+      "rsi": 11.97478889232056
+    },
+    {
+      "ticker": "EIDPARRY.NS",
+      "company": "E.I.D.- Parry (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.6359405671867,
+      "close_price": 884.5,
+      "rsi": 9.880020465085309
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.58657669420981,
+      "close_price": 296.15,
+      "rsi": 0.09787927832036303
+    },
+    {
+      "ticker": "ABREL.NS",
+      "company": "Aditya Birla Real Estate Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.54529977482336,
+      "close_price": 1268.9,
+      "rsi": 0.1498815036527219
+    },
+    {
+      "ticker": "OBEROIRLTY.NS",
+      "company": "Oberoi Realty Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.37403373952748,
+      "close_price": 1467.6,
+      "rsi": 12.96879809596922
+    }
+  ]
+}

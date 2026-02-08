@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-02",
+  "generated_at": "2026-02-02T07:30:51.375030",
+  "summary": {
+    "analysis_date": "2026-02-02",
+    "total_predictions": 525,
+    "total_buy_signals": 208,
+    "total_sell_signals": 317,
+    "total_hold_signals": 0,
+    "high_confidence_count": 123,
+    "medium_confidence_count": 74,
+    "low_confidence_count": 328,
+    "avg_confidence": 0.6403250986917789,
+    "avg_rsi": 41.07563977480841,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.33615292125927,
+      "close_price": 467.75,
+      "rsi": 3.9432629575663185
+    },
+    {
+      "ticker": "HERITGFOOD.NS",
+      "company": "Heritage Foods",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.01473344712088,
+      "close_price": 342.6,
+      "rsi": 4.076086956521735
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.82519887890362,
+      "close_price": 1174.3,
+      "rsi": 12.644393499692185
+    },
+    {
+      "ticker": "ASIANPAINT.NS",
+      "company": "Asian Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.64780597229067,
+      "close_price": 2402.0,
+      "rsi": 14.675418356567263
+    },
+    {
+      "ticker": "CDSL.NS",
+      "company": "Central Depository Services (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.37983029062438,
+      "close_price": 1237.2,
+      "rsi": 24.129943093587798
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.96003257473792,
+      "close_price": 365.5,
+      "rsi": 7.030665990364824
+    },
+    {
+      "ticker": "IIFL.NS",
+      "company": "IIFL Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.8466187137913,
+      "close_price": 495.15,
+      "rsi": 23.547167106565198
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.84339695881613,
+      "close_price": 557.7,
+      "rsi": 7.811010894652256
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "company": "PNB Housing Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.72207209508194,
+      "close_price": 804.4,
+      "rsi": 15.866478578283619
+    },
+    {
+      "ticker": "SBICARD.NS",
+      "company": "SBI Cards and Payment Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.65551331830737,
+      "close_price": 735.8,
+      "rsi": 11.880165289256183
+    }
+  ]
+}

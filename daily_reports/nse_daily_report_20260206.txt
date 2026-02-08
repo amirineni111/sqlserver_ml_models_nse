@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-02-06
+[TIME] Generated: 2026-02-06 07:50:01
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 525
+🟢 Buy Signals: 98
+🔴 Sell Signals: 427
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 88
+[DATA] Medium Confidence: 151
+📉 Low Confidence: 286
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.64
+[DATA] Average RSI: 53.4
+[COMPANY] Stocks Processed: 525
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🔴 MRPL.NS: Sell (96.7%) - ₹185.25
+🟢 KPITTECH.NS: Buy (96.7%) - ₹958.40
+🔴 VRLLOG.NS: Sell (96.4%) - ₹285.25
+🔴 AARTIIND.NS: Sell (95.8%) - ₹440.95
+🔴 KARURVYSYA.NS: Sell (95.6%) - ₹318.10
+🔴 SYRMA.NS: Sell (95.6%) - ₹868.60
+🔴 AVANTIFEED.NS: Sell (95.6%) - ₹1025.50
+🟢 ONESOURCE.NS: Buy (95.0%) - ₹1119.90
+🔴 SCHNEIDER.NS: Sell (94.8%) - ₹768.90
+🔴 POWERGRID.NS: Sell (94.8%) - ₹292.75

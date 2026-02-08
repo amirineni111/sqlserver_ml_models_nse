@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-04",
+  "generated_at": "2026-02-04T07:30:47.430757",
+  "summary": {
+    "analysis_date": "2026-02-04",
+    "total_predictions": 525,
+    "total_buy_signals": 101,
+    "total_sell_signals": 424,
+    "total_hold_signals": 0,
+    "high_confidence_count": 80,
+    "medium_confidence_count": 126,
+    "low_confidence_count": 319,
+    "avg_confidence": 0.6291544501807022,
+    "avg_rsi": 48.371220586255106,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "TAPARIA.BO",
+      "company": "Taparia",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.73894024920506,
+      "close_price": 19.71,
+      "rsi": 100.0
+    },
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.42933525297217,
+      "close_price": 1071.7,
+      "rsi": 77.39874655182484
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "company": "KPIT Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.33627896326247,
+      "close_price": 981.4,
+      "rsi": 6.025642282994852
+    },
+    {
+      "ticker": "AARTIIND.NS",
+      "company": "Aarti Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.95310042056704,
+      "close_price": 442.9,
+      "rsi": 84.87361360167905
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.73982680886617,
+      "close_price": 1213.7,
+      "rsi": 17.140084999935837
+    },
+    {
+      "ticker": "SYRMA.NS",
+      "company": "Syrma SGS Technology Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.69816671825886,
+      "close_price": 850.2,
+      "rsi": 73.22216188441905
+    },
+    {
+      "ticker": "DBREALTY.NS",
+      "company": "Valor Estate Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.77428386163102,
+      "close_price": 127.71,
+      "rsi": 70.80394846235365
+    },
+    {
+      "ticker": "VRLLOG.NS",
+      "company": "VRL Logistics",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.73468880667204,
+      "close_price": 283.2,
+      "rsi": 90.01019430145698
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.186480303842,
+      "close_price": 472.6,
+      "rsi": 9.1053479211145
+    },
+    {
+      "ticker": "RAINBOW.NS",
+      "company": "Rainbow Children's Medicare Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 93.97955984815702,
+      "close_price": 1122.6,
+      "rsi": 15.794479611763037
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-29",
+  "generated_at": "2026-01-29T07:30:51.904310",
+  "summary": {
+    "analysis_date": "2026-01-29",
+    "total_predictions": 520,
+    "total_buy_signals": 269,
+    "total_sell_signals": 251,
+    "total_hold_signals": 0,
+    "high_confidence_count": 181,
+    "medium_confidence_count": 54,
+    "low_confidence_count": 285,
+    "avg_confidence": 0.6785770230664843,
+    "avg_rsi": 39.8106869466778,
+    "total_stocks_processed": 520,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.87274396260644,
+      "close_price": 368.4,
+      "rsi": 1.5056023052483596
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.65150620991275,
+      "close_price": 472.7,
+      "rsi": 5.892051903020203
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.85693194468591,
+      "close_price": 581.45,
+      "rsi": 6.948797737205211
+    },
+    {
+      "ticker": "TAPARIA.BO",
+      "company": "Taparia",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.73147355646441,
+      "close_price": 17.89,
+      "rsi": 100.0
+    },
+    {
+      "ticker": "KAJARIACER.NS",
+      "company": "Kajaria Ceramics Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.56789824923216,
+      "close_price": 891.35,
+      "rsi": 20.48013915576378
+    },
+    {
+      "ticker": "MEDANTA.NS",
+      "company": "Global Health Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.35506861453527,
+      "close_price": 1034.1,
+      "rsi": 21.592283312988314
+    },
+    {
+      "ticker": "TATASTEEL.NS",
+      "company": "Tata Steel Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.74542360208926,
+      "close_price": 202.32,
+      "rsi": 80.08049888455764
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.73940987683713,
+      "close_price": 1114.0,
+      "rsi": 6.3361222821997245
+    },
+    {
+      "ticker": "HINDCOPPER.NS",
+      "company": "Hindustan Copper Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.73489546057733,
+      "close_price": 760.05,
+      "rsi": 80.6612866452258
+    },
+    {
+      "ticker": "NATIONALUM.NS",
+      "company": "National Aluminium Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.45174277529672,
+      "close_price": 428.85,
+      "rsi": 82.11447849281754
+    }
+  ]
+}

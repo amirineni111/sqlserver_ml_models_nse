@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-23",
+  "generated_at": "2026-01-23T08:02:24.619615",
+  "summary": {
+    "analysis_date": "2026-01-23",
+    "total_predictions": 496,
+    "total_buy_signals": 369,
+    "total_sell_signals": 127,
+    "total_hold_signals": 0,
+    "high_confidence_count": 273,
+    "medium_confidence_count": 8,
+    "low_confidence_count": 215,
+    "avg_confidence": 0.7443998065216424,
+    "avg_rsi": 30.642230347637387,
+    "total_stocks_processed": 496,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.11267152867192,
+      "close_price": 624.25,
+      "rsi": 12.029545220928341
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.9515173092792,
+      "close_price": 304.05,
+      "rsi": 2.5130588143052393
+    },
+    {
+      "ticker": "JYOTICNC.NS",
+      "company": "Jyoti CNC Automation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.61289328877348,
+      "close_price": 800.95,
+      "rsi": 7.3529500600378555
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "company": "PNB Housing Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.87969527341458,
+      "close_price": 812.4,
+      "rsi": 8.57143308678404
+    },
+    {
+      "ticker": "LLOYDSME.NS",
+      "company": "Lloyds Metals and Energy Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.80484739389367,
+      "close_price": 1115.5,
+      "rsi": 10.763530301358017
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.76866036357629,
+      "close_price": 543.8,
+      "rsi": 6.292864309854352
+    },
+    {
+      "ticker": "HBLENGINE.NS",
+      "company": "N/A",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.75844022634999,
+      "close_price": 706.1,
+      "rsi": 22.377379092213715
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.57083295962042,
+      "close_price": 367.2,
+      "rsi": 11.560046734701785
+    },
+    {
+      "ticker": "JBMA.NS",
+      "company": "JBM Auto Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.53494878255306,
+      "close_price": 529.0,
+      "rsi": 16.15840075319707
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "company": "Adani Green Energy Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.44137680291067,
+      "close_price": 772.8,
+      "rsi": 8.287471673680784
+    }
+  ]
+}

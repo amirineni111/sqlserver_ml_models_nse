@@ -1,7 +1,10 @@
 @echo off
 :: NSE 500 Weekly Model Retraining - Windows Task Scheduler
-:: Run this script weekly to retrain the ML models with fresh data
-:: Recommended schedule: Sundays at 2:00 AM
+:: Run this script weekly to retrain the ML models with fresh NSE data
+:: Recommended schedule: Sundays at 2:00 AM EST
+::
+:: IMPORTANT: This now calls retrain_nse_model.py which trains on NSE 500 data
+:: (not the old retrain_model.py which trained on NASDAQ data)
 
 setlocal enabledelayedexpansion
 
@@ -26,8 +29,9 @@ exit /b %errorlevel%
 
 :MAIN
 echo ============================================================
-echo NSE 500 Weekly Model Retraining - %date% %time%
+echo NSE 500 Weekly Model Retraining - %date% %time% (EST)
 echo ============================================================
+echo NOTE: Training on NSE 500 data (not NASDAQ)
 
 :: Set working directory
 cd /d "%~dp0"
@@ -39,23 +43,41 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Backup existing models
-echo Creating backup of current models...
-if not exist "%~dp0data\backups" mkdir "%~dp0data\backups"
-set BACKUP_DIR=%~dp0data\backups\%TIMESTAMP%
+:: Backup existing NSE models
+echo.
+echo Creating backup of current NSE models...
+if not exist "%~dp0data\nse_backups" mkdir "%~dp0data\nse_backups"
+set BACKUP_DIR=%~dp0data\nse_backups\%TIMESTAMP%
 mkdir "%BACKUP_DIR%"
-copy "%~dp0data\*.joblib" "%BACKUP_DIR%\" >nul 2>&1
-echo Models backed up to: %BACKUP_DIR%
 
-:: Run model retraining
-echo Starting model retraining...
-python retrain_model.py
+:: Backup NSE-specific models (new location)
+if exist "%~dp0data\nse_models" (
+    copy "%~dp0data\nse_models\*.joblib" "%BACKUP_DIR%\" >nul 2>&1
+    copy "%~dp0data\nse_models\*.pkl" "%BACKUP_DIR%\" >nul 2>&1
+    echo NSE models backed up to: %BACKUP_DIR%
+) else (
+    echo No existing NSE models found - first time training
+)
+
+:: Also backup legacy models if they exist (one-time safety net)
+if exist "%~dp0data\best_model_extra_trees.joblib" (
+    copy "%~dp0data\*.joblib" "%BACKUP_DIR%\" >nul 2>&1
+    echo Legacy models also backed up
+)
+
+:: Run NSE-specific model retraining
+echo.
+echo ============================================================
+echo Starting NSE model retraining (retrain_nse_model.py)...
+echo ============================================================
+python retrain_nse_model.py --backup-old
 set RETRAIN_RESULT=%errorlevel%
 
-:: Test new models with a quick prediction
+:: Test new models with a quick prediction check
+echo.
 if %RETRAIN_RESULT%==0 (
-    echo Testing retrained models...
-    python -c "from predict_nse_simple import SimpleNSEPredictor; p = SimpleNSEPredictor(); print('[SUCCESS] Model test successful')"
+    echo Testing retrained NSE models...
+    python -c "from predict_nse_signals import NSETradingSignalPredictor; p = NSETradingSignalPredictor(); print('[SUCCESS] NSE model loaded:', 'NSE-specific' if p.use_nse_models else 'Legacy'); print('[SUCCESS] Classifiers:', len(p.clf_models)); print('[SUCCESS] Regressors:', len(p.reg_models))"
     set TEST_RESULT=%errorlevel%
 ) else (
     set TEST_RESULT=1
@@ -64,15 +86,21 @@ if %RETRAIN_RESULT%==0 (
 :: Log results
 echo.
 echo ============================================================
-echo WEEKLY RETRAINING SUMMARY - %date% %time%
+echo WEEKLY RETRAINING SUMMARY - %date% %time% (EST)
 echo ============================================================
 if %RETRAIN_RESULT%==0 (
-    echo [SUCCESS] Model Retraining: SUCCESS
+    echo [SUCCESS] NSE Model Retraining: SUCCESS
 ) else (
-    echo [ERROR] Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
+    echo [ERROR] NSE Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
     echo [RESTORE] Restoring backup models...
-    copy "%BACKUP_DIR%\*.joblib" "%~dp0data\" >nul 2>&1
-    echo [INFO] Backup restored
+    if exist "%BACKUP_DIR%\nse_best_classifier.joblib" (
+        if not exist "%~dp0data\nse_models" mkdir "%~dp0data\nse_models"
+        copy "%BACKUP_DIR%\*.joblib" "%~dp0data\nse_models\" >nul 2>&1
+        copy "%BACKUP_DIR%\*.pkl" "%~dp0data\nse_models\" >nul 2>&1
+        echo [INFO] NSE model backup restored
+    ) else (
+        echo [WARN] No NSE backup models to restore
+    )
 )
 
 if %TEST_RESULT%==0 (

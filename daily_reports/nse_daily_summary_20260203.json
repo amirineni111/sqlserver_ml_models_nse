@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-03",
+  "generated_at": "2026-02-03T07:30:57.706761",
+  "summary": {
+    "analysis_date": "2026-02-03",
+    "total_predictions": 525,
+    "total_buy_signals": 121,
+    "total_sell_signals": 404,
+    "total_hold_signals": 0,
+    "high_confidence_count": 76,
+    "medium_confidence_count": 103,
+    "low_confidence_count": 346,
+    "avg_confidence": 0.6188439822119599,
+    "avg_rsi": 46.742084534799424,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.84953258806317,
+      "close_price": 1177.6,
+      "rsi": 13.000991058607369
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.38156544738573,
+      "close_price": 567.1,
+      "rsi": 11.375308055098003
+    },
+    {
+      "ticker": "E2E.NS",
+      "company": "E2E Networks",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.8716461671207,
+      "close_price": 2601.2,
+      "rsi": 76.83759891672281
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.76607017415563,
+      "close_price": 478.0,
+      "rsi": 9.252286175363068
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "company": "KPIT Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.57496649687766,
+      "close_price": 989.8,
+      "rsi": 9.383006945877554
+    },
+    {
+      "ticker": "VRLLOG.NS",
+      "company": "VRL Logistics",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.55325192832073,
+      "close_price": 282.25,
+      "rsi": 80.29740344192898
+    },
+    {
+      "ticker": "HERITGFOOD.NS",
+      "company": "Heritage Foods",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.32947043993904,
+      "close_price": 348.05,
+      "rsi": 8.659705010524718
+    },
+    {
+      "ticker": "VGUARD.NS",
+      "company": "V-Guard Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 93.94739857551771,
+      "close_price": 346.55,
+      "rsi": 83.66717874133086
+    },
+    {
+      "ticker": "ASIANPAINT.NS",
+      "company": "Asian Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 93.79726139713026,
+      "close_price": 2426.0,
+      "rsi": 19.557372327577554
+    },
+    {
+      "ticker": "AARTIIND.NS",
+      "company": "Aarti Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 93.6770134227485,
+      "close_price": 429.7,
+      "rsi": 78.02152317880791
+    }
+  ]
+}
