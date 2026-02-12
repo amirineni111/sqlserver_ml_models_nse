@@ -630,6 +630,36 @@ class NSETradingSignalPredictor:
             
             group['atr_pct'] = group['atr_14'] / group['close_price'] * 100
             
+            # === Market Regime Detection ===
+            sma20 = group['close_price'].rolling(window=20).mean()
+            group['regime_sma20_slope'] = sma20.pct_change(5) * 100
+            
+            up_move = group['high_price'].diff()
+            down_move = -group['low_price'].diff()
+            pos_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0)
+            neg_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0)
+            pos_dm_smooth = pd.Series(pos_dm, index=group.index).rolling(14).mean()
+            neg_dm_smooth = pd.Series(neg_dm, index=group.index).rolling(14).mean()
+            dm_sum = pos_dm_smooth + neg_dm_smooth
+            dx = np.where(dm_sum > 0, np.abs(pos_dm_smooth - neg_dm_smooth) / dm_sum * 100, 0)
+            group['regime_adx'] = pd.Series(dx, index=group.index).rolling(14).mean()
+            
+            vol_short = group['close_price'].pct_change().rolling(10).std()
+            vol_long = group['close_price'].pct_change().rolling(60).std()
+            group['regime_vol_ratio'] = np.where(vol_long > 0, vol_short / vol_long, 1.0)
+            
+            sma50 = group['close_price'].rolling(window=50).mean()
+            group['regime_mean_reversion'] = np.where(
+                group['atr_14'] > 0,
+                (group['close_price'] - sma50) / group['atr_14'],
+                0
+            )
+            
+            overall_dir = np.sign(group['close_price'].diff(20))
+            daily_dirs = np.sign(group['close_price'].diff(1))
+            consistent = (daily_dirs == overall_dir).astype(float)
+            group['regime_trend_consistency'] = consistent.rolling(20).mean()
+            
             # === Date Features ===
             group['day_of_week'] = pd.to_datetime(group['trading_date']).dt.dayofweek
             group['month'] = pd.to_datetime(group['trading_date']).dt.month
@@ -682,15 +712,27 @@ class NSETradingSignalPredictor:
         clf_scaled = self.clf_scaler.transform(feature_data)
         
         if self.use_nse_models:
-            # === Ensemble Classification Predictions ===
+            # === F1-Weighted Ensemble Classification Predictions ===
+            # Exclude the 'Ensemble' (VotingClassifier) model to avoid double-counting
+            # since it's already a combination of the base models.
+            # Weight each base model's probabilities by its training F1 score.
+            clf_results = self.metadata.get('clf_results', {})
+            
             all_probabilities = []
+            model_weights = []
             model_names_used = []
             
             for model_name, model in self.clf_models.items():
+                # Skip the redundant VotingClassifier ensemble
+                if model_name.lower() == 'ensemble':
+                    continue
                 try:
                     proba = model.predict_proba(clf_scaled)
                     all_probabilities.append(proba)
                     model_names_used.append(model_name)
+                    # Get F1 weight from training metadata (default 1.0 if not found)
+                    f1 = clf_results.get(model_name, {}).get('f1_score', 1.0)
+                    model_weights.append(f1)
                 except Exception as e:
                     safe_print(f"  [WARN] {model_name} prediction failed: {e}")
             
@@ -698,8 +740,10 @@ class NSETradingSignalPredictor:
                 safe_print("[ERROR] All classification models failed")
                 return None
             
-            # Average probabilities across models (soft voting)
-            avg_probabilities = np.mean(all_probabilities, axis=0)
+            # F1-weighted average of probabilities (better models contribute more)
+            weights = np.array(model_weights)
+            weights = weights / weights.sum()  # Normalize to sum to 1
+            avg_probabilities = np.average(all_probabilities, axis=0, weights=weights)
             ensemble_predictions = np.argmax(avg_probabilities, axis=1)
             
             # Decode predictions
@@ -747,7 +791,8 @@ class NSETradingSignalPredictor:
                 except Exception as e:
                     safe_print(f"  [WARN] Regression prediction failed: {e}")
             
-            safe_print(f"  [OK] Ensemble of {len(model_names_used)} models: {', '.join(model_names_used)}")
+            weight_info = ', '.join([f"{n}({w:.2f})" for n, w in zip(model_names_used, weights)])
+            safe_print(f"  [OK] F1-weighted ensemble of {len(model_names_used)} models: {weight_info}")
             
         else:
             # Legacy single model prediction

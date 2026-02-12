@@ -2,12 +2,14 @@
 NSE 500 Model Retraining Script
 
 This script trains ML models specifically on NSE 500 data to predict:
-1. Next-day price direction (classification: Up/Down)
-2. Next-day price change magnitude (regression)
+1. 5-day price direction (classification: Up/Down) -- primary target
+2. 5-day price change magnitude (regression)
 
 Key improvements over the previous approach:
+- Uses 5-day direction target instead of 1-day (less noise, more predictable)
+- 3-way data split: 60% train / 20% calibration / 20% test (prevents data leakage)
+- Isotonic probability calibration on dedicated calibration set
 - Trains on NSE data (not NASDAQ) for proper market alignment
-- Uses proper target: next-day price direction instead of RSI signals
 - Enriches features with Bollinger Bands, Stochastic, ATR, MACD from database views
 - Trains ensemble of models (Random Forest, Gradient Boosting, Extra Trees, Ridge)
 - Uses walk-forward time-series validation
@@ -58,6 +60,38 @@ from sklearn.metrics import (
     mean_absolute_error, mean_squared_error, r2_score
 )
 from sklearn.calibration import CalibratedClassifierCV
+
+
+class PurgedTimeSeriesSplit:
+    """
+    Time series cross-validation with purge gap to prevent data leakage.
+    With 5-day prediction targets, we need at least 5 samples gap.
+    """
+    
+    def __init__(self, n_splits=5, purge_gap=5):
+        self.n_splits = n_splits
+        self.purge_gap = purge_gap
+    
+    def split(self, X, y=None, groups=None):
+        n_samples = len(X)
+        min_train_size = max(50, n_samples // (self.n_splits + 2))
+        fold_size = max(20, (n_samples - min_train_size) // self.n_splits)
+        
+        for i in range(self.n_splits):
+            train_end = min_train_size + i * fold_size
+            val_start = train_end + self.purge_gap
+            val_end = min(val_start + fold_size, n_samples)
+            
+            if val_start >= n_samples or val_end <= val_start:
+                continue
+            
+            train_indices = np.arange(0, train_end)
+            val_indices = np.arange(val_start, val_end)
+            
+            yield train_indices, val_indices
+    
+    def get_n_splits(self, X=None, y=None, groups=None):
+        return self.n_splits
 
 # Add src to path
 sys.path.append(os.path.join(os.getcwd(), 'src'))
@@ -145,6 +179,9 @@ class NSEModelRetrainer:
             'sma_200_flag', 'sma_100_flag', 'sma_50_flag', 'sma_20_flag',
             # --- MACD Signal (from nse_500_macd_signals) ---
             'macd_signal_strength',
+            # --- Market Regime Detection ---
+            'regime_sma20_slope', 'regime_adx', 'regime_vol_ratio',
+            'regime_mean_reversion', 'regime_trend_consistency',
         ]
         
         # Signal encoding maps (categorical -> numeric)
@@ -525,52 +562,57 @@ class NSEModelRetrainer:
     
     def create_target_variable(self, df):
         """
-        Create proper target variable: next-day price direction
+        Create target variable: 5-day price direction (primary) + 1-day (secondary)
         
-        Instead of using RSI-based signals (which only fire at extremes),
-        we create a target that directly measures what we want to predict:
-        - 'Up' = next day's close > today's close
-        - 'Down' = next day's close <= today's close
+        Using 5-day forward returns instead of 1-day because:
+        - 1-day direction is essentially random noise (~50% accuracy)
+        - 5-day direction captures meaningful trends with less noise
+        - NSE 5-day backfill accuracy was already 53.8% vs 50.5% for 1-day
+        - More actionable for swing trading (hold 5 days vs day-trade)
         
-        Also creates regression target: next-day percentage change
+        Classification target: 5-day direction ('Up'/'Down')
+        Regression target: 5-day percentage change
         """
-        print("[TARGET] Creating target variables...")
+        print("[TARGET] Creating target variables (5-day horizon)...")
         
         df_target = df.copy()
         df_target = df_target.sort_values(['ticker', 'trading_date'])
         
-        # Next-day close price (shifted by -1 within each ticker group)
+        # Next-day targets (kept for reference/comparison)
         df_target['next_close'] = df_target.groupby('ticker')['close_price'].shift(-1)
-        
-        # Next-day return (percentage change)
         df_target['next_day_return'] = (
             (df_target['next_close'] - df_target['close_price']) / df_target['close_price'] * 100
         )
-        
-        # Classification target: direction
         df_target['direction'] = np.where(df_target['next_day_return'] > 0, 'Up', 'Down')
         
-        # Also create 3-day and 5-day targets for multi-horizon
+        # 3-day targets (kept for reference)
         df_target['next_3d_close'] = df_target.groupby('ticker')['close_price'].shift(-3)
         df_target['next_3d_return'] = (
             (df_target['next_3d_close'] - df_target['close_price']) / df_target['close_price'] * 100
         )
         df_target['direction_3d'] = np.where(df_target['next_3d_return'] > 0, 'Up', 'Down')
         
+        # 5-day targets (PRIMARY -- used for training)
         df_target['next_5d_close'] = df_target.groupby('ticker')['close_price'].shift(-5)
         df_target['next_5d_return'] = (
             (df_target['next_5d_close'] - df_target['close_price']) / df_target['close_price'] * 100
         )
         df_target['direction_5d'] = np.where(df_target['next_5d_return'] > 0, 'Up', 'Down')
         
-        # Remove rows without target (last row per ticker)
-        valid_mask = df_target['next_close'].notna()
+        # Remove rows without 5-day target (last 5 rows per ticker)
+        valid_mask = df_target['next_5d_close'].notna()
         df_target = df_target[valid_mask]
         
         # Report target distribution
-        direction_dist = df_target['direction'].value_counts()
-        print(f"  [OK] Target distribution (1-day):")
-        for direction, count in direction_dist.items():
+        direction_dist_5d = df_target['direction_5d'].value_counts()
+        print(f"  [OK] Primary target distribution (5-day):")
+        for direction, count in direction_dist_5d.items():
+            pct = (count / len(df_target)) * 100
+            print(f"    {direction}: {count:,} ({pct:.1f}%)")
+        
+        direction_dist_1d = df_target['direction'].value_counts()
+        print(f"  [INFO] Secondary reference (1-day):")
+        for direction, count in direction_dist_1d.items():
             pct = (count / len(df_target)) * 100
             print(f"    {direction}: {count:,} ({pct:.1f}%)")
         
@@ -705,6 +747,43 @@ class NSEModelRetrainer:
             
             group['atr_pct'] = group['atr_14'] / group['close_price'] * 100
             
+            # === Market Regime Detection ===
+            # Helps model recognize trending vs mean-reverting environments
+            
+            # SMA trend direction: 5-day slope of 20-SMA (positive = uptrend)
+            sma20 = group['close_price'].rolling(window=20).mean()
+            group['regime_sma20_slope'] = sma20.pct_change(5) * 100
+            
+            # ADX-like trend strength (simplified directional movement)
+            up_move = group['high_price'].diff()
+            down_move = -group['low_price'].diff()
+            pos_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0)
+            neg_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0)
+            pos_dm_smooth = pd.Series(pos_dm, index=group.index).rolling(14).mean()
+            neg_dm_smooth = pd.Series(neg_dm, index=group.index).rolling(14).mean()
+            dm_sum = pos_dm_smooth + neg_dm_smooth
+            dx = np.where(dm_sum > 0, np.abs(pos_dm_smooth - neg_dm_smooth) / dm_sum * 100, 0)
+            group['regime_adx'] = pd.Series(dx, index=group.index).rolling(14).mean()
+            
+            # Volatility regime: short-term vol vs long-term vol (>1 = high vol)
+            vol_short = group['close_price'].pct_change().rolling(10).std()
+            vol_long = group['close_price'].pct_change().rolling(60).std()
+            group['regime_vol_ratio'] = np.where(vol_long > 0, vol_short / vol_long, 1.0)
+            
+            # Mean reversion: distance from 50-SMA in ATR units
+            sma50 = group['close_price'].rolling(window=50).mean()
+            group['regime_mean_reversion'] = np.where(
+                group['atr_14'] > 0,
+                (group['close_price'] - sma50) / group['atr_14'],
+                0
+            )
+            
+            # Trend consistency: % of last 20 days moving in overall direction
+            overall_dir = np.sign(group['close_price'].diff(20))
+            daily_dirs = np.sign(group['close_price'].diff(1))
+            consistent = (daily_dirs == overall_dir).astype(float)
+            group['regime_trend_consistency'] = consistent.rolling(20).mean()
+            
             # === Date Features ===
             trading_dates = pd.to_datetime(group['trading_date'])
             group['day_of_week'] = trading_dates.dt.dayofweek
@@ -738,10 +817,15 @@ class NSEModelRetrainer:
         print(f"  Date range: {df['trading_date'].min()} to {df['trading_date'].max()}")
         print(f"  Unique tickers: {df['ticker'].nunique()}")
         
-        # Target distribution
+        # Target distribution (5-day primary, 1-day reference)
+        if 'direction_5d' in df.columns:
+            dist = df['direction_5d'].value_counts()
+            print(f"  5-day direction target distribution (PRIMARY):")
+            for val, cnt in dist.items():
+                print(f"    {val}: {cnt:,} ({cnt/len(df)*100:.1f}%)")
         if 'direction' in df.columns:
             dist = df['direction'].value_counts()
-            print(f"  Direction target distribution:")
+            print(f"  1-day direction distribution (reference):")
             for val, cnt in dist.items():
                 print(f"    {val}: {cnt:,} ({cnt/len(df)*100:.1f}%)")
         
@@ -772,12 +856,12 @@ class NSEModelRetrainer:
         
         self.feature_columns = available_features
         
-        # Prepare X and y for classification
+        # Prepare X and y for classification (5-day direction target)
         X = df[available_features].copy()
-        y_direction = df['direction'].copy()
+        y_direction = df['direction_5d'].copy()
         
-        # Also prepare regression target
-        y_return = df['next_day_return'].copy()
+        # Regression target: 5-day return (matches classification horizon)
+        y_return = df['next_5d_return'].copy()
         
         # Remove any remaining invalid rows
         valid_mask = X.notna().all(axis=1) & y_direction.notna() & y_return.notna()
@@ -789,7 +873,7 @@ class NSEModelRetrainer:
         direction_encoder = LabelEncoder()
         y_direction_encoded = direction_encoder.fit_transform(y_direction)
         
-        print(f"[OK] ML dataset prepared:")
+        print(f"[OK] ML dataset prepared (5-day horizon):")
         print(f"  Features: {X.shape[1]}")
         print(f"  Samples: {X.shape[0]:,}")
         print(f"  Direction classes: {list(direction_encoder.classes_)}")
@@ -801,18 +885,23 @@ class NSEModelRetrainer:
         """Train ensemble of classification models for direction prediction"""
         print("[TRAIN] Training classification models (direction prediction)...")
         
-        # Time-series aware split (80/20)
-        split_idx = int(0.8 * len(X))
-        X_train = X.iloc[:split_idx]
-        X_test = X.iloc[split_idx:]
-        y_train = y[:split_idx]
-        y_test = y[split_idx:]
+        # Time-series aware 3-way split: train (60%) / calibration (20%) / test (20%)
+        # Calibrating on a separate set prevents overfitting the probability estimates
+        train_end = int(0.60 * len(X))
+        cal_end = int(0.80 * len(X))
+        X_train = X.iloc[:train_end]
+        X_cal = X.iloc[train_end:cal_end]
+        X_test = X.iloc[cal_end:]
+        y_train = y[:train_end]
+        y_cal = y[train_end:cal_end]
+        y_test = y[cal_end:]
         
-        print(f"  Train: {len(X_train):,} samples, Test: {len(X_test):,} samples")
+        print(f"  Split: Train={len(X_train):,}, Calibration={len(X_cal):,}, Test={len(X_test):,}")
         
         # Feature scaling
         scaler = StandardScaler()
         X_train_scaled = scaler.fit_transform(X_train)
+        X_cal_scaled = scaler.transform(X_cal)
         X_test_scaled = scaler.transform(X_test)
         
         # Define models with optimized hyperparameters
@@ -855,17 +944,31 @@ class NSEModelRetrainer:
             )
         }
         
+        # Compute time-weighted sample weights (recent data is more relevant)
+        n_train = len(y_train)
+        time_positions = np.arange(n_train) / n_train  # 0 to ~1 (oldest to newest)
+        decay_rate = 1.2  # Higher = more emphasis on recent data
+        time_weights = np.exp(decay_rate * (time_positions - 1))  # ~0.3 to 1.0
+        time_weights = time_weights / time_weights.mean()  # Normalize to mean=1
+        
+        print(f"  Time-weighted training: oldest weight={time_weights[0]:.3f}, "
+              f"newest={time_weights[-1]:.3f}, ratio={time_weights[-1]/time_weights[0]:.1f}x")
+        
         # Train and evaluate each model
         model_results = {}
         trained_models = {}
-        cv_splitter = TimeSeriesSplit(n_splits=3)
+        # Purged CV: 5-sample gap prevents 5-day target leakage between folds
+        cv_splitter = PurgedTimeSeriesSplit(n_splits=3, purge_gap=5)
         
         for model_name, model in models.items():
             print(f"  Training {model_name}...", flush=True)
             
             try:
-                # Train
-                model.fit(X_train_scaled, y_train)
+                # Train with time-weighted sample weights
+                try:
+                    model.fit(X_train_scaled, y_train, sample_weight=time_weights)
+                except TypeError:
+                    model.fit(X_train_scaled, y_train)
                 print(f"    [fit done]", flush=True)
                 
                 # Predict
@@ -918,7 +1021,7 @@ class NSEModelRetrainer:
             ensemble = VotingClassifier(
                 estimators=ensemble_estimators,
                 voting='soft',
-                n_jobs=-1
+                n_jobs=1  # n_jobs=-1 can deadlock on Windows; use sequential
             )
             ensemble.fit(X_train_scaled, y_train)
             
@@ -943,27 +1046,67 @@ class NSEModelRetrainer:
         # Find best model
         best_model_name = max(model_results.keys(),
                              key=lambda k: model_results[k]['f1_score'])
+        best_model = trained_models[best_model_name]
         
         print(f"\n[BEST] Best classification model: {best_model_name} "
               f"(F1: {model_results[best_model_name]['f1_score']:.3f}, "
               f"Direction Accuracy: {model_results[best_model_name]['accuracy']:.1%})")
         
+        # Calibrate probabilities using dedicated calibration set (NOT test set)
+        # Using isotonic regression for more flexible calibration curve
+        print("[CONFIG] Calibrating model probabilities on held-out calibration set...")
+        try:
+            calibrated_model = CalibratedClassifierCV(
+                estimator=best_model, cv='prefit', method='isotonic'
+            )
+            calibrated_model.fit(X_cal_scaled, y_cal)
+            
+            # Verify calibration: high-confidence should be more accurate than low
+            cal_probs = calibrated_model.predict_proba(X_test_scaled)
+            cal_preds = calibrated_model.predict(X_test_scaled)
+            cal_accuracy = accuracy_score(y_test, cal_preds)
+            uncal_accuracy = model_results[best_model_name]['accuracy']
+            
+            print(f"  Pre-calibration test accuracy:  {uncal_accuracy:.3f}")
+            print(f"  Post-calibration test accuracy: {cal_accuracy:.3f}")
+            
+            # Check if calibration helps: high-confidence should be more accurate
+            max_probs = cal_probs.max(axis=1)
+            high_mask = max_probs >= 0.65
+            if high_mask.sum() > 10:
+                high_acc = accuracy_score(y_test[high_mask], cal_preds[high_mask])
+                low_acc = accuracy_score(y_test[~high_mask], cal_preds[~high_mask]) if (~high_mask).sum() > 0 else 0
+                print(f"  High-confidence (>=65%) accuracy: {high_acc:.3f} ({high_mask.sum()} samples)")
+                print(f"  Low-confidence (<65%) accuracy:   {low_acc:.3f} ({(~high_mask).sum()} samples)")
+                
+                if high_acc > low_acc:
+                    print("[SUCCESS] Calibration confirmed: high confidence = higher accuracy")
+                else:
+                    print("[WARN] Calibration check: high confidence NOT more accurate - review needed")
+            
+            best_model = calibrated_model
+            print("[SUCCESS] Probability calibration applied successfully")
+        except Exception as e:
+            print(f"[WARN] Calibration skipped: {e}")
+        
         return {
             'model_results': model_results,
             'trained_models': trained_models,
             'best_model_name': best_model_name,
-            'best_model': trained_models[best_model_name],
+            'best_model': best_model,
             'scaler': scaler,
             'feature_columns': feature_cols,
             'X_train': X_train,
+            'X_cal': X_cal,
             'X_test': X_test,
             'y_train': y_train,
+            'y_cal': y_cal,
             'y_test': y_test,
         }
     
     def train_regression_models(self, X, y_return, feature_cols):
-        """Train regression models for price change prediction"""
-        print("[TRAIN] Training regression models (price change prediction)...")
+        """Train regression models for 5-day price change prediction"""
+        print("[TRAIN] Training regression models (5-day price change prediction)...")
         
         # Time-series aware split
         split_idx = int(0.8 * len(X))
@@ -979,6 +1122,12 @@ class NSEModelRetrainer:
         
         # Clip extreme returns for training stability
         y_train_clipped = np.clip(y_train.values, -10, 10)
+        
+        # Time-weighted sample weights for regression too
+        n_reg_train = len(y_train)
+        reg_time_pos = np.arange(n_reg_train) / n_reg_train
+        reg_time_weights = np.exp(1.2 * (reg_time_pos - 1))
+        reg_time_weights = reg_time_weights / reg_time_weights.mean()
         
         # Define regression models
         models = {
@@ -1013,7 +1162,10 @@ class NSEModelRetrainer:
             print(f"  Training {model_name} regressor...")
             
             try:
-                model.fit(X_train_scaled, y_train_clipped)
+                try:
+                    model.fit(X_train_scaled, y_train_clipped, sample_weight=reg_time_weights)
+                except TypeError:
+                    model.fit(X_train_scaled, y_train_clipped)
                 y_pred = model.predict(X_test_scaled)
                 
                 # Metrics
@@ -1051,7 +1203,7 @@ class NSEModelRetrainer:
             
             reg_ensemble = VotingRegressor(
                 estimators=reg_estimators,
-                n_jobs=-1
+                n_jobs=1  # n_jobs=-1 can deadlock on Windows; use sequential
             )
             reg_ensemble.fit(X_train_scaled, y_train_clipped)
             
