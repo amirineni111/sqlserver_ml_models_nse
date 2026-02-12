@@ -1,0 +1,35 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-12
+[TIME] Report Generated (EST): 2026-02-12 10:02:00
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-12
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 525
+[BUY] Buy Signals: 34
+[SELL] Sell Signals: 491
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2
+[DATA] Medium Confidence: 455
+[LOW] Low Confidence: 68
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.59
+[DATA] Average RSI: 58.5
+[COMPANY] Stocks Processed: 525
+[MODEL] Model Accuracy: 60.1%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] AVANTIFEED.NS: Sell (73.5%) - INR 1414.75 [NSE_Ensemble]
+[SELL] MRF.NS: Sell (70.9%) - INR 151210.00 [NSE_Ensemble]

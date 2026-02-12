@@ -242,8 +242,16 @@ class NSETradingSignalPredictor:
             return None
     
     def load_enriched_features_for_prediction(self, tickers=None):
-        """Load enriched features from database views for prediction"""
+        """Load enriched features from database views for prediction.
+        
+        PERFORMANCE NOTE: We only need the latest trading day's enriched data
+        for predictions (since we merge on ticker+date and only predict from
+        the last row). Using 21 days gives buffer for weekends/holidays while
+        keeping queries fast. The base hist_data still loads 90 days for
+        calculated indicators (SMAs, momentum, etc).
+        """
         enriched = {}
+        view_lookback = 21  # days - enough buffer for weekends/holidays
         
         ticker_filter = ""
         if tickers:
@@ -256,7 +264,7 @@ class NSETradingSignalPredictor:
             rsi_df = self.db.execute_query(f"""
                 SELECT ticker, trading_date, RSI
                 FROM dbo.nse_500_RSI_calculation
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['rsi'] = rsi_df
@@ -270,7 +278,7 @@ class NSETradingSignalPredictor:
                        CAST(Upper_Band AS FLOAT) as bb_upper,
                        CAST(Lower_Band AS FLOAT) as bb_lower
                 FROM dbo.nse_500_bollingerband
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['bb'] = bb_df
@@ -285,7 +293,7 @@ class NSETradingSignalPredictor:
                        CAST(stoch_14d_d AS FLOAT) as stoch_d,
                        CAST(momentum_strength AS FLOAT) as stoch_momentum
                 FROM dbo.nse_500_stochastic
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['stoch'] = stoch_df
@@ -298,7 +306,7 @@ class NSETradingSignalPredictor:
                 SELECT ticker, trading_date,
                        CAST(ATR_14 AS FLOAT) as atr_14
                 FROM dbo.nse_500_atr
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['atr'] = atr_df
@@ -312,7 +320,7 @@ class NSETradingSignalPredictor:
                        CAST(distance_to_nearest_fib_pct AS FLOAT) as fib_distance_pct,
                        fib_trade_signal
                 FROM dbo.nse_500_fibonacci
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['fibonacci'] = fib_df
@@ -328,7 +336,7 @@ class NSETradingSignalPredictor:
                        pivot_status,
                        sr_trade_signal
                 FROM dbo.nse_500_support_resistance
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['support_resistance'] = sr_df
@@ -348,7 +356,7 @@ class NSETradingSignalPredictor:
                        CASE WHEN morning_star IS NOT NULL THEN 1 ELSE 0 END as has_morning_star,
                        CASE WHEN evening_star IS NOT NULL THEN 1 ELSE 0 END as has_evening_star
                 FROM dbo.nse_500_patterns
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['patterns'] = pat_df
@@ -363,7 +371,7 @@ class NSETradingSignalPredictor:
                        CAST(SMA_100 AS FLOAT) as sma_100,
                        SMA_200_Flag, SMA_100_Flag, SMA_50_Flag, SMA_20_Flag
                 FROM dbo.nse_500_sma_signals
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['sma_signals'] = sma_df
@@ -376,7 +384,7 @@ class NSETradingSignalPredictor:
                 SELECT ticker, trading_date,
                        MACD_Signal as macd_crossover_signal
                 FROM dbo.nse_500_macd_signals
-                WHERE trading_date >= DATEADD(day, -90, CAST(GETDATE() AS DATE))
+                WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
             """)
             enriched['macd_signals'] = macd_sig_df
