@@ -1,0 +1,34 @@
+# Cursor Rules — sqlserver_copilot_nse
+
+## Project
+NSE ML training pipeline. 5-model ensemble + 4 regressors for Buy/Sell predictions on NSE 500 stocks.
+
+## Stack
+- Python 3.11+, scikit-learn, pandas, numpy, pyodbc
+- SQL Server (localhost\MSSQLSERVER01, stockdata_db, Windows Auth)
+
+## Architecture
+- feature_engineering.py → 90+ features from OHLCV + fundamentals
+- ensemble_builder.py → RF, GB, ET, LR, VotingClassifier
+- regressor_builder.py → 4 price regressors for targets
+- predict_daily.py → Daily predictions → ml_nse_trading_predictions
+- VARCHAR price columns — ALWAYS CAST to FLOAT
+
+## Output Tables
+- ml_nse_trading_predictions (ticker, date, signal, confidence, strength, RSI, probabilities, sector, cap_category)
+- ml_nse_predict_summary (daily aggregates + accuracy + success_rate_1d/5d/10d)
+- ml_nse_technical_indicators (indicator snapshots)
+
+## Schedule
+- 9:30 AM daily predictions
+- Sunday 2:00 AM weekly retrain (classifiers + regressors)
+
+## Key Differences from NASDAQ
+- 5-model ensemble (vs 1 model)
+- 90+ features (vs 50+)
+- 500 stocks (vs 100)
+- Includes price regression models
+- Sector + market_cap stratification
+
+## Ecosystem
+Part of 7-repo trading platform. Predictions consumed by stockdata_agenticai and streamlit-trading-dashboard.

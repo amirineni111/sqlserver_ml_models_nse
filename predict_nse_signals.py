@@ -151,6 +151,14 @@ class NSETradingSignalPredictor:
             self.direction_encoder = joblib.load(self.nse_model_dir / 'nse_direction_encoder.joblib')
             self.reg_scaler = joblib.load(self.nse_model_dir / 'nse_reg_scaler.joblib')
             
+            # Load sector encoder (optional - may not exist for older models)
+            try:
+                self.sector_encoder = joblib.load(self.nse_model_dir / 'nse_sector_encoder.joblib')
+                safe_print(f"  [OK] Sector encoder loaded: {len(self.sector_encoder.classes_)} sectors")
+            except FileNotFoundError:
+                self.sector_encoder = None
+                safe_print("  [INFO] No sector encoder found - sector features will default to 0")
+            
             safe_print(f"  [OK] {len(self.clf_models)} classifiers, {len(self.reg_models)} regressors loaded")
             safe_print(f"  [OK] Best classifier: {self.metadata.get('best_clf_model', 'Unknown')}")
             safe_print(f"  [OK] Best regressor: {self.metadata.get('best_reg_model', 'Unknown')}")
@@ -173,6 +181,7 @@ class NSETradingSignalPredictor:
             self.best_classifier = joblib.load(model_path)
             self.clf_scaler = joblib.load(scaler_path)
             self.direction_encoder = joblib.load(encoder_path)
+            self.sector_encoder = None  # No sector encoder for legacy models
             
             # Legacy feature columns
             self.feature_columns = [
@@ -491,6 +500,73 @@ class NSETradingSignalPredictor:
         
         return df_enc
     
+    def _load_fundamentals_for_prediction(self, df):
+        """Load NSE 500 fundamentals & sector data and merge into prediction DataFrame.
+        
+        Same approach as NASDAQ: loads latest fundamentals per ticker from
+        nse_500_fundamentals and sector from nse_500 master table.
+        """
+        try:
+            fund_query = """
+            SELECT f1.ticker, f1.profit_margin, f1.revenue_growth, f1.earnings_growth,
+                   f1.return_on_equity, f1.debt_to_equity, f1.current_ratio,
+                   f1.dividend_yield, f1.beta,
+                   f1.fifty_two_week_high, f1.fifty_two_week_low,
+                   f1.two_hundred_day_avg
+            FROM dbo.nse_500_fundamentals f1
+            INNER JOIN (
+                SELECT ticker, MAX(fetch_date) as max_date
+                FROM dbo.nse_500_fundamentals
+                GROUP BY ticker
+            ) f2 ON f1.ticker = f2.ticker AND f1.fetch_date = f2.max_date
+            """
+            df_fund = self.db.execute_query(fund_query)
+            if not df_fund.empty:
+                df = df.merge(df_fund, on='ticker', how='left')
+                safe_print(f"  [OK] Fundamentals merged: {len(df_fund)} tickers")
+        except Exception as e:
+            safe_print(f"  [WARN] Could not load fundamentals: {e}")
+        
+        try:
+            sector_query = "SELECT ticker, sector FROM dbo.nse_500"
+            df_sector = self.db.execute_query(sector_query)
+            if not df_sector.empty:
+                df = df.merge(df_sector, on='ticker', how='left')
+                safe_print(f"  [OK] Sectors merged: {len(df_sector)} tickers")
+        except Exception as e:
+            safe_print(f"  [WARN] Could not load sector data: {e}")
+        
+        return df
+    
+    def _merge_market_context(self, df):
+        """Load market context data (VIX, NIFTY, India sector indices, treasury) and merge."""
+        try:
+            context_query = """
+            SELECT trading_date,
+                   vix_close, vix_change_pct,
+                   india_vix_close, india_vix_change_pct,
+                   nifty50_close, nifty50_return_1d,
+                   sp500_return_1d,
+                   dxy_close, dxy_return_1d,
+                   us_10y_yield_close, us_10y_yield_change,
+                   nifty_it_return_1d, nifty_bank_return_1d,
+                   nifty_pharma_return_1d, nifty_auto_return_1d,
+                   nifty_fmcg_return_1d
+            FROM dbo.market_context_daily
+            ORDER BY trading_date
+            """
+            df_context = self.db.execute_query(context_query)
+            
+            if not df_context.empty:
+                df['trading_date'] = pd.to_datetime(df['trading_date'])
+                df_context['trading_date'] = pd.to_datetime(df_context['trading_date'])
+                df = df.merge(df_context, on='trading_date', how='left')
+                safe_print(f"  [OK] Market context merged: {len(df_context)} dates")
+        except Exception as e:
+            safe_print(f"  [WARN] Could not load market context: {e}")
+        
+        return df
+    
     def calculate_technical_indicators(self, df, enriched_data=None):
         """Calculate technical indicators for NSE data - consistent with training"""
         if df is None or df.empty:
@@ -503,6 +579,12 @@ class NSETradingSignalPredictor:
         # CRITICAL: Remove duplicate ticker-date rows from base data
         # (source table may have duplicates from overlapping yfinance fetches)
         df_features = df_features.drop_duplicates(subset=['ticker', 'trading_date'], keep='last')
+        
+        # Load and merge fundamental data (52-week high/low, profit margin, sector)
+        df_features = self._load_fundamentals_for_prediction(df_features)
+        
+        # Load and merge market context (VIX, NIFTY, India sector indices, treasury)
+        df_features = self._merge_market_context(df_features)
         
         # Merge enriched features if available
         if enriched_data:
@@ -668,6 +750,26 @@ class NSETradingSignalPredictor:
             consistent = (daily_dirs == overall_dir).astype(float)
             group['regime_trend_consistency'] = consistent.rolling(20).mean()
             
+            # === Fundamental Features (from nse_500_fundamentals) ===
+            if 'fifty_two_week_high' in group.columns:
+                group['price_vs_52wk_high'] = np.where(
+                    group['fifty_two_week_high'] > 0,
+                    group['close_price'] / group['fifty_two_week_high'],
+                    0
+                )
+            if 'fifty_two_week_low' in group.columns:
+                group['price_vs_52wk_low'] = np.where(
+                    group['fifty_two_week_low'] > 0,
+                    group['close_price'] / group['fifty_two_week_low'],
+                    0
+                )
+            if 'two_hundred_day_avg' in group.columns:
+                group['price_vs_200d_avg'] = np.where(
+                    group['two_hundred_day_avg'] > 0,
+                    group['close_price'] / group['two_hundred_day_avg'],
+                    0
+                )
+            
             # === Date Features ===
             group['day_of_week'] = pd.to_datetime(group['trading_date']).dt.dayofweek
             group['month'] = pd.to_datetime(group['trading_date']).dt.month
@@ -679,6 +781,42 @@ class NSETradingSignalPredictor:
             return None
         
         result_df = pd.concat(grouped_results, ignore_index=True)
+        
+        # === Sector Encoding (use saved encoder for consistency with training) ===
+        if 'sector' in result_df.columns and self.sector_encoder is not None:
+            known_classes = set(self.sector_encoder.classes_)
+            sector_values = result_df['sector'].fillna('Unknown')
+            # Handle unseen sectors gracefully
+            sector_values = sector_values.apply(lambda x: x if x in known_classes else 'Unknown')
+            result_df['sector_encoded'] = self.sector_encoder.transform(sector_values)
+        else:
+            result_df['sector_encoded'] = 0
+        
+        # === Market Context: Sector-specific NIFTY index return mapping ===
+        NSE_SECTOR_TO_INDEX = {
+            'Information Technology': 'nifty_it_return_1d',
+            'Financial Services': 'nifty_bank_return_1d',
+            'Banks': 'nifty_bank_return_1d',
+            'Healthcare': 'nifty_pharma_return_1d',
+            'Pharmaceuticals': 'nifty_pharma_return_1d',
+            'Automobile': 'nifty_auto_return_1d',
+            'Auto Components': 'nifty_auto_return_1d',
+            'Fast Moving Consumer Goods': 'nifty_fmcg_return_1d',
+            'Consumer Staples': 'nifty_fmcg_return_1d',
+        }
+        if 'sector' in result_df.columns and 'nifty_it_return_1d' in result_df.columns:
+            result_df['sector_index_return_1d'] = result_df['sector'].map(
+                lambda s: NSE_SECTOR_TO_INDEX.get(s, 'nifty50_return_1d')
+            )
+            result_df['sector_index_return_1d'] = result_df.apply(
+                lambda row: row.get(row['sector_index_return_1d'], 0) if pd.notna(row.get('sector_index_return_1d')) else 0,
+                axis=1
+            )
+        
+        # Ensure fundamental feature defaults if columns missing
+        for fund_col in ['price_vs_52wk_high', 'price_vs_52wk_low', 'price_vs_200d_avg', 'profit_margin']:
+            if fund_col not in result_df.columns:
+                result_df[fund_col] = 0
         
         # Handle infinities and NaN
         result_df = result_df.replace([np.inf, -np.inf], np.nan)

@@ -1,34 +1,48 @@
-# Copilot Instructions for SQL Server ML Project
-
-<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+# Copilot Instructions — sqlserver_copilot_nse
 
 ## Project Context
-This is a Python-based machine learning project that connects to SQL Server databases for data analysis and model development.
+This is the **NSE ML training pipeline** — part of a 7-repo stock trading analytics platform. Trains a 5-model ensemble (RF/GB/ET/LR/Voting) + 4 price regressors to predict Buy/Sell signals for NSE 500 stocks.
+
+## Key Architecture Rules
+- Reads from `nse_500_hist_data` (VARCHAR prices — always CAST to FLOAT)
+- Writes to `ml_nse_trading_predictions`, `ml_nse_predict_summary`, `ml_nse_technical_indicators`
+- 5-model ensemble with 90+ engineered features
+- Includes regression models for price target predictions
+- Connected to shared database `stockdata_db` on `localhost\MSSQLSERVER01` (Windows Auth)
 
 ## Key Technologies
-- **Database**: Microsoft SQL Server
-- **Language**: Python 3.x
+- **Database**: SQL Server (`stockdata_db` on `localhost\MSSQLSERVER01`, Windows Auth)
+- **Language**: Python 3.11+
 - **ML Libraries**: scikit-learn, pandas, numpy, matplotlib, seaborn
-- **Database Connectivity**: pyodbc, SQLAlchemy
-- **Development Environment**: Jupyter notebooks for interactive analysis
+- **Database Connectivity**: pyodbc (Trusted_Connection=yes)
+
+## Pipeline Flow
+1. `feature_engineering.py` — 90+ features from OHLCV + fundamentals
+2. `feature_selection.py` — Feature importance-based selection
+3. `ensemble_builder.py` — RF, GB, ET, LR, VotingClassifier
+4. `regressor_builder.py` — 4 regression models for price targets
+5. `predict_daily.py` — Daily predictions → SQL Server
+
+## Schedule
+- Daily 9:30 AM: NSE prediction run
+- Sunday 2:00 AM: Weekly full retrain (classifiers + regressors)
+
+## Database Notes
+- Price columns in `nse_500_hist_data` are **VARCHAR** — always use `CAST(close_price AS FLOAT)`
+- Predictions include sector and market_cap_category for stratified analysis
+- Summary table tracks multi-horizon success rates (1d/5d/10d)
 
 ## Code Guidelines
-- Use pyodbc or SQLAlchemy for database connections
+- Use pyodbc for database connections (Windows Integrated Auth)
 - Follow PEP 8 Python style guidelines
 - Use type hints where appropriate
 - Include proper error handling for database operations
 - Use environment variables for database credentials
-- Structure SQL queries for readability and maintainability
 
-## Security Considerations
-- Never hardcode database credentials
-- Use environment variables or secure configuration files
-- Implement proper connection pooling
-- Use parameterized queries to prevent SQL injection
-
-## ML Model Development
-- Start with exploratory data analysis (EDA)
-- Use appropriate data preprocessing techniques
-- Implement proper train/validation/test splits
-- Focus on feature engineering from SQL data
-- Include model evaluation metrics and visualization
+## Sibling Repositories (same database)
+- `sqlserver_copilot` — NASDAQ ML (Gradient Boosting, simpler)
+- `sqlserver_copilot_forex` — Forex ML (XGBoost/LightGBM, 3-class)
+- `stockdata_agenticai` — CrewAI agents that consume predictions
+- `streamlit-trading-dashboard` — Visualization
+- `sqlserver_mcp` — .NET MCP bridge
+- `stockanalysis` — Data ingestion ETL

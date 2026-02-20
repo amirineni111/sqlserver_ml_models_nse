@@ -1,0 +1,33 @@
+{
+  "date": "2026-02-13",
+  "generated_at": "2026-02-13T07:46:23.249900",
+  "summary": {
+    "analysis_date": "2026-02-13",
+    "total_predictions": 525,
+    "total_buy_signals": 51,
+    "total_sell_signals": 474,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1,
+    "medium_confidence_count": 401,
+    "low_confidence_count": 123,
+    "avg_confidence": 0.5749870857664168,
+    "avg_rsi": 55.313430690981136,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6009016280489006,
+    "run_timestamp": "2026-02-13 07:46:21.360000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MRF.NS",
+      "company": "MRF Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.10446917835948,
+      "close_price": 150105.0,
+      "rsi": 70.43018436472774,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

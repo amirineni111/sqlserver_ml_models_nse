@@ -1,0 +1,78 @@
+{
+  "date": "2026-02-16",
+  "generated_at": "2026-02-16T07:46:33.871364",
+  "summary": {
+    "analysis_date": "2026-02-16",
+    "total_predictions": 530,
+    "total_buy_signals": 114,
+    "total_sell_signals": 416,
+    "total_hold_signals": 0,
+    "high_confidence_count": 9,
+    "medium_confidence_count": 417,
+    "low_confidence_count": 104,
+    "avg_confidence": 0.5853687191466745,
+    "avg_rsi": 52.78882629177528,
+    "total_stocks_processed": 530,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6216253389397571,
+    "run_timestamp": "2026-02-16 07:46:32.300000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.40796347955,
+      "close_price": 463.05,
+      "rsi": 18.78704970360235,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHAKTIPUMP.NS",
+      "company": "Shakti Pumps India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.47522773630978,
+      "close_price": 564.7,
+      "rsi": 40.17460245934294,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.38226735734614,
+      "close_price": 247.75,
+      "rsi": 9.61968680089474,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SONATSOFTW.NS",
+      "company": "Sonata Software Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.08795966340975,
+      "close_price": 273.5,
+      "rsi": 32.37179487179483,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "ROUTE.NS",
+      "company": "Route Mobile Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.87774770278521,
+      "close_price": 533.95,
+      "rsi": 22.49589490968752,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "BLUEJET.NS",
+      "company": "Blue Jet Healthcare",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.43025730768264,
+      "close_price": 357.6,
+      "rsi": 32.24143279821719,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

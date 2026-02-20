@@ -1,0 +1,60 @@
+{
+  "date": "2026-02-17",
+  "generated_at": "2026-02-17T07:46:38.822076",
+  "summary": {
+    "analysis_date": "2026-02-17",
+    "total_predictions": 530,
+    "total_buy_signals": 92,
+    "total_sell_signals": 438,
+    "total_hold_signals": 0,
+    "high_confidence_count": 7,
+    "medium_confidence_count": 433,
+    "low_confidence_count": 90,
+    "avg_confidence": 0.5876565671162148,
+    "avg_rsi": 54.74958534342229,
+    "total_stocks_processed": 530,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6216253389397571,
+    "run_timestamp": "2026-02-17 07:46:36.573000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.27154657758157,
+      "close_price": 252.3,
+      "rsi": 14.170258620689737,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "BLUEJET.NS",
+      "company": "Blue Jet Healthcare",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.62848020190191,
+      "close_price": 361.9,
+      "rsi": 32.771593138862045,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHAKTIPUMP.NS",
+      "company": "Shakti Pumps India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.201410797716,
+      "close_price": 574.65,
+      "rsi": 38.87877981267738,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "RTNINDIA.NS",
+      "company": "RattanIndia Enterprises Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.16047535256413,
+      "close_price": 33.62,
+      "rsi": 46.07843137254866,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
