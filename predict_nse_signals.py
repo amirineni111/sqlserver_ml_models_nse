@@ -567,6 +567,36 @@ class NSETradingSignalPredictor:
         
         return df
     
+    def _merge_calendar_features(self, df, market='NSE'):
+        """Load calendar features (holidays, short weeks, expiry) and merge on trading_date.
+        
+        Adds pre/post holiday flags, short week indicators, options expiry,
+        and cross-market holiday awareness from the shared market_calendar table.
+        """
+        try:
+            cal_query = f"""
+            SELECT calendar_date,
+                   is_pre_holiday, is_post_holiday, is_short_week,
+                   trading_days_in_week, is_month_end, is_month_start,
+                   is_quarter_end, is_options_expiry,
+                   days_until_next_holiday, days_since_last_holiday,
+                   other_market_closed
+            FROM dbo.vw_market_calendar_features
+            WHERE market = '{market}'
+            """
+            df_cal = self.db.execute_query(cal_query)
+            
+            if not df_cal.empty:
+                df['trading_date'] = pd.to_datetime(df['trading_date'])
+                df_cal['calendar_date'] = pd.to_datetime(df_cal['calendar_date'])
+                df = df.merge(df_cal, left_on='trading_date', right_on='calendar_date', how='left')
+                df = df.drop(columns=['calendar_date'], errors='ignore')
+                safe_print(f"  [OK] Calendar features merged: {len(df_cal)} dates")
+        except Exception as e:
+            safe_print(f"  [WARN] Could not load calendar features: {e}")
+        
+        return df
+    
     def calculate_technical_indicators(self, df, enriched_data=None):
         """Calculate technical indicators for NSE data - consistent with training"""
         if df is None or df.empty:
@@ -585,6 +615,9 @@ class NSETradingSignalPredictor:
         
         # Load and merge market context (VIX, NIFTY, India sector indices, treasury)
         df_features = self._merge_market_context(df_features)
+        
+        # Load and merge calendar features (holidays, short weeks, expiry)
+        df_features = self._merge_calendar_features(df_features, market='NSE')
         
         # Merge enriched features if available
         if enriched_data:
