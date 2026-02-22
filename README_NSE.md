@@ -128,7 +128,7 @@ python export_nse_results.py --watchlist
 ### Database Connection
 Configure your SQL Server connection in `.env` file:
 ```env
-SQL_SERVER=192.168.87.27\MSSQLSERVER01
+SQL_SERVER=192.168.86.55\MSSQLSERVER01
 SQL_DATABASE=stockdata_db
 SQL_USERNAME=remote_user
 SQL_PASSWORD=YourStrongPassword123!
