@@ -29,6 +29,7 @@ import pickle
 import warnings
 import joblib
 import shutil
+import json
 from datetime import datetime, timedelta
 from pathlib import Path
 import sys
@@ -60,6 +61,7 @@ from sklearn.metrics import (
     mean_absolute_error, mean_squared_error, r2_score
 )
 from sklearn.calibration import CalibratedClassifierCV
+from sklearn.feature_selection import mutual_info_classif
 
 
 class PurgedTimeSeriesSplit:
@@ -775,212 +777,356 @@ class NSEModelRetrainer:
         return df_target
     
     def engineer_features(self, df):
-        """Apply comprehensive feature engineering for NSE data"""
-        print("[FEATURES] Performing feature engineering...")
-        
-        df_features = df.copy()
-        df_features = df_features.sort_values(['ticker', 'trading_date'])
-        
-        # Process per ticker for time-series features
-        grouped_results = []
-        ticker_count = 0
-        
-        for ticker, group in df_features.groupby('ticker'):
-            group = group.sort_values('trading_date').reset_index(drop=True)
-            
-            # Skip tickers with insufficient data (need at least 60 days for indicators)
-            if len(group) < 60:
-                continue
-            
-            ticker_count += 1
-            
-            # === Basic Price Features ===
-            group['daily_return'] = group['close_price'].pct_change() * 100
-            group['daily_volatility'] = group['daily_return'].rolling(window=10).std()
-            group['volume_millions'] = group['volume'] / 1_000_000
-            group['price_range'] = group['high_price'] - group['low_price']
-            
-            # Safe division for price_position
-            range_nonzero = group['price_range'].replace(0, np.nan)
-            group['price_position'] = (group['close_price'] - group['low_price']) / range_nonzero
-            
-            group['gap'] = (group['open_price'] - group['close_price'].shift(1)) / group['close_price'].shift(1) * 100
-            group['volume_price_trend'] = (group['daily_return'] * group['volume']).rolling(window=10).mean()
-            
-            # === RSI Features (calculate if not from DB) ===
-            if 'RSI' not in group.columns or group['RSI'].isna().all():
-                delta = group['close_price'].diff()
-                gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-                loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-                rs = gain / loss
-                group['RSI'] = 100 - (100 / (1 + rs))
-            
-            group['rsi_oversold'] = (group['RSI'] < 30).astype(int)
-            group['rsi_overbought'] = (group['RSI'] > 70).astype(int)
-            group['rsi_momentum'] = group['RSI'].diff()
-            
-            # === Moving Averages ===
-            for period in [5, 10, 20, 50]:
-                group[f'sma_{period}'] = group['close_price'].rolling(window=period).mean()
-                group[f'ema_{period}'] = group['close_price'].ewm(span=period, adjust=False).mean()
-            
-            # === MACD (calculated for consistency) ===
-            ema_12 = group['close_price'].ewm(span=12, adjust=False).mean()
-            ema_26 = group['close_price'].ewm(span=26, adjust=False).mean()
-            group['macd'] = ema_12 - ema_26
-            group['macd_signal'] = group['macd'].ewm(span=9, adjust=False).mean()
-            group['macd_histogram'] = group['macd'] - group['macd_signal']
-            
-            # === Price vs MA Ratios (normalized features - proven high impact) ===
-            group['price_vs_sma20'] = group['close_price'] / group['sma_20']
-            group['price_vs_sma50'] = group['close_price'] / group['sma_50']
-            group['price_vs_ema20'] = group['close_price'] / group['ema_20']
-            
-            # === MA Crossover Ratios ===
-            group['sma20_vs_sma50'] = group['sma_20'] / group['sma_50']
-            group['ema20_vs_ema50'] = group['ema_20'] / group['ema_50']
-            group['sma5_vs_sma20'] = group['sma_5'] / group['sma_20']
-            
-            # === Volume Indicators ===
-            group['volume_sma_20'] = group['volume'].rolling(window=20).mean()
-            vol_sma_nonzero = group['volume_sma_20'].replace(0, np.nan)
-            group['volume_sma_ratio'] = group['volume'] / vol_sma_nonzero
-            group['vol_change_ratio'] = group['volume'].pct_change()
-            
-            # === Price Momentum ===
-            group['price_momentum_5'] = group['close_price'] / group['close_price'].shift(5)
-            group['price_momentum_10'] = group['close_price'] / group['close_price'].shift(10)
-            
-            # === Volatility Features ===
-            group['price_volatility_10'] = group['close_price'].pct_change().rolling(window=10).std()
-            group['price_volatility_20'] = group['close_price'].pct_change().rolling(window=20).std()
-            
-            # === Trend Strength ===
-            group['trend_strength_10'] = group['close_price'].rolling(window=10).apply(
-                lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0, raw=False
+        """VECTORIZED feature engineering for NSE data (matching NASDAQ approach for speed)"""
+        print("[FEATURES] Engineering features (vectorized)...")
+
+        df = df.copy()
+        df = df.sort_values(['ticker', 'trading_date']).reset_index(drop=True)
+        df['trading_date'] = pd.to_datetime(df['trading_date'])
+
+        price_col = 'close_price'
+        high_col = 'high_price'
+        low_col = 'low_price'
+        volume_col = 'volume'
+
+        # === Basic Price Features ===
+        df['daily_volatility'] = ((df[high_col] - df[low_col]) / df[price_col]) * 100
+        df['daily_return'] = ((df[price_col] - df['open_price']) / df['open_price']) * 100
+        df['volume_millions'] = df[volume_col] / 1_000_000
+        df['price_range'] = df[high_col] - df[low_col]
+        df['price_position'] = np.where(
+            df['price_range'] > 0,
+            (df[price_col] - df[low_col]) / df['price_range'],
+            0.5
+        )
+
+        # Gap (normalized)
+        gap_raw = (df.groupby('ticker')['open_price'].transform(lambda x: x.diff())
+                   - df.groupby('ticker')[price_col].transform(lambda x: x.shift(1)))
+        df['gap'] = np.where(df[price_col] > 0, gap_raw / df[price_col] * 100, 0)
+
+        # Volume-price trend
+        df['volume_price_trend'] = df[volume_col] * df['daily_return']
+
+        # === RSI Features ===
+        if 'RSI' not in df.columns or df['RSI'].isna().all():
+            # Calculate RSI if not from DB
+            delta = df.groupby('ticker')[price_col].transform(lambda x: x.diff())
+            gain = delta.where(delta > 0, 0).groupby(df['ticker']).transform(lambda x: x.rolling(14, min_periods=1).mean())
+            loss = (-delta.where(delta < 0, 0)).groupby(df['ticker']).transform(lambda x: x.rolling(14, min_periods=1).mean())
+            rs = gain / loss.replace(0, np.nan)
+            df['RSI'] = 100 - (100 / (1 + rs))
+        df['rsi_oversold'] = (df['RSI'] < 30).astype(int)
+        df['rsi_overbought'] = (df['RSI'] > 70).astype(int)
+        df['rsi_momentum'] = df.groupby('ticker')['RSI'].transform(lambda x: x.diff())
+
+        # === Time Features ===
+        df['day_of_week'] = df['trading_date'].dt.dayofweek
+        df['month'] = df['trading_date'].dt.month
+
+        # === Moving Averages (vectorized) ===
+        print("[FEATURES] Adding technical indicators (vectorized)...")
+        for period in [5, 10, 20, 50]:
+            df[f'sma_{period}'] = df.groupby('ticker')[price_col].transform(
+                lambda x: x.rolling(window=period, min_periods=1).mean()
             )
-            
-            # === Multi-day Returns (lagged, so no look-ahead) ===
-            group['return_1d'] = group['close_price'].pct_change() * 100
-            group['return_3d'] = group['close_price'].pct_change(3) * 100
-            group['return_5d'] = group['close_price'].pct_change(5) * 100
-            
-            # === Candlestick Features ===
-            group['high_low_ratio'] = group['high_price'] / group['low_price']
-            group['close_open_ratio'] = group['close_price'] / group['open_price']
-            group['upper_shadow'] = (group['high_price'] - np.maximum(group['open_price'], group['close_price'])) / group['price_range'].replace(0, np.nan)
-            group['lower_shadow'] = (np.minimum(group['open_price'], group['close_price']) - group['low_price']) / group['price_range'].replace(0, np.nan)
-            
-            # === Bollinger Band Features (use from DB if available, else calculate) ===
-            if 'bb_upper' not in group.columns or group['bb_upper'].isna().all():
-                bb_sma = group['close_price'].rolling(window=20).mean()
-                bb_std = group['close_price'].rolling(window=20).std()
-                group['bb_upper'] = bb_sma + (2 * bb_std)
-                group['bb_lower'] = bb_sma - (2 * bb_std)
-            
-            bb_range = (group['bb_upper'] - group['bb_lower']).replace(0, np.nan)
-            group['bb_width'] = bb_range / group['close_price']
-            group['bb_position'] = (group['close_price'] - group['bb_lower']) / bb_range
-            
-            # === Stochastic Features (use from DB if available, else calculate) ===
-            if 'stoch_k' not in group.columns or group['stoch_k'].isna().all():
-                low_14 = group['low_price'].rolling(window=14).min()
-                high_14 = group['high_price'].rolling(window=14).max()
-                stoch_range = (high_14 - low_14).replace(0, np.nan)
-                group['stoch_k'] = ((group['close_price'] - low_14) / stoch_range) * 100
-                group['stoch_d'] = group['stoch_k'].rolling(window=3).mean()
-                group['stoch_momentum'] = group['stoch_k'] - group['stoch_d']
-            
-            # === ATR Features (use from DB if available, else calculate) ===
-            if 'atr_14' not in group.columns or group['atr_14'].isna().all():
-                high_low = group['high_price'] - group['low_price']
-                high_close = abs(group['high_price'] - group['close_price'].shift(1))
-                low_close = abs(group['low_price'] - group['close_price'].shift(1))
-                true_range = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
-                group['atr_14'] = true_range.rolling(window=14).mean()
-            
-            group['atr_pct'] = group['atr_14'] / group['close_price'] * 100
-            
-            # === Market Regime Detection ===
-            # Helps model recognize trending vs mean-reverting environments
-            
-            # SMA trend direction: 5-day slope of 20-SMA (positive = uptrend)
-            sma20 = group['close_price'].rolling(window=20).mean()
-            group['regime_sma20_slope'] = sma20.pct_change(5) * 100
-            
-            # ADX-like trend strength (simplified directional movement)
-            up_move = group['high_price'].diff()
-            down_move = -group['low_price'].diff()
-            pos_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0)
-            neg_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0)
-            pos_dm_smooth = pd.Series(pos_dm, index=group.index).rolling(14).mean()
-            neg_dm_smooth = pd.Series(neg_dm, index=group.index).rolling(14).mean()
-            dm_sum = pos_dm_smooth + neg_dm_smooth
-            dx = np.where(dm_sum > 0, np.abs(pos_dm_smooth - neg_dm_smooth) / dm_sum * 100, 0)
-            group['regime_adx'] = pd.Series(dx, index=group.index).rolling(14).mean()
-            
-            # Volatility regime: short-term vol vs long-term vol (>1 = high vol)
-            vol_short = group['close_price'].pct_change().rolling(10).std()
-            vol_long = group['close_price'].pct_change().rolling(60).std()
-            group['regime_vol_ratio'] = np.where(vol_long > 0, vol_short / vol_long, 1.0)
-            
-            # Mean reversion: distance from 50-SMA in ATR units
-            sma50 = group['close_price'].rolling(window=50).mean()
-            group['regime_mean_reversion'] = np.where(
-                group['atr_14'] > 0,
-                (group['close_price'] - sma50) / group['atr_14'],
-                0
+            df[f'ema_{period}'] = df.groupby('ticker')[price_col].transform(
+                lambda x: x.ewm(span=period, min_periods=1).mean()
             )
-            
-            # Trend consistency: % of last 20 days moving in overall direction
-            overall_dir = np.sign(group['close_price'].diff(20))
-            daily_dirs = np.sign(group['close_price'].diff(1))
-            consistent = (daily_dirs == overall_dir).astype(float)
-            group['regime_trend_consistency'] = consistent.rolling(20).mean()
-            
-            # === Fundamental Features (from nse_500_fundamentals) ===
-            # Computed price vs key fundamental levels (relative/normalized)
-            if 'fifty_two_week_high' in group.columns:
-                group['price_vs_52wk_high'] = np.where(
-                    group['fifty_two_week_high'] > 0,
-                    group['close_price'] / group['fifty_two_week_high'],
-                    0
+
+        # === MACD (vectorized) ===
+        ema_12 = df.groupby('ticker')[price_col].transform(lambda x: x.ewm(span=12, min_periods=1).mean())
+        ema_26 = df.groupby('ticker')[price_col].transform(lambda x: x.ewm(span=26, min_periods=1).mean())
+        df['macd'] = ema_12 - ema_26
+        df['macd_signal'] = df.groupby('ticker')['macd'].transform(lambda x: x.ewm(span=9, min_periods=1).mean())
+        df['macd_histogram'] = df['macd'] - df['macd_signal']
+
+        # === Price vs MA Ratios (safe division) ===
+        df['price_vs_sma20'] = np.where(df['sma_20'] > 0, df[price_col] / df['sma_20'], 1.0)
+        df['price_vs_sma50'] = np.where(df['sma_50'] > 0, df[price_col] / df['sma_50'], 1.0)
+        df['price_vs_ema20'] = np.where(df['ema_20'] > 0, df[price_col] / df['ema_20'], 1.0)
+        df['sma20_vs_sma50'] = np.where(df['sma_50'] > 0, df['sma_20'] / df['sma_50'], 1.0)
+        df['ema20_vs_ema50'] = np.where(df['ema_50'] > 0, df['ema_20'] / df['ema_50'], 1.0)
+        df['sma5_vs_sma20'] = np.where(df['sma_20'] > 0, df['sma_5'] / df['sma_20'], 1.0)
+
+        # === SMA 100/200 from DB (or calculate fallback) ===
+        if 'sma_200' not in df.columns or df['sma_200'].isna().all():
+            df['sma_200'] = df.groupby('ticker')[price_col].transform(
+                lambda x: x.rolling(window=200, min_periods=1).mean()
+            )
+        if 'sma_100' not in df.columns or df['sma_100'].isna().all():
+            df['sma_100'] = df.groupby('ticker')[price_col].transform(
+                lambda x: x.rolling(window=100, min_periods=1).mean()
+            )
+        df['price_vs_sma100'] = np.where(df['sma_100'] > 0, df[price_col] / df['sma_100'], 1.0)
+        df['price_vs_sma200'] = np.where(df['sma_200'] > 0, df[price_col] / df['sma_200'], 1.0)
+
+        # === SMA Flag encoding (Above/Below -> 1/-1) ===
+        sma_flag_map = {'Above': 1, 'Below': -1, 'BULLISH': 1, 'BEARISH': -1}
+        for flag_col in ['SMA_200_Flag', 'SMA_100_Flag', 'SMA_50_Flag', 'SMA_20_Flag']:
+            target_col = flag_col.lower()
+            if flag_col in df.columns:
+                df[target_col] = df[flag_col].map(sma_flag_map).fillna(0).astype(float)
+                df.drop(columns=[flag_col], inplace=True, errors='ignore')
+            else:
+                df[target_col] = 0
+
+        # === MACD crossover signal encoding ===
+        if 'macd_crossover_signal' in df.columns:
+            df['macd_signal_strength'] = df['macd_crossover_signal'].map(
+                self.signal_strength_map
+            ).fillna(0).astype(float)
+            df.drop(columns=['macd_crossover_signal'], inplace=True, errors='ignore')
+        else:
+            df['macd_signal_strength'] = 0
+
+        # === Volume Indicators ===
+        df['volume_sma_20'] = df.groupby('ticker')[volume_col].transform(
+            lambda x: x.rolling(window=20, min_periods=1).mean()
+        )
+        df['volume_sma_ratio'] = np.where(df['volume_sma_20'] > 0, df[volume_col] / df['volume_sma_20'], 1.0)
+        df['vol_change_ratio'] = df.groupby('ticker')[volume_col].transform(lambda x: x.pct_change())
+
+        # === Momentum ===
+        df['price_momentum_5'] = df.groupby('ticker')[price_col].transform(lambda x: x / x.shift(5))
+        df['price_momentum_10'] = df.groupby('ticker')[price_col].transform(lambda x: x / x.shift(10))
+
+        # === Volatility ===
+        df['price_volatility_10'] = df.groupby('ticker')[price_col].transform(
+            lambda x: x.pct_change().rolling(window=10, min_periods=1).std()
+        )
+        df['price_volatility_20'] = df.groupby('ticker')[price_col].transform(
+            lambda x: x.pct_change().rolling(window=20, min_periods=1).std()
+        )
+
+        # === Trend Strength ===
+        df['trend_strength_10'] = df.groupby('ticker')[price_col].transform(
+            lambda x: x.rolling(window=10, min_periods=1).apply(
+                lambda y: (y.iloc[-1] - y.iloc[0]) / y.std() if len(y) > 1 and y.std() != 0 else 0
+            )
+        )
+
+        # === Bollinger Bands (use DB if available, else calculate) ===
+        if 'bb_upper' in df.columns and df['bb_upper'].notna().any():
+            bb_upper = df['bb_upper']
+            bb_lower = df['bb_lower']
+        else:
+            bb_sma = df.groupby('ticker')[price_col].transform(lambda x: x.rolling(window=20, min_periods=1).mean())
+            bb_std = df.groupby('ticker')[price_col].transform(lambda x: x.rolling(window=20, min_periods=1).std())
+            bb_upper = bb_sma + 2 * bb_std
+            bb_lower = bb_sma - 2 * bb_std
+        bb_range = bb_upper - bb_lower
+        df['bb_width'] = np.where(df[price_col] > 0, bb_range / df[price_col], 0)
+        df['bb_position'] = np.where(bb_range > 0, (df[price_col] - bb_lower) / bb_range, 0.5)
+        # Drop raw BB columns
+        df.drop(columns=['bb_upper', 'bb_lower', 'bb_sma20', 'bb_close'], inplace=True, errors='ignore')
+
+        # === Stochastic Oscillator (use DB if available, else calculate) ===
+        if 'stoch_k' in df.columns and df['stoch_k'].notna().any():
+            low_14 = df.groupby('ticker')[low_col].transform(lambda x: x.rolling(window=14, min_periods=1).min())
+            high_14 = df.groupby('ticker')[high_col].transform(lambda x: x.rolling(window=14, min_periods=1).max())
+            stoch_range = high_14 - low_14
+            calc_k = np.where(stoch_range > 0, (df[price_col] - low_14) / stoch_range * 100, 50)
+            df['stoch_k'] = df['stoch_k'].fillna(pd.Series(calc_k, index=df.index))
+            calc_d = df.groupby('ticker')['stoch_k'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())
+            df['stoch_d'] = df['stoch_d'].fillna(calc_d) if 'stoch_d' in df.columns else calc_d
+            if 'stoch_momentum' not in df.columns or df['stoch_momentum'].isna().all():
+                df['stoch_momentum'] = df['stoch_k'] - df['stoch_d']
+        else:
+            low_14 = df.groupby('ticker')[low_col].transform(lambda x: x.rolling(window=14, min_periods=1).min())
+            high_14 = df.groupby('ticker')[high_col].transform(lambda x: x.rolling(window=14, min_periods=1).max())
+            stoch_range = high_14 - low_14
+            df['stoch_k'] = np.where(stoch_range > 0, (df[price_col] - low_14) / stoch_range * 100, 50)
+            df['stoch_d'] = df.groupby('ticker')['stoch_k'].transform(
+                lambda x: x.rolling(window=3, min_periods=1).mean()
+            )
+            df['stoch_momentum'] = df['stoch_k'] - df['stoch_d']
+
+        # === ATR (use DB if available, else calculate) ===
+        prev_close = df.groupby('ticker')[price_col].transform(lambda x: x.shift(1))
+        high_low = df[high_col] - df[low_col]
+        high_close = (df[high_col] - prev_close).abs()
+        low_close = (df[low_col] - prev_close).abs()
+        true_range = np.maximum(high_low, np.maximum(high_close, low_close))
+        if 'atr_14' in df.columns and df['atr_14'].notna().any():
+            df['atr_14'] = df['atr_14'].fillna(
+                pd.Series(true_range).groupby(df['ticker']).transform(
+                    lambda x: x.rolling(window=14, min_periods=1).mean()
                 )
-            if 'fifty_two_week_low' in group.columns:
-                group['price_vs_52wk_low'] = np.where(
-                    group['fifty_two_week_low'] > 0,
-                    group['close_price'] / group['fifty_two_week_low'],
-                    0
-                )
-            if 'two_hundred_day_avg' in group.columns:
-                group['price_vs_200d_avg'] = np.where(
-                    group['two_hundred_day_avg'] > 0,
-                    group['close_price'] / group['two_hundred_day_avg'],
-                    0
-                )
-            
-            # === Date Features ===
-            trading_dates = pd.to_datetime(group['trading_date'])
-            group['day_of_week'] = trading_dates.dt.dayofweek
-            group['month'] = trading_dates.dt.month
-            
-            grouped_results.append(group)
-        
-        if not grouped_results:
-            raise ValueError("No valid data after feature engineering")
-        
-        result_df = pd.concat(grouped_results, ignore_index=True)
-        
-        # === Sector Encoding (label encoded - works well with tree-based models) ===
-        if 'sector' in result_df.columns:
+            )
+        else:
+            df['_true_range'] = true_range
+            df['atr_14'] = df.groupby('ticker')['_true_range'].transform(
+                lambda x: x.rolling(window=14, min_periods=1).mean()
+            )
+            df.drop(columns=['_true_range'], inplace=True, errors='ignore')
+        df['atr_pct'] = np.where(df[price_col] > 0, df['atr_14'] / df[price_col] * 100, 0)
+
+        # === Normalized MACD ===
+        df['macd_normalized'] = np.where(df[price_col] > 0, df['macd'] / df[price_col] * 100, 0)
+        df['macd_signal_normalized'] = np.where(df[price_col] > 0, df['macd_signal'] / df[price_col] * 100, 0)
+        df['macd_histogram_normalized'] = np.where(df[price_col] > 0, df['macd_histogram'] / df[price_col] * 100, 0)
+
+        # === Lagged Returns ===
+        for period in [1, 2, 3, 5, 10]:
+            df[f'return_{period}d'] = df.groupby('ticker')[price_col].transform(lambda x: x.pct_change(period))
+
+        # === RSI-Price Divergence ===
+        price_dir_5 = df.groupby('ticker')[price_col].transform(lambda x: np.sign(x.pct_change(5)))
+        rsi_dir_5 = df.groupby('ticker')['RSI'].transform(lambda x: np.sign(x.diff(5)))
+        df['rsi_price_divergence'] = (price_dir_5 != rsi_dir_5).astype(int)
+
+        # === Candlestick Features ===
+        df['high_low_ratio'] = np.where(df[low_col] > 0, df[high_col] / df[low_col], 1.0)
+        df['close_open_ratio'] = np.where(df['open_price'] > 0, df[price_col] / df['open_price'], 1.0)
+        df['upper_shadow'] = np.where(
+            df['price_range'] > 0,
+            (df[high_col] - np.maximum(df['open_price'], df[price_col])) / df['price_range'],
+            0
+        )
+        df['lower_shadow'] = np.where(
+            df['price_range'] > 0,
+            (np.minimum(df['open_price'], df[price_col]) - df[low_col]) / df['price_range'],
+            0
+        )
+
+        # ================================================================
+        # ENRICHED DB FEATURE ENCODING (Fibonacci, S/R, Patterns)
+        # ================================================================
+        print("[FEATURES] Encoding enriched DB signals...")
+
+        # --- Fibonacci signal ---
+        if 'fib_trade_signal' in df.columns:
+            df['fib_signal_strength'] = df['fib_trade_signal'].map(
+                self.signal_strength_map
+            ).fillna(0).astype(float)
+            df.drop(columns=['fib_trade_signal'], inplace=True, errors='ignore')
+        else:
+            df['fib_signal_strength'] = 0
+        if 'fib_distance_pct' not in df.columns:
+            df['fib_distance_pct'] = 0
+
+        # --- Support/Resistance signals ---
+        if 'pivot_status' in df.columns:
+            df['sr_pivot_position'] = df['pivot_status'].map(
+                self.position_map
+            ).fillna(0).astype(float)
+            df.drop(columns=['pivot_status'], inplace=True, errors='ignore')
+        else:
+            df['sr_pivot_position'] = 0
+
+        if 'sr_trade_signal' in df.columns:
+            df['sr_signal_strength'] = df['sr_trade_signal'].map(
+                self.signal_strength_map
+            ).fillna(0).astype(float)
+            df.drop(columns=['sr_trade_signal'], inplace=True, errors='ignore')
+        else:
+            df['sr_signal_strength'] = 0
+
+        for col in ['sr_distance_to_support_pct', 'sr_distance_to_resistance_pct']:
+            if col not in df.columns:
+                df[col] = 0
+
+        # --- Pattern signals ---
+        if 'pattern_signal' in df.columns:
+            df['pattern_signal_strength'] = df['pattern_signal'].map(
+                self.signal_strength_map
+            ).fillna(0).astype(float)
+            df.drop(columns=['pattern_signal'], inplace=True, errors='ignore')
+        else:
+            df['pattern_signal_strength'] = 0
+
+        # Pattern binary flags (already 0/1 from SQL CASE)
+        for col in ['has_doji', 'has_hammer', 'has_shooting_star',
+                     'has_bullish_engulfing', 'has_bearish_engulfing',
+                     'has_morning_star', 'has_evening_star']:
+            if col not in df.columns:
+                df[col] = 0
+            else:
+                df[col] = df[col].fillna(0).astype(float)
+
+        # ================================================================
+        # MARKET REGIME DETECTION
+        # ================================================================
+        print("[FEATURES] Adding market regime features...")
+
+        # SMA trend direction
+        df['regime_sma20_slope'] = df.groupby('ticker')[price_col].transform(
+            lambda x: x.rolling(window=20, min_periods=1).mean().pct_change(5) * 100
+        )
+
+        # ADX-like trend strength
+        up_move = df.groupby('ticker')[high_col].transform(lambda x: x.diff())
+        down_move = -df.groupby('ticker')[low_col].transform(lambda x: x.diff())
+        pos_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0)
+        neg_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0)
+        df['_pos_dm'] = pos_dm
+        df['_neg_dm'] = neg_dm
+        pos_dm_smooth = df.groupby('ticker')['_pos_dm'].transform(lambda x: x.rolling(14, min_periods=1).mean())
+        neg_dm_smooth = df.groupby('ticker')['_neg_dm'].transform(lambda x: x.rolling(14, min_periods=1).mean())
+        dm_sum = pos_dm_smooth + neg_dm_smooth
+        dx = np.where(dm_sum > 0, np.abs(pos_dm_smooth - neg_dm_smooth) / dm_sum * 100, 0)
+        df['_dx'] = dx
+        df['regime_adx'] = df.groupby('ticker')['_dx'].transform(lambda x: x.rolling(14, min_periods=1).mean())
+        df.drop(columns=['_pos_dm', '_neg_dm', '_dx'], inplace=True, errors='ignore')
+
+        # Volatility regime
+        vol_short = df.groupby('ticker')[price_col].transform(lambda x: x.pct_change().rolling(10, min_periods=1).std())
+        vol_long = df.groupby('ticker')[price_col].transform(lambda x: x.pct_change().rolling(60, min_periods=1).std())
+        df['regime_vol_ratio'] = np.where(vol_long > 0, vol_short / vol_long, 1.0)
+
+        # Mean reversion indicator
+        sma50 = df.groupby('ticker')[price_col].transform(lambda x: x.rolling(window=50, min_periods=1).mean())
+        df['regime_mean_reversion'] = np.where(
+            df['atr_14'] > 0,
+            (df[price_col] - sma50) / df['atr_14'],
+            0
+        )
+
+        # Trend consistency
+        overall_dir = df.groupby('ticker')[price_col].transform(lambda x: np.sign(x.diff(20)))
+        daily_dirs = df.groupby('ticker')[price_col].transform(lambda x: np.sign(x.diff(1)))
+        consistent = (daily_dirs == overall_dir).astype(float)
+        df['regime_trend_consistency'] = consistent.groupby(df['ticker']).transform(
+            lambda x: x.rolling(20, min_periods=1).mean()
+        )
+
+        # ================================================================
+        # FUNDAMENTAL FEATURES
+        # ================================================================
+        print("[FEATURES] Adding fundamental features...")
+
+        if 'fifty_two_week_high' in df.columns:
+            df['price_vs_52wk_high'] = np.where(
+                df['fifty_two_week_high'] > 0, df[price_col] / df['fifty_two_week_high'], 0
+            )
+        else:
+            df['price_vs_52wk_high'] = 0
+
+        if 'fifty_two_week_low' in df.columns:
+            df['price_vs_52wk_low'] = np.where(
+                df['fifty_two_week_low'] > 0, df[price_col] / df['fifty_two_week_low'], 0
+            )
+        else:
+            df['price_vs_52wk_low'] = 0
+
+        if 'two_hundred_day_avg' in df.columns:
+            df['price_vs_200d_avg'] = np.where(
+                df['two_hundred_day_avg'] > 0, df[price_col] / df['two_hundred_day_avg'], 0
+            )
+        else:
+            df['price_vs_200d_avg'] = 0
+
+        # Sector encoding
+        if 'sector' in df.columns:
             self.sector_encoder = LabelEncoder()
-            result_df['sector_encoded'] = self.sector_encoder.fit_transform(
-                result_df['sector'].fillna('Unknown')
+            df['sector_encoded'] = self.sector_encoder.fit_transform(
+                df['sector'].fillna('Unknown')
             )
             print(f"  Sectors found: {len(self.sector_encoder.classes_)} unique")
         else:
-            result_df['sector_encoded'] = 0
-        
+            df['sector_encoded'] = 0
+
         # === Market Context: Sector-specific NIFTY index return mapping ===
         NSE_SECTOR_TO_INDEX = {
             'Information Technology': 'nifty_it_return_1d',
@@ -993,29 +1139,42 @@ class NSEModelRetrainer:
             'Fast Moving Consumer Goods': 'nifty_fmcg_return_1d',
             'Consumer Staples': 'nifty_fmcg_return_1d',
         }
-        if 'sector' in result_df.columns and 'nifty_it_return_1d' in result_df.columns:
-            result_df['sector_index_return_1d'] = result_df['sector'].map(
-                lambda s: NSE_SECTOR_TO_INDEX.get(s, 'nifty50_return_1d')  # fallback to NIFTY 50
+        if 'sector' in df.columns and 'nifty_it_return_1d' in df.columns:
+            df['sector_index_return_1d'] = df['sector'].map(
+                lambda s: NSE_SECTOR_TO_INDEX.get(s, 'nifty50_return_1d')
             )
-            result_df['sector_index_return_1d'] = result_df.apply(
+            df['sector_index_return_1d'] = df.apply(
                 lambda row: row.get(row['sector_index_return_1d'], 0) if pd.notna(row.get('sector_index_return_1d')) else 0,
                 axis=1
             )
-            print(f"  Sector index return mapped for {result_df['sector_index_return_1d'].notna().sum()} rows")
-        
+        else:
+            df['sector_index_return_1d'] = 0
+
         # Ensure fundamental feature defaults if columns missing
         for fund_col in ['price_vs_52wk_high', 'price_vs_52wk_low', 'price_vs_200d_avg', 'profit_margin']:
-            if fund_col not in result_df.columns:
-                result_df[fund_col] = 0
-        
-        # Handle infinite values and NaN
-        result_df = result_df.replace([np.inf, -np.inf], np.nan)
-        result_df = result_df.fillna(method='bfill').fillna(method='ffill').fillna(0)
-        
-        print(f"[OK] Feature engineering complete: {result_df.shape[1]} columns, "
-              f"{ticker_count} tickers, {len(result_df):,} records")
-        
-        return result_df
+            if fund_col not in df.columns:
+                df[fund_col] = 0
+
+        # Drop raw DB/merge columns not needed as features
+        drop_cols = ['db_macd', 'db_macd_signal', 'company', 'rsi_trade_signal',
+                     'next_5d_close', 'next_3d_close', 'next_close', 'sector',
+                     'fifty_two_week_high', 'fifty_two_week_low', 'two_hundred_day_avg',
+                     'nifty50_close', 'dxy_close',
+                     # Individual NIFTY sector index columns (we use the mapped one)
+                     'nifty_it_return_1d', 'nifty_bank_return_1d',
+                     'nifty_pharma_return_1d', 'nifty_auto_return_1d',
+                     'nifty_fmcg_return_1d',
+                     # Raw pattern/signal columns already encoded
+                     'patterns_detected', 'bb_close', 'bb_sma20',
+                     ]
+        df.drop(columns=[c for c in drop_cols if c in df.columns], inplace=True, errors='ignore')
+
+        # Handle infinite values and NaN — forward fill only (no bfill to prevent leakage)
+        df = df.replace([np.inf, -np.inf], np.nan)
+        df = df.fillna(method='ffill').fillna(0)
+
+        print(f"[FEATURES] Complete — {df.shape[1]} columns, {df.shape[0]:,} rows")
+        return df
     
     def perform_eda(self, df):
         """Perform exploratory data analysis on NSE data"""
@@ -1056,42 +1215,109 @@ class NSEModelRetrainer:
         return {'data_shape': df.shape, 'unique_tickers': df['ticker'].nunique()}
     
     def prepare_ml_dataset(self, df):
-        """Prepare dataset for ML training with proper feature selection"""
+        """Prepare dataset for ML training with dynamic feature selection (mutual_info_classif)"""
         print("[PREP] Preparing ML dataset...")
-        
-        # Determine available features
-        available_features = [col for col in self.clf_feature_columns if col in df.columns]
-        missing_features = [col for col in self.clf_feature_columns if col not in df.columns]
-        
-        if missing_features:
-            print(f"  [WARN] Missing features ({len(missing_features)}): {missing_features[:5]}...")
-        
-        self.feature_columns = available_features
-        
+
+        target_column = 'direction_5d'
+
+        # Exclude non-feature columns — let mutual_info_classif decide what's useful
+        exclude_cols = ['trading_date', 'ticker', target_column, 'next_5d_return',
+                        'open_price', 'high_price', 'low_price', 'close_price', 'volume',
+                        'sector', 'industry', 'company_name']
+
+        feature_cols = [col for col in df.columns
+                        if col not in exclude_cols
+                        and df[col].dtype in ['float64', 'int64', 'float32', 'int32']]
+
         # Prepare X and y for classification (5-day direction target)
-        X = df[available_features].copy()
-        y_direction = df['direction_5d'].copy()
-        
+        X = df[feature_cols].copy()
+        y_direction = df[target_column].copy()
+
         # Regression target: 5-day return (matches classification horizon)
         y_return = df['next_5d_return'].copy()
-        
+
         # Remove any remaining invalid rows
         valid_mask = X.notna().all(axis=1) & y_direction.notna() & y_return.notna()
         X = X[valid_mask]
         y_direction = y_direction[valid_mask]
         y_return = y_return[valid_mask]
-        
+
         # Encode classification target
         direction_encoder = LabelEncoder()
         y_direction_encoded = direction_encoder.fit_transform(y_direction)
-        
-        print(f"[OK] ML dataset prepared (5-day horizon):")
-        print(f"  Features: {X.shape[1]}")
+
+        print(f"[PREP] Dataset ready:")
+        print(f"  Candidate features: {X.shape[1]}")
         print(f"  Samples: {X.shape[0]:,}")
         print(f"  Direction classes: {list(direction_encoder.classes_)}")
-        print(f"  Direction balance: {dict(zip(*np.unique(y_direction_encoded, return_counts=True)))}")
-        
-        return X, y_direction_encoded, y_return, direction_encoder
+        print(f"  Balance: {dict(zip(*np.unique(y_direction_encoded, return_counts=True)))}")
+
+        # ================================================================
+        # STRATIFIED FEATURE SELECTION (mutual_info_classif)
+        # Split features into market-wide (identical for all stocks on same day)
+        # and stock-specific, then select top from each category to avoid
+        # prediction bias where all stocks get identical signals.
+        # ================================================================
+        MARKET_WIDE_PATTERNS = [
+            'vix', 'india_vix', 'sp500', 'nifty50', 'nifty_', 'dxy', 'us_10y',
+            'sector_index_return', 'sector_etf',
+            'is_pre_holiday', 'is_post_holiday', 'is_short_week',
+            'trading_days_in_week', 'is_month_end', 'is_month_start',
+            'is_quarter_end', 'is_options_expiry',
+            'days_until_next_holiday', 'days_since_last_holiday',
+            'other_market_closed',
+        ]
+
+        print("[PREP] Running STRATIFIED feature selection (mutual_info_classif)...")
+        try:
+            mi_scores = mutual_info_classif(X, y_direction_encoded, random_state=42)
+            mi_ranking = pd.Series(mi_scores, index=feature_cols).sort_values(ascending=False)
+
+            # Classify features as market-wide vs stock-specific
+            market_features = []
+            stock_features = []
+            for feat in feature_cols:
+                is_market = any(pat in feat.lower() for pat in MARKET_WIDE_PATTERNS)
+                if is_market:
+                    market_features.append(feat)
+                else:
+                    stock_features.append(feat)
+
+            print(f"  Feature split: {len(market_features)} market-wide, {len(stock_features)} stock-specific")
+
+            # Select top from each category
+            n_market = min(8, len(market_features))
+            n_stock = min(22, len(stock_features))
+
+            market_ranking = mi_ranking[mi_ranking.index.isin(market_features)]
+            stock_ranking = mi_ranking[mi_ranking.index.isin(stock_features)]
+
+            selected_market = market_ranking.head(n_market).index.tolist()
+            selected_stock = stock_ranking.head(n_stock).index.tolist()
+            selected_features = selected_stock + selected_market
+
+            print(f"  Selected: {len(selected_stock)} stock-specific + {len(selected_market)} market-wide = {len(selected_features)} total")
+            print(f"  Stock-specific features:")
+            for i, feat in enumerate(selected_stock):
+                print(f"    {i+1:2d}. {feat} (MI={mi_ranking[feat]:.4f})")
+            print(f"  Market-wide features:")
+            for i, feat in enumerate(selected_market):
+                print(f"    {i+1:2d}. {feat} (MI={mi_ranking[feat]:.4f})")
+
+            # Save selected features for prediction consistency
+            features_path = self.nse_model_dir / 'selected_features.json'
+            with open(features_path, 'w') as f:
+                json.dump(selected_features, f, indent=2)
+            print(f"  Saved to {features_path}")
+
+            X = X[selected_features]
+            feature_cols = selected_features
+        except Exception as e:
+            print(f"  [WARN] Feature selection failed, using all features: {e}")
+
+        self.feature_columns = feature_cols
+
+        return X, y_direction_encoded, y_return, direction_encoder, feature_cols
     
     def train_classification_models(self, X, y, feature_cols):
         """Train ensemble of classification models for direction prediction"""
@@ -1405,20 +1631,21 @@ class NSEModelRetrainer:
             except Exception as e:
                 print(f"    [ERROR] {model_name}: {e}")
         
-        # Create regression ensemble
-        print("  Training Regression Ensemble...")
+        # Create regression ensemble using pre-fitted models
+        # (Avoids re-training timeout and pickle issues with VotingRegressor)
+        print("  Creating Pre-Fitted Regression Ensemble...")
         try:
-            reg_estimators = [
-                (name.lower().replace(' ', '_'), model)
-                for name, model in trained_models.items()
-            ]
-            
-            reg_ensemble = VotingRegressor(
-                estimators=reg_estimators,
-                n_jobs=1  # n_jobs=-1 can deadlock on Windows; use sequential
-            )
-            reg_ensemble.fit(X_train_scaled, y_train_clipped)
-            
+            class PreFittedEnsemble:
+                """Averages predictions from already-trained models."""
+                def __init__(self, models_dict):
+                    self.models = models_dict
+                def predict(self, X):
+                    preds = np.column_stack([
+                        m.predict(X) for m in self.models.values()
+                    ])
+                    return preds.mean(axis=1)
+
+            reg_ensemble = PreFittedEnsemble(trained_models)
             y_pred_ensemble = reg_ensemble.predict(X_test_scaled)
             ens_mae = mean_absolute_error(y_test, y_pred_ensemble)
             ens_direction = accuracy_score(
@@ -1467,16 +1694,22 @@ class NSEModelRetrainer:
         best_clf_path = self.nse_model_dir / 'nse_best_classifier.joblib'
         joblib.dump(clf_results['best_model'], best_clf_path)
         
-        # Save regression models
+        # Save regression models (try/except for unpicklable PreFittedEnsemble)
         for name, model in reg_results['trained_models'].items():
             safe_name = name.lower().replace(' ', '_')
             path = self.nse_model_dir / f'nse_reg_{safe_name}.joblib'
-            joblib.dump(model, path)
-            print(f"  [OK] Saved: {path}")
+            try:
+                joblib.dump(model, path)
+                print(f"  [OK] Saved: {path}")
+            except Exception as e:
+                print(f"  [SKIP] Cannot pickle {name}: {e}")
         
         # Save best regression model separately
         best_reg_path = self.nse_model_dir / 'nse_best_regressor.joblib'
-        joblib.dump(reg_results['best_model'], best_reg_path)
+        try:
+            joblib.dump(reg_results['best_model'], best_reg_path)
+        except Exception as e:
+            print(f"  [SKIP] Cannot pickle best regressor: {e}")
         
         # Save preprocessing artifacts
         joblib.dump(clf_results['scaler'], self.nse_model_dir / 'nse_scaler.joblib')
@@ -1543,28 +1776,26 @@ class NSEModelRetrainer:
             # Step 4: Merge enriched features
             df = self.merge_enriched_features(df, enriched_data)
             
-            # Step 5: Encode categorical signals to numeric
-            df = self.encode_signal_features(df)
-            
-            # Step 6: Feature engineering
+            # Step 5: Feature engineering (includes signal encoding — vectorized)
+            # Note: encode_signal_features() is now handled inside engineer_features()
             df_features = self.engineer_features(df)
             
-            # Step 7: Create target variable (next-day direction)
+            # Step 6: Create target variable (5-day direction)
             df_features = self.create_target_variable(df_features)
             
-            # Step 8: EDA
+            # Step 7: EDA
             self.perform_eda(df_features)
             
-            # Step 9: Prepare ML dataset
-            X, y_direction, y_return, direction_encoder = self.prepare_ml_dataset(df_features)
+            # Step 8: Prepare ML dataset (dynamic feature selection)
+            X, y_direction, y_return, direction_encoder, feature_cols = self.prepare_ml_dataset(df_features)
             
-            # Step 10: Train classification models
+            # Step 9: Train classification models
             clf_results = self.train_classification_models(X, y_direction, self.feature_columns)
             
-            # Step 11: Train regression models
+            # Step 10: Train regression models
             reg_results = self.train_regression_models(X, y_return, self.feature_columns)
             
-            # Step 12: Save artifacts
+            # Step 11: Save artifacts
             self.save_model_artifacts(clf_results, reg_results, direction_encoder)
             
             print("\n" + "=" * 80)

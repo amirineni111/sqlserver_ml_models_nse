@@ -693,6 +693,14 @@ class NSETradingSignalPredictor:
             group['ema20_vs_ema50'] = group['ema_20'] / group['ema_50']
             group['sma5_vs_sma20'] = group['sma_5'] / group['sma_20']
             
+            # === SMA 100/200 (from DB or calculated) ===
+            if 'sma_200' not in group.columns or group['sma_200'].isna().all():
+                group['sma_200'] = group['close_price'].rolling(window=200, min_periods=1).mean()
+            if 'sma_100' not in group.columns or group['sma_100'].isna().all():
+                group['sma_100'] = group['close_price'].rolling(window=100, min_periods=1).mean()
+            group['price_vs_sma100'] = np.where(group['sma_100'] > 0, group['close_price'] / group['sma_100'], 1.0)
+            group['price_vs_sma200'] = np.where(group['sma_200'] > 0, group['close_price'] / group['sma_200'], 1.0)
+            
             # === Volume ===
             group['volume_sma_20'] = group['volume'].rolling(window=20).mean()
             vol_sma_nonzero = group['volume_sma_20'].replace(0, np.nan)
@@ -714,8 +722,10 @@ class NSETradingSignalPredictor:
             
             # === Multi-day Returns ===
             group['return_1d'] = group['close_price'].pct_change() * 100
+            group['return_2d'] = group['close_price'].pct_change(2) * 100
             group['return_3d'] = group['close_price'].pct_change(3) * 100
             group['return_5d'] = group['close_price'].pct_change(5) * 100
+            group['return_10d'] = group['close_price'].pct_change(10) * 100
             
             # === Candlestick Features ===
             group['high_low_ratio'] = group['high_price'] / group['low_price']
@@ -752,6 +762,16 @@ class NSETradingSignalPredictor:
                 group['atr_14'] = true_range.rolling(window=14).mean()
             
             group['atr_pct'] = group['atr_14'] / group['close_price'] * 100
+            
+            # === Normalized MACD (matches training) ===
+            group['macd_normalized'] = np.where(group['close_price'] > 0, group['macd'] / group['close_price'] * 100, 0)
+            group['macd_signal_normalized'] = np.where(group['close_price'] > 0, group['macd_signal'] / group['close_price'] * 100, 0)
+            group['macd_histogram_normalized'] = np.where(group['close_price'] > 0, group['macd_histogram'] / group['close_price'] * 100, 0)
+            
+            # === RSI-Price Divergence (matches training) ===
+            price_dir_5 = np.sign(group['close_price'].pct_change(5))
+            rsi_dir_5 = np.sign(group['RSI'].diff(5))
+            group['rsi_price_divergence'] = (price_dir_5 != rsi_dir_5).astype(int)
             
             # === Market Regime Detection ===
             sma20 = group['close_price'].rolling(window=20).mean()
