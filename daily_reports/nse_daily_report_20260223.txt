@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-23
+[TIME] Report Generated (EST): 2026-02-23 07:27:55
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 546
+[BUY] Buy Signals: 362
+[SELL] Sell Signals: 184
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 196
+[DATA] Medium Confidence: 261
+[LOW] Low Confidence: 89
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.70
+[DATA] Average RSI: 49.3
+[COMPANY] Stocks Processed: 546
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] CYIENT.NS: Buy (99.0%) - INR 982.00 [ExtraTreesClassifier (Legacy)]
+[BUY] APOLLOTYRE.NS: Buy (98.7%) - INR 453.50 [ExtraTreesClassifier (Legacy)]
+[BUY] SRF.NS: Buy (98.6%) - INR 2646.10 [ExtraTreesClassifier (Legacy)]
+[SELL] LT.NS: Sell (98.6%) - INR 4418.10 [ExtraTreesClassifier (Legacy)]
+[BUY] SAGILITY.NS: Buy (98.5%) - INR 43.33 [ExtraTreesClassifier (Legacy)]
+[BUY] CELLO.NS: Buy (98.4%) - INR 437.75 [ExtraTreesClassifier (Legacy)]
+[SELL] DATAPATTNS.NS: Sell (98.4%) - INR 3061.40 [ExtraTreesClassifier (Legacy)]
+[BUY] WIPRO.NS: Buy (98.3%) - INR 205.89 [ExtraTreesClassifier (Legacy)]
+[BUY] HCLTECH.NS: Buy (98.2%) - INR 1426.20 [ExtraTreesClassifier (Legacy)]
+[BUY] ALLCARGO.NS: Buy (98.2%) - INR 8.64 [ExtraTreesClassifier (Legacy)]

@@ -8,6 +8,18 @@ echo 🇮🇳 NSE 500 Daily Trading Automation
 echo ===========================================
 echo.
 
+:: Set the working directory to the script location
+cd /d "%~dp0"
+
+:: Activate virtual environment
+if exist "%~dp0venv\Scripts\activate.bat" (
+    echo Activating virtual environment...
+    call "%~dp0venv\Scripts\activate.bat"
+) else (
+    echo WARNING: Virtual environment not found at %~dp0venv
+    echo Running with system Python - packages may be missing!
+)
+
 :: Check if Python is available
 python --version >nul 2>&1
 if errorlevel 1 (
@@ -15,9 +27,6 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
-
-:: Set the working directory to the script location
-cd /d "%~dp0"
 
 :: Show current date and time
 echo 📅 Current Date/Time: %date% %time%

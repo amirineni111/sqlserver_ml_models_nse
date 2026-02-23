@@ -15,6 +15,15 @@ cd /d "%~dp0"
 REM Set the Python executable (adjust if needed)
 set PYTHON_EXE=python
 
+REM Activate virtual environment
+if exist "%~dp0venv\Scripts\activate.bat" (
+    echo Activating virtual environment...
+    call "%~dp0venv\Scripts\activate.bat"
+) else (
+    echo WARNING: Virtual environment not found at %~dp0venv
+    echo Running with system Python - packages may be missing!
+)
+
 REM Check if Python is available
 %PYTHON_EXE% --version >nul 2>&1
 if errorlevel 1 (

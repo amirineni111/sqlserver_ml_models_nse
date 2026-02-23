@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-23",
+  "generated_at": "2026-02-23T07:27:55.900304",
+  "summary": {
+    "analysis_date": "2026-02-23",
+    "total_predictions": 546,
+    "total_buy_signals": 362,
+    "total_sell_signals": 184,
+    "total_hold_signals": 0,
+    "high_confidence_count": 196,
+    "medium_confidence_count": 261,
+    "low_confidence_count": 89,
+    "avg_confidence": 0.7043560107614532,
+    "avg_rsi": 49.30065976224753,
+    "total_stocks_processed": 546,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-02-23 07:27:52.570000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CYIENT.NS",
+      "company": "Cyient Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.01346820744688,
+      "close_price": 982.0,
+      "rsi": 17.420560747663572,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "APOLLOTYRE.NS",
+      "company": "Apollo Tyres Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.66166089467501,
+      "close_price": 453.5,
+      "rsi": 16.838709677419587,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.6253464637177,
+      "close_price": 2646.1,
+      "rsi": 23.532922220011827,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LT.NS",
+      "company": "Larsen & Toubro Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.57031707233772,
+      "close_price": 4418.1,
+      "rsi": 85.0101532213403,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SAGILITY.NS",
+      "company": "Sagility Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.49372118043453,
+      "close_price": 43.33,
+      "rsi": 21.980886185925257,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CELLO.NS",
+      "company": "Cello World Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.42178578148042,
+      "close_price": 437.75,
+      "rsi": 12.322274881516904,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DATAPATTNS.NS",
+      "company": "Data Patterns (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.36612224448251,
+      "close_price": 3061.4,
+      "rsi": 78.05329385640324,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "company": "Wipro Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.33689414347667,
+      "close_price": 205.89,
+      "rsi": 8.688819039066288,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "HCLTECH.NS",
+      "company": "HCL Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.2261988543729,
+      "close_price": 1426.2,
+      "rsi": 10.484581497797265,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALLCARGO.NS",
+      "company": "ALL CARGO",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.16856242041813,
+      "close_price": 8.64,
+      "rsi": 19.47565543071167,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
