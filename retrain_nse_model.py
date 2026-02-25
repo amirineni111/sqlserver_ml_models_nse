@@ -203,6 +203,17 @@ class NSEModelRetrainer:
             'is_quarter_end', 'is_options_expiry',
             'days_until_next_holiday', 'days_since_last_holiday',
             'other_market_closed',
+            # --- Sector Sentiment Features (from nse_sector_sentiment) ---
+            'sector_sentiment_score',       # Sector sentiment (-1 to +1)
+            'sector_sentiment_confidence',   # Confidence based on article count
+            'sector_sentiment_momentum_3d',  # 3-day sentiment change
+            'sector_sentiment_momentum_7d',  # 7-day sentiment change
+            'sector_sentiment_vs_avg_30d',   # Z-score vs 30-day average
+            'sector_positive_ratio',         # % positive headlines
+            'sector_negative_ratio',         # % negative headlines
+            'sector_news_volume',            # News article count (normalized)
+            'market_sentiment_score',        # Overall market sentiment
+            'sentiment_price_divergence',    # Sentiment vs price direction mismatch
         ]
         
         # Signal encoding maps (categorical -> numeric)
@@ -291,6 +302,9 @@ class NSEModelRetrainer:
             
             # Load calendar features (holidays, short weeks, expiry) and merge
             df = self._merge_calendar_features(df, market='NSE')
+            
+            # Load sector sentiment features (from nse_sector_sentiment)
+            df = self._merge_sentiment(df)
             
             return df
             
@@ -385,6 +399,90 @@ class NSEModelRetrainer:
                 print("  [WARN] No market context data found — run get_market_context_daily.py --backfill")
         except Exception as e:
             print(f"  [WARN] Could not load market context: {e}")
+        
+        return df
+    
+    def _merge_sentiment(self, df):
+        """Load sector sentiment scores from nse_sector_sentiment and merge.
+        
+        Merges on (trading_date, sector) to give each stock its sector's sentiment.
+        Adds sentiment features that capture market mood and sector-level trends
+        that pure technical indicators miss (e.g., AI disruption impact on IT stocks).
+        """
+        print("[DATA] Loading sector sentiment data...")
+        
+        try:
+            sentiment_query = """
+            SELECT trading_date, sector,
+                   sentiment_score, confidence,
+                   sentiment_momentum_3d, sentiment_momentum_7d,
+                   sentiment_vs_avg_30d,
+                   positive_ratio, negative_ratio,
+                   news_count,
+                   market_sentiment_score
+            FROM dbo.nse_sector_sentiment
+            ORDER BY trading_date
+            """
+            df_sentiment = self.db.execute_query(sentiment_query)
+            
+            if not df_sentiment.empty:
+                df['trading_date'] = pd.to_datetime(df['trading_date'])
+                df_sentiment['trading_date'] = pd.to_datetime(df_sentiment['trading_date'])
+                
+                # Rename columns to avoid conflicts and add sector_ prefix
+                df_sentiment = df_sentiment.rename(columns={
+                    'sentiment_score': 'sector_sentiment_score',
+                    'confidence': 'sector_sentiment_confidence',
+                    'sentiment_momentum_3d': 'sector_sentiment_momentum_3d',
+                    'sentiment_momentum_7d': 'sector_sentiment_momentum_7d',
+                    'sentiment_vs_avg_30d': 'sector_sentiment_vs_avg_30d',
+                    'positive_ratio': 'sector_positive_ratio',
+                    'negative_ratio': 'sector_negative_ratio',
+                    'news_count': 'sector_news_volume',
+                })
+                
+                # Normalize news volume (log scale, capped)
+                df_sentiment['sector_news_volume'] = np.log1p(df_sentiment['sector_news_volume'])
+                
+                # Merge on (trading_date, sector)
+                if 'sector' in df.columns:
+                    df = df.merge(
+                        df_sentiment,
+                        on=['trading_date', 'sector'],
+                        how='left'
+                    )
+                    matched = df['sector_sentiment_score'].notna().sum()
+                    print(f"  Sentiment merged: {len(df_sentiment)} records, {matched} matched rows")
+                else:
+                    # If sector not yet merged, merge on date only (market sentiment)
+                    market_sent = df_sentiment.groupby('trading_date').agg({
+                        'sector_sentiment_score': 'mean',
+                        'market_sentiment_score': 'first',
+                        'sector_news_volume': 'mean',
+                    }).reset_index()
+                    df = df.merge(market_sent, on='trading_date', how='left')
+                    print(f"  Market-level sentiment merged (sector column not available)")
+            else:
+                print("  [WARN] No sentiment data found — run: python collect_sector_sentiment.py --backfill 90")
+        except Exception as e:
+            print(f"  [WARN] Could not load sentiment data: {e}")
+            print("         To enable sentiment features, run: python collect_sector_sentiment.py --backfill 90")
+        
+        # Ensure all sentiment columns exist with defaults
+        sentiment_defaults = {
+            'sector_sentiment_score': 0,
+            'sector_sentiment_confidence': 0,
+            'sector_sentiment_momentum_3d': 0,
+            'sector_sentiment_momentum_7d': 0,
+            'sector_sentiment_vs_avg_30d': 0,
+            'sector_positive_ratio': 0,
+            'sector_negative_ratio': 0,
+            'sector_news_volume': 0,
+            'market_sentiment_score': 0,
+        }
+        for col, default in sentiment_defaults.items():
+            if col not in df.columns:
+                df[col] = default
         
         return df
     
@@ -1150,6 +1248,25 @@ class NSEModelRetrainer:
         else:
             df['sector_index_return_1d'] = 0
 
+        # ================================================================
+        # SENTIMENT-PRICE DIVERGENCE
+        # Key feature: detects when sentiment is negative but price is rising
+        # (or vice versa). This catches cases like IT stocks being dragged down
+        # by AI disruption sentiment while technicals still look bullish.
+        # ================================================================
+        if 'sector_sentiment_score' in df.columns and 'return_5d' in df.columns:
+            # Divergence = sentiment direction vs recent price direction
+            # Negative divergence (sentiment negative, price up) = bearish signal
+            # Positive divergence (sentiment positive, price down) = bullish signal
+            price_direction = np.sign(df.get('return_5d', 0))
+            sentiment_direction = np.sign(df['sector_sentiment_score'])
+            df['sentiment_price_divergence'] = df['sector_sentiment_score'] - price_direction * 0.5
+            # Weight by confidence (low article count = less reliable signal)
+            if 'sector_sentiment_confidence' in df.columns:
+                df['sentiment_price_divergence'] *= df['sector_sentiment_confidence']
+        else:
+            df['sentiment_price_divergence'] = 0
+
         # Ensure fundamental feature defaults if columns missing
         for fund_col in ['price_vs_52wk_high', 'price_vs_52wk_low', 'price_vs_200d_avg', 'profit_margin']:
             if fund_col not in df.columns:
@@ -1266,6 +1383,8 @@ class NSEModelRetrainer:
             'is_quarter_end', 'is_options_expiry',
             'days_until_next_holiday', 'days_since_last_holiday',
             'other_market_closed',
+            # Sentiment features (sector-level = per-sector, market = market-wide)
+            'market_sentiment',  # market-wide sentiment
         ]
 
         print("[PREP] Running STRATIFIED feature selection (mutual_info_classif)...")

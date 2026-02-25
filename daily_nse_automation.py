@@ -334,6 +334,45 @@ def run_model_retrain():
         return False
 
 
+def run_sentiment_collection():
+    """Run sector sentiment collection before predictions."""
+    try:
+        logging.info("[START] Collecting sector sentiment from news sources...")
+        
+        cmd_args = [sys.executable, "collect_sector_sentiment.py"]
+        
+        logging.info(f"[PROCESS] Executing: {' '.join(cmd_args)}")
+        
+        result = subprocess.run(
+            cmd_args,
+            capture_output=True,
+            text=True,
+            timeout=600,  # 10 minutes timeout
+            encoding='utf-8',
+            errors='replace'
+        )
+        
+        if result.returncode == 0:
+            logging.info("[SUCCESS] Sector sentiment collected successfully")
+            output_lines = result.stdout.strip().split('\n')
+            for line in output_lines[-10:]:
+                if line.strip():
+                    logging.info(f"  {line}")
+            return True
+        else:
+            logging.warning(f"[WARN] Sentiment collection returned code: {result.returncode}")
+            if result.stderr:
+                logging.warning(f"Error: {result.stderr[-300:]}")
+            return False
+        
+    except subprocess.TimeoutExpired:
+        logging.warning("[TIME] Sentiment collection timed out after 10 minutes")
+        return False
+    except Exception as e:
+        logging.warning(f"[WARN] Sentiment collection error: {e}")
+        return False
+
+
 def run_nse_predictions(target_date=None):
     """Run NSE trading signal predictions."""
     try:
@@ -685,9 +724,23 @@ def main():
         
         # Step 3: Run predictions
         if not args.skip_predictions:
+            # First, collect today's sector sentiment (feeds into predictions)
             total_steps += 1
             logging.info("=" * 60)
-            logging.info("[PREDICTION] STEP 3: Running NSE Predictions")
+            logging.info("[SENTIMENT] STEP 3a: Collecting Sector Sentiment")
+            logging.info("=" * 60)
+            
+            sentiment_success = run_sentiment_collection()
+            if sentiment_success:
+                success_count += 1
+                logging.info("[SUCCESS] Sector sentiment collected successfully")
+            else:
+                logging.warning("[WARN] Sentiment collection failed, predictions will use neutral sentiment")
+                success_count += 1  # Don't block predictions
+            
+            total_steps += 1
+            logging.info("=" * 60)
+            logging.info("[PREDICTION] STEP 3b: Running NSE Predictions")
             logging.info("=" * 60)
             
             prediction_success = run_nse_predictions(args.date)
