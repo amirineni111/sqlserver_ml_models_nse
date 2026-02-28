@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-25",
+  "generated_at": "2026-02-25T17:14:33.706624",
+  "summary": {
+    "analysis_date": "2026-02-25",
+    "total_predictions": 546,
+    "total_buy_signals": 357,
+    "total_sell_signals": 189,
+    "total_hold_signals": 0,
+    "high_confidence_count": 236,
+    "medium_confidence_count": 214,
+    "low_confidence_count": 96,
+    "avg_confidence": 0.721494836374179,
+    "avg_rsi": 48.360610067812736,
+    "total_stocks_processed": 546,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-02-25 17:14:31.077000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.03561989017788,
+      "close_price": 218.65,
+      "rsi": 13.551614370168295,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CYIENT.NS",
+      "company": "Cyient Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.7947961431613,
+      "close_price": 931.8,
+      "rsi": 17.68500948766618,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "company": "Wipro Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.72238992504943,
+      "close_price": 201.92,
+      "rsi": 13.123974689477677,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALLCARGO.NS",
+      "company": "ALL CARGO",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.71983769071281,
+      "close_price": 8.56,
+      "rsi": 6.172839506172792,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.70329825354348,
+      "close_price": 2614.9,
+      "rsi": 24.607877309167037,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DATAPATTNS.NS",
+      "company": "Data Patterns (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.54621405191948,
+      "close_price": 3070.6,
+      "rsi": 85.66957882383687,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JUSTDIAL.NS",
+      "company": "Just Dial Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.521158462325,
+      "close_price": 575.55,
+      "rsi": 17.907052323691985,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "AWL.NS",
+      "company": "AWL Agri Business Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.51917015471837,
+      "close_price": 190.73,
+      "rsi": 8.548776284040116,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SCHAEFFLER.NS",
+      "company": "Schaeffler India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.51500114045213,
+      "close_price": 4264.4,
+      "rsi": 72.36240810649701,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TORNTPHARM.NS",
+      "company": "Torrent Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.44607505038864,
+      "close_price": 4418.9,
+      "rsi": 83.29571106094808,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

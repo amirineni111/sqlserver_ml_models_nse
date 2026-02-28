@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-26
+[TIME] Report Generated (EST): 2026-02-26 17:18:03
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-26
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 546
+[BUY] Buy Signals: 318
+[SELL] Sell Signals: 228
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Neutral
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 211
+[DATA] Medium Confidence: 248
+[LOW] Low Confidence: 87
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.72
+[DATA] Average RSI: 49.2
+[COMPANY] Stocks Processed: 546
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] INFY.NS: Buy (99.0%) - INR 1289.10 [ExtraTreesClassifier (Legacy)]
+[BUY] SAGILITY.NS: Buy (98.9%) - INR 40.38 [ExtraTreesClassifier (Legacy)]
+[BUY] ALLCARGO.NS: Buy (98.8%) - INR 8.55 [ExtraTreesClassifier (Legacy)]
+[BUY] ETERNAL.NS: Buy (98.7%) - INR 246.50 [ExtraTreesClassifier (Legacy)]
+[SELL] DATAPATTNS.NS: Sell (98.7%) - INR 3243.60 [ExtraTreesClassifier (Legacy)]
+[SELL] TORNTPHARM.NS: Sell (98.7%) - INR 4399.80 [ExtraTreesClassifier (Legacy)]
+[BUY] FSL.NS: Buy (98.6%) - INR 219.65 [ExtraTreesClassifier (Legacy)]
+[BUY] SRF.NS: Buy (98.5%) - INR 2617.20 [ExtraTreesClassifier (Legacy)]
+[BUY] BIRLACORPN.NS: Buy (98.5%) - INR 988.90 [ExtraTreesClassifier (Legacy)]
+[BUY] INOXWIND.NS: Buy (98.5%) - INR 94.46 [ExtraTreesClassifier (Legacy)]

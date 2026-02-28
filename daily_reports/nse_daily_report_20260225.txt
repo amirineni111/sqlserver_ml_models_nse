@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-25
+[TIME] Report Generated (EST): 2026-02-25 17:14:33
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-25
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 546
+[BUY] Buy Signals: 357
+[SELL] Sell Signals: 189
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 236
+[DATA] Medium Confidence: 214
+[LOW] Low Confidence: 96
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.72
+[DATA] Average RSI: 48.4
+[COMPANY] Stocks Processed: 546
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] FSL.NS: Buy (99.0%) - INR 218.65 [ExtraTreesClassifier (Legacy)]
+[BUY] CYIENT.NS: Buy (98.8%) - INR 931.80 [ExtraTreesClassifier (Legacy)]
+[BUY] WIPRO.NS: Buy (98.7%) - INR 201.92 [ExtraTreesClassifier (Legacy)]
+[BUY] ALLCARGO.NS: Buy (98.7%) - INR 8.56 [ExtraTreesClassifier (Legacy)]
+[BUY] SRF.NS: Buy (98.7%) - INR 2614.90 [ExtraTreesClassifier (Legacy)]
+[SELL] DATAPATTNS.NS: Sell (98.5%) - INR 3070.60 [ExtraTreesClassifier (Legacy)]
+[BUY] JUSTDIAL.NS: Buy (98.5%) - INR 575.55 [ExtraTreesClassifier (Legacy)]
+[BUY] AWL.NS: Buy (98.5%) - INR 190.73 [ExtraTreesClassifier (Legacy)]
+[SELL] SCHAEFFLER.NS: Sell (98.5%) - INR 4264.40 [ExtraTreesClassifier (Legacy)]
+[SELL] TORNTPHARM.NS: Sell (98.4%) - INR 4418.90 [ExtraTreesClassifier (Legacy)]
