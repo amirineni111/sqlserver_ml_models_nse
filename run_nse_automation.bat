@@ -12,11 +12,11 @@ echo.
 cd /d "%~dp0"
 
 :: Activate virtual environment
-if exist "%~dp0venv\Scripts\activate.bat" (
+if exist "%~dp0.venv\Scripts\activate.bat" (
     echo Activating virtual environment...
-    call "%~dp0venv\Scripts\activate.bat"
+    call "%~dp0.venv\Scripts\activate.bat"
 ) else (
-    echo WARNING: Virtual environment not found at %~dp0venv
+    echo WARNING: Virtual environment not found at %~dp0.venv
     echo Running with system Python - packages may be missing!
 )
 

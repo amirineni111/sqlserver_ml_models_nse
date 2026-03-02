@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-22",
+  "generated_at": "2026-01-22T10:44:11.382523",
+  "summary": {
+    "analysis_date": "2026-01-22",
+    "total_predictions": 496,
+    "total_buy_signals": 328,
+    "total_sell_signals": 168,
+    "total_hold_signals": 0,
+    "high_confidence_count": 202,
+    "medium_confidence_count": 14,
+    "low_confidence_count": 280,
+    "avg_confidence": 0.6904150218669988,
+    "avg_rsi": 34.88092676188495,
+    "total_stocks_processed": 496,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.12046350454926,
+      "close_price": 648.4,
+      "rsi": 14.86435432215795
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.12046350454926,
+      "close_price": 648.4,
+      "rsi": 14.86435432215795
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.12046350454924,
+      "close_price": 648.4,
+      "rsi": 14.86435432215795
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.8425026460466,
+      "close_price": 323.1,
+      "rsi": 2.7928950036895657
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.8425026460466,
+      "close_price": 323.1,
+      "rsi": 2.7928950036895657
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.8425026460466,
+      "close_price": 323.1,
+      "rsi": 2.7928950036895657
+    },
+    {
+      "ticker": "JYOTICNC.NS",
+      "company": "Jyoti CNC Automation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.62749539122424,
+      "close_price": 832.25,
+      "rsi": 8.152183974308642
+    },
+    {
+      "ticker": "JYOTICNC.NS",
+      "company": "Jyoti CNC Automation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.62749539122424,
+      "close_price": 832.25,
+      "rsi": 8.152183974308642
+    },
+    {
+      "ticker": "JYOTICNC.NS",
+      "company": "Jyoti CNC Automation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.62749539122424,
+      "close_price": 832.25,
+      "rsi": 8.152183974308642
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.26899491901997,
+      "close_price": 373.55,
+      "rsi": 16.135293686850545
+    }
+  ]
+}

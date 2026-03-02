@@ -1,0 +1,42 @@
+{
+  "date": "2026-02-12",
+  "generated_at": "2026-02-12T10:02:00.552994",
+  "summary": {
+    "analysis_date": "2026-02-12",
+    "total_predictions": 525,
+    "total_buy_signals": 34,
+    "total_sell_signals": 491,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2,
+    "medium_confidence_count": 455,
+    "low_confidence_count": 68,
+    "avg_confidence": 0.5915893456803539,
+    "avg_rsi": 58.527518173206786,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6009016280489006,
+    "run_timestamp": "2026-02-12 10:01:59.100000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.47421775566184,
+      "close_price": 1414.75,
+      "rsi": 89.91754577422097,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "MRF.NS",
+      "company": "MRF Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.89570389594674,
+      "close_price": 151210.0,
+      "rsi": 69.32057954705303,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

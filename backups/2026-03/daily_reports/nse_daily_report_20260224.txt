@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-24
+[TIME] Report Generated (EST): 2026-02-24 08:03:21
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 546
+[BUY] Buy Signals: 385
+[SELL] Sell Signals: 161
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 236
+[DATA] Medium Confidence: 228
+[LOW] Low Confidence: 82
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.72
+[DATA] Average RSI: 46.1
+[COMPANY] Stocks Processed: 546
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] FSL.NS: Buy (99.2%) - INR 227.90 [ExtraTreesClassifier (Legacy)]
+[SELL] TORNTPHARM.NS: Sell (98.7%) - INR 4397.90 [ExtraTreesClassifier (Legacy)]
+[BUY] APOLLOTYRE.NS: Buy (98.6%) - INR 454.75 [ExtraTreesClassifier (Legacy)]
+[BUY] WIPRO.NS: Buy (98.5%) - INR 200.14 [ExtraTreesClassifier (Legacy)]
+[BUY] CYIENT.NS: Buy (98.5%) - INR 950.10 [ExtraTreesClassifier (Legacy)]
+[BUY] SRF.NS: Buy (98.4%) - INR 2583.60 [ExtraTreesClassifier (Legacy)]
+[BUY] INOXWIND.NS: Buy (98.4%) - INR 95.03 [ExtraTreesClassifier (Legacy)]
+[BUY] REDINGTON.NS: Buy (98.3%) - INR 239.95 [ExtraTreesClassifier (Legacy)]
+[BUY] ALLCARGO.NS: Buy (98.3%) - INR 8.69 [ExtraTreesClassifier (Legacy)]
+[BUY] TATATECH.NS: Buy (98.3%) - INR 572.15 [ExtraTreesClassifier (Legacy)]

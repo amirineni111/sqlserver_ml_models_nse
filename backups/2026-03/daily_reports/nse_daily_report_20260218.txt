@@ -1,0 +1,39 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-18
+[TIME] Report Generated (EST): 2026-02-18 07:46:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-18
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 530
+[BUY] Buy Signals: 92
+[SELL] Sell Signals: 438
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 10
+[DATA] Medium Confidence: 423
+[LOW] Low Confidence: 97
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.59
+[DATA] Average RSI: 54.1
+[COMPANY] Stocks Processed: 530
+[MODEL] Model Accuracy: 62.2%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] BLUEJET.NS: Buy (74.0%) - INR 359.35 [NSE_Ensemble]
+[BUY] RTNINDIA.NS: Buy (73.4%) - INR 33.29 [NSE_Ensemble]
+[BUY] INOXWIND.NS: Buy (71.7%) - INR 98.87 [NSE_Ensemble]
+[BUY] ROUTE.NS: Buy (71.3%) - INR 529.10 [NSE_Ensemble]
+[BUY] FSL.NS: Buy (70.9%) - INR 259.95 [NSE_Ensemble]
+[BUY] SHAKTIPUMP.NS: Buy (70.1%) - INR 575.80 [NSE_Ensemble]

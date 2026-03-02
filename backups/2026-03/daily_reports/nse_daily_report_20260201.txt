@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-02-01
+[TIME] Generated: 2026-02-01 07:18:19
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 524
+🟢 Buy Signals: 251
+🔴 Sell Signals: 273
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 131
+[DATA] Medium Confidence: 41
+📉 Low Confidence: 352
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.64
+[DATA] Average RSI: 40.2
+[COMPANY] Stocks Processed: 524
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🟢 IIFL.NS: Buy (97.1%) - ₹475.75
+🟢 SYNGENE.NS: Buy (96.8%) - ₹465.35
+🟢 ONESOURCE.NS: Buy (96.6%) - ₹1209.60
+🟢 ASIANPAINT.NS: Buy (95.8%) - ₹2357.00
+🟢 HERITGFOOD.NS: Buy (95.7%) - ₹353.25
+🟢 KALYANKJIL.NS: Buy (95.5%) - ₹368.90
+🟢 NEWGEN.NS: Buy (95.5%) - ₹572.85
+🟢 PNBHOUSING.NS: Buy (95.2%) - ₹805.35
+🟢 CONCORDBIO.NS: Buy (94.4%) - ₹1139.50
+🟢 POLYMED.NS: Buy (94.2%) - ₹1504.70

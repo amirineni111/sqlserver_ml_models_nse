@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-01-23
+[TIME] Generated: 2026-01-23 08:02:24
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 496
+🟢 Buy Signals: 369
+🔴 Sell Signals: 127
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 273
+[DATA] Medium Confidence: 8
+📉 Low Confidence: 215
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.74
+[DATA] Average RSI: 30.6
+[COMPANY] Stocks Processed: 496
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🟢 NEWGEN.NS: Buy (97.1%) - ₹624.25
+🟢 TEJASNET.NS: Buy (97.0%) - ₹304.05
+🟢 JYOTICNC.NS: Buy (96.6%) - ₹800.95
+🟢 PNBHOUSING.NS: Buy (95.9%) - ₹812.40
+🟢 LLOYDSME.NS: Buy (95.8%) - ₹1115.50
+🟢 SYNGENE.NS: Buy (95.8%) - ₹543.80
+🟢 HBLENGINE.NS: Buy (95.8%) - ₹706.10
+🟢 KALYANKJIL.NS: Buy (95.6%) - ₹367.20
+🟢 JBMA.NS: Buy (95.5%) - ₹529.00
+🟢 ADANIGREEN.NS: Buy (95.4%) - ₹772.80

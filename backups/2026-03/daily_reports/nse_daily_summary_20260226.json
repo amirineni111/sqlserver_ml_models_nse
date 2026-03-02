@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-26",
+  "generated_at": "2026-02-26T17:18:03.606771",
+  "summary": {
+    "analysis_date": "2026-02-26",
+    "total_predictions": 546,
+    "total_buy_signals": 318,
+    "total_sell_signals": 228,
+    "total_hold_signals": 0,
+    "high_confidence_count": 211,
+    "medium_confidence_count": 248,
+    "low_confidence_count": 87,
+    "avg_confidence": 0.7152740558982931,
+    "avg_rsi": 49.2441067425671,
+    "total_stocks_processed": 546,
+    "processing_time_seconds": null,
+    "market_trend": "Neutral",
+    "model_accuracy": null,
+    "run_timestamp": "2026-02-26 17:17:59.733000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "INFY.NS",
+      "company": "Infosys Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.95868986318148,
+      "close_price": 1289.1,
+      "rsi": 13.618157543391533,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SAGILITY.NS",
+      "company": "Sagility Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.9136898641505,
+      "close_price": 40.38,
+      "rsi": 18.063466232709487,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALLCARGO.NS",
+      "company": "ALL CARGO",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.7643548087321,
+      "close_price": 8.55,
+      "rsi": 7.936507936507823,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ETERNAL.NS",
+      "company": "Zomoto(Eternal)",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.69719608257196,
+      "close_price": 246.5,
+      "rsi": 26.944617299315567,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DATAPATTNS.NS",
+      "company": "Data Patterns (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.6953423588457,
+      "close_price": 3243.6,
+      "rsi": 85.14262538867173,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TORNTPHARM.NS",
+      "company": "Torrent Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.68113127145106,
+      "close_price": 4399.8,
+      "rsi": 85.6545961002787,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.62815251774867,
+      "close_price": 219.65,
+      "rsi": 15.51219512195128,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.52190256883635,
+      "close_price": 2617.2,
+      "rsi": 25.113755687784405,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "BIRLACORPN.NS",
+      "company": "Birla Corporation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.47955704661176,
+      "close_price": 988.9,
+      "rsi": 24.645088018171492,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.45635898413431,
+      "close_price": 94.46,
+      "rsi": 22.739726027398277,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

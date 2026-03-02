@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-06",
+  "generated_at": "2026-02-06T07:50:01.375667",
+  "summary": {
+    "analysis_date": "2026-02-06",
+    "total_predictions": 525,
+    "total_buy_signals": 98,
+    "total_sell_signals": 427,
+    "total_hold_signals": 0,
+    "high_confidence_count": 88,
+    "medium_confidence_count": 151,
+    "low_confidence_count": 286,
+    "avg_confidence": 0.6376485042361959,
+    "avg_rsi": 53.36625551409566,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MRPL.NS",
+      "company": "Mangalore Refinery and Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.7309699847095,
+      "close_price": 185.25,
+      "rsi": 80.56815150706856
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "company": "KPIT Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.72565888819307,
+      "close_price": 958.4,
+      "rsi": 7.011437095972056
+    },
+    {
+      "ticker": "VRLLOG.NS",
+      "company": "VRL Logistics",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.40112741522674,
+      "close_price": 285.25,
+      "rsi": 85.97678409322387
+    },
+    {
+      "ticker": "AARTIIND.NS",
+      "company": "Aarti Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.77584352453428,
+      "close_price": 440.95,
+      "rsi": 83.7349397590361
+    },
+    {
+      "ticker": "KARURVYSYA.NS",
+      "company": "The Karur Vysya Bank Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.62872268631483,
+      "close_price": 318.1,
+      "rsi": 77.64761012183692
+    },
+    {
+      "ticker": "SYRMA.NS",
+      "company": "Syrma SGS Technology Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.56646158283397,
+      "close_price": 868.6,
+      "rsi": 92.20087502377783
+    },
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.55144943945213,
+      "close_price": 1025.5,
+      "rsi": 72.7307074714272
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.99642914662905,
+      "close_price": 1119.9,
+      "rsi": 16.887934492409002
+    },
+    {
+      "ticker": "SCHNEIDER.NS",
+      "company": "Schneider Electric Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.79737365807415,
+      "close_price": 768.9,
+      "rsi": 80.36748882635325
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "company": "Power Grid Corporation of India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.76149239647127,
+      "close_price": 292.75,
+      "rsi": 78.58197932053179
+    }
+  ]
+}

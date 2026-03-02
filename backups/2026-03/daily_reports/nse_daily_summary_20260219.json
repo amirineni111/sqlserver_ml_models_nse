@@ -1,0 +1,69 @@
+{
+  "date": "2026-02-19",
+  "generated_at": "2026-02-19T07:46:24.040390",
+  "summary": {
+    "analysis_date": "2026-02-19",
+    "total_predictions": 530,
+    "total_buy_signals": 106,
+    "total_sell_signals": 424,
+    "total_hold_signals": 0,
+    "high_confidence_count": 7,
+    "medium_confidence_count": 421,
+    "low_confidence_count": 102,
+    "avg_confidence": 0.5878424421131401,
+    "avg_rsi": 54.73493550684169,
+    "total_stocks_processed": 530,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6216253389397571,
+    "run_timestamp": "2026-02-19 07:46:22.690000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RTNINDIA.NS",
+      "company": "RattanIndia Enterprises Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.82477511987265,
+      "close_price": 32.06,
+      "rsi": 36.76258992805712,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHAKTIPUMP.NS",
+      "company": "Shakti Pumps India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.54713984460332,
+      "close_price": 560.75,
+      "rsi": 38.699456140074574,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.0534233043908,
+      "close_price": 96.65,
+      "rsi": 36.741767764298885,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "BLUEJET.NS",
+      "company": "Blue Jet Healthcare",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.61634346998933,
+      "close_price": 364.2,
+      "rsi": 36.05959525801525,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "RBLBANK.NS",
+      "company": "RBL Bank Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.02458191776535,
+      "close_price": 332.55,
+      "rsi": 85.41484716157187,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
