@@ -40,6 +40,7 @@ if sys.platform == 'win32':
 # Add src to path
 sys.path.append(os.path.join(os.getcwd(), 'src'))
 from database.connection import SQLServerConnection
+from notifications.email_alerts import send_failure_alert, is_email_configured
 
 
 def setup_nse_logging():
@@ -675,6 +676,14 @@ def main():
     
     success_count = 0
     total_steps = 0
+    pipeline_failed = False
+    failure_step = ""
+    failure_message = ""
+    
+    if is_email_configured():
+        logging.info("[EMAIL] Email alerts enabled")
+    else:
+        logging.info("[EMAIL] Email alerts not configured (set ALERT_EMAIL_FROM/PASSWORD/TO in .env)")
     
     try:
         # Step 1: Check data status
@@ -687,6 +696,13 @@ def main():
         
         if not is_connected:
             logging.error("[ERROR] Cannot proceed without database connectivity")
+            pipeline_failed = True
+            failure_step = "Database Connection"
+            failure_message = ("SQL Server connection failed (timeout).\n"
+                               f"Server: {os.getenv('SQL_SERVER', 'unknown')}\n"
+                               "The database was unreachable at the scheduled run time.\n"
+                               "Predictions were NOT generated for today.")
+            send_failure_alert(failure_message, failure_step, str(log_filename))
             return
         
         success_count += 1
@@ -749,6 +765,12 @@ def main():
                 logging.info("[SUCCESS] NSE predictions completed successfully")
             else:
                 logging.error("[ERROR] NSE predictions failed")
+                pipeline_failed = True
+                failure_step = "NSE Predictions"
+                failure_message = ("predict_nse_signals.py returned a non-zero exit code.\n"
+                                   "No predictions were written to ml_nse_trading_predictions.\n"
+                                   "Check the log file for detailed error output.")
+                send_failure_alert(failure_message, failure_step, str(log_filename))
         
         # Step 4: Log model performance
         total_steps += 1
@@ -802,6 +824,11 @@ def main():
         safe_print(f"[ERROR] Fatal error: {e}")
         import traceback
         traceback.print_exc()
+        send_failure_alert(
+            error_message=f"Unhandled exception in daily automation:\n{e}\n\n{traceback.format_exc()}",
+            step_name="Fatal Error",
+            log_file_path=str(log_filename),
+        )
 
 
 if __name__ == "__main__":

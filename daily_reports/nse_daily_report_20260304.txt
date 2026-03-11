@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-04
+[TIME] Report Generated (EST): 2026-03-04 17:17:01
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-04
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 713
+[SELL] Sell Signals: 67
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 548
+[DATA] Medium Confidence: 183
+[LOW] Low Confidence: 49
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.82
+[DATA] Average RSI: 31.8
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RAJESHEXPO.NS: Buy (99.3%) - INR 131.69 [ExtraTreesClassifier (Legacy)]
+[BUY] BATAINDIA.NS: Buy (99.2%) - INR 732.50 [ExtraTreesClassifier (Legacy)]
+[BUY] PURVA.NS: Buy (99.2%) - INR 180.39 [ExtraTreesClassifier (Legacy)]
+[BUY] DHANUKA.NS: Buy (99.2%) - INR 988.10 [ExtraTreesClassifier (Legacy)]
+[BUY] ALOKINDS.NS: Buy (99.1%) - INR 13.32 [ExtraTreesClassifier (Legacy)]
+[BUY] CEATLTD.NS: Buy (99.0%) - INR 3281.70 [ExtraTreesClassifier (Legacy)]
+[BUY] IMFA.NS: Buy (99.0%) - INR 1170.40 [ExtraTreesClassifier (Legacy)]
+[BUY] JUSTDIAL.NS: Buy (99.0%) - INR 523.55 [ExtraTreesClassifier (Legacy)]
+[BUY] SRF.NS: Buy (99.0%) - INR 2536.60 [ExtraTreesClassifier (Legacy)]
+[BUY] RTNINDIA.NS: Buy (99.0%) - INR 25.69 [ExtraTreesClassifier (Legacy)]

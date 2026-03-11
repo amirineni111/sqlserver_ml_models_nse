@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-06
+[TIME] Report Generated (EST): 2026-03-06 20:25:26
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-06
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 666
+[SELL] Sell Signals: 114
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 444
+[DATA] Medium Confidence: 271
+[LOW] Low Confidence: 65
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.78
+[DATA] Average RSI: 37.5
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RAJESHEXPO.NS: Buy (99.4%) - INR 118.89 [ExtraTreesClassifier (Legacy)]
+[BUY] WAAREEENER.NS: Buy (99.2%) - INR 2628.30 [ExtraTreesClassifier (Legacy)]
+[BUY] JKTYRE.NS: Buy (99.1%) - INR 452.55 [ExtraTreesClassifier (Legacy)]
+[SELL] DATAPATTNS.NS: Sell (99.1%) - INR 3491.20 [ExtraTreesClassifier (Legacy)]
+[BUY] IMAGICAA.NS: Buy (99.1%) - INR 40.03 [ExtraTreesClassifier (Legacy)]
+[BUY] INOXWIND.NS: Buy (99.1%) - INR 83.86 [ExtraTreesClassifier (Legacy)]
+[BUY] ORCHPHARMA.NS: Buy (99.0%) - INR 508.55 [ExtraTreesClassifier (Legacy)]
+[BUY] AWL.NS: Buy (99.0%) - INR 177.24 [ExtraTreesClassifier (Legacy)]
+[BUY] PRUDENT.NS: Buy (99.0%) - INR 2240.20 [ExtraTreesClassifier (Legacy)]
+[BUY] RTNINDIA.NS: Buy (99.0%) - INR 25.57 [ExtraTreesClassifier (Legacy)]
