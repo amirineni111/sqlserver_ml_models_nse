@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-12
+[TIME] Report Generated (EST): 2026-03-12 17:05:02
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-12
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 781
+[BUY] Buy Signals: 660
+[SELL] Sell Signals: 121
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 449
+[DATA] Medium Confidence: 261
+[LOW] Low Confidence: 71
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.77
+[DATA] Average RSI: 37.2
+[COMPANY] Stocks Processed: 781
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] ANGELONE.NS: Buy (99.9%) - INR 213.07 [ExtraTreesClassifier (Legacy)]
+[BUY] COROMANDEL.NS: Buy (99.0%) - INR 2008.50 [ExtraTreesClassifier (Legacy)]
+[BUY] TARC.NS: Buy (99.0%) - INR 131.36 [ExtraTreesClassifier (Legacy)]
+[BUY] SBIN.NS: Buy (98.9%) - INR 1085.20 [ExtraTreesClassifier (Legacy)]
+[BUY] COFFEEDAY.NS: Buy (98.9%) - INR 25.45 [ExtraTreesClassifier (Legacy)]
+[BUY] JKTYRE.NS: Buy (98.9%) - INR 430.70 [ExtraTreesClassifier (Legacy)]
+[BUY] CUPID.NS: Buy (98.8%) - INR 81.35 [ExtraTreesClassifier (Legacy)]
+[BUY] GODREJIND.NS: Buy (98.8%) - INR 892.85 [ExtraTreesClassifier (Legacy)]
+[BUY] CCAVENUE.NS: Buy (98.8%) - INR 14.64 [ExtraTreesClassifier (Legacy)]
+[BUY] GOKEX.NS: Buy (98.7%) - INR 602.90 [ExtraTreesClassifier (Legacy)]

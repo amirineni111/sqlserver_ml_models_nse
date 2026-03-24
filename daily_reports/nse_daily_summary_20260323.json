@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-23",
+  "generated_at": "2026-03-23T17:45:09.110050",
+  "summary": {
+    "analysis_date": "2026-03-23",
+    "total_predictions": 780,
+    "total_buy_signals": 720,
+    "total_sell_signals": 60,
+    "total_hold_signals": 0,
+    "high_confidence_count": 503,
+    "medium_confidence_count": 234,
+    "low_confidence_count": 43,
+    "avg_confidence": 0.7611359778526613,
+    "avg_rsi": 35.45005390545834,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-23 17:45:05.627000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.56007733961384,
+      "close_price": 89.31,
+      "rsi": 15.235044577892864,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.12590064738642,
+      "close_price": 73.59,
+      "rsi": 25.795596867438604,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.10397186583143,
+      "close_price": 45.41,
+      "rsi": 23.187882233104105,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COFFEEDAY.NS",
+      "company": "CoffeeDay",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.96254762484085,
+      "close_price": 22.34,
+      "rsi": 21.28676628373303,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LATENTVIEW.NS",
+      "company": "Latent View Analytics Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.89433027555695,
+      "close_price": 249.6,
+      "rsi": 16.9956479522765,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAIN.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.85612860073203,
+      "close_price": 102.86,
+      "rsi": 25.741264443819787,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ASHOKA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.80267384419767,
+      "close_price": 106.3,
+      "rsi": 24.213201330587808,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELAXO.NS",
+      "company": "RELAXO FOOTWEAR",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.7417440948027,
+      "close_price": 254.85,
+      "rsi": 16.8892932905748,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "KANSAINER.NS",
+      "company": "Kansai Nerolac Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.70171864638249,
+      "close_price": 159.07,
+      "rsi": 15.394237961340082,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "BPCL.NS",
+      "company": "Bharat Petroleum Corporation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.68204884031069,
+      "close_price": 271.3,
+      "rsi": 18.004468125920894,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

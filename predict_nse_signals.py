@@ -372,13 +372,13 @@ class NSETradingSignalPredictor:
         except Exception:
             pass
         
-        # SMA Signals (SMA 200, 100 + Above/Below flags)
+        # SMA Signals (EMA 100/200 + Trend/Cross status — view rebuilt March 2026)
         try:
             sma_df = self.db.execute_query(f"""
                 SELECT ticker, trading_date,
-                       CAST(SMA_200 AS FLOAT) as sma_200,
-                       CAST(SMA_100 AS FLOAT) as sma_100,
-                       SMA_200_Flag, SMA_100_Flag, SMA_50_Flag, SMA_20_Flag
+                       CAST(EMA_100 AS FLOAT) as ema_100,
+                       CAST(EMA_200 AS FLOAT) as ema_200,
+                       Trend_Status, SMA_Cross_Status, sma_trade_signal
                 FROM dbo.nse_500_sma_signals
                 WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
@@ -387,11 +387,11 @@ class NSETradingSignalPredictor:
         except Exception:
             pass
         
-        # MACD Signals (crossover)
+        # MACD Signals (crossover — column renamed to macd_trade_signal March 2026)
         try:
             macd_sig_df = self.db.execute_query(f"""
                 SELECT ticker, trading_date,
-                       MACD_Signal as macd_crossover_signal
+                       macd_trade_signal as macd_crossover_signal
                 FROM dbo.nse_500_macd_signals
                 WHERE trading_date >= DATEADD(day, -{view_lookback}, CAST(GETDATE() AS DATE))
                 {ticker_filter}
@@ -467,23 +467,32 @@ class NSETradingSignalPredictor:
             else:
                 df_enc[col] = df_enc[col].fillna(0).astype(float)
         
-        # SMA signals
-        if 'sma_200' in df_enc.columns:
-            df_enc['price_vs_sma100'] = df_enc['close_price'] / df_enc['sma_100'].replace(0, np.nan)
-            df_enc['price_vs_sma200'] = df_enc['close_price'] / df_enc['sma_200'].replace(0, np.nan)
+        # SMA signals (new schema: EMA_100, EMA_200, Trend_Status, SMA_Cross_Status, sma_trade_signal)
+        trend_map = {
+            'STRONG_UPTREND': 2, 'UPTREND': 1, 'NEUTRAL': 0,
+            'DOWNTREND': -1, 'STRONG_DOWNTREND': -2,
+        }
+        cross_map = {
+            'GOLDEN_CROSS_ZONE': 1, 'NEUTRAL': 0, 'DEATH_CROSS_ZONE': -1,
+        }
+        sma_signal_map = {
+            'Golden Cross': 1, 'Death Cross': -1,
+        }
+        if 'Trend_Status' in df_enc.columns:
+            df_enc['sma_trend_strength'] = df_enc['Trend_Status'].map(trend_map).fillna(0).astype(float)
+            df_enc.drop(columns=['Trend_Status'], inplace=True, errors='ignore')
         else:
-            df_enc['sma_200'] = 0
-            df_enc['sma_100'] = 0
-            df_enc['price_vs_sma100'] = 1.0
-            df_enc['price_vs_sma200'] = 1.0
-        
-        for flag_col in ['SMA_200_Flag', 'SMA_100_Flag', 'SMA_50_Flag', 'SMA_20_Flag']:
-            target_col = flag_col.lower().replace('_flag', '_flag')
-            if flag_col in df_enc.columns:
-                df_enc[target_col] = df_enc[flag_col].map(position_map).fillna(0)
-                df_enc.drop(columns=[flag_col], inplace=True, errors='ignore')
-            else:
-                df_enc[target_col] = 0
+            df_enc['sma_trend_strength'] = 0
+        if 'SMA_Cross_Status' in df_enc.columns:
+            df_enc['sma_cross_signal'] = df_enc['SMA_Cross_Status'].map(cross_map).fillna(0).astype(float)
+            df_enc.drop(columns=['SMA_Cross_Status'], inplace=True, errors='ignore')
+        else:
+            df_enc['sma_cross_signal'] = 0
+        if 'sma_trade_signal' in df_enc.columns:
+            df_enc['sma_trade_strength'] = df_enc['sma_trade_signal'].map(sma_signal_map).fillna(0).astype(float)
+            df_enc.drop(columns=['sma_trade_signal'], inplace=True, errors='ignore')
+        else:
+            df_enc['sma_trade_strength'] = 0
         
         # MACD signal
         if 'macd_crossover_signal' in df_enc.columns:

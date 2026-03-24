@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-18",
+  "generated_at": "2026-03-18T17:22:32.011659",
+  "summary": {
+    "analysis_date": "2026-03-18",
+    "total_predictions": 780,
+    "total_buy_signals": 597,
+    "total_sell_signals": 183,
+    "total_hold_signals": 0,
+    "high_confidence_count": 260,
+    "medium_confidence_count": 373,
+    "low_confidence_count": 147,
+    "avg_confidence": 0.7008975211098069,
+    "avg_rsi": 38.056995551926185,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-18 17:22:28.717000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAMCOCEM.NS",
+      "company": "The Ramco Cements Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.14270778779289,
+      "close_price": 982.4,
+      "rsi": 14.850249584026557,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SBIN.NS",
+      "company": "State Bank of India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.01734043273957,
+      "close_price": 1069.8,
+      "rsi": 21.185316231755905,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IDBI.NS",
+      "company": "IDBI Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97894339892513,
+      "close_price": 74.93,
+      "rsi": 13.860273459449303,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TATACHEM.NS",
+      "company": "Tata Chemicals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.80730118668448,
+      "close_price": 650.45,
+      "rsi": 7.311028500620267,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "company": "TBD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.75668028017034,
+      "close_price": 3184.8,
+      "rsi": 81.18371486877663,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GODREJIND.NS",
+      "company": "Godrej Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.73802939835701,
+      "close_price": 831.95,
+      "rsi": 12.386930035074556,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COLPAL.NS",
+      "company": "Colgate-Palmolive (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.69782069837622,
+      "close_price": 1941.6,
+      "rsi": 18.49367573783033,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "VRLLOG.NS",
+      "company": "VRL Logistics",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.63055298512091,
+      "close_price": 247.85,
+      "rsi": 15.437561455260422,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "MAXHEALTH.NS",
+      "company": "Max Healthcare Institute Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.55429073927569,
+      "close_price": 979.8,
+      "rsi": 20.328767123287975,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TRIVENI.NS",
+      "company": "Triveni Engineering & Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.5477127513527,
+      "close_price": 335.45,
+      "rsi": 18.395926161680507,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

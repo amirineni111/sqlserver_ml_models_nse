@@ -181,7 +181,7 @@ class NSEModelRetrainer:
             # --- SMA Signals (from nse_500_sma_signals) ---
             'sma_200', 'sma_100',
             'price_vs_sma100', 'price_vs_sma200',
-            'sma_200_flag', 'sma_100_flag', 'sma_50_flag', 'sma_20_flag',
+            'sma_trend_strength', 'sma_cross_signal', 'sma_trade_strength',
             # --- MACD Signal (from nse_500_macd_signals) ---
             'macd_signal_strength',
             # --- Market Regime Detection ---
@@ -648,13 +648,13 @@ class NSEModelRetrainer:
         except Exception as e:
             print(f"  [WARN] Patterns load failed: {e}")
         
-        # Load SMA Signals (includes SMA_200, SMA_100, and Above/Below flags)
+        # Load SMA Signals (EMA 100/200 + Trend/Cross status — view rebuilt March 2026)
         try:
             sma_sig_query = f"""
             SELECT ticker, trading_date,
-                   CAST(SMA_200 AS FLOAT) as sma_200,
-                   CAST(SMA_100 AS FLOAT) as sma_100,
-                   SMA_200_Flag, SMA_100_Flag, SMA_50_Flag, SMA_20_Flag
+                   CAST(EMA_100 AS FLOAT) as ema_100,
+                   CAST(EMA_200 AS FLOAT) as ema_200,
+                   Trend_Status, SMA_Cross_Status, sma_trade_signal
             FROM dbo.nse_500_sma_signals
             WHERE trading_date >= DATEADD(day, -{self.days_back}, CAST(GETDATE() AS DATE))
             """
@@ -663,11 +663,11 @@ class NSEModelRetrainer:
         except Exception as e:
             print(f"  [WARN] SMA Signals load failed: {e}")
         
-        # Load MACD Signals (crossover signals)
+        # Load MACD Signals (crossover — column renamed to macd_trade_signal March 2026)
         try:
             macd_sig_query = f"""
             SELECT ticker, trading_date,
-                   MACD_Signal as macd_crossover_signal
+                   macd_trade_signal as macd_crossover_signal
             FROM dbo.nse_500_macd_signals
             WHERE trading_date >= DATEADD(day, -{self.days_back}, CAST(GETDATE() AS DATE))
             """
@@ -780,15 +780,32 @@ class NSEModelRetrainer:
             df_enc['price_vs_sma100'] = 1.0
             df_enc['price_vs_sma200'] = 1.0
         
-        for flag_col in ['SMA_200_Flag', 'SMA_100_Flag', 'SMA_50_Flag', 'SMA_20_Flag']:
-            target_col = flag_col.lower().replace('_flag', '_flag')  # sma_200_flag etc.
-            if flag_col in df_enc.columns:
-                df_enc[target_col] = df_enc[flag_col].map(
-                    self.position_map
-                ).fillna(0).astype(float)
-                df_enc.drop(columns=[flag_col], inplace=True, errors='ignore')
-            else:
-                df_enc[target_col] = 0
+        # SMA Trend/Cross encoding (new view schema replaces old SMA_*_Flag columns)
+        trend_map = {
+            'STRONG_UPTREND': 2, 'UPTREND': 1, 'NEUTRAL': 0,
+            'DOWNTREND': -1, 'STRONG_DOWNTREND': -2,
+        }
+        cross_map = {
+            'GOLDEN_CROSS_ZONE': 1, 'NEUTRAL': 0, 'DEATH_CROSS_ZONE': -1,
+        }
+        sma_signal_map = {
+            'Golden Cross': 1, 'Death Cross': -1,
+        }
+        if 'Trend_Status' in df_enc.columns:
+            df_enc['sma_trend_strength'] = df_enc['Trend_Status'].map(trend_map).fillna(0).astype(float)
+            df_enc.drop(columns=['Trend_Status'], inplace=True, errors='ignore')
+        else:
+            df_enc['sma_trend_strength'] = 0
+        if 'SMA_Cross_Status' in df_enc.columns:
+            df_enc['sma_cross_signal'] = df_enc['SMA_Cross_Status'].map(cross_map).fillna(0).astype(float)
+            df_enc.drop(columns=['SMA_Cross_Status'], inplace=True, errors='ignore')
+        else:
+            df_enc['sma_cross_signal'] = 0
+        if 'sma_trade_signal' in df_enc.columns:
+            df_enc['sma_trade_strength'] = df_enc['sma_trade_signal'].map(sma_signal_map).fillna(0).astype(float)
+            df_enc.drop(columns=['sma_trade_signal'], inplace=True, errors='ignore')
+        else:
+            df_enc['sma_trade_strength'] = 0
         
         # --- MACD crossover signal ---
         if 'macd_crossover_signal' in df_enc.columns:
@@ -807,8 +824,8 @@ class NSEModelRetrainer:
         
         encoded_count = sum(1 for c in ['fib_signal_strength', 'sr_pivot_position',
                                          'sr_signal_strength', 'pattern_signal_strength',
-                                         'macd_signal_strength', 'sma_200_flag',
-                                         'sma_100_flag', 'sma_50_flag', 'sma_20_flag']
+                                         'macd_signal_strength', 'sma_trend_strength',
+                                         'sma_cross_signal', 'sma_trade_strength']
                            if c in df_enc.columns)
         print(f"  [OK] Encoded {encoded_count} signal features + 7 pattern flags")
         
@@ -959,15 +976,32 @@ class NSEModelRetrainer:
         df['price_vs_sma100'] = np.where(df['sma_100'] > 0, df[price_col] / df['sma_100'], 1.0)
         df['price_vs_sma200'] = np.where(df['sma_200'] > 0, df[price_col] / df['sma_200'], 1.0)
 
-        # === SMA Flag encoding (Above/Below -> 1/-1) ===
-        sma_flag_map = {'Above': 1, 'Below': -1, 'BULLISH': 1, 'BEARISH': -1}
-        for flag_col in ['SMA_200_Flag', 'SMA_100_Flag', 'SMA_50_Flag', 'SMA_20_Flag']:
-            target_col = flag_col.lower()
-            if flag_col in df.columns:
-                df[target_col] = df[flag_col].map(sma_flag_map).fillna(0).astype(float)
-                df.drop(columns=[flag_col], inplace=True, errors='ignore')
-            else:
-                df[target_col] = 0
+        # === SMA Trend/Cross encoding (new view schema replaces old SMA_*_Flag columns) ===
+        trend_map = {
+            'STRONG_UPTREND': 2, 'UPTREND': 1, 'NEUTRAL': 0,
+            'DOWNTREND': -1, 'STRONG_DOWNTREND': -2,
+        }
+        cross_map = {
+            'GOLDEN_CROSS_ZONE': 1, 'NEUTRAL': 0, 'DEATH_CROSS_ZONE': -1,
+        }
+        sma_signal_map = {
+            'Golden Cross': 1, 'Death Cross': -1,
+        }
+        if 'Trend_Status' in df.columns:
+            df['sma_trend_strength'] = df['Trend_Status'].map(trend_map).fillna(0).astype(float)
+            df.drop(columns=['Trend_Status'], inplace=True, errors='ignore')
+        else:
+            df['sma_trend_strength'] = 0
+        if 'SMA_Cross_Status' in df.columns:
+            df['sma_cross_signal'] = df['SMA_Cross_Status'].map(cross_map).fillna(0).astype(float)
+            df.drop(columns=['SMA_Cross_Status'], inplace=True, errors='ignore')
+        else:
+            df['sma_cross_signal'] = 0
+        if 'sma_trade_signal' in df.columns:
+            df['sma_trade_strength'] = df['sma_trade_signal'].map(sma_signal_map).fillna(0).astype(float)
+            df.drop(columns=['sma_trade_signal'], inplace=True, errors='ignore')
+        else:
+            df['sma_trade_strength'] = 0
 
         # === MACD crossover signal encoding ===
         if 'macd_crossover_signal' in df.columns:

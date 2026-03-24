@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-10",
+  "generated_at": "2026-03-10T20:42:50.737939",
+  "summary": {
+    "analysis_date": "2026-03-10",
+    "total_predictions": 781,
+    "total_buy_signals": 663,
+    "total_sell_signals": 118,
+    "total_hold_signals": 0,
+    "high_confidence_count": 399,
+    "medium_confidence_count": 312,
+    "low_confidence_count": 70,
+    "avg_confidence": 0.7620597692600355,
+    "avg_rsi": 36.27978026140264,
+    "total_stocks_processed": 781,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-10 20:42:48.427000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AWFIS.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.1676380856946,
+      "close_price": 255.6,
+      "rsi": 19.43477715129727,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DODLA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.11700755667029,
+      "close_price": 1023.5,
+      "rsi": 13.992840057814874,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.05592888248631,
+      "close_price": 109.19,
+      "rsi": 0.49999999999994316,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "METROBRAND.NS",
+      "company": "Metro Brands Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.93431713646198,
+      "close_price": 947.6,
+      "rsi": 19.775390624999986,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DATAPATTNS.NS",
+      "company": "Data Patterns (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.89506465728148,
+      "close_price": 3441.8,
+      "rsi": 80.73024308631015,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "PRESTIGE.NS",
+      "company": "Prestige Estates Projects Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.78675897172513,
+      "close_price": 1307.3,
+      "rsi": 13.580246913579941,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LODHA.NS",
+      "company": "Macrotech Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.78254110789601,
+      "close_price": 901.95,
+      "rsi": 12.800457840519286,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TBOTEK.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.73683831568198,
+      "close_price": 1220.5,
+      "rsi": 21.518637470628462,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAMCOCEM.NS",
+      "company": "The Ramco Cements Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.68933608769746,
+      "close_price": 1003.6,
+      "rsi": 20.556980578966545,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "AFCONS.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.66444135745739,
+      "close_price": 276.55,
+      "rsi": 9.30034129692838,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

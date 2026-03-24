@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-13
+[TIME] Report Generated (EST): 2026-03-13 17:05:13
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-13
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 706
+[SELL] Sell Signals: 74
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 540
+[DATA] Medium Confidence: 190
+[LOW] Low Confidence: 50
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.81
+[DATA] Average RSI: 33.1
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] SBIN.NS: Buy (99.3%) - INR 1047.00 [ExtraTreesClassifier (Legacy)]
+[BUY] APLAPOLLO.NS: Buy (99.0%) - INR 1933.20 [ExtraTreesClassifier (Legacy)]
+[BUY] RELAXO.NS: Buy (99.0%) - INR 294.70 [ExtraTreesClassifier (Legacy)]
+[BUY] LODHA.NS: Buy (99.0%) - INR 866.35 [ExtraTreesClassifier (Legacy)]
+[BUY] COFFEEDAY.NS: Buy (99.0%) - INR 24.66 [ExtraTreesClassifier (Legacy)]
+[BUY] EMAMILTD.NS: Buy (98.9%) - INR 416.05 [ExtraTreesClassifier (Legacy)]
+[BUY] DODLA.NS: Buy (98.9%) - INR 972.30 [ExtraTreesClassifier (Legacy)]
+[BUY] INDIGO.NS: Buy (98.9%) - INR 4158.20 [ExtraTreesClassifier (Legacy)]
+[BUY] INOXWIND.NS: Buy (98.9%) - INR 79.59 [ExtraTreesClassifier (Legacy)]
+[BUY] COROMANDEL.NS: Buy (98.9%) - INR 2002.40 [ExtraTreesClassifier (Legacy)]

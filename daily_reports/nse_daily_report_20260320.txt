@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-20
+[TIME] Report Generated (EST): 2026-03-20 17:04:11
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-20
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 620
+[SELL] Sell Signals: 160
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 313
+[DATA] Medium Confidence: 356
+[LOW] Low Confidence: 111
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.73
+[DATA] Average RSI: 36.4
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RAJESHEXPO.NS: Buy (99.5%) - INR 94.01 [ExtraTreesClassifier (Legacy)]
+[BUY] TATACHEM.NS: Buy (99.0%) - INR 633.30 [ExtraTreesClassifier (Legacy)]
+[BUY] KANSAINER.NS: Buy (98.7%) - INR 166.77 [ExtraTreesClassifier (Legacy)]
+[BUY] BAJFINANCE.NS: Buy (98.7%) - INR 830.55 [ExtraTreesClassifier (Legacy)]
+[BUY] BPCL.NS: Buy (98.6%) - INR 287.80 [ExtraTreesClassifier (Legacy)]
+[BUY] MEDANTA.NS: Buy (98.6%) - INR 1005.70 [ExtraTreesClassifier (Legacy)]
+[BUY] HOMEFIRST.NS: Buy (98.6%) - INR 936.00 [ExtraTreesClassifier (Legacy)]
+[BUY] PCJEWELLER.NS: Buy (98.6%) - INR 8.30 [ExtraTreesClassifier (Legacy)]
+[BUY] RAMCOCEM.NS: Buy (98.5%) - INR 925.20 [ExtraTreesClassifier (Legacy)]
+[BUY] MSUMI.NS: Buy (98.5%) - INR 36.98 [ExtraTreesClassifier (Legacy)]
