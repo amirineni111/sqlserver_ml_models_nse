@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-17
+[TIME] Report Generated (EST): 2026-03-17 17:04:18
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 663
+[SELL] Sell Signals: 117
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 407
+[DATA] Medium Confidence: 298
+[LOW] Low Confidence: 75
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.77
+[DATA] Average RSI: 34.3
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] SBIN.NS: Buy (99.1%) - INR 1064.70 [ExtraTreesClassifier (Legacy)]
+[BUY] KANSAINER.NS: Buy (99.1%) - INR 173.72 [ExtraTreesClassifier (Legacy)]
+[BUY] RAMCOCEM.NS: Buy (99.1%) - INR 969.70 [ExtraTreesClassifier (Legacy)]
+[BUY] LATENTVIEW.NS: Buy (99.0%) - INR 275.95 [ExtraTreesClassifier (Legacy)]
+[BUY] GODREJIND.NS: Buy (99.0%) - INR 828.55 [ExtraTreesClassifier (Legacy)]
+[BUY] IDBI.NS: Buy (99.0%) - INR 74.10 [ExtraTreesClassifier (Legacy)]
+[BUY] MGL.NS: Buy (99.0%) - INR 1016.10 [ExtraTreesClassifier (Legacy)]
+[BUY] PCJEWELLER.NS: Buy (98.9%) - INR 8.30 [ExtraTreesClassifier (Legacy)]
+[BUY] RELAXO.NS: Buy (98.9%) - INR 275.55 [ExtraTreesClassifier (Legacy)]
+[BUY] SHARDAMOTR.NS: Buy (98.9%) - INR 775.85 [ExtraTreesClassifier (Legacy)]

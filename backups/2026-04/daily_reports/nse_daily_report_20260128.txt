@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-01-28
+[TIME] Generated: 2026-01-28 07:30:54
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 520
+🟢 Buy Signals: 285
+🔴 Sell Signals: 235
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 201
+[DATA] Medium Confidence: 61
+📉 Low Confidence: 258
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.69
+[DATA] Average RSI: 37.1
+[COMPANY] Stocks Processed: 520
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🟢 ONESOURCE.NS: Buy (97.3%) - ₹1155.10
+🟢 SYNGENE.NS: Buy (97.0%) - ₹480.30
+🟢 KALYANKJIL.NS: Buy (96.7%) - ₹367.95
+🟢 GODREJPROP.NS: Buy (96.3%) - ₹1550.30
+🟢 LODHA.NS: Buy (96.2%) - ₹929.10
+🟢 WABAG.NS: Buy (95.7%) - ₹1071.90
+🟢 AFFLE.NS: Buy (95.6%) - ₹1561.60
+🟢 NEWGEN.NS: Buy (95.4%) - ₹599.95
+🟢 PNBHOUSING.NS: Buy (95.3%) - ₹845.55
+🟢 CIPLA.NS: Buy (95.2%) - ₹1328.40

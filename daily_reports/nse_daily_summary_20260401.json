@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-01",
+  "generated_at": "2026-04-01T16:40:25.921977",
+  "summary": {
+    "analysis_date": "2026-04-01",
+    "total_predictions": 2065,
+    "total_buy_signals": 1427,
+    "total_sell_signals": 638,
+    "total_hold_signals": 0,
+    "high_confidence_count": 292,
+    "medium_confidence_count": 1209,
+    "low_confidence_count": 564,
+    "avg_confidence": 0.6188614084252061,
+    "avg_rsi": 43.71879388215874,
+    "total_stocks_processed": 2065,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-01 16:40:20.533000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "WEL.NS",
+      "company": "Wonder Electricals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.04756528894319,
+      "close_price": 80.77,
+      "rsi": 11.459658834350904,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SABEVENTS.NS",
+      "company": "SAB Events & Governance Now Media Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.94454806821489,
+      "close_price": 8.12,
+      "rsi": 11.660882295722416,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GSLSU.NS",
+      "company": "Global Surfaces Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.85107205784772,
+      "close_price": 46.58,
+      "rsi": 16.24644495001587,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SUNDRMFAST.NS",
+      "company": "Sundram Fasteners Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.70522368965855,
+      "close_price": 752.9,
+      "rsi": 24.36780621561175,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.67589424307592,
+      "close_price": 83.26,
+      "rsi": 21.535545231278363,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "MEP.NS",
+      "company": "MEP Infrastructure Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.67369547024828,
+      "close_price": 0.85,
+      "rsi": 3.3300667080382027,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SADBHIN.NS",
+      "company": "Sadbhav Infrastructure Project Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.56366538063024,
+      "close_price": 2.14,
+      "rsi": 16.99765588142715,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "AQYLON.NS",
+      "company": "Aqylon Nexus Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.55914611938245,
+      "close_price": 48.17,
+      "rsi": 11.36701841337721,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "AGSTRA.NS",
+      "company": "AGS Transact Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.45401826151061,
+      "close_price": 2.49,
+      "rsi": 21.871587578885624,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IRB.NS",
+      "company": "IRB Infrastructure Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.395226647494,
+      "close_price": 21.61,
+      "rsi": 11.707910810621897,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

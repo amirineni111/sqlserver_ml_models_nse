@@ -1,0 +1,43 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-09
+[TIME] Report Generated (EST): 2026-02-09 07:31:07
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-09
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 525
+[BUY] Buy Signals: 525
+[SELL] Sell Signals: 0
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 502
+[DATA] Medium Confidence: 21
+[LOW] Low Confidence: 2
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.82
+[DATA] Average RSI: 56.6
+[COMPANY] Stocks Processed: 525
+[MODEL] Model Accuracy: 99.1%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] SBIN.NS: Buy (93.9%) - INR 1146.00 [NSE_Ensemble]
+[BUY] E2E.NS: Buy (92.8%) - INR 2634.40 [NSE_Ensemble]
+[BUY] TITAN.NS: Buy (92.1%) - INR 4257.80 [NSE_Ensemble]
+[BUY] AUBANK.NS: Buy (91.5%) - INR 1005.30 [NSE_Ensemble]
+[BUY] CAPLIPOINT.NS: Buy (91.4%) - INR 1758.40 [NSE_Ensemble]
+[BUY] GODREJCP.NS: Buy (90.9%) - INR 1197.70 [NSE_Ensemble]
+[BUY] ANANTRAJ.NS: Buy (90.6%) - INR 564.30 [NSE_Ensemble]
+[BUY] IFCI.NS: Buy (90.5%) - INR 64.61 [NSE_Ensemble]
+[BUY] ABB.NS: Buy (90.4%) - INR 5815.50 [NSE_Ensemble]
+[BUY] CANFINHOME.NS: Buy (90.3%) - INR 950.20 [NSE_Ensemble]

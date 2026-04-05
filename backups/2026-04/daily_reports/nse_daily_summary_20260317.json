@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-17",
+  "generated_at": "2026-03-17T17:04:18.102425",
+  "summary": {
+    "analysis_date": "2026-03-17",
+    "total_predictions": 780,
+    "total_buy_signals": 663,
+    "total_sell_signals": 117,
+    "total_hold_signals": 0,
+    "high_confidence_count": 407,
+    "medium_confidence_count": 298,
+    "low_confidence_count": 75,
+    "avg_confidence": 0.7687550584125583,
+    "avg_rsi": 34.277302738654136,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-17 17:04:14.517000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SBIN.NS",
+      "company": "State Bank of India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.1367924241703,
+      "close_price": 1064.7,
+      "rsi": 17.526617526617613,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "KANSAINER.NS",
+      "company": "Kansai Nerolac Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.12842094663861,
+      "close_price": 173.72,
+      "rsi": 21.198267564966216,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAMCOCEM.NS",
+      "company": "The Ramco Cements Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.05313082969094,
+      "close_price": 969.7,
+      "rsi": 11.767241379310434,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LATENTVIEW.NS",
+      "company": "Latent View Analytics Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.0376111646798,
+      "close_price": 275.95,
+      "rsi": 6.198608475648427,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GODREJIND.NS",
+      "company": "Godrej Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.01986942258074,
+      "close_price": 828.55,
+      "rsi": 10.689594043609219,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IDBI.NS",
+      "company": "IDBI Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97165674243301,
+      "close_price": 74.1,
+      "rsi": 13.144475920679753,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "MGL.NS",
+      "company": "Mahanagar Gas Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.95099513139722,
+      "close_price": 1016.1,
+      "rsi": 15.73033707865109,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "PCJEWELLER.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.91633041206927,
+      "close_price": 8.3,
+      "rsi": 4.145078375635947,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELAXO.NS",
+      "company": "RELAXO FOOTWEAR",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.8777383274334,
+      "close_price": 275.55,
+      "rsi": 1.5037593984960012,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SHARDAMOTR.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.8517251655129,
+      "close_price": 775.85,
+      "rsi": 14.948965956621251,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

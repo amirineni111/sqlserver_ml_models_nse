@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-01-29
+[TIME] Generated: 2026-01-29 07:30:51
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 520
+🟢 Buy Signals: 269
+🔴 Sell Signals: 251
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 181
+[DATA] Medium Confidence: 54
+📉 Low Confidence: 285
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.68
+[DATA] Average RSI: 39.8
+[COMPANY] Stocks Processed: 520
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🟢 KALYANKJIL.NS: Buy (97.9%) - ₹368.40
+🟢 SYNGENE.NS: Buy (97.7%) - ₹472.70
+🟢 NEWGEN.NS: Buy (96.9%) - ₹581.45
+🔴 TAPARIA.BO: Sell (96.7%) - ₹17.89
+🟢 KAJARIACER.NS: Buy (96.6%) - ₹891.35
+🟢 MEDANTA.NS: Buy (96.4%) - ₹1034.10
+🔴 TATASTEEL.NS: Sell (95.7%) - ₹202.32
+🟢 ONESOURCE.NS: Buy (95.7%) - ₹1114.00
+🔴 HINDCOPPER.NS: Sell (95.7%) - ₹760.05
+🔴 NATIONALUM.NS: Sell (95.5%) - ₹428.85

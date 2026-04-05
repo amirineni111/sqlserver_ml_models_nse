@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-04",
+  "generated_at": "2026-03-04T17:17:01.445151",
+  "summary": {
+    "analysis_date": "2026-03-04",
+    "total_predictions": 780,
+    "total_buy_signals": 713,
+    "total_sell_signals": 67,
+    "total_hold_signals": 0,
+    "high_confidence_count": 548,
+    "medium_confidence_count": 183,
+    "low_confidence_count": 49,
+    "avg_confidence": 0.8231708461226341,
+    "avg_rsi": 31.8200246593085,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-04 17:16:58.563000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.26934618833576,
+      "close_price": 131.69,
+      "rsi": 0.5417522884363137,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "BATAINDIA.NS",
+      "company": "Bata India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.22899690957232,
+      "close_price": 732.5,
+      "rsi": 6.041243101945767,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "PURVA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.19286802409812,
+      "close_price": 180.39,
+      "rsi": 2.691797302065254,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DHANUKA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.17972338044389,
+      "close_price": 988.1,
+      "rsi": 13.775236826580738,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALOKINDS.NS",
+      "company": "Alok Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.13752017995554,
+      "close_price": 13.32,
+      "rsi": 2.8925619834707703,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CEATLTD.NS",
+      "company": "CEAT Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.03753712592595,
+      "close_price": 3281.7,
+      "rsi": 5.517067640760729,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IMFA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.99097553025027,
+      "close_price": 1170.4,
+      "rsi": 11.176780847566818,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JUSTDIAL.NS",
+      "company": "Just Dial Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97799397000635,
+      "close_price": 523.55,
+      "rsi": 1.81877232867825,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.9717608312126,
+      "close_price": 2536.6,
+      "rsi": 13.848707612046425,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RTNINDIA.NS",
+      "company": "RattanIndia Enterprises Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.96723179820742,
+      "close_price": 25.69,
+      "rsi": 7.283763277693652,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-05",
+  "generated_at": "2026-03-06T17:17:23.655208",
+  "summary": {
+    "analysis_date": "2026-03-05",
+    "total_predictions": 780,
+    "total_buy_signals": 661,
+    "total_sell_signals": 119,
+    "total_hold_signals": 0,
+    "high_confidence_count": 432,
+    "medium_confidence_count": 266,
+    "low_confidence_count": 82,
+    "avg_confidence": 0.7779221731841689,
+    "avg_rsi": 35.27262042558694,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-06 17:17:19.077000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 99.36162878003425,
+      "close_price": 492.4,
+      "rsi": 87.63502643070576,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TEJASNET.NS",
+      "company": "Tejas Networks Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 99.36162878003425,
+      "close_price": 492.4,
+      "rsi": 85.89772471277347,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.26934618833576,
+      "close_price": 125.11,
+      "rsi": 0.5431728788161791,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.26934618833576,
+      "close_price": 125.11,
+      "rsi": 0.48244884378631525,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97812483897613,
+      "close_price": 2646.2,
+      "rsi": 22.943714759081956,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WAAREEENER.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97812483897613,
+      "close_price": 2646.2,
+      "rsi": 21.045656899296617,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IMFA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.95592351106932,
+      "close_price": 1192.5,
+      "rsi": 16.155206576231294,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GOKEX.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.91158306083406,
+      "close_price": 625.15,
+      "rsi": 10.524418351155447,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "PCJEWELLER.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.87592480744905,
+      "close_price": 9.01,
+      "rsi": 23.95830564198573,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "PCJEWELLER.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.87592480744905,
+      "close_price": 9.01,
+      "rsi": 22.43899601486666,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

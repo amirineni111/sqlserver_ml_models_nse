@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-02",
+  "generated_at": "2026-04-03T17:18:23.187089",
+  "summary": {
+    "analysis_date": "2026-04-02",
+    "total_predictions": 2067,
+    "total_buy_signals": 1440,
+    "total_sell_signals": 627,
+    "total_hold_signals": 0,
+    "high_confidence_count": 280,
+    "medium_confidence_count": 1231,
+    "low_confidence_count": 556,
+    "avg_confidence": 0.6172600632963848,
+    "avg_rsi": 45.39487331744993,
+    "total_stocks_processed": 2067,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-03 17:18:16.693000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IRB.NS",
+      "company": "IRB Infrastructure Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.39316408492886,
+      "close_price": 21.8,
+      "rsi": 12.455617807675296,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "21STCENMGM.NS",
+      "company": "Twentyfirst Century Management Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.14591583954925,
+      "close_price": 28.82,
+      "rsi": 17.77096438859229,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WEL.NS",
+      "company": "Wonder Electricals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97775298188887,
+      "close_price": 80.31,
+      "rsi": 11.377109357658256,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GSLSU.NS",
+      "company": "Global Surfaces Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.79576877259743,
+      "close_price": 48.71,
+      "rsi": 22.134625198082446,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SADBHIN.NS",
+      "company": "Sadbhav Infrastructure Project Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.76721424379636,
+      "close_price": 2.18,
+      "rsi": 19.96720723828902,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SABEVENTS.NS",
+      "company": "SAB Events & Governance Now Media Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.7583439718119,
+      "close_price": 8.52,
+      "rsi": 17.576987163474058,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IL&FSTRANS.NS",
+      "company": "IL&FS Transportation Networks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.59440096336995,
+      "close_price": 1.9,
+      "rsi": 24.474167672766157,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "AQYLON.NS",
+      "company": "Aqylon Nexus Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.55914611938245,
+      "close_price": 45.77,
+      "rsi": 11.018677447580359,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "MOKSH.NS",
+      "company": "Moksh Ornaments Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.406371988511,
+      "close_price": 9.05,
+      "rsi": 23.75348403810132,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GOLDENTOBC.NS",
+      "company": "Golden Tobacco Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.37520747233835,
+      "close_price": 21.7,
+      "rsi": 23.850334204957463,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

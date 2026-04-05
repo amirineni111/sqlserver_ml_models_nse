@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-23",
+  "generated_at": "2026-03-23T21:41:53.242275",
+  "summary": {
+    "analysis_date": "2026-03-23",
+    "total_predictions": 780,
+    "total_buy_signals": 720,
+    "total_sell_signals": 60,
+    "total_hold_signals": 0,
+    "high_confidence_count": 503,
+    "medium_confidence_count": 234,
+    "low_confidence_count": 43,
+    "avg_confidence": 0.7611359778526613,
+    "avg_rsi": 35.45005390545834,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-23 21:41:49.547000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.56007733961384,
+      "close_price": 89.31,
+      "rsi": 15.235044577892864,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.56007733961384,
+      "close_price": 89.31,
+      "rsi": 15.235044577892864,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.12590064738642,
+      "close_price": 73.59,
+      "rsi": 25.795596867438604,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.12590064738642,
+      "close_price": 73.59,
+      "rsi": 25.795596867438604,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.10397186583143,
+      "close_price": 45.41,
+      "rsi": 23.187882233104105,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.10397186583143,
+      "close_price": 45.41,
+      "rsi": 23.187882233104105,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COFFEEDAY.NS",
+      "company": "CoffeeDay",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.96254762484085,
+      "close_price": 22.34,
+      "rsi": 21.28676628373303,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COFFEEDAY.NS",
+      "company": "CoffeeDay",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.96254762484085,
+      "close_price": 22.34,
+      "rsi": 21.28676628373303,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LATENTVIEW.NS",
+      "company": "Latent View Analytics Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.89433027555695,
+      "close_price": 249.6,
+      "rsi": 16.9956479522765,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LATENTVIEW.NS",
+      "company": "Latent View Analytics Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.89433027555695,
+      "close_price": 249.6,
+      "rsi": 16.9956479522765,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

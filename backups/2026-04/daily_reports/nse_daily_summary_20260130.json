@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-30",
+  "generated_at": "2026-01-30T07:31:59.667359",
+  "summary": {
+    "analysis_date": "2026-01-30",
+    "total_predictions": 520,
+    "total_buy_signals": 206,
+    "total_sell_signals": 314,
+    "total_hold_signals": 0,
+    "high_confidence_count": 123,
+    "medium_confidence_count": 84,
+    "low_confidence_count": 313,
+    "avg_confidence": 0.6461105253466649,
+    "avg_rsi": 43.18174247846172,
+    "total_stocks_processed": 520,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.89744356172014,
+      "close_price": 361.65,
+      "rsi": 1.4925373766728427
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.65572826408055,
+      "close_price": 473.45,
+      "rsi": 6.4927510911226705
+    },
+    {
+      "ticker": "TAPARIA.BO",
+      "company": "Taparia",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.31501183430053,
+      "close_price": 18.78,
+      "rsi": 100.0
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.24982437178389,
+      "close_price": 1194.5,
+      "rsi": 15.958910607337387
+    },
+    {
+      "ticker": "OIL.NS",
+      "company": "Oil India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.5338101915947,
+      "close_price": 510.05,
+      "rsi": 78.3196995887483
+    },
+    {
+      "ticker": "IIFL.NS",
+      "company": "IIFL Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.51991406527281,
+      "close_price": 528.7,
+      "rsi": 21.602605442896092
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "company": "Godrej Properties Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.2624693845909,
+      "close_price": 1576.8,
+      "rsi": 13.629184746678263
+    },
+    {
+      "ticker": "MRPL.NS",
+      "company": "Mangalore Refinery and Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.22489239640386,
+      "close_price": 176.54,
+      "rsi": 74.12642957716652
+    },
+    {
+      "ticker": "POLYMED.NS",
+      "company": "Poly Medicure Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.00057552441396,
+      "close_price": 1520.9,
+      "rsi": 16.199040652709755
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.93798232340941,
+      "close_price": 582.0,
+      "rsi": 7.8378898706838385
+    }
+  ]
+}

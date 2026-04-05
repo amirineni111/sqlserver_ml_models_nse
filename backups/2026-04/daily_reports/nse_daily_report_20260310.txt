@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-10
+[TIME] Report Generated (EST): 2026-03-10 20:42:50
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-10
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 781
+[BUY] Buy Signals: 663
+[SELL] Sell Signals: 118
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 399
+[DATA] Medium Confidence: 312
+[LOW] Low Confidence: 70
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.76
+[DATA] Average RSI: 36.3
+[COMPANY] Stocks Processed: 781
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] AWFIS.NS: Buy (99.2%) - INR 255.60 [ExtraTreesClassifier (Legacy)]
+[BUY] DODLA.NS: Buy (99.1%) - INR 1023.50 [ExtraTreesClassifier (Legacy)]
+[BUY] RAJESHEXPO.NS: Buy (99.1%) - INR 109.19 [ExtraTreesClassifier (Legacy)]
+[BUY] METROBRAND.NS: Buy (98.9%) - INR 947.60 [ExtraTreesClassifier (Legacy)]
+[SELL] DATAPATTNS.NS: Sell (98.9%) - INR 3441.80 [ExtraTreesClassifier (Legacy)]
+[BUY] PRESTIGE.NS: Buy (98.8%) - INR 1307.30 [ExtraTreesClassifier (Legacy)]
+[BUY] LODHA.NS: Buy (98.8%) - INR 901.95 [ExtraTreesClassifier (Legacy)]
+[BUY] TBOTEK.NS: Buy (98.7%) - INR 1220.50 [ExtraTreesClassifier (Legacy)]
+[BUY] RAMCOCEM.NS: Buy (98.7%) - INR 1003.60 [ExtraTreesClassifier (Legacy)]
+[BUY] AFCONS.NS: Buy (98.7%) - INR 276.55 [ExtraTreesClassifier (Legacy)]

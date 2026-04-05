@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-12",
+  "generated_at": "2026-03-12T17:05:02.377834",
+  "summary": {
+    "analysis_date": "2026-03-12",
+    "total_predictions": 781,
+    "total_buy_signals": 660,
+    "total_sell_signals": 121,
+    "total_hold_signals": 0,
+    "high_confidence_count": 449,
+    "medium_confidence_count": 261,
+    "low_confidence_count": 71,
+    "avg_confidence": 0.7672767390116131,
+    "avg_rsi": 37.1573015400593,
+    "total_stocks_processed": 781,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-12 17:04:58.577000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ANGELONE.NS",
+      "company": "Angel One Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.89537980472687,
+      "close_price": 213.07,
+      "rsi": 1.6416156732603469,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COROMANDEL.NS",
+      "company": "Coromandel International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.03915212365813,
+      "close_price": 2008.5,
+      "rsi": 24.13675213675195,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TARC.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.01178479485318,
+      "close_price": 131.36,
+      "rsi": 9.085214248628873,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SBIN.NS",
+      "company": "State Bank of India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.94053059605139,
+      "close_price": 1085.2,
+      "rsi": 21.431958274063646,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "COFFEEDAY.NS",
+      "company": "CoffeeDay",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.93520171570249,
+      "close_price": 25.45,
+      "rsi": 9.702457956015792,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JKTYRE.NS",
+      "company": "JK Tyre & Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.85159828863512,
+      "close_price": 430.7,
+      "rsi": 18.8572829818538,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CUPID.NS",
+      "company": "CUPID",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.79484456091669,
+      "close_price": 81.35,
+      "rsi": 9.649653023756684,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GODREJIND.NS",
+      "company": "Godrej Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.76808868111598,
+      "close_price": 892.85,
+      "rsi": 16.47798742138373,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CCAVENUE.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.75212282103787,
+      "close_price": 14.64,
+      "rsi": 8.520159212876038,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GOKEX.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.74751837096879,
+      "close_price": 602.9,
+      "rsi": 22.435693871070086,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

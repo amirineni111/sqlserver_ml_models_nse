@@ -1,0 +1,100 @@
+{
+  "date": "2026-02-01",
+  "generated_at": "2026-02-01T07:18:19.781891",
+  "summary": {
+    "analysis_date": "2026-02-01",
+    "total_predictions": 524,
+    "total_buy_signals": 251,
+    "total_sell_signals": 273,
+    "total_hold_signals": 0,
+    "high_confidence_count": 131,
+    "medium_confidence_count": 41,
+    "low_confidence_count": 352,
+    "avg_confidence": 0.6399805907906317,
+    "avg_rsi": 40.23081610956977,
+    "total_stocks_processed": 524,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IIFL.NS",
+      "company": "IIFL Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.07549301464405,
+      "close_price": 475.75,
+      "rsi": 17.352698215167052
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.77723134250445,
+      "close_price": 465.35,
+      "rsi": 2.562658582272306
+    },
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.61612387461547,
+      "close_price": 1209.6,
+      "rsi": 13.174585791906608
+    },
+    {
+      "ticker": "ASIANPAINT.NS",
+      "company": "Asian Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.79995900803473,
+      "close_price": 2357.0,
+      "rsi": 8.558698272603621
+    },
+    {
+      "ticker": "HERITGFOOD.NS",
+      "company": "Heritage Foods",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.74022075720131,
+      "close_price": 353.25,
+      "rsi": 7.703499289401819
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.54957685223539,
+      "close_price": 368.9,
+      "rsi": 6.467147719678877
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.49199132961651,
+      "close_price": 572.85,
+      "rsi": 8.085189519257227
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "company": "PNB Housing Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.232893535323,
+      "close_price": 805.35,
+      "rsi": 15.443242946805157
+    },
+    {
+      "ticker": "CONCORDBIO.NS",
+      "company": "Concord Biotech Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.36377210776708,
+      "close_price": 1139.5,
+      "rsi": 17.37398664608625
+    },
+    {
+      "ticker": "POLYMED.NS",
+      "company": "Poly Medicure Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 94.1996457709959,
+      "close_price": 1504.7,
+      "rsi": 16.54948288457024
+    }
+  ]
+}

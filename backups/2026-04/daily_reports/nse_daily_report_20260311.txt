@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-11
+[TIME] Report Generated (EST): 2026-03-11 17:05:09
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-11
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 781
+[BUY] Buy Signals: 667
+[SELL] Sell Signals: 114
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 449
+[DATA] Medium Confidence: 269
+[LOW] Low Confidence: 63
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.78
+[DATA] Average RSI: 35.1
+[COMPANY] Stocks Processed: 781
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] ANGELONE.NS: Buy (99.9%) - INR 218.53 [ExtraTreesClassifier (Legacy)]
+[BUY] CIGNITITEC.NS: Buy (99.3%) - INR 1095.60 [ExtraTreesClassifier (Legacy)]
+[BUY] COFFEEDAY.NS: Buy (99.3%) - INR 25.87 [ExtraTreesClassifier (Legacy)]
+[BUY] GANESHHOU.NS: Buy (99.2%) - INR 625.80 [ExtraTreesClassifier (Legacy)]
+[BUY] RELAXO.NS: Buy (99.2%) - INR 304.65 [ExtraTreesClassifier (Legacy)]
+[BUY] SBIN.NS: Buy (99.1%) - INR 1091.10 [ExtraTreesClassifier (Legacy)]
+[BUY] DHANUKA.NS: Buy (99.1%) - INR 977.00 [ExtraTreesClassifier (Legacy)]
+[BUY] LODHA.NS: Buy (99.1%) - INR 880.40 [ExtraTreesClassifier (Legacy)]
+[BUY] GODREJIND.NS: Buy (99.1%) - INR 888.60 [ExtraTreesClassifier (Legacy)]
+[BUY] PRUDENT.NS: Buy (99.1%) - INR 2234.70 [ExtraTreesClassifier (Legacy)]

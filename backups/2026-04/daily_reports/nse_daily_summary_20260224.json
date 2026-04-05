@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-24",
+  "generated_at": "2026-02-24T08:03:21.591392",
+  "summary": {
+    "analysis_date": "2026-02-24",
+    "total_predictions": 546,
+    "total_buy_signals": 385,
+    "total_sell_signals": 161,
+    "total_hold_signals": 0,
+    "high_confidence_count": 236,
+    "medium_confidence_count": 228,
+    "low_confidence_count": 82,
+    "avg_confidence": 0.7187733605001896,
+    "avg_rsi": 46.052714690497595,
+    "total_stocks_processed": 546,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-02-24 08:03:18.783000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.17946945137547,
+      "close_price": 227.9,
+      "rsi": 13.990610328638553,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TORNTPHARM.NS",
+      "company": "Torrent Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.74431862433103,
+      "close_price": 4397.9,
+      "rsi": 77.10686359687224,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "APOLLOTYRE.NS",
+      "company": "Apollo Tyres Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.60321513637079,
+      "close_price": 454.75,
+      "rsi": 9.225352112676319,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "WIPRO.NS",
+      "company": "Wipro Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.52862285663248,
+      "close_price": 200.14,
+      "rsi": 9.452857840742823,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CYIENT.NS",
+      "company": "Cyient Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.49774403419754,
+      "close_price": 950.1,
+      "rsi": 15.991763898421453,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.43769204073905,
+      "close_price": 2583.6,
+      "rsi": 19.737787356321803,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.39469712481444,
+      "close_price": 95.03,
+      "rsi": 19.57137080469124,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "REDINGTON.NS",
+      "company": "Redington Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.33514112647813,
+      "close_price": 239.95,
+      "rsi": 14.914425427872715,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALLCARGO.NS",
+      "company": "ALL CARGO",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.31697860190503,
+      "close_price": 8.69,
+      "rsi": 9.663865546218346,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TATATECH.NS",
+      "company": "Tata Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.30661760769628,
+      "close_price": 572.15,
+      "rsi": 20.31131359149606,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

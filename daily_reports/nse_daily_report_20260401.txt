@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-01
+[TIME] Report Generated (EST): 2026-04-01 16:40:25
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-01
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2065
+[BUY] Buy Signals: 1427
+[SELL] Sell Signals: 638
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 292
+[DATA] Medium Confidence: 1209
+[LOW] Low Confidence: 564
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.62
+[DATA] Average RSI: 43.7
+[COMPANY] Stocks Processed: 2065
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] WEL.NS: Buy (99.0%) - INR 80.77 [ExtraTreesClassifier (Legacy)]
+[BUY] SABEVENTS.NS: Buy (98.9%) - INR 8.12 [ExtraTreesClassifier (Legacy)]
+[BUY] GSLSU.NS: Buy (98.9%) - INR 46.58 [ExtraTreesClassifier (Legacy)]
+[BUY] SUNDRMFAST.NS: Buy (98.7%) - INR 752.90 [ExtraTreesClassifier (Legacy)]
+[BUY] RAJESHEXPO.NS: Buy (98.7%) - INR 83.26 [ExtraTreesClassifier (Legacy)]
+[BUY] MEP.NS: Buy (98.7%) - INR 0.85 [ExtraTreesClassifier (Legacy)]
+[BUY] SADBHIN.NS: Buy (98.6%) - INR 2.14 [ExtraTreesClassifier (Legacy)]
+[BUY] AQYLON.NS: Buy (98.6%) - INR 48.17 [ExtraTreesClassifier (Legacy)]
+[BUY] AGSTRA.NS: Buy (98.5%) - INR 2.49 [ExtraTreesClassifier (Legacy)]
+[BUY] IRB.NS: Buy (98.4%) - INR 21.61 [ExtraTreesClassifier (Legacy)]

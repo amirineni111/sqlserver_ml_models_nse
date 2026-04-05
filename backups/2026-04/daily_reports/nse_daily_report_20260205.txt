@@ -1,0 +1,40 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] Date: 2026-02-05
+[TIME] Generated: 2026-02-05 07:31:13
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 525
+🟢 Buy Signals: 111
+🔴 Sell Signals: 414
+🟡 Hold Signals: 0
+
+🎯 CONFIDENCE BREAKDOWN
+-----------------------
+🔥 High Confidence: 80
+[DATA] Medium Confidence: 120
+📉 Low Confidence: 325
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+⭐ Average Confidence: 0.62
+[DATA] Average RSI: 48.8
+[COMPANY] Stocks Processed: 525
+[TIME] Processing Time: 0.0 seconds
+
+
+🎯 TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+🔴 AARTIIND.NS: Sell (96.6%) - ₹453.60
+🔴 AVANTIFEED.NS: Sell (96.4%) - ₹1081.20
+🔴 VRLLOG.NS: Sell (95.3%) - ₹279.40
+🟢 ONESOURCE.NS: Buy (95.2%) - ₹1162.10
+🟢 SYNGENE.NS: Buy (95.2%) - ₹459.50
+🔴 SYRMA.NS: Sell (94.9%) - ₹860.60
+🟢 KPITTECH.NS: Buy (94.4%) - ₹959.50
+🔴 CUMMINSIND.NS: Sell (94.4%) - ₹4391.40
+🟢 NEWGEN.NS: Buy (93.9%) - ₹545.95
+🟢 RAINBOW.NS: Buy (93.7%) - ₹1128.30

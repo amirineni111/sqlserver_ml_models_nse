@@ -1,0 +1,38 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-19
+[TIME] Report Generated (EST): 2026-02-19 07:46:24
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-19
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 530
+[BUY] Buy Signals: 106
+[SELL] Sell Signals: 424
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 7
+[DATA] Medium Confidence: 421
+[LOW] Low Confidence: 102
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.59
+[DATA] Average RSI: 54.7
+[COMPANY] Stocks Processed: 530
+[MODEL] Model Accuracy: 62.2%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RTNINDIA.NS: Buy (76.8%) - INR 32.06 [NSE_Ensemble]
+[BUY] SHAKTIPUMP.NS: Buy (74.5%) - INR 560.75 [NSE_Ensemble]
+[BUY] INOXWIND.NS: Buy (74.1%) - INR 96.65 [NSE_Ensemble]
+[BUY] BLUEJET.NS: Buy (71.6%) - INR 364.20 [NSE_Ensemble]
+[SELL] RBLBANK.NS: Sell (70.0%) - INR 332.55 [NSE_Ensemble]

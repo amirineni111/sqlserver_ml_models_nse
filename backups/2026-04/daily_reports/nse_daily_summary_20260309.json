@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-09",
+  "generated_at": "2026-03-09T17:19:04.604353",
+  "summary": {
+    "analysis_date": "2026-03-09",
+    "total_predictions": 780,
+    "total_buy_signals": 702,
+    "total_sell_signals": 78,
+    "total_hold_signals": 0,
+    "high_confidence_count": 530,
+    "medium_confidence_count": 201,
+    "low_confidence_count": 49,
+    "avg_confidence": 0.8118626996823803,
+    "avg_rsi": 33.36909300380617,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-09 17:19:01.627000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.20297393070268,
+      "close_price": 112.95,
+      "rsi": 0.5118249205788317,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "GOKEX.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.19091394807059,
+      "close_price": 593.5,
+      "rsi": 10.029194573243984,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LODHA.NS",
+      "company": "Macrotech Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.18922393869786,
+      "close_price": 888.85,
+      "rsi": 8.181636327265721,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "TRENT.NS",
+      "company": "Trent Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.13611468389907,
+      "close_price": 3689.4,
+      "rsi": 15.023960626861495,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "HDFCAMC.NS",
+      "company": "HDFC Asset Management Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.113096323271,
+      "close_price": 2461.1,
+      "rsi": 18.991049633848533,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "IKS.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.09965743091341,
+      "close_price": 1305.2,
+      "rsi": 14.0546721386781,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DODLA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.933747501235,
+      "close_price": 1040.0,
+      "rsi": 14.26620774262399,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ARVINDFASN.NS",
+      "company": "ARVIND FASHIONS",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.90744452541904,
+      "close_price": 407.2,
+      "rsi": 10.485663274882157,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "BIRLACORPN.NS",
+      "company": "Birla Corporation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.89638630534009,
+      "close_price": 823.6,
+      "rsi": 8.983286908078355,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "INDHOTEL.NS",
+      "company": "The Indian Hotels Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.85205571089544,
+      "close_price": 611.7,
+      "rsi": 14.503133393016867,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

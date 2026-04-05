@@ -1,0 +1,39 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-02-16
+[TIME] Report Generated (EST): 2026-02-16 07:46:33
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-02-16
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 530
+[BUY] Buy Signals: 114
+[SELL] Sell Signals: 416
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 9
+[DATA] Medium Confidence: 417
+[LOW] Low Confidence: 104
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.59
+[DATA] Average RSI: 52.8
+[COMPANY] Stocks Processed: 530
+[MODEL] Model Accuracy: 62.2%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] NEWGEN.NS: Buy (76.4%) - INR 463.05 [NSE_Ensemble]
+[BUY] SHAKTIPUMP.NS: Buy (74.5%) - INR 564.70 [NSE_Ensemble]
+[BUY] FSL.NS: Buy (74.4%) - INR 247.75 [NSE_Ensemble]
+[BUY] SONATSOFTW.NS: Buy (74.1%) - INR 273.50 [NSE_Ensemble]
+[BUY] ROUTE.NS: Buy (70.9%) - INR 533.95 [NSE_Ensemble]
+[BUY] BLUEJET.NS: Buy (70.4%) - INR 357.60 [NSE_Ensemble]

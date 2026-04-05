@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-27
+[TIME] Report Generated (EST): 2026-03-27 17:04:56
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-27
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 631
+[SELL] Sell Signals: 149
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 251
+[DATA] Medium Confidence: 393
+[LOW] Low Confidence: 136
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.66
+[DATA] Average RSI: 40.8
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RAJESHEXPO.NS: Buy (99.4%) - INR 84.61 [ExtraTreesClassifier (Legacy)]
+[BUY] RELINFRA.NS: Buy (99.1%) - INR 70.49 [ExtraTreesClassifier (Legacy)]
+[BUY] EMBDL.NS: Buy (99.0%) - INR 41.53 [ExtraTreesClassifier (Legacy)]
+[BUY] IDBI.NS: Buy (98.8%) - INR 64.01 [ExtraTreesClassifier (Legacy)]
+[BUY] RELAXO.NS: Buy (98.5%) - INR 249.75 [ExtraTreesClassifier (Legacy)]
+[BUY] TATACHEM.NS: Buy (98.4%) - INR 605.35 [ExtraTreesClassifier (Legacy)]
+[BUY] ARE&M.NS: Buy (98.4%) - INR 701.70 [ExtraTreesClassifier (Legacy)]
+[BUY] TEXRAIL.NS: Buy (98.2%) - INR 83.66 [ExtraTreesClassifier (Legacy)]
+[BUY] TTML.NS: Buy (98.2%) - INR 33.13 [ExtraTreesClassifier (Legacy)]
+[BUY] GUJGASLTD.NS: Buy (98.2%) - INR 317.65 [ExtraTreesClassifier (Legacy)]
