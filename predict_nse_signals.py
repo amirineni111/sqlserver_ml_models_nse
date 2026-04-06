@@ -126,8 +126,11 @@ class NSETradingSignalPredictor:
             self.clf_models = {}
             for model_file in self.nse_model_dir.glob('nse_clf_*.joblib'):
                 model_name = model_file.stem.replace('nse_clf_', '').replace('_', ' ').title()
-                self.clf_models[model_name] = joblib.load(model_file)
-                safe_print(f"  [OK] Loaded classifier: {model_name}")
+                try:
+                    self.clf_models[model_name] = joblib.load(model_file)
+                    safe_print(f"  [OK] Loaded classifier: {model_name}")
+                except Exception as e:
+                    safe_print(f"  [WARN] Skipping corrupt classifier {model_file.name}: {e}")
             
             # Load best classifier
             best_clf_path = self.nse_model_dir / 'nse_best_classifier.joblib'
@@ -138,8 +141,11 @@ class NSETradingSignalPredictor:
             self.reg_models = {}
             for model_file in self.nse_model_dir.glob('nse_reg_*.joblib'):
                 model_name = model_file.stem.replace('nse_reg_', '').replace('_', ' ').title()
-                self.reg_models[model_name] = joblib.load(model_file)
-                safe_print(f"  [OK] Loaded regressor: {model_name}")
+                try:
+                    self.reg_models[model_name] = joblib.load(model_file)
+                    safe_print(f"  [OK] Loaded regressor: {model_name}")
+                except Exception as e:
+                    safe_print(f"  [WARN] Skipping corrupt regressor {model_file.name}: {e}")
             
             # Load best regressor
             best_reg_path = self.nse_model_dir / 'nse_best_regressor.joblib'

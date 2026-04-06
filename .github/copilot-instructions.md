@@ -8,13 +8,13 @@ This is the **NSE ML training pipeline** — part of a 7-repo stock trading anal
 - Writes to `ml_nse_trading_predictions`, `ml_nse_predict_summary`, `ml_nse_technical_indicators`
 - 5-model ensemble with 90+ engineered features
 - Includes regression models for price target predictions
-- Connected to shared database `stockdata_db` on `localhost\MSSQLSERVER01` (Windows Auth)
+- Connected to shared database `stockdata_db` on `192.168.86.28\MSSQLSERVER01` (SQL Auth, remote)
 
 ## Key Technologies
-- **Database**: SQL Server (`stockdata_db` on `localhost\MSSQLSERVER01`, Windows Auth)
-- **Language**: Python 3.11+
+- **Database**: SQL Server (`stockdata_db` on `192.168.86.28\MSSQLSERVER01`, SQL Auth, remote)
+- **Language**: Python 3.12+
 - **ML Libraries**: scikit-learn, pandas, numpy, matplotlib, seaborn
-- **Database Connectivity**: pyodbc (Trusted_Connection=yes)
+- **Database Connectivity**: pyodbc (SQL Auth via .env credentials)
 
 ## Pipeline Flow
 1. `feature_engineering.py` — 90+ features from OHLCV + fundamentals
@@ -54,7 +54,7 @@ Configure in `.vscode/mcp.json` to query stockdata_db directly from your AI IDE:
     "type": "stdio",
     "command": "C:\\Users\\sreea\\OneDrive\\Desktop\\sqlserver_mcp\\SQL-AI-samples\\MssqlMcp\\dotnet\\MssqlMcp\\bin\\Debug\\net8.0\\MssqlMcp.exe",
     "env": {
-        "CONNECTION_STRING": "Server=localhost\\MSSQLSERVER01;Database=stockdata_db;Trusted_Connection=True;TrustServerCertificate=True"
+        "CONNECTION_STRING": "Server=192.168.86.28\\MSSQLSERVER01;Database=stockdata_db;User Id=remote_user;Password=YourStrongPassword123!;TrustServerCertificate=True"
     }
 }
 ```
