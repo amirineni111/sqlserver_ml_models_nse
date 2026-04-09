@@ -131,6 +131,17 @@ Used for price prediction targets (complementary to classifier signals).
 
 ## 5. CODING CONVENTIONS
 
+### .env Configuration (Critical)
+The `.env` file **must** use the correct SQL Server address matching the NASDAQ repo:
+```
+SQL_SERVER=192.168.86.28\MSSQLSERVER01
+SQL_DATABASE=stockdata_db
+SQL_USERNAME=remote_user
+SQL_DRIVER=ODBC Driver 17 for SQL Server
+SQL_TRUSTED_CONNECTION=no
+```
+**WARNING**: Do NOT use IP `192.168.87.27` or port-based format (`,1444`). The correct address is `192.168.86.28\MSSQLSERVER01` (named instance). A wrong IP in `.env` caused a 3-day prediction outage in April 2026 that went undetected because the script exited with code 0 on DB failure.
+
 ### Critical Data Issues
 - **VARCHAR Price Columns**: Same as NASDAQ repo — `CAST(close_price AS FLOAT)` always
 - **500 stocks**: Much larger universe than NASDAQ 100. Feature engineering takes longer.

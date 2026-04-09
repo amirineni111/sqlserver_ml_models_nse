@@ -28,6 +28,9 @@ This is the **NSE ML training pipeline** — part of a 7-repo stock trading anal
 - Sunday 2:00 AM: Weekly full retrain (classifiers + regressors)
 
 ## Database Notes
+- **Server**: `192.168.86.28\MSSQLSERVER01` (named instance, NOT port-based)
+- **Auth**: SQL Auth (`remote_user`), `SQL_TRUSTED_CONNECTION=no`
+- **WARNING**: Do NOT use IP `192.168.87.27` or port-based format (`,1444`). Wrong `.env` config caused a silent 3-day outage in April 2026.
 - Price columns in `nse_500_hist_data` are **VARCHAR** — always use `CAST(close_price AS FLOAT)`
 - Predictions include sector and market_cap_category for stratified analysis
 - Summary table tracks multi-horizon success rates (1d/5d/10d)

@@ -104,16 +104,33 @@ def safe_print(text):
 
 
 def check_nse_data_status():
-    """Check NSE data availability and quality."""
+    """Check NSE data availability and quality. Retries DB connection up to 3 times."""
+    max_retries = 3
+    retry_delay = 30  # seconds
+    db = None
+    
+    for attempt in range(1, max_retries + 1):
+        try:
+            logging.info(f"[INFO] Checking NSE data status and connectivity... (attempt {attempt}/{max_retries})")
+            db = SQLServerConnection()
+            if db.test_connection():
+                break
+            else:
+                if attempt < max_retries:
+                    logging.warning(f"[WARN] Database connection failed (attempt {attempt}/{max_retries}), retrying in {retry_delay}s...")
+                    time.sleep(retry_delay)
+                else:
+                    logging.error("[ERROR] Database connection failed after all retry attempts")
+                    return False, None, None, None
+        except Exception as e:
+            if attempt < max_retries:
+                logging.warning(f"[WARN] Connection error (attempt {attempt}/{max_retries}): {e}, retrying in {retry_delay}s...")
+                time.sleep(retry_delay)
+            else:
+                logging.error(f"[ERROR] Database connection error after all retries: {e}")
+                return False, None, None, None
+    
     try:
-        logging.info("[INFO] Checking NSE data status and connectivity...")
-        
-        db = SQLServerConnection()
-        
-        if not db.test_connection():
-            logging.error("[ERROR] Database connection failed")
-            return False, None, None, None
-        
         logging.info("[SUCCESS] Database connection successful")
         
         # Check NSE historical data
@@ -703,7 +720,7 @@ def main():
                                "The database was unreachable at the scheduled run time.\n"
                                "Predictions were NOT generated for today.")
             send_failure_alert(failure_message, failure_step, str(log_filename))
-            return
+            sys.exit(1)
         
         success_count += 1
         
@@ -809,16 +826,18 @@ def main():
         nse_model_exists = Path('data/nse_models/nse_training_metadata.pkl').exists()
         logging.info(f"[MODEL] Using: {'NSE-trained ensemble models' if nse_model_exists else 'Legacy models (run retrain_nse_model.py)'}")
         
-        if success_count == total_steps:
+        if success_count == total_steps and not pipeline_failed:
             safe_print("[COMPLETE] NSE automation completed successfully!")
             logging.info("[COMPLETE] All automation steps completed successfully")
         else:
             safe_print(f"[WARN] NSE automation completed with {total_steps - success_count} failures")
             logging.warning(f"Automation completed with {total_steps - success_count} failed steps")
+            sys.exit(1)
     
     except KeyboardInterrupt:
         logging.info("[STOP] NSE automation interrupted by user")
         safe_print("[STOP] Process interrupted by user")
+        sys.exit(1)
     except Exception as e:
         logging.error(f"[ERROR] Fatal error in NSE automation: {e}")
         safe_print(f"[ERROR] Fatal error: {e}")
