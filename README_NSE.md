@@ -99,9 +99,15 @@ python export_nse_results.py --watchlist
 ## 🎯 Signal Classification
 
 ### Confidence Levels
-- **High Confidence**: ≥80% model confidence
-- **Medium Confidence**: 60-80% model confidence  
-- **Low Confidence**: <60% model confidence
+- **High Confidence**: ≥60% model confidence (lowered from 80% based on April 2026 analysis)
+- **Medium Confidence**: 55-60% model confidence  
+- **Low Confidence**: <55% model confidence
+
+**Note**: The high-confidence threshold was lowered from 70% to 60% after analysis showed:
+- NASDAQ's higher threshold (>70%) resulted in only 50% accuracy (no better than random)
+- NSE's 5-model calibrated ensemble is conservative but more accurate
+- The lower threshold unlocks ~7,000 daily signals that were previously ignored
+- Confidence thresholds are configurable in `nse_config.py` or via environment variables
 
 ### Signal Types
 - **Buy**: Bullish sentiment with positive momentum

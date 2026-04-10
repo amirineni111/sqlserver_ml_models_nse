@@ -103,7 +103,7 @@ Used for price prediction targets (complementary to classifier signals).
 | model_name | VARCHAR | Model identifier |
 | sector | VARCHAR | Stock sector |
 | market_cap_category | VARCHAR | Large/Mid/Small cap |
-| high_confidence | BIT | Flag for confidence ≥ 70% |
+| high_confidence | BIT | Flag for confidence ≥ 60% (lowered from 70% Apr 2026) |
 
 ### Also Writes
 - `ml_nse_predict_summary` — Daily aggregates + model_accuracy, success_rate_1d/5d/10d

@@ -207,10 +207,11 @@ class SimpleNSEPredictor:
                                           bins=[0, 0.6, 0.8, 1.0], 
                                           labels=['Low', 'Medium', 'High'])
         
-        # Confidence flags
-        results['high_confidence'] = (results['confidence'] >= 0.8).astype(int)
-        results['medium_confidence'] = ((results['confidence'] >= 0.6) & (results['confidence'] < 0.8)).astype(int)
-        results['low_confidence'] = (results['confidence'] < 0.6).astype(int)
+        # Confidence flags (using centralized config thresholds)
+        from nse_config import HIGH_CONFIDENCE_THRESHOLD, MEDIUM_CONFIDENCE_THRESHOLD
+        results['high_confidence'] = (results['confidence'] >= HIGH_CONFIDENCE_THRESHOLD).astype(int)
+        results['medium_confidence'] = ((results['confidence'] >= MEDIUM_CONFIDENCE_THRESHOLD) & (results['confidence'] < HIGH_CONFIDENCE_THRESHOLD)).astype(int)
+        results['low_confidence'] = (results['confidence'] < MEDIUM_CONFIDENCE_THRESHOLD).astype(int)
         
         # RSI category
         results['rsi_category'] = pd.cut(results['RSI'], 

@@ -28,6 +28,14 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import sys
 import os
+
+# Import NSE configuration for thresholds
+try:
+    from nse_config import HIGH_CONFIDENCE_THRESHOLD, MEDIUM_CONFIDENCE_THRESHOLD
+except ImportError:
+    # Fallback to defaults if config not found
+    HIGH_CONFIDENCE_THRESHOLD = 0.60
+    MEDIUM_CONFIDENCE_THRESHOLD = 0.55
 import logging
 
 # Configure UTF-8 encoding for Windows console compatibility
@@ -1127,10 +1135,10 @@ class NSETradingSignalPredictor:
             latest_data['model_name'] = 'ExtraTreesClassifier (Legacy)'
             latest_data['model_version'] = 'legacy'
         
-        # Confidence levels
-        latest_data['high_confidence'] = (latest_data['confidence'] >= 0.7).astype(int)
-        latest_data['medium_confidence'] = ((latest_data['confidence'] >= 0.55) & (latest_data['confidence'] < 0.7)).astype(int)
-        latest_data['low_confidence'] = (latest_data['confidence'] < 0.55).astype(int)
+        # Confidence levels (using centralized config thresholds)
+        latest_data['high_confidence'] = (latest_data['confidence'] >= HIGH_CONFIDENCE_THRESHOLD).astype(int)
+        latest_data['medium_confidence'] = ((latest_data['confidence'] >= MEDIUM_CONFIDENCE_THRESHOLD) & (latest_data['confidence'] < HIGH_CONFIDENCE_THRESHOLD)).astype(int)
+        latest_data['low_confidence'] = (latest_data['confidence'] < MEDIUM_CONFIDENCE_THRESHOLD).astype(int)
         
         # Signal strength
         latest_data['signal_strength'] = latest_data.apply(
