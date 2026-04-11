@@ -26,6 +26,8 @@ MEDIUM_CONFIDENCE_THRESHOLD = float(os.getenv('MEDIUM_CONFIDENCE_THRESHOLD', '0.
 
 # Low confidence threshold (below MEDIUM_CONFIDENCE_THRESHOLD)
 # Signals below 55% are flagged as low confidence
+HOLD_CONFIDENCE_THRESHOLD = float(os.getenv('HOLD_CONFIDENCE_THRESHOLD', '0.55'))
+HOLD_PROBABILITY_MARGIN = float(os.getenv('HOLD_PROBABILITY_MARGIN', '0.08'))
 
 
 # ============================================================================
@@ -67,6 +69,12 @@ if not (0.0 <= MEDIUM_CONFIDENCE_THRESHOLD <= HIGH_CONFIDENCE_THRESHOLD):
 if not (0.0 <= MIN_PREDICTION_CONFIDENCE <= 1.0):
     raise ValueError(f"MIN_PREDICTION_CONFIDENCE must be between 0 and 1, got {MIN_PREDICTION_CONFIDENCE}")
 
+if not (0.0 <= HOLD_CONFIDENCE_THRESHOLD <= 1.0):
+    raise ValueError(f"HOLD_CONFIDENCE_THRESHOLD must be between 0 and 1, got {HOLD_CONFIDENCE_THRESHOLD}")
+
+if not (0.0 <= HOLD_PROBABILITY_MARGIN <= 1.0):
+    raise ValueError(f"HOLD_PROBABILITY_MARGIN must be between 0 and 1, got {HOLD_PROBABILITY_MARGIN}")
+
 
 # ============================================================================
 # CONFIGURATION SUMMARY (for logging)
@@ -80,6 +88,8 @@ def print_config():
     print(f"High Confidence Threshold:    {HIGH_CONFIDENCE_THRESHOLD:.0%} (≥{HIGH_CONFIDENCE_THRESHOLD*100:.0f}%)")
     print(f"Medium Confidence Threshold:  {MEDIUM_CONFIDENCE_THRESHOLD:.0%} (≥{MEDIUM_CONFIDENCE_THRESHOLD*100:.0f}%)")
     print(f"Low Confidence:               <{MEDIUM_CONFIDENCE_THRESHOLD:.0%} (<{MEDIUM_CONFIDENCE_THRESHOLD*100:.0f}%)")
+    print(f"Hold Confidence Threshold:    {HOLD_CONFIDENCE_THRESHOLD:.0%}")
+    print(f"Hold Probability Margin:      {HOLD_PROBABILITY_MARGIN:.0%}")
     print(f"Minimum Prediction Confidence: {MIN_PREDICTION_CONFIDENCE:.0%}")
     print(f"Model Accuracy Threshold:     {MIN_MODEL_ACCURACY:.0%}")
     print(f"Live Accuracy Threshold:      {MIN_LIVE_ACCURACY:.0%}")

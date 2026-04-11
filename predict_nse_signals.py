@@ -31,11 +31,18 @@ import os
 
 # Import NSE configuration for thresholds
 try:
-    from nse_config import HIGH_CONFIDENCE_THRESHOLD, MEDIUM_CONFIDENCE_THRESHOLD
+    from nse_config import (
+        HIGH_CONFIDENCE_THRESHOLD,
+        MEDIUM_CONFIDENCE_THRESHOLD,
+        HOLD_CONFIDENCE_THRESHOLD,
+        HOLD_PROBABILITY_MARGIN,
+    )
 except ImportError:
     # Fallback to defaults if config not found
     HIGH_CONFIDENCE_THRESHOLD = 0.60
     MEDIUM_CONFIDENCE_THRESHOLD = 0.55
+    HOLD_CONFIDENCE_THRESHOLD = 0.55
+    HOLD_PROBABILITY_MARGIN = 0.08
 import logging
 
 # Configure UTF-8 encoding for Windows console compatibility
@@ -988,7 +995,9 @@ class NSETradingSignalPredictor:
         
         # Handle infinities and NaN
         result_df = result_df.replace([np.inf, -np.inf], np.nan)
-        result_df = result_df.fillna(method='bfill').fillna(method='ffill').fillna(0)
+        result_df = result_df.groupby('ticker', group_keys=False).apply(
+            lambda group: group.ffill().bfill()
+        ).fillna(0)
         
         safe_print(f"[SUCCESS] Indicators calculated for {len(result_df):,} records")
         return result_df
@@ -1026,63 +1035,60 @@ class NSETradingSignalPredictor:
         clf_scaled = self.clf_scaler.transform(feature_data)
         
         if self.use_nse_models:
-            # === F1-Weighted Ensemble Classification Predictions ===
-            # Exclude the 'Ensemble' (VotingClassifier) model to avoid double-counting
-            # since it's already a combination of the base models.
-            # Weight each base model's probabilities by its training F1 score.
-            clf_results = self.metadata.get('clf_results', {})
-            
-            all_probabilities = []
-            model_weights = []
-            model_names_used = []
-            
-            for model_name, model in self.clf_models.items():
-                # Skip the redundant VotingClassifier ensemble
-                if model_name.lower() == 'ensemble':
-                    continue
+            probabilities = None
+            predicted_labels = None
+
+            if getattr(self, 'best_classifier', None) is not None:
                 try:
-                    proba = model.predict_proba(clf_scaled)
-                    all_probabilities.append(proba)
-                    model_names_used.append(model_name)
-                    # Get F1 weight from training metadata (default 1.0 if not found)
-                    f1 = clf_results.get(model_name, {}).get('f1_score', 1.0)
-                    model_weights.append(f1)
+                    probabilities = self.best_classifier.predict_proba(clf_scaled)
+                    best_predictions = self.best_classifier.predict(clf_scaled)
+                    predicted_labels = self.direction_encoder.inverse_transform(best_predictions)
+                    latest_data['model_name'] = self.metadata.get('best_clf_model', 'NSE_Best_Classifier')
+                    latest_data['model_version'] = self.metadata.get('training_timestamp', 'unknown')
+                    safe_print(f"  [OK] Using calibrated best classifier: {latest_data['model_name'].iloc[0]}")
                 except Exception as e:
-                    safe_print(f"  [WARN] {model_name} prediction failed: {e}")
-            
-            if not all_probabilities:
-                safe_print("[ERROR] All classification models failed")
-                return None
-            
-            # F1-weighted average of probabilities (better models contribute more)
-            weights = np.array(model_weights)
-            weights = weights / weights.sum()  # Normalize to sum to 1
-            avg_probabilities = np.average(all_probabilities, axis=0, weights=weights)
-            ensemble_predictions = np.argmax(avg_probabilities, axis=1)
-            
-            # Decode predictions
-            predicted_labels = self.direction_encoder.inverse_transform(ensemble_predictions)
-            
-            # Map direction labels to trading signals
-            signal_map = {'Up': 'Buy', 'Down': 'Sell'}
-            latest_data['predicted_signal'] = [signal_map.get(label, 'Hold') for label in predicted_labels]
-            
-            # Probabilities
+                    safe_print(f"  [WARN] Best classifier prediction failed, falling back to weighted ensemble: {e}")
+
+            if probabilities is None:
+                clf_results = self.metadata.get('clf_results', {})
+                all_probabilities = []
+                model_weights = []
+                model_names_used = []
+
+                for model_name, model in self.clf_models.items():
+                    if model_name.lower() == 'ensemble':
+                        continue
+                    try:
+                        proba = model.predict_proba(clf_scaled)
+                        all_probabilities.append(proba)
+                        model_names_used.append(model_name)
+                        f1 = clf_results.get(model_name, {}).get('f1_score', 1.0)
+                        model_weights.append(f1)
+                    except Exception as e:
+                        safe_print(f"  [WARN] {model_name} prediction failed: {e}")
+
+                if not all_probabilities:
+                    safe_print("[ERROR] All classification models failed")
+                    return None
+
+                weights = np.array(model_weights)
+                weights = weights / weights.sum()
+                probabilities = np.average(all_probabilities, axis=0, weights=weights)
+                ensemble_predictions = np.argmax(probabilities, axis=1)
+                predicted_labels = self.direction_encoder.inverse_transform(ensemble_predictions)
+                latest_data['model_name'] = 'NSE_Weighted_Ensemble_Fallback'
+                latest_data['model_version'] = self.metadata.get('training_timestamp', 'unknown')
+                weight_info = ', '.join([f"{n}({w:.2f})" for n, w in zip(model_names_used, weights)])
+                safe_print(f"  [OK] F1-weighted ensemble fallback: {weight_info}")
+
             class_names = self.direction_encoder.classes_
             up_idx = list(class_names).index('Up') if 'Up' in class_names else 0
             down_idx = list(class_names).index('Down') if 'Down' in class_names else 1
-            
-            latest_data['buy_probability'] = avg_probabilities[:, up_idx]
-            latest_data['sell_probability'] = avg_probabilities[:, down_idx]
-            latest_data['hold_probability'] = 0.0  # Binary classification, no hold class
-            
-            # Confidence = max probability (calibrated from ensemble)
-            latest_data['confidence'] = np.max(avg_probabilities, axis=1)
+
+            latest_data['buy_probability'] = probabilities[:, up_idx]
+            latest_data['sell_probability'] = probabilities[:, down_idx]
+            latest_data['confidence'] = np.max(probabilities, axis=1)
             latest_data['confidence_percentage'] = latest_data['confidence'] * 100
-            
-            # Model info
-            latest_data['model_name'] = 'NSE_Ensemble'
-            latest_data['model_version'] = self.metadata.get('training_timestamp', 'unknown')
             
             # === Regression Predictions (predicted price change) ===
             if self.reg_models:
@@ -1127,13 +1133,28 @@ class NSETradingSignalPredictor:
             
             latest_data['buy_probability'] = probabilities[:, 0] if probabilities.shape[1] > 0 else 0
             latest_data['sell_probability'] = probabilities[:, 1] if probabilities.shape[1] > 1 else 0
-            latest_data['hold_probability'] = 0.0
             
             latest_data['confidence'] = np.max(probabilities, axis=1)
             latest_data['confidence_percentage'] = latest_data['confidence'] * 100
             
             latest_data['model_name'] = 'ExtraTreesClassifier (Legacy)'
             latest_data['model_version'] = 'legacy'
+
+        signal_map = {
+            'Overbought (Sell)': 'Sell',
+            'Oversold (Buy)': 'Buy',
+            'Up': 'Buy',
+            'Down': 'Sell',
+        }
+        latest_data['predicted_signal'] = [signal_map.get(label, 'Hold') for label in predicted_labels]
+
+        probability_margin = (latest_data['buy_probability'] - latest_data['sell_probability']).abs()
+        hold_mask = (
+            (latest_data['confidence'] < HOLD_CONFIDENCE_THRESHOLD) |
+            (probability_margin < HOLD_PROBABILITY_MARGIN)
+        )
+        latest_data.loc[hold_mask, 'predicted_signal'] = 'Hold'
+        latest_data['hold_probability'] = np.clip(1.0 - probability_margin, 0.0, 1.0)
         
         # Confidence levels (using centralized config thresholds)
         latest_data['high_confidence'] = (latest_data['confidence'] >= HIGH_CONFIDENCE_THRESHOLD).astype(int)
@@ -1154,10 +1175,11 @@ class NSETradingSignalPredictor:
         # Summary stats
         buy_count = (latest_data['predicted_signal'] == 'Buy').sum()
         sell_count = (latest_data['predicted_signal'] == 'Sell').sum()
+        hold_count = (latest_data['predicted_signal'] == 'Hold').sum()
         high_conf = latest_data['high_confidence'].sum()
         
         safe_print(f"[SUCCESS] Predictions for {len(latest_data)} stocks: "
-                   f"{buy_count} Buy, {sell_count} Sell, "
+                   f"{buy_count} Buy, {sell_count} Sell, {hold_count} Hold, "
                    f"{high_conf} High Confidence")
         
         return latest_data

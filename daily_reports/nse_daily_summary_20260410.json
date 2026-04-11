@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-10",
+  "generated_at": "2026-04-10T16:33:25.608543",
+  "summary": {
+    "analysis_date": "2026-04-10",
+    "total_predictions": 2070,
+    "total_buy_signals": 1,
+    "total_sell_signals": 2069,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2055,
+    "medium_confidence_count": 12,
+    "low_confidence_count": 3,
+    "avg_confidence": 0.6589629202801172,
+    "avg_rsi": 56.80588378571036,
+    "total_stocks_processed": 2070,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.8204512333351325,
+    "run_timestamp": "2026-04-10 16:33:21.083000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "UEL.NS",
+      "company": "Ujaas Energy Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.34251448018321,
+      "close_price": 166.33,
+      "rsi": 58.807808716246974,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "MAHLIFE.NS",
+      "company": "Mahindra Lifespace Developers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.15137187122258,
+      "close_price": 344.7,
+      "rsi": 51.608237376059584,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "BOMDYEING.NS",
+      "company": "The Bombay Dyeing and Manufacturing Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.08404053541828,
+      "close_price": 108.56,
+      "rsi": 53.778833391362554,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "PITTIENG.NS",
+      "company": "Pitti Engineering Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.07215476509111,
+      "close_price": 838.75,
+      "rsi": 58.713102922819374,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHARDACROP.NS",
+      "company": "Sharda Cropchem Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.04365632163123,
+      "close_price": 1057.25,
+      "rsi": 57.42416965463761,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "NAVINFLUOR.NS",
+      "company": "Navin Fluorine International Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.99131515925797,
+      "close_price": 6181.0,
+      "rsi": 51.30099187620766,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SOUTHBANK.NS",
+      "company": "South Bank",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.96273099673338,
+      "close_price": 38.76,
+      "rsi": 54.453627287985526,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "MGL.NS",
+      "company": "Mahanagar Gas Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.96176614466802,
+      "close_price": 1075.75,
+      "rsi": 61.34963056551249,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "KEI.NS",
+      "company": "KEI Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.95594253671989,
+      "close_price": 4459.0,
+      "rsi": 54.4757802221231,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "INDUSTOWER.NS",
+      "company": "Indus Towers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.90730858545108,
+      "close_price": 437.85,
+      "rsi": 51.7596843327552,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

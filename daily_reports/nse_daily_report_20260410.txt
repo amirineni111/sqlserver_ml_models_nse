@@ -1,0 +1,43 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-10
+[TIME] Report Generated (EST): 2026-04-10 16:33:25
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-10
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2070
+[BUY] Buy Signals: 1
+[SELL] Sell Signals: 2069
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2055
+[DATA] Medium Confidence: 12
+[LOW] Low Confidence: 3
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.66
+[DATA] Average RSI: 56.8
+[COMPANY] Stocks Processed: 2070
+[MODEL] Model Accuracy: 82.0%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] UEL.NS: Sell (68.3%) - INR 166.33 [NSE_Ensemble]
+[SELL] MAHLIFE.NS: Sell (68.2%) - INR 344.70 [NSE_Ensemble]
+[SELL] BOMDYEING.NS: Sell (68.1%) - INR 108.56 [NSE_Ensemble]
+[SELL] PITTIENG.NS: Sell (68.1%) - INR 838.75 [NSE_Ensemble]
+[SELL] SHARDACROP.NS: Sell (68.0%) - INR 1057.25 [NSE_Ensemble]
+[SELL] NAVINFLUOR.NS: Sell (68.0%) - INR 6181.00 [NSE_Ensemble]
+[SELL] SOUTHBANK.NS: Sell (68.0%) - INR 38.76 [NSE_Ensemble]
+[SELL] MGL.NS: Sell (68.0%) - INR 1075.75 [NSE_Ensemble]
+[SELL] KEI.NS: Sell (68.0%) - INR 4459.00 [NSE_Ensemble]
+[SELL] INDUSTOWER.NS: Sell (67.9%) - INR 437.85 [NSE_Ensemble]

@@ -233,6 +233,45 @@ class NSEModelRetrainer:
             'Above': 1, 'Below': -1,
             'BULLISH': 1, 'BEARISH': -1,
         }
+
+    def _compute_date_split_masks(self, trading_dates):
+        """Split the dataset by market date so validation matches live usage."""
+        dates = pd.to_datetime(pd.Series(trading_dates)).dt.normalize()
+        unique_dates = np.array(sorted(dates.dropna().unique()))
+
+        if len(unique_dates) < 15:
+            raise ValueError(
+                f"Need at least 15 unique trading dates for date-based validation, got {len(unique_dates)}"
+            )
+
+        train_cut = max(1, int(len(unique_dates) * 0.60))
+        cal_cut = max(train_cut + 1, int(len(unique_dates) * 0.80))
+        cal_cut = min(cal_cut, len(unique_dates) - 1)
+
+        train_dates = unique_dates[:train_cut]
+        cal_dates = unique_dates[train_cut:cal_cut]
+        test_dates = unique_dates[cal_cut:]
+
+        if len(cal_dates) == 0 or len(test_dates) == 0:
+            raise ValueError("Date-based split produced an empty calibration or test window")
+
+        train_mask = dates.isin(train_dates)
+        cal_mask = dates.isin(cal_dates)
+        test_mask = dates.isin(test_dates)
+
+        split_info = {
+            'train_start': str(pd.Timestamp(train_dates[0]).date()),
+            'train_end': str(pd.Timestamp(train_dates[-1]).date()),
+            'cal_start': str(pd.Timestamp(cal_dates[0]).date()),
+            'cal_end': str(pd.Timestamp(cal_dates[-1]).date()),
+            'test_start': str(pd.Timestamp(test_dates[0]).date()),
+            'test_end': str(pd.Timestamp(test_dates[-1]).date()),
+            'train_dates': len(train_dates),
+            'cal_dates': len(cal_dates),
+            'test_dates': len(test_dates),
+        }
+
+        return train_mask, cal_mask, test_mask, split_info
     
     def backup_existing_model(self):
         """Backup existing NSE model files before retraining"""
@@ -1252,9 +1291,13 @@ class NSEModelRetrainer:
         # Sector encoding
         if 'sector' in df.columns:
             self.sector_encoder = LabelEncoder()
-            df['sector_encoded'] = self.sector_encoder.fit_transform(
-                df['sector'].fillna('Unknown')
-            )
+            sector_values = df['sector'].fillna('Unknown').astype(str)
+            if 'Unknown' not in set(sector_values):
+                sector_values = pd.concat([sector_values, pd.Series(['Unknown'])], ignore_index=True)
+                self.sector_encoder.fit(sector_values)
+                df['sector_encoded'] = self.sector_encoder.transform(df['sector'].fillna('Unknown').astype(str))
+            else:
+                df['sector_encoded'] = self.sector_encoder.fit_transform(sector_values)
             print(f"  Sectors found: {len(self.sector_encoder.classes_)} unique")
         else:
             df['sector_encoded'] = 0
@@ -1322,7 +1365,7 @@ class NSEModelRetrainer:
 
         # Handle infinite values and NaN — forward fill only (no bfill to prevent leakage)
         df = df.replace([np.inf, -np.inf], np.nan)
-        df = df.fillna(method='ffill').fillna(0)
+        df = df.groupby('ticker', group_keys=False).apply(lambda group: group.ffill()).fillna(0)
 
         print(f"[FEATURES] Complete — {df.shape[1]} columns, {df.shape[0]:,} rows")
         return df
@@ -1383,15 +1426,17 @@ class NSEModelRetrainer:
         # Prepare X and y for classification (5-day direction target)
         X = df[feature_cols].copy()
         y_direction = df[target_column].copy()
+        trading_dates = pd.to_datetime(df['trading_date']).copy()
 
         # Regression target: 5-day return (matches classification horizon)
         y_return = df['next_5d_return'].copy()
 
         # Remove any remaining invalid rows
-        valid_mask = X.notna().all(axis=1) & y_direction.notna() & y_return.notna()
+        valid_mask = X.notna().all(axis=1) & y_direction.notna() & y_return.notna() & trading_dates.notna()
         X = X[valid_mask]
         y_direction = y_direction[valid_mask]
         y_return = y_return[valid_mask]
+        trading_dates = trading_dates[valid_mask]
 
         # Encode classification target
         direction_encoder = LabelEncoder()
@@ -1402,6 +1447,12 @@ class NSEModelRetrainer:
         print(f"  Samples: {X.shape[0]:,}")
         print(f"  Direction classes: {list(direction_encoder.classes_)}")
         print(f"  Balance: {dict(zip(*np.unique(y_direction_encoded, return_counts=True)))}")
+
+        train_mask, cal_mask, test_mask, split_info = self._compute_date_split_masks(trading_dates)
+        print("[PREP] Date-based validation windows:")
+        print(f"  Train: {split_info['train_start']} -> {split_info['train_end']} ({split_info['train_dates']} dates)")
+        print(f"  Calibration: {split_info['cal_start']} -> {split_info['cal_end']} ({split_info['cal_dates']} dates)")
+        print(f"  Test: {split_info['test_start']} -> {split_info['test_end']} ({split_info['test_dates']} dates)")
 
         # ================================================================
         # STRATIFIED FEATURE SELECTION (mutual_info_classif)
@@ -1423,7 +1474,7 @@ class NSEModelRetrainer:
 
         print("[PREP] Running STRATIFIED feature selection (mutual_info_classif)...")
         try:
-            mi_scores = mutual_info_classif(X, y_direction_encoded, random_state=42)
+            mi_scores = mutual_info_classif(X.loc[train_mask], y_direction_encoded[train_mask], random_state=42)
             mi_ranking = pd.Series(mi_scores, index=feature_cols).sort_values(ascending=False)
 
             # Classify features as market-wide vs stock-specific
@@ -1470,24 +1521,26 @@ class NSEModelRetrainer:
 
         self.feature_columns = feature_cols
 
-        return X, y_direction_encoded, y_return, direction_encoder, feature_cols
-    
-    def train_classification_models(self, X, y, feature_cols):
+        return X, y_direction_encoded, y_return, trading_dates, direction_encoder, feature_cols
+
+    def train_classification_models(self, X, y, feature_cols, trading_dates):
         """Train ensemble of classification models for direction prediction"""
         print("[TRAIN] Training classification models (direction prediction)...")
-        
-        # Time-series aware 3-way split: train (60%) / calibration (20%) / test (20%)
-        # Calibrating on a separate set prevents overfitting the probability estimates
-        train_end = int(0.60 * len(X))
-        cal_end = int(0.80 * len(X))
-        X_train = X.iloc[:train_end]
-        X_cal = X.iloc[train_end:cal_end]
-        X_test = X.iloc[cal_end:]
-        y_train = y[:train_end]
-        y_cal = y[train_end:cal_end]
-        y_test = y[cal_end:]
-        
-        print(f"  Split: Train={len(X_train):,}, Calibration={len(X_cal):,}, Test={len(X_test):,}")
+
+        train_mask, cal_mask, test_mask, split_info = self._compute_date_split_masks(trading_dates)
+        X_train = X.loc[train_mask]
+        X_cal = X.loc[cal_mask]
+        X_test = X.loc[test_mask]
+        y_train = y[train_mask]
+        y_cal = y[cal_mask]
+        y_test = y[test_mask]
+
+        print(f"  Split by date: Train={len(X_train):,}, Calibration={len(X_cal):,}, Test={len(X_test):,}")
+        print(
+            f"  Windows: train {split_info['train_start']}->{split_info['train_end']}, "
+            f"cal {split_info['cal_start']}->{split_info['cal_end']}, "
+            f"test {split_info['test_start']}->{split_info['test_end']}"
+        )
         
         # Feature scaling
         scaler = StandardScaler()
@@ -1695,16 +1748,21 @@ class NSEModelRetrainer:
             'y_test': y_test,
         }
     
-    def train_regression_models(self, X, y_return, feature_cols):
+    def train_regression_models(self, X, y_return, feature_cols, trading_dates):
         """Train regression models for 5-day price change prediction"""
         print("[TRAIN] Training regression models (5-day price change prediction)...")
-        
-        # Time-series aware split
-        split_idx = int(0.8 * len(X))
-        X_train = X.iloc[:split_idx]
-        X_test = X.iloc[split_idx:]
-        y_train = y_return.iloc[:split_idx]
-        y_test = y_return.iloc[split_idx:]
+
+        train_mask, _, test_mask, split_info = self._compute_date_split_masks(trading_dates)
+        X_train = X.loc[train_mask]
+        X_test = X.loc[test_mask]
+        y_train = y_return.loc[train_mask]
+        y_test = y_return.loc[test_mask]
+
+        print(
+            f"  Split by date: Train={len(X_train):,}, Test={len(X_test):,} "
+            f"(train {split_info['train_start']}->{split_info['train_end']}, "
+            f"test {split_info['test_start']}->{split_info['test_end']})"
+        )
         
         # Feature scaling
         scaler = StandardScaler()
@@ -1940,13 +1998,13 @@ class NSEModelRetrainer:
             self.perform_eda(df_features)
             
             # Step 8: Prepare ML dataset (dynamic feature selection)
-            X, y_direction, y_return, direction_encoder, feature_cols = self.prepare_ml_dataset(df_features)
+            X, y_direction, y_return, trading_dates, direction_encoder, feature_cols = self.prepare_ml_dataset(df_features)
             
             # Step 9: Train classification models
-            clf_results = self.train_classification_models(X, y_direction, self.feature_columns)
+            clf_results = self.train_classification_models(X, y_direction, self.feature_columns, trading_dates)
             
             # Step 10: Train regression models
-            reg_results = self.train_regression_models(X, y_return, self.feature_columns)
+            reg_results = self.train_regression_models(X, y_return, self.feature_columns, trading_dates)
             
             # Step 11: Save artifacts
             self.save_model_artifacts(clf_results, reg_results, direction_encoder)
