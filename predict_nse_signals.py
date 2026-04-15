@@ -1080,6 +1080,7 @@ class NSETradingSignalPredictor:
                 latest_data['model_version'] = self.metadata.get('training_timestamp', 'unknown')
                 weight_info = ', '.join([f"{n}({w:.2f})" for n, w in zip(model_names_used, weights)])
                 safe_print(f"  [OK] F1-weighted ensemble fallback: {weight_info}")
+                safe_print(f"  [OK] F1-weighted ensemble of {len(model_names_used)} models: {weight_info}")
 
             class_names = self.direction_encoder.classes_
             up_idx = list(class_names).index('Up') if 'Up' in class_names else 0
@@ -1110,9 +1111,6 @@ class NSETradingSignalPredictor:
                         latest_data['predicted_price'] = latest_data['close_price'] * (1 + avg_reg_pred / 100)
                 except Exception as e:
                     safe_print(f"  [WARN] Regression prediction failed: {e}")
-            
-            weight_info = ', '.join([f"{n}({w:.2f})" for n, w in zip(model_names_used, weights)])
-            safe_print(f"  [OK] F1-weighted ensemble of {len(model_names_used)} models: {weight_info}")
             
         else:
             # Legacy single model prediction
