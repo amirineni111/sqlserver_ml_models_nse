@@ -62,6 +62,7 @@ from sklearn.metrics import (
 )
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_selection import mutual_info_classif
+from sklearn.utils.class_weight import compute_sample_weight
 
 
 class PurgedTimeSeriesSplit:
@@ -920,6 +921,21 @@ class NSEModelRetrainer:
             pct = (count / len(df_target)) * 100
             print(f"    {direction}: {count:,} ({pct:.1f}%)")
         
+        # WARNING CHECK: Detect heavily skewed training data (like NASDAQ does)
+        up_pct = direction_dist_5d.get('Up', 0) / len(df_target)
+        down_pct = direction_dist_5d.get('Down', 0) / len(df_target)
+        imbalance = abs(up_pct - down_pct)
+        if imbalance > 0.20:  # More than 20% difference (e.g., 60% vs 40%)
+            print(f"")
+            print(f"  ⚠️  WARNING: TRAINING DATA IS HEAVILY SKEWED!")
+            print(f"  ⚠️  Up: {up_pct:.1%} vs Down: {down_pct:.1%} (imbalance: {imbalance:.1%})")
+            print(f"  ⚠️  This may cause model to predict predominantly {direction_dist_5d.idxmax()}")
+            print(f"  ⚠️  Class balancing (compute_sample_weight) will help, but consider:")
+            print(f"  ⚠️    - Filtering training period to exclude extreme bear/bull markets")
+            print(f"  ⚠️    - Extending training window for more balanced data")
+            print(f"  ⚠️  (See NASDAQ retrain_model.py lines 300-310 for date filtering example)")
+            print(f"")
+        
         direction_dist_1d = df_target['direction'].value_counts()
         print(f"  [INFO] Secondary reference (1-day):")
         for direction, count in direction_dist_1d.items():
@@ -1588,6 +1604,10 @@ class NSEModelRetrainer:
             )
         }
         
+        # Compute class-balanced weights (CRITICAL FIX: prevents model learning training data's class imbalance)
+        class_weights = compute_sample_weight('balanced', y_train)
+        print(f"  Class balancing: Up weight={class_weights[y_train==1][0]:.3f}, Down weight={class_weights[y_train==0][0]:.3f}")
+        
         # Compute time-weighted sample weights (recent data is more relevant)
         n_train = len(y_train)
         time_positions = np.arange(n_train) / n_train  # 0 to ~1 (oldest to newest)
@@ -1597,6 +1617,11 @@ class NSEModelRetrainer:
         
         print(f"  Time-weighted training: oldest weight={time_weights[0]:.3f}, "
               f"newest={time_weights[-1]:.3f}, ratio={time_weights[-1]/time_weights[0]:.1f}x")
+        
+        # Combine class weights with time weights (multiplicative)
+        combined_weights = class_weights * time_weights
+        combined_weights = combined_weights / combined_weights.mean()  # Normalize to mean=1
+        print(f"  Combined weights (class+time): range {combined_weights.min():.3f} to {combined_weights.max():.3f}")
         
         # Train and evaluate each model
         model_results = {}
@@ -1608,10 +1633,12 @@ class NSEModelRetrainer:
             print(f"  Training {model_name}...", flush=True)
             
             try:
-                # Train with time-weighted sample weights
+                # Train with combined class+time weighted sample weights
+                # This ensures models don't just learn the training data's class distribution
                 try:
-                    model.fit(X_train_scaled, y_train, sample_weight=time_weights)
+                    model.fit(X_train_scaled, y_train, sample_weight=combined_weights)
                 except TypeError:
+                    # Fallback for models that don't support sample_weight
                     model.fit(X_train_scaled, y_train)
                 print(f"    [fit done]", flush=True)
                 

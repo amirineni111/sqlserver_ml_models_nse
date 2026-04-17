@@ -1,0 +1,43 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-15
+[TIME] Report Generated (EST): 2026-04-15 16:33:22
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-15
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2070
+[BUY] Buy Signals: 33
+[SELL] Sell Signals: 2004
+[HOLD] Hold Signals: 33
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1995
+[DATA] Medium Confidence: 42
+[LOW] Low Confidence: 33
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.70
+[DATA] Average RSI: 59.4
+[COMPANY] Stocks Processed: 2070
+[MODEL] Model Accuracy: 79.4%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] NARMADA.NS: Sell (73.6%) - INR 34.45 [Ensemble]
+[SELL] STLTECH.NS: Sell (73.5%) - INR 254.91 [Ensemble]
+[SELL] MTARTECH.NS: Sell (73.4%) - INR 4941.10 [Ensemble]
+[SELL] BLISSGVS.NS: Sell (73.3%) - INR 257.42 [Ensemble]
+[SELL] INDSWFTLAB.NS: Sell (73.3%) - INR 144.05 [Ensemble]
+[SELL] DCBBANK.NS: Sell (73.2%) - INR 188.65 [Ensemble]
+[SELL] SBC.NS: Sell (73.2%) - INR 33.01 [Ensemble]
+[SELL] SHAH.NS: Sell (73.0%) - INR 5.08 [Ensemble]
+[SELL] VCL.NS: Sell (73.0%) - INR 1.80 [Ensemble]
+[SELL] SETCO.NS: Sell (73.0%) - INR 25.16 [Ensemble]

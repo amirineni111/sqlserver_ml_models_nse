@@ -1,0 +1,43 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-16
+[TIME] Report Generated (EST): 2026-04-16 16:34:34
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-16
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2071
+[BUY] Buy Signals: 23
+[SELL] Sell Signals: 2014
+[HOLD] Hold Signals: 34
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2008
+[DATA] Medium Confidence: 29
+[LOW] Low Confidence: 34
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.70
+[DATA] Average RSI: 60.3
+[COMPANY] Stocks Processed: 2071
+[MODEL] Model Accuracy: 79.4%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] NARMADA.NS: Sell (74.9%) - INR 34.26 [Ensemble]
+[SELL] MTARTECH.NS: Sell (74.5%) - INR 4824.20 [Ensemble]
+[SELL] INDSWFTLAB.NS: Sell (74.4%) - INR 145.41 [Ensemble]
+[SELL] STLTECH.NS: Sell (74.1%) - INR 256.35 [Ensemble]
+[SELL] SAKAR.NS: Sell (74.0%) - INR 590.25 [Ensemble]
+[SELL] SHAH.NS: Sell (74.0%) - INR 5.08 [Ensemble]
+[SELL] VIVIMEDLAB.NS: Sell (73.9%) - INR 7.39 [Ensemble]
+[SELL] BLISSGVS.NS: Sell (73.9%) - INR 258.92 [Ensemble]
+[SELL] DCBBANK.NS: Sell (73.8%) - INR 188.02 [Ensemble]
+[SELL] CUPID.NS: Sell (73.7%) - INR 95.58 [Ensemble]

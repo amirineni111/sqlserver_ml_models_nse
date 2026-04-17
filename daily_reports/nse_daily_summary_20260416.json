@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-16",
+  "generated_at": "2026-04-16T16:34:34.778328",
+  "summary": {
+    "analysis_date": "2026-04-16",
+    "total_predictions": 2071,
+    "total_buy_signals": 23,
+    "total_sell_signals": 2014,
+    "total_hold_signals": 34,
+    "high_confidence_count": 2008,
+    "medium_confidence_count": 29,
+    "low_confidence_count": 34,
+    "avg_confidence": 0.7037918521750832,
+    "avg_rsi": 60.29990867921096,
+    "total_stocks_processed": 2071,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.7944496801748511,
+    "run_timestamp": "2026-04-16 16:34:26.053000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NARMADA.NS",
+      "company": "Narmada Agrobase Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.87630175769584,
+      "close_price": 34.26,
+      "rsi": 58.00815821906207,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "MTARTECH.NS",
+      "company": "MTAR Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.47099857643718,
+      "close_price": 4824.2,
+      "rsi": 76.57945854906332,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "INDSWFTLAB.NS",
+      "company": "Ind-Swift Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.38007692483443,
+      "close_price": 145.41,
+      "rsi": 55.38127941933867,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "STLTECH.NS",
+      "company": "Sterlite Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.14160861125879,
+      "close_price": 256.35,
+      "rsi": 76.40392135495726,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "SAKAR.NS",
+      "company": "Sakar Healthcare Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.02327623750928,
+      "close_price": 590.25,
+      "rsi": 62.56953380207438,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "SHAH.NS",
+      "company": "Shah Metacorp Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.97236330940594,
+      "close_price": 5.08,
+      "rsi": 62.36392619056169,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "VIVIMEDLAB.NS",
+      "company": "Vivimed Labs Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.89753139368429,
+      "close_price": 7.39,
+      "rsi": 59.06376376186245,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "BLISSGVS.NS",
+      "company": "Bliss GVS Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.88076792885295,
+      "close_price": 258.92,
+      "rsi": 68.50731063252485,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "DCBBANK.NS",
+      "company": "DCB BANK",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.76869557519375,
+      "close_price": 188.02,
+      "rsi": 58.1323483582733,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "CUPID.NS",
+      "company": "CUPID",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.70531350300007,
+      "close_price": 95.58,
+      "rsi": 26.050825328964763,
+      "model_name": "Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
