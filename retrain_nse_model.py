@@ -1431,7 +1431,11 @@ class NSEModelRetrainer:
         target_column = 'direction_5d'
 
         # Exclude non-feature columns — let mutual_info_classif decide what's useful
+        # CRITICAL: Exclude ALL future-leak columns (next_*_return, direction_*, next_*_close)
         exclude_cols = ['trading_date', 'ticker', target_column, 'next_5d_return',
+                        'next_day_return', 'next_3d_return',  # Future returns - DATA LEAKAGE!
+                        'direction', 'direction_3d',  # Derived from future data
+                        'next_close', 'next_3d_close', 'next_5d_close',  # Future prices
                         'open_price', 'high_price', 'low_price', 'close_price', 'volume',
                         'sector', 'industry', 'company_name']
 
@@ -1604,6 +1608,14 @@ class NSEModelRetrainer:
             )
         }
         
+        # DEBUG: Check actual training data distribution BEFORE weighting
+        train_down_count = (y_train == 0).sum()
+        train_up_count = (y_train == 1).sum()
+        train_total = len(y_train)
+        print(f"  TRAINING SET CLASS DISTRIBUTION:")
+        print(f"    Down (0): {train_down_count:,} ({train_down_count/train_total*100:.1f}%)")
+        print(f"    Up (1): {train_up_count:,} ({train_up_count/train_total*100:.1f}%)")
+        
         # Compute class-balanced weights (CRITICAL FIX: prevents model learning training data's class imbalance)
         class_weights = compute_sample_weight('balanced', y_train)
         print(f"  Class balancing: Up weight={class_weights[y_train==1][0]:.3f}, Down weight={class_weights[y_train==0][0]:.3f}")
@@ -1681,42 +1693,12 @@ class NSEModelRetrainer:
             except Exception as e:
                 print(f"    [ERROR] {model_name}: {e}")
         
-        # Create calibrated ensemble (Voting Classifier)
-        print("  Training Ensemble (Voting Classifier)...")
-        try:
-            ensemble_estimators = [
-                (name.lower().replace(' ', '_'), model) 
-                for name, model in trained_models.items()
-            ]
-            
-            ensemble = VotingClassifier(
-                estimators=ensemble_estimators,
-                voting='soft',
-                n_jobs=1  # n_jobs=-1 can deadlock on Windows; use sequential
-            )
-            # CRITICAL FIX: Pass combined_weights to preserve class balancing!
-            # VotingClassifier.fit() retrains base estimators, so we MUST pass sample_weight
-            # Otherwise it will learn the raw imbalanced distribution (54.8% Down → 97% Sell predictions)
-            ensemble.fit(X_train_scaled, y_train, sample_weight=combined_weights)
-            
-            y_pred_ensemble = ensemble.predict(X_test_scaled)
-            ensemble_accuracy = accuracy_score(y_test, y_pred_ensemble)
-            ensemble_f1 = f1_score(y_test, y_pred_ensemble, average='weighted')
-            
-            model_results['Ensemble'] = {
-                'accuracy': ensemble_accuracy,
-                'direction_accuracy': ensemble_accuracy,
-                'f1_score': ensemble_f1,
-                'cv_mean': 0,
-                'cv_std': 0,
-            }
-            trained_models['Ensemble'] = ensemble
-            
-            print(f"    Ensemble Accuracy: {ensemble_accuracy:.3f}, F1: {ensemble_f1:.3f}")
-            print(f"    [OK] Ensemble trained WITH class+time balancing (fixes 97% Sell bias)")
-            
-        except Exception as e:
-            print(f"    [ERROR] Ensemble: {e}")
+        # VOTING CLASSIFIER REMOVED:
+        # VotingClassifier in sklearn 1.6.1 accepts sample_weight but IGNORES it (known bug)
+        # This causes 100% Sell bias even with class balancing
+        # Solution: Use best individual model (matches NASDAQ approach)
+        print("  [SKIP] VotingClassifier disabled (sklearn 1.6.1 ignores sample_weight)")
+        print("  [INFO] Using best individual model instead (proven approach)")
         
         # Find best model
         best_model_name = max(model_results.keys(),
@@ -1727,42 +1709,12 @@ class NSEModelRetrainer:
               f"(F1: {model_results[best_model_name]['f1_score']:.3f}, "
               f"Direction Accuracy: {model_results[best_model_name]['accuracy']:.1%})")
         
-        # Calibrate probabilities using dedicated calibration set (NOT test set)
-        # Using isotonic regression for more flexible calibration curve
-        print("[CONFIG] Calibrating model probabilities on held-out calibration set...")
-        try:
-            calibrated_model = CalibratedClassifierCV(
-                estimator=best_model, cv='prefit', method='isotonic'
-            )
-            calibrated_model.fit(X_cal_scaled, y_cal)
-            
-            # Verify calibration: high-confidence should be more accurate than low
-            cal_probs = calibrated_model.predict_proba(X_test_scaled)
-            cal_preds = calibrated_model.predict(X_test_scaled)
-            cal_accuracy = accuracy_score(y_test, cal_preds)
-            uncal_accuracy = model_results[best_model_name]['accuracy']
-            
-            print(f"  Pre-calibration test accuracy:  {uncal_accuracy:.3f}")
-            print(f"  Post-calibration test accuracy: {cal_accuracy:.3f}")
-            
-            # Check if calibration helps: high-confidence should be more accurate
-            max_probs = cal_probs.max(axis=1)
-            high_mask = max_probs >= 0.65
-            if high_mask.sum() > 10:
-                high_acc = accuracy_score(y_test[high_mask], cal_preds[high_mask])
-                low_acc = accuracy_score(y_test[~high_mask], cal_preds[~high_mask]) if (~high_mask).sum() > 0 else 0
-                print(f"  High-confidence (>=65%) accuracy: {high_acc:.3f} ({high_mask.sum()} samples)")
-                print(f"  Low-confidence (<65%) accuracy:   {low_acc:.3f} ({(~high_mask).sum()} samples)")
-                
-                if high_acc > low_acc:
-                    print("[SUCCESS] Calibration confirmed: high confidence = higher accuracy")
-                else:
-                    print("[WARN] Calibration check: high confidence NOT more accurate - review needed")
-            
-            best_model = calibrated_model
-            print("[SUCCESS] Probability calibration applied successfully")
-        except Exception as e:
-            print(f"[WARN] Calibration skipped: {e}")
+        # SKIP CALIBRATION: cv='prefit' not supported in sklearn 1.6.1
+        # Calibration will be added when sklearn is upgraded to 1.8.0+
+        print("[CONFIG] Skipping calibration (sklearn 1.6.1 compatibility)...")
+        print(f"  Using best model without calibration: {best_model_name}")
+        print(f"  Test accuracy: {model_results[best_model_name]['accuracy']:.3f}")
+        print("[INFO] To enable calibration, upgrade sklearn to 1.8.0+: pip install --upgrade scikit-learn")
         
         return {
             'model_results': model_results,

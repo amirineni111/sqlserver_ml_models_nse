@@ -590,8 +590,30 @@ class NSETradingSignalPredictor:
             if not df_context.empty:
                 df['trading_date'] = pd.to_datetime(df['trading_date'])
                 df_context['trading_date'] = pd.to_datetime(df_context['trading_date'])
+                
+                # Get column names before merge
+                market_cols = [c for c in df_context.columns if c != 'trading_date']
+                
                 df = df.merge(df_context, on='trading_date', how='left')
-                safe_print(f"  [OK] Market context merged: {len(df_context)} dates")
+                
+                # Handle missing market data intelligently:
+                # - Returns/changes: Use 0 (neutral assumption for missing days)
+                # - Levels: Forward-fill from last available date
+                latest_context_date = df_context['trading_date'].max()
+                return_cols = [c for c in market_cols if 'return' in c or 'change' in c]
+                level_cols = [c for c in market_cols if c not in return_cols]
+                
+                # Forward-fill levels (VIX, yield, close prices)
+                for col in level_cols:
+                    if col in df.columns:
+                        df[col] = df[col].ffill().bfill().fillna(0)
+                
+                # Fill returns with 0 (neutral)
+                for col in return_cols:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(0)
+                
+                safe_print(f"  [OK] Market context merged: {len(df_context)} dates (latest: {latest_context_date.strftime('%Y-%m-%d')})")
         except Exception as e:
             safe_print(f"  [WARN] Could not load market context: {e}")
         

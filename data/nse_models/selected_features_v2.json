@@ -1,0 +1,22 @@
+[
+  "vix_close",
+  "dxy_close",
+  "us_10y_yield_close",
+  "nifty50_return_1d",
+  "india_vix_change_pct",
+  "sp500_return_1d",
+  "dxy_return_1d",
+  "vix_change_pct",
+  "bb_position",
+  "price_to_sma20",
+  "return_5d",
+  "volume_ratio",
+  "return_10d",
+  "bb_upper",
+  "stochastic_k",
+  "sma_20",
+  "high_20d",
+  "stochastic_d",
+  "sma_200",
+  "macd_histogram"
+]

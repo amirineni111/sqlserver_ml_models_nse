@@ -1,113 +1,113 @@
 {
   "date": "2026-04-17",
-  "generated_at": "2026-04-17T16:33:35.320684",
+  "generated_at": "2026-04-18T01:08:40.449267",
   "summary": {
     "analysis_date": "2026-04-17",
     "total_predictions": 2073,
-    "total_buy_signals": 24,
-    "total_sell_signals": 2014,
-    "total_hold_signals": 35,
-    "high_confidence_count": 2001,
-    "medium_confidence_count": 37,
-    "low_confidence_count": 35,
-    "avg_confidence": 0.7013520927381279,
-    "avg_rsi": 61.687484229271774,
+    "total_buy_signals": 0,
+    "total_sell_signals": 2073,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2073,
+    "medium_confidence_count": 0,
+    "low_confidence_count": 0,
+    "avg_confidence": 0.7324336135241102,
+    "avg_rsi": 61.68510132426125,
     "total_stocks_processed": 2073,
     "processing_time_seconds": null,
     "market_trend": "Bearish",
-    "model_accuracy": 0.7933515008215445,
-    "run_timestamp": "2026-04-17 16:33:28.540000"
+    "model_accuracy": 0.7965563524179655,
+    "run_timestamp": "2026-04-18 01:08:34.777000"
   },
   "high_confidence_signals": [
     {
-      "ticker": "SALSTEEL.NS",
-      "company": "S.A.L. Steel Limited",
+      "ticker": "STLTECH.NS",
+      "company": "Sterlite Technologies Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.9854033543652,
-      "close_price": 56.79,
-      "rsi": 80.96463427977329,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.79574911228367,
+      "close_price": 263.08,
+      "rsi": 77.75508999084668,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "BLISSGVS.NS",
-      "company": "Bliss GVS Pharma Limited",
+      "ticker": "MAWANASUG.NS",
+      "company": "Mawana Sugars Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.57863037523703,
-      "close_price": 258.22,
-      "rsi": 67.88102694993279,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.76908001837629,
+      "close_price": 104.6,
+      "rsi": 71.19879142941205,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "AFIL.NS",
-      "company": "AKME FINTRADE (INDIA) LTD",
+      "ticker": "AHLEAST.NS",
+      "company": "Asian Hotels (East) Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.38706396149439,
-      "close_price": 9.81,
-      "rsi": 72.38900179738434,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.58037464364565,
+      "close_price": 160.15,
+      "rsi": 56.59914626604677,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "BHAGYANGR.NS",
-      "company": "Bhagyanagar India Limited",
+      "ticker": "MANGLMCEM.NS",
+      "company": "Mangalam Cement Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.35109360760987,
-      "close_price": 211.96,
-      "rsi": 77.104650734896,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.54107436038724,
+      "close_price": 918.1,
+      "rsi": 65.8850876766969,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "JAYNECOIND.NS",
-      "company": "Jayaswal Neco Industries Limited",
+      "ticker": "NITINSPIN.NS",
+      "company": "Nitin Spinners Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.34783282548116,
-      "close_price": 96.23,
-      "rsi": 72.66223497563271,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.54107436038724,
+      "close_price": 421.45,
+      "rsi": 69.90986993108956,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "ARFIN.NS",
-      "company": "Arfin India Limited",
+      "ticker": "CIEINDIA.NS",
+      "company": "CIE Automotive India Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.30613517725412,
-      "close_price": 94.73,
-      "rsi": 76.9534655732775,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.34019901825455,
+      "close_price": 490.2,
+      "rsi": 61.28051879084029,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "NARMADA.NS",
-      "company": "Narmada Agrobase Limited",
+      "ticker": "JSWSTEEL.NS",
+      "company": "JSW Steel Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.24656157820928,
-      "close_price": 35.07,
-      "rsi": 61.52157023427559,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.34019901825455,
+      "close_price": 1240.3,
+      "rsi": 60.66895641091298,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "SBC.NS",
-      "company": "SBC Exports Limited",
+      "ticker": "UFBL.NS",
+      "company": "UNITED FOODBRANDS LIMITED",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.24506282098776,
-      "close_price": 33.04,
-      "rsi": 65.36868581180443,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.1870670722832,
+      "close_price": 325.5,
+      "rsi": 76.54589576658525,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "VENUSREM.NS",
-      "company": "Venus Remedies Limited",
+      "ticker": "PFOCUS.NS",
+      "company": "Prime Focus Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.19022288673011,
-      "close_price": 1039.85,
-      "rsi": 68.75026925259824,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.1427229508784,
+      "close_price": 345.05,
+      "rsi": 65.0721794990088,
+      "model_name": "Gradient Boosting"
     },
     {
-      "ticker": "SETCO.NS",
-      "company": "Setco Automotive Limited",
+      "ticker": "TORNTPHARM.NS",
+      "company": "Torrent Pharmaceuticals Limited",
       "predicted_signal": "Sell",
-      "confidence_percentage": 74.16623488028462,
-      "close_price": 22.9,
-      "rsi": 62.32809167351606,
-      "model_name": "Ensemble"
+      "confidence_percentage": 81.10076504686538,
+      "close_price": 4179.5,
+      "rsi": 49.923169307035714,
+      "model_name": "Gradient Boosting"
     }
   ],
   "model_type": "NSE-trained ensemble"

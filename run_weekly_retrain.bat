@@ -77,9 +77,9 @@ if exist "%~dp0data\best_model_extra_trees.joblib" (
 :: Run NSE-specific model retraining
 echo.
 echo ============================================================
-echo Starting NSE model retraining (retrain_nse_model.py)...
+echo Starting NSE model retraining (retrain_nse_model_v2.py - BALANCED)...
 echo ============================================================
-python retrain_nse_model.py --backup-old
+python retrain_nse_model_v2.py
 set RETRAIN_RESULT=%errorlevel%
 
 :: Test new models with a quick prediction check

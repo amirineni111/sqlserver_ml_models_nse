@@ -314,7 +314,7 @@ def run_model_retrain():
     try:
         logging.info("[START] Running NSE model retraining...")
         
-        cmd_args = [sys.executable, "retrain_nse_model.py", "--quick", "--backup-old"]
+        cmd_args = [sys.executable, "retrain_nse_model_v2.py", "--quick", "--backup-old"]
         
         logging.info(f"[PROCESS] Executing: {' '.join(cmd_args)}")
         
@@ -396,7 +396,7 @@ def run_nse_predictions(target_date=None):
     try:
         logging.info("[START] Running NSE 500 predictions...")
         
-        cmd_args = [sys.executable, "predict_nse_signals.py", "--all-nse"]
+        cmd_args = [sys.executable, "predict_nse_signals_v2.py", "--all-nse"]
         
         if target_date:
             cmd_args.extend(["--date", target_date])
