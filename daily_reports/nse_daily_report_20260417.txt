@@ -1,0 +1,43 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-17
+[TIME] Report Generated (EST): 2026-04-17 16:33:35
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2073
+[BUY] Buy Signals: 24
+[SELL] Sell Signals: 2014
+[HOLD] Hold Signals: 35
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2001
+[DATA] Medium Confidence: 37
+[LOW] Low Confidence: 35
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.70
+[DATA] Average RSI: 61.7
+[COMPANY] Stocks Processed: 2073
+[MODEL] Model Accuracy: 79.3%
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SALSTEEL.NS: Sell (75.0%) - INR 56.79 [Ensemble]
+[SELL] BLISSGVS.NS: Sell (74.6%) - INR 258.22 [Ensemble]
+[SELL] AFIL.NS: Sell (74.4%) - INR 9.81 [Ensemble]
+[SELL] BHAGYANGR.NS: Sell (74.4%) - INR 211.96 [Ensemble]
+[SELL] JAYNECOIND.NS: Sell (74.3%) - INR 96.23 [Ensemble]
+[SELL] ARFIN.NS: Sell (74.3%) - INR 94.73 [Ensemble]
+[SELL] NARMADA.NS: Sell (74.2%) - INR 35.07 [Ensemble]
+[SELL] SBC.NS: Sell (74.2%) - INR 33.04 [Ensemble]
+[SELL] VENUSREM.NS: Sell (74.2%) - INR 1039.85 [Ensemble]
+[SELL] SETCO.NS: Sell (74.2%) - INR 22.90 [Ensemble]

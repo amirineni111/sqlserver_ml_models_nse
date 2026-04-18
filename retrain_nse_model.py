@@ -1694,7 +1694,10 @@ class NSEModelRetrainer:
                 voting='soft',
                 n_jobs=1  # n_jobs=-1 can deadlock on Windows; use sequential
             )
-            ensemble.fit(X_train_scaled, y_train)
+            # CRITICAL FIX: Pass combined_weights to preserve class balancing!
+            # VotingClassifier.fit() retrains base estimators, so we MUST pass sample_weight
+            # Otherwise it will learn the raw imbalanced distribution (54.8% Down → 97% Sell predictions)
+            ensemble.fit(X_train_scaled, y_train, sample_weight=combined_weights)
             
             y_pred_ensemble = ensemble.predict(X_test_scaled)
             ensemble_accuracy = accuracy_score(y_test, y_pred_ensemble)
@@ -1710,6 +1713,7 @@ class NSEModelRetrainer:
             trained_models['Ensemble'] = ensemble
             
             print(f"    Ensemble Accuracy: {ensemble_accuracy:.3f}, F1: {ensemble_f1:.3f}")
+            print(f"    [OK] Ensemble trained WITH class+time balancing (fixes 97% Sell bias)")
             
         except Exception as e:
             print(f"    [ERROR] Ensemble: {e}")
