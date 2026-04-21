@@ -24,8 +24,8 @@ This is the **NSE ML training pipeline** — part of a 7-repo stock trading anal
 5. `predict_daily.py` — Daily predictions → SQL Server
 
 ## Schedule
-- Daily 9:30 AM: NSE prediction run
-- Sunday 2:00 AM: Weekly full retrain (classifiers + regressors)
+- Daily 4:30 PM (Mon-Fri): NSE prediction run
+- Sunday 12:00 PM (noon): Weekly full retrain (classifiers + regressors)
 
 ## Database Notes
 - **Server**: `192.168.86.28\MSSQLSERVER01` (named instance, NOT port-based)

@@ -27,23 +27,23 @@ set SCRIPT_DIR=%SCRIPT_DIR:~0,-1%
 echo 📁 Script directory: %SCRIPT_DIR%
 echo.
 
-:: Create Daily Predictions Task (Monday to Friday, 9:30 AM)
+:: Create Daily Predictions Task (Monday to Friday, 4:30 PM)
 echo Creating daily predictions task...
-schtasks /create /tn "NSE 500 Daily Predictions" /tr "\"%SCRIPT_DIR%\run_daily_predictions.bat\"" /sc weekly /d MON,TUE,WED,THU,FRI /st 09:30 /f /rl highest
+schtasks /create /tn "NSE 500 Daily Predictions" /tr "\"%SCRIPT_DIR%\run_daily_predictions.bat\"" /sc weekly /d MON,TUE,WED,THU,FRI /st 16:30 /f /rl highest
 if errorlevel 1 (
     echo ❌ Failed to create daily predictions task
 ) else (
-    echo ✅ Daily predictions task created (9:30 AM, Mon-Fri)
+    echo ✅ Daily predictions task created (4:30 PM, Mon-Fri)
 )
 echo.
 
-:: Create Weekly Retraining Task (Sundays, 2:00 AM)
+:: Create Weekly Retraining Task (Sundays, 12:00 PM)
 echo Creating weekly retraining task...
-schtasks /create /tn "NSE 500 Weekly Retrain" /tr "\"%SCRIPT_DIR%\run_weekly_retrain.bat\"" /sc weekly /d SUN /st 02:00 /f /rl highest
+schtasks /create /tn "NSE 500 Weekly Retrain" /tr "\"%SCRIPT_DIR%\run_weekly_retrain.bat\"" /sc weekly /d SUN /st 12:00 /f /rl highest
 if errorlevel 1 (
     echo ❌ Failed to create weekly retraining task
 ) else (
-    echo ✅ Weekly retraining task created (2:00 AM Sundays)
+    echo ✅ Weekly retraining task created (12:00 PM Sundays)
 )
 echo.
 
@@ -72,8 +72,8 @@ echo TASK SCHEDULER SETUP COMPLETE
 echo ============================================================
 echo.
 echo 📋 Created Tasks:
-echo   • NSE 500 Daily Predictions  (9:30 AM Monday-Friday)
-echo   • NSE 500 Weekly Retrain     (2:00 AM Sundays)
+echo   • NSE 500 Daily Predictions  (4:30 PM Monday-Friday)
+echo   • NSE 500 Weekly Retrain     (12:00 PM Sundays)
 echo   • NSE 500 Monthly Backup     (1:00 AM 1st of month)
 echo   • NSE 500 Test Run           (Manual execution)
 echo.

@@ -2,7 +2,7 @@
 NSE 500 Daily Trading Report
 ================================
 [DATE] NSE Trading Date (data from): 2026-04-17
-[TIME] Report Generated (EST): 2026-04-18 01:08:40
+[TIME] Report Generated (EST): 2026-04-21 08:06:27
 [MODEL] Model Type: NSE-trained ensemble
 [NOTE] Predictions are for the NEXT trading day after 2026-04-17
 [NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
@@ -10,34 +10,33 @@ NSE 500 Daily Trading Report
 
 [DATA] PREDICTION SUMMARY
 --------------------
-[PREDICTION] Total Predictions: 2073
-[BUY] Buy Signals: 0
-[SELL] Sell Signals: 2073
+[PREDICTION] Total Predictions: 2064
+[BUY] Buy Signals: 509
+[SELL] Sell Signals: 1555
 [HOLD] Hold Signals: 0
 [TREND] Market Trend: Bearish
 
 [TARGET] CONFIDENCE BREAKDOWN
 -----------------------
-[HIGH] High Confidence: 2073
-[DATA] Medium Confidence: 0
-[LOW] Low Confidence: 0
+[HIGH] High Confidence: 27
+[DATA] Medium Confidence: 251
+[LOW] Low Confidence: 1786
 
 [PREDICTION] ANALYSIS METRICS
 -------------------
-[STAR] Average Confidence: 0.73
-[DATA] Average RSI: 61.7
-[COMPANY] Stocks Processed: 2073
-[MODEL] Model Accuracy: 79.7%
+[STAR] Average Confidence: 55.55
+[DATA] Average RSI: 69.3
+[COMPANY] Stocks Processed: 2064
 
 [TARGET] TOP HIGH CONFIDENCE SIGNALS
 -------------------------------
-[SELL] STLTECH.NS: Sell (81.8%) - INR 263.08 [Gradient Boosting]
-[SELL] MAWANASUG.NS: Sell (81.8%) - INR 104.60 [Gradient Boosting]
-[SELL] AHLEAST.NS: Sell (81.6%) - INR 160.15 [Gradient Boosting]
-[SELL] MANGLMCEM.NS: Sell (81.5%) - INR 918.10 [Gradient Boosting]
-[SELL] NITINSPIN.NS: Sell (81.5%) - INR 421.45 [Gradient Boosting]
-[SELL] CIEINDIA.NS: Sell (81.3%) - INR 490.20 [Gradient Boosting]
-[SELL] JSWSTEEL.NS: Sell (81.3%) - INR 1240.30 [Gradient Boosting]
-[SELL] UFBL.NS: Sell (81.2%) - INR 325.50 [Gradient Boosting]
-[SELL] PFOCUS.NS: Sell (81.1%) - INR 345.05 [Gradient Boosting]
-[SELL] TORNTPHARM.NS: Sell (81.1%) - INR 4179.50 [Gradient Boosting]
+[BUY] AURIGROW.NS: Buy (85.4%) - INR 0.33 [GradientBoosting_V2_Calibrated]
+[BUY] ANSALAPI.NS: Buy (85.4%) - INR 3.44 [GradientBoosting_V2_Calibrated]
+[SELL] JKIPL.NS: Sell (84.7%) - INR 95.34 [GradientBoosting_V2_Calibrated]
+[BUY] GVKPIL.NS: Buy (84.1%) - INR 2.83 [GradientBoosting_V2_Calibrated]
+[BUY] VISASTEEL.NS: Buy (80.9%) - INR 35.32 [GradientBoosting_V2_Calibrated]
+[BUY] MEP.NS: Buy (77.6%) - INR 0.91 [GradientBoosting_V2_Calibrated]
+[SELL] IBULLSLTD.NS: Sell (76.0%) - INR 17.58 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (76.0%) - INR 0.50 [GradientBoosting_V2_Calibrated]
+[SELL] PARSVNATH.NS: Sell (76.0%) - INR 8.96 [GradientBoosting_V2_Calibrated]
+[BUY] SADBHAV.NS: Buy (75.4%) - INR 10.44 [GradientBoosting_V2_Calibrated]

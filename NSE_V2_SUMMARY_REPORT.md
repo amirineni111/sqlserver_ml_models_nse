@@ -91,7 +91,7 @@ Test Set Classification Report:
 
 Your current Task Scheduler jobs reference **V1 scripts** which are now deprecated. You must update them to use **V2 scripts**.
 
-### Job 1: Daily Predictions (9:30 AM EST, Mon-Fri)
+### Job 1: Daily Predictions (4:30 PM EST, Mon-Fri)
 
 **Current Setup:**
 - **Batch File:** `run_daily_predictions.bat`
@@ -120,7 +120,7 @@ Your current Task Scheduler jobs reference **V1 scripts** which are now deprecat
   ```
   (Only if you want to bypass automation wrapper)
 
-### Job 2: Weekly Retrain (Sunday 2:00 AM EST)
+### Job 2: Weekly Retrain (Sunday 12:00 PM noon EST)
 
 **Current Setup:**
 - **Batch File:** `run_weekly_retrain.bat`

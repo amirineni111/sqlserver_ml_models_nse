@@ -20,8 +20,8 @@ NSE ML training pipeline. 5-model ensemble + 4 regressors for Buy/Sell predictio
 - ml_nse_technical_indicators (indicator snapshots)
 
 ## Schedule
-- 9:30 AM daily predictions
-- Sunday 2:00 AM weekly retrain (classifiers + regressors)
+- 4:30 PM daily predictions (Mon-Fri)
+- Sunday 12:00 PM (noon) weekly retrain (classifiers + regressors)
 
 ## Key Differences from NASDAQ
 - 5-model ensemble (vs 1 model)

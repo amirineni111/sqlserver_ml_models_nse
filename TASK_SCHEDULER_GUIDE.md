@@ -7,7 +7,7 @@ This guide explains how to set up automated NSE 500 trading signal generation us
 
 ### 1. `run_daily_predictions.bat`
 **Purpose**: Daily NSE 500 trading signal generation  
-**Recommended Schedule**: Monday-Friday at 9:30 AM (after market open)  
+**Recommended Schedule**: Monday-Friday at 4:30 PM (after NSE market close at 3:30 PM IST / ~5 AM EST)  
 **What it does**:
 - Runs `predict_nse_simple.py` to generate trading signals
 - Runs `daily_nse_automation.py` to create reports
@@ -79,7 +79,7 @@ run_daily_predictions.bat
 
 | Task | Frequency | Time | Days | Purpose |
 |------|-----------|------|------|---------|
-| **Daily Predictions** | Daily | 9:30 AM | Mon-Fri | Generate trading signals |
+| **Daily Predictions** | Daily | 4:30 PM | Mon-Fri | Generate trading signals |
 | **Weekly Retrain** | Weekly | 2:00 AM | Sunday | Update ML models |
 | **Monthly Backup** | Monthly | 1:00 AM | 1st of month | Backup & cleanup |
 
@@ -213,8 +213,8 @@ python -c "from src.database.connection import SQLServerConnection; SQLServerCon
 ## Performance Optimization
 
 1. **Timing**: 
-   - Daily tasks after market open (9:30 AM)
-   - Weekly tasks during low activity (Sunday 2:00 AM)
+   - Daily tasks after market close (4:30 PM EST / after NSE close at 3:30 PM IST)
+   - Weekly tasks during low activity (Sunday 12:00 PM noon)
    - Monthly tasks during maintenance windows
 
 2. **Resources**:

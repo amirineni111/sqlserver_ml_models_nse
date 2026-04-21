@@ -8,9 +8,11 @@ Key improvements over V1:
 3. Top 20 features only (down from 30)
 4. Proper calibration with dedicated calibration set
 5. Better validation and monitoring
+6. scikit-learn 1.6+ compatibility (manual calibration)
 
 Author: GitHub Copilot
 Date: April 18, 2026
+Updated: April 21, 2026 - Fixed scikit-learn 1.6.1 compatibility
 """
 
 import os
@@ -32,7 +34,6 @@ from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     classification_report, confusion_matrix
 )
-from sklearn.calibration import CalibratedClassifierCV
 from sklearn.utils.class_weight import compute_sample_weight
 
 warnings.filterwarnings('ignore')
@@ -104,6 +105,49 @@ class Config:
         cls.MODELS_DIR.mkdir(parents=True, exist_ok=True)
         cls.BACKUP_DIR.mkdir(parents=True, exist_ok=True)
         cls.LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+# ============================================================================
+# Custom Calibrated Model Classes (for scikit-learn 1.6+ compatibility)
+# ============================================================================
+
+class IsotonicCalibratedModel:
+    """Wrapper for isotonic-calibrated model (scikit-learn 1.6+ compatible)"""
+    
+    def __init__(self, base_model, calibrators):
+        self.base_model = base_model
+        self.calibrators = calibrators
+        self.classes_ = base_model.classes_
+    
+    def predict_proba(self, X):
+        base_proba = self.base_model.predict_proba(X)
+        calibrated_proba = np.column_stack([
+            cal.transform(base_proba[:, i]) 
+            for i, cal in enumerate(self.calibrators)
+        ])
+        # Normalize to sum to 1
+        calibrated_proba = calibrated_proba / calibrated_proba.sum(axis=1, keepdims=True)
+        return calibrated_proba
+    
+    def predict(self, X):
+        proba = self.predict_proba(X)
+        return self.classes_[np.argmax(proba, axis=1)]
+
+
+class SigmoidCalibratedModel:
+    """Wrapper for sigmoid-calibrated model (Platt scaling, scikit-learn 1.6+ compatible)"""
+    
+    def __init__(self, base_model, platt_scaler):
+        self.base_model = base_model
+        self.platt_scaler = platt_scaler
+        self.classes_ = base_model.classes_
+    
+    def predict_proba(self, X):
+        base_proba = self.base_model.predict_proba(X)
+        return self.platt_scaler.predict_proba(base_proba)
+    
+    def predict(self, X):
+        proba = self.predict_proba(X)
+        return self.classes_[np.argmax(proba, axis=1)]
 
 # ============================================================================
 # Database Connection
@@ -520,13 +564,36 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test):
     model.fit(X_train, y_train, sample_weight=sample_weights)
     
     # Calibrate on separate calibration set
+    # NOTE: scikit-learn 1.6+ removed cv='prefit', using manual calibration approach
     print(f"\n[INFO] Calibrating model on {len(X_cal):,} calibration samples...")
-    calibrated_model = CalibratedClassifierCV(
-        estimator=model,
-        cv='prefit',
-        method=Config.CALIBRATION_METHOD
-    )
-    calibrated_model.fit(X_cal, y_cal)
+    from sklearn.isotonic import IsotonicRegression
+    
+    # For scikit-learn 1.6+ compatibility, we manually calibrate the pre-fitted model
+    # by fitting isotonic regression on the calibration set probabilities
+    base_proba = model.predict_proba(X_cal)
+    
+    if Config.CALIBRATION_METHOD == 'isotonic':
+        # Fit isotonic regression calibrators for each class
+        calibrators = []
+        for i in range(base_proba.shape[1]):
+            iso_reg = IsotonicRegression(out_of_bounds='clip', y_min=0.0, y_max=1.0)
+            iso_reg.fit(base_proba[:, i], (y_cal == i).astype(int))
+            calibrators.append(iso_reg)
+        
+        # Use module-level class for pickling compatibility
+        calibrated_model = IsotonicCalibratedModel(model, calibrators)
+        print(f"[SUCCESS] Isotonic calibration applied using {len(X_cal):,} samples")
+    else:
+        # For 'sigmoid' (Platt scaling), use simplified approach
+        from sklearn.linear_model import LogisticRegression
+        
+        # Use base model probabilities as features for Platt scaling
+        platt_scaler = LogisticRegression(max_iter=1000, random_state=42)
+        platt_scaler.fit(base_proba, y_cal)
+        
+        # Use module-level class for pickling compatibility
+        calibrated_model = SigmoidCalibratedModel(model, platt_scaler)
+        print(f"[SUCCESS] Sigmoid (Platt) calibration applied using {len(X_cal):,} samples")
     
     # Evaluate on all sets
     print("\n[INFO] Evaluating model performance...")

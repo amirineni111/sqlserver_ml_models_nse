@@ -91,8 +91,8 @@ After making changes:
    Expected: ~114 Buy, ~12,908 Sell
 
 3. **Monitor next scheduled run:**
-   - Daily job: Monday-Friday 9:30 AM EST
-   - Weekly retrain: Sunday 2:00 AM EST
+   - Daily job: Monday-Friday 4:30 PM EST
+   - Weekly retrain: Sunday 12:00 PM noon EST
    - Check logs: `logs\daily_predictions_*.log`
 
 ---

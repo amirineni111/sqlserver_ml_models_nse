@@ -29,8 +29,8 @@ Trains a **5-model ensemble** (Random Forest, Gradient Boosting, Extra Trees, Lo
 
 ### Daily Schedule (Windows Task Scheduler)
 ```
-09:30 AM  Daily prediction run       → ml_nse_trading_predictions
-Sunday 2 AM  Weekly full retrain     → Updated model + regressor files
+4:30 PM (Mon-Fri)   Daily prediction run  → ml_nse_trading_predictions
+Sunday 12:00 PM     Weekly full retrain    → Updated model + regressor files
 ```
 
 ### Key Files
