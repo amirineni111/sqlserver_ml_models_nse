@@ -1,14 +1,32 @@
 # Copilot Instructions — sqlserver_copilot_nse
 
 ## Project Context
-This is the **NSE ML training pipeline** — part of a 7-repo stock trading analytics platform. Trains a 5-model ensemble (RF/GB/ET/LR/Voting) + 4 price regressors to predict Buy/Sell signals for NSE 500 stocks.
+This is the **NSE ML training pipeline** — part of a 7-repo stock trading analytics platform. Trains a **single Gradient Boosting classifier (V2)** with hybrid feature engineering to predict Buy/Sell signals for NSE 500 stocks.
 
 ## Key Architecture Rules
 - Reads from `nse_500_hist_data` (VARCHAR prices — always CAST to FLOAT)
 - Writes to `ml_nse_trading_predictions`, `ml_nse_predict_summary`, `ml_nse_technical_indicators`
-- 5-model ensemble with 90+ engineered features
-- Includes regression models for price target predictions
+- **V2 Architecture**: Single GB model + isotonic calibration (simplified from V1's 5-model ensemble)
+- **Hybrid Feature Approach**: 76 features → 20 selected (balanced across 4 categories)
 - Connected to shared database `stockdata_db` on `192.168.86.28\MSSQLSERVER01` (SQL Auth, remote)
+
+## ML Feature Engineering (CRITICAL - April 2026)
+**3-Pronged Hybrid Approach** to prevent market feature dominance:
+
+1. **Market-Neutral Features** (10): Stock strength relative to market/sector
+   - Examples: `stock_return_vs_nifty`, `rsi_vs_sector_avg`, `beta_adjusted_return`
+   
+2. **Interaction Features** (10): Market context combined with stock signals
+   - Examples: `outperformance_in_fear`, `contrarian_strength`, `quality_in_volatility`
+   - Purpose: "VIX high + Stock strong = Buy" not "VIX high = Sell all"
+   
+3. **Weighted Selection** (20 features): Force balanced category representation
+   - Market Context: 25% (VIX/DXY controlled, not eliminated)
+   - Stock-Specific: 35% (core technical indicators prioritized)
+   - Relative/Neutral: 25% (comparative metrics)
+   - Interactions: 15% (smart combinations)
+
+**Expected**: 40-50% Buy signals (balanced), not 2% or 98%
 
 ## Key Technologies
 - **Database**: SQL Server (`stockdata_db` on `192.168.86.28\MSSQLSERVER01`, SQL Auth, remote)
@@ -17,11 +35,13 @@ This is the **NSE ML training pipeline** — part of a 7-repo stock trading anal
 - **Database Connectivity**: pyodbc (SQL Auth via .env credentials)
 
 ## Pipeline Flow
-1. `feature_engineering.py` — 90+ features from OHLCV + fundamentals
-2. `feature_selection.py` — Feature importance-based selection
-3. `ensemble_builder.py` — RF, GB, ET, LR, VotingClassifier
-4. `regressor_builder.py` — 4 regression models for price targets
-5. `predict_daily.py` — Daily predictions → SQL Server
+1. `calculate_technical_indicators()` — 45 features (RSI, MACD, BB, ATR, etc.)
+2. `merge_market_context()` — +11 features (VIX, DXY, yields, NIFTY/S&P returns)
+3. `add_market_neutral_features()` — +10 features (relative performance, beta)
+4. `add_interaction_features()` — +10 features (smart market+stock combinations)
+5. `select_features()` — Weighted selection → 20 balanced features
+6. `train_model()` — GB classifier + isotonic calibration
+7. `predict_nse_signals_v2.py` — Daily predictions → SQL Server
 
 ## Schedule
 - Daily 4:30 PM (Mon-Fri): NSE prediction run (after 3 PM EST data fetch)

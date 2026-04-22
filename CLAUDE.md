@@ -25,7 +25,7 @@ This is the **NSE ML training pipeline** — one of **7 interconnected repositor
 ## 2. THIS REPO: sqlserver_copilot_nse
 
 ### Purpose
-Trains a **5-model ensemble** (Random Forest, Gradient Boosting, Extra Trees, Logistic Regression, VotingClassifier) plus **4 regression models** on NSE 500 stocks to predict Buy/Sell signals and price targets. Writes predictions to `ml_nse_trading_predictions`.
+Trains a **single Gradient Boosting classifier (V2 architecture)** with isotonic calibration on NSE 500 stocks to predict Buy/Sell signals. Uses **hybrid feature approach** combining market context (25%), stock-specific (35%), relative/neutral (25%), and interaction features (15%) for balanced, context-aware predictions. Writes predictions to `ml_nse_trading_predictions`.
 
 ### Daily Schedule (Windows Task Scheduler)
 ```
@@ -42,57 +42,93 @@ Sunday 12:00 PM     Weekly full retrain    → Updated model + regressor files
 
 ```
 sqlserver_copilot_nse/
-├── src/
-│   ├── predict_daily.py             # Daily prediction entry point
-│   ├── train_model.py               # Full classifier training pipeline
-│   ├── train_regressors.py          # Price regression model training
-│   ├── feature_engineering.py       # 90+ feature calculations
-│   ├── feature_selection.py         # Feature selection pipeline
-│   ├── sql_queries.py               # All SQL queries
-│   ├── model_utils.py               # Model save/load
-│   ├── ensemble_builder.py          # 5-model ensemble construction
-│   └── regressor_builder.py         # 4-regressor ensemble for price targets
-├── models/
-│   ├── nse_rf_model.pkl             # Random Forest
-│   ├── nse_gb_model.pkl             # Gradient Boosting
-│   ├── nse_et_model.pkl             # Extra Trees
-│   ├── nse_lr_model.pkl             # Logistic Regression
-│   ├── nse_voting_model.pkl         # VotingClassifier
-│   ├── nse_*_regressor.pkl          # 4 regression models
-│   └── feature_columns.pkl          # Selected feature names
-├── config/
-│   └── settings.py                  # .env configuration
-└── logs/
-    └── *.log
+├── retrain_nse_model_v2.py          # V2 training script (single GB + calibration)
+├── predict_nse_signals_v2.py        # V2 prediction script (matches training features)
+├── daily_nse_automation.py          # Orchestrates daily workflow
+├── run_daily_predictions.bat        # Windows Task Scheduler wrapper (4:30 PM Mon-Fri)
+├── run_weekly_retrain.bat           # Weekly retrain wrapper (Sunday 12 PM)
+├── data/nse_models/
+│   ├── nse_gb_model_v2.pkl          # Gradient Boosting model (calibrated)
+│   ├── scaler_v2.pkl                # StandardScaler for features
+│   ├── label_encoder_v2.pkl         # LabelEncoder (Down=0, Up=1)
+│   ├── selected_features_v2.pkl     # 20 selected feature names
+│   └── model_metadata_v2.json       # Training metadata + validation results
+├── HYBRID_APPROACH_APRIL_21_2026.md # ML feature engineering documentation
+├── CLAUDE.md                        # This file - AI assistant reference
+└── AGENTS.md                        # Architecture overview
 ```
 
 ---
 
-## 3. ML MODEL DETAILS
+## 3. ML MODEL DETAILS (V2 ARCHITECTURE - APRIL 2026)
 
-### Classifier Ensemble (5 models)
-| Model | Algorithm | Role |
-|-------|-----------|------|
-| Random Forest | RF Classifier | Ensemble member |
-| Gradient Boosting | GB Classifier | Ensemble member |
-| Extra Trees | ET Classifier | Ensemble member |
-| Logistic Regression | LR | Ensemble member |
-| VotingClassifier | Soft voting | Combines all 4 above |
+### Model Architecture
+**Single Gradient Boosting Classifier** with isotonic probability calibration
+- Based on proven NASDAQ approach (simplified from V1's 5-model ensemble)
+- Training: 60% train / 20% calibration / 20% test
+- Stratified calibration split to prevent bias
+- Class + time-based sample weighting
 
-### Regression Models (4)
-Used for price prediction targets (complementary to classifier signals).
+### CRITICAL: Hybrid Feature Engineering Approach (April 21, 2026)
 
-### Feature Set (90+)
-| Category | Examples |
-|----------|---------|
-| Price-based | Multi-period returns, gap analysis, price ratios |
-| Moving Averages | SMA/EMA multiple periods, crossover flags |
-| Momentum | RSI, MACD, Stochastic, ROC, CCI, Williams %R, MFI |
-| Volatility | Bollinger Bands, ATR, Keltner, historical vol, VIX proxy |
-| Volume | Volume ratios, OBV, volume-price trend, accumulation/distribution |
-| Fundamental | Market cap category, sector encoding (from fundamentals table) |
-| Lag features | Lagged returns and indicators |
-| **Market context** | VIX, India VIX, NIFTY 50 return, S&P 500 return, DXY, US 10Y yield, sector NIFTY index return (from `market_context_daily` table) |
+After 5 iterations of bearish bias fixes, we discovered market context features were **valuable but over-dominant**, causing "bearish market = Sell everything" behavior. Solution: **3-pronged hybrid approach**:
+
+#### 1. Market-Neutral Features (10 features - 25% of final selection)
+Measure stock strength RELATIVE to market/sector:
+- `stock_return_vs_nifty`: Stock return - NIFTY return (outperformance)
+- `rsi_vs_sector_avg`: Stock RSI - sector average RSI (relative momentum)
+- `beta_adjusted_return`: Return - (beta × market return) (risk-adjusted)
+- `volume_anomaly`: Z-score vs 50-day history (stock-specific spikes)
+- `relative_strength_20d`: 20-day cumulative outperformance
+- `momentum_vs_sector`: Stock vs sector 10-day momentum
+
+**Purpose**: Identify Stock A (+3%) > Stock B (+1%) even when market is down -2%
+
+#### 2. Interaction Features (10 features - 15% of final selection)
+Explicitly combine market context WITH stock signals:
+- `outperformance_in_fear`: stock_vs_nifty × (VIX / 15) → **High VIX + Outperforming = Strong Buy**
+- `contrarian_strength`: stock_vs_nifty × (-NIFTY_return) → **Up when market down = Winner**
+- `sector_leader_conviction`: (RSI_vs_sector / 20) × volume_anomaly → Quality + Volume
+- `quality_opportunity`: stock_vs_nifty / beta → Low beta outperformers = Quality
+- `risk_adjusted_momentum`: stock_vs_nifty_5d / (ATR / price) → Return per unit risk
+- `quality_in_volatility`: RSI_vs_sector × (VIX / VIX_20d_avg) → Strong during stress
+
+**Purpose**: Teach model "VIX high + Stock strong = Opportunity" not "VIX high = Sell all"
+
+#### 3. Weighted Feature Selection (20 features total)
+Force balanced category representation:
+- **Market Context**: 25% (5 features) - VIX/DXY/yields **controlled, not eliminated**
+- **Stock-Specific**: 35% (7 features) - Core technical indicators **prioritized**
+- **Relative/Neutral**: 25% (5 features) - Comparative metrics
+- **Interactions**: 15% (3 features) - Smart combinations
+
+**Mechanism**: Select top N from EACH category (not global top N) to prevent market feature dominance
+
+### Feature Pipeline (76 total → 20 selected)
+```
+calculate_technical_indicators()     → 45 features (RSI, MACD, BB, ATR, etc.)
+merge_market_context()               → +11 features (VIX, DXY, yields, NIFTY/S&P returns)
+add_market_neutral_features()        → +10 features (relative performance, beta, anomalies)
+add_interaction_features()           → +10 features (smart combinations)
+select_features() [weighted]         → 20 features (balanced across categories)
+```
+
+### Expected Behavior
+- **Bearish market + Weak stock** → Sell
+- **Bearish market + Strong stock** → Buy (contrarian opportunity)
+- **Bullish market + Weak stock** → Sell (laggard)
+- **Bullish market + Strong stock** → Buy (momentum)
+
+**Target**: 40-50% Buy signals (balanced), not 2% or 98%
+
+### Historical Architecture Issues (Documented for Learning)
+| Date | Issue | Root Cause | Fix |
+|------|-------|-----------|-----|
+| Apr 14 | 0% predictions | Undefined variables | Variable definitions |
+| Apr 16 | 97.3% Sell | No class balancing | Added class_weight='balanced' |
+| Apr 18 | 97.0% Sell | VotingClassifier retraining bug | Removed ensemble, use single GB |
+| Apr 21 (Part 1) | 99.6% Sell | Biased calibration set | Stratified calibration split |
+| Apr 21 (Part 2) | 98.0% Sell (42 Buy) | Market feature dominance | Hybrid approach (this fix) |
 
 ### Output Table: `ml_nse_trading_predictions`
 | Column | Type | Description |

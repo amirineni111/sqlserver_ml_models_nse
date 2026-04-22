@@ -303,6 +303,14 @@ def load_prediction_data(conn, prediction_date):
     print("[INFO] Merging market context data...")
     df = merge_market_context(conn, df)
     
+    # Add market-neutral features (CRITICAL - must match training)
+    print("[INFO] Calculating market-neutral features...")
+    df = add_market_neutral_features(df)
+    
+    # Add interaction features (HYBRID APPROACH - must match training)
+    print("[INFO] Calculating interaction features...")
+    df = add_interaction_features(df)
+    
     # Keep only prediction date
     df = df[df['trading_date'] == prediction_date].copy()
     print(f"[SUCCESS] {len(df)} tickers ready for prediction on {prediction_date}")
@@ -352,6 +360,170 @@ def merge_market_context(conn, df):
         print(f"[WARNING] Could not load market context: {e}")
     
     return df
+
+def add_market_neutral_features(df):
+    """
+    Add market-neutral features (must match training exactly)
+    
+    These features reduce market-wide bias by measuring stock-specific strength
+    relative to the market and sector peers.
+    """
+    # 1. Relative performance vs NIFTY 50
+    if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
+        df['stock_return_vs_nifty'] = df['return_1d'] - df['nifty50_return_1d']
+        df['stock_return_vs_nifty_5d'] = df['return_5d'] - (df['nifty50_return_1d'].rolling(5).sum())
+    else:
+        df['stock_return_vs_nifty'] = 0
+        df['stock_return_vs_nifty_5d'] = 0
+    
+    # 2. Sector-relative performance and RSI
+    if 'sector' in df.columns:
+        # Group by sector and date to get sector averages
+        sector_metrics = df.groupby(['trading_date', 'sector']).agg({
+            'return_1d': 'mean',
+            'return_5d': 'mean',
+            'rsi': 'mean',
+            'volume_ratio': 'mean'
+        }).reset_index()
+        
+        sector_metrics.columns = ['trading_date', 'sector', 'sector_return_1d', 
+                                   'sector_return_5d', 'sector_rsi_avg', 'sector_volume_ratio']
+        
+        # Merge back
+        df = df.merge(sector_metrics, on=['trading_date', 'sector'], how='left')
+        
+        # Calculate relative metrics
+        df['stock_return_vs_sector'] = df['return_1d'] - df['sector_return_1d']
+        df['rsi_vs_sector_avg'] = df['rsi'] - df['sector_rsi_avg']
+        df['volume_vs_sector'] = df['volume_ratio'] - df['sector_volume_ratio']
+    else:
+        df['stock_return_vs_sector'] = 0
+        df['rsi_vs_sector_avg'] = 0
+        df['volume_vs_sector'] = 0
+    
+    # 3. Volume anomaly detection (stock-specific)
+    df['volume_anomaly'] = df.groupby('ticker')['volume'].transform(
+        lambda x: (x - x.rolling(50, min_periods=10).mean()) / x.rolling(50, min_periods=10).std()
+    ).fillna(0)
+    
+    # 4. Beta estimation (rolling 60-day)
+    if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
+        results = []
+        for ticker in df['ticker'].unique():
+            ticker_df = df[df['ticker'] == ticker].copy()
+            ticker_df = ticker_df.sort_values('trading_date')
+            
+            # Rolling beta
+            window = 60
+            cov = ticker_df['return_1d'].rolling(window).cov(ticker_df['nifty50_return_1d'])
+            var = ticker_df['nifty50_return_1d'].rolling(window).var()
+            ticker_df['beta'] = (cov / var).fillna(1.0).clip(0.5, 2.0)
+            
+            # Beta-adjusted return
+            ticker_df['beta_adjusted_return'] = ticker_df['return_1d'] - (ticker_df['beta'] * ticker_df['nifty50_return_1d'])
+            
+            results.append(ticker_df)
+        
+        df = pd.concat(results, ignore_index=True)
+    else:
+        df['beta'] = 1.0
+        df['beta_adjusted_return'] = 0
+    
+    # 5. Relative strength (20-day cumulative outperformance)
+    if 'stock_return_vs_nifty' in df.columns:
+        df['relative_strength_20d'] = df.groupby('ticker')['stock_return_vs_nifty'].transform(
+            lambda x: x.rolling(20, min_periods=5).sum()
+        ).fillna(0)
+    else:
+        df['relative_strength_20d'] = 0
+    
+    # 6. Price momentum relative to sector
+    if 'sector' in df.columns:
+        sector_momentum = df.groupby(['trading_date', 'sector'])['close_price'].transform(
+            lambda x: x.pct_change(10)
+        )
+        df['momentum_vs_sector'] = df['return_10d'] - sector_momentum
+    else:
+        df['momentum_vs_sector'] = 0
+    
+    return df
+
+
+def add_interaction_features(df):
+    """
+    Add interaction features that combine market context with stock-specific signals
+    (must match training exactly)
+    
+    These features explicitly teach the model to consider market conditions
+    AND stock-specific strength together, not independently.
+    """
+    # Initialize VIX baseline for normalization
+    vix_neutral = 15.0
+    
+    # 1. FEAR/GREED INTERACTIONS
+    if 'stock_return_vs_nifty' in df.columns and 'vix_close' in df.columns:
+        df['outperformance_in_fear'] = df['stock_return_vs_nifty'] * (df['vix_close'] / vix_neutral)
+        df['outperformance_in_greed'] = df['stock_return_vs_nifty'] * (vix_neutral / df['vix_close'].clip(lower=10))
+    else:
+        df['outperformance_in_fear'] = 0
+        df['outperformance_in_greed'] = 0
+    
+    # 2. QUALITY + CONVICTION SIGNALS
+    if 'rsi_vs_sector_avg' in df.columns and 'volume_anomaly' in df.columns:
+        df['sector_leader_conviction'] = (df['rsi_vs_sector_avg'] / 20).clip(-1, 1) * df['volume_anomaly'].clip(-3, 3)
+    else:
+        df['sector_leader_conviction'] = 0
+    
+    # 3. DEFENSIVE/AGGRESSIVE POSITIONING
+    if 'beta' in df.columns and 'vix_close' in df.columns:
+        df['defensive_risk_score'] = df['beta'] * (df['vix_close'] / vix_neutral)
+        
+        if 'stock_return_vs_nifty' in df.columns:
+            safe_beta = df['beta'].clip(lower=0.5)
+            df['quality_opportunity'] = df['stock_return_vs_nifty'] / safe_beta
+        else:
+            df['quality_opportunity'] = 0
+    else:
+        df['defensive_risk_score'] = 0
+        df['quality_opportunity'] = 0
+    
+    # 4. VOLATILITY-ADJUSTED MOMENTUM
+    if 'stock_return_vs_nifty_5d' in df.columns and 'atr' in df.columns and 'close_price' in df.columns:
+        atr_pct = (df['atr'] / df['close_price']).clip(lower=0.001)
+        df['risk_adjusted_momentum'] = df['stock_return_vs_nifty_5d'] / atr_pct
+        df['risk_adjusted_momentum'] = df['risk_adjusted_momentum'].clip(-5, 5)
+    else:
+        df['risk_adjusted_momentum'] = 0
+    
+    # 5. MARKET REGIME COORDINATION
+    if 'stock_return_vs_nifty' in df.columns and 'sp500_return_1d' in df.columns:
+        df['global_market_sync'] = df['stock_return_vs_nifty'] * df['sp500_return_1d']
+    else:
+        df['global_market_sync'] = 0
+    
+    # 6. CONTRARIAN SIGNAL
+    if 'stock_return_vs_nifty' in df.columns and 'nifty50_return_1d' in df.columns:
+        df['contrarian_strength'] = df['stock_return_vs_nifty'] * (-df['nifty50_return_1d'])
+    else:
+        df['contrarian_strength'] = 0
+    
+    # 7. QUALITY IN CHAOS
+    if 'rsi_vs_sector_avg' in df.columns and 'vix_close' in df.columns:
+        vix_20d_avg = df['vix_close'].rolling(20, min_periods=5).mean()
+        vix_spike = (df['vix_close'] / vix_20d_avg).fillna(1.0)
+        df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * vix_spike
+        df['quality_in_volatility'] = df['quality_in_volatility'].clip(-3, 3)
+    else:
+        df['quality_in_volatility'] = 0
+    
+    # 8. SECTOR MOMENTUM WITH MARKET CONFIRMATION
+    if 'momentum_vs_sector' in df.columns and 'nifty50_return_1d' in df.columns:
+        df['sector_momentum_confirmed'] = df['momentum_vs_sector'] * df['nifty50_return_1d']
+    else:
+        df['sector_momentum_confirmed'] = 0
+    
+    return df
+
 
 # ============================================================================
 # Generate Predictions

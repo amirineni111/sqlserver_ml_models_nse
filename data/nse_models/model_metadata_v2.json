@@ -1,19 +1,19 @@
 {
-  "timestamp": "20260421_200822",
+  "timestamp": "20260421_224517",
   "model_type": "GradientBoostingClassifier",
   "calibration": "isotonic",
   "n_features": 20,
   "top_features": [
+    "india_vix_close",
+    "sp500_close",
+    "vix_close",
     "dxy_close",
     "us_10y_yield_close",
-    "nifty50_return_1d",
-    "india_vix_change_pct",
-    "sp500_return_1d",
-    "dxy_return_1d",
-    "vix_change_pct",
-    "price_to_sma20",
-    "bb_position",
-    "return_5d"
+    "nifty50_close",
+    "sector_rsi_avg",
+    "sector_return_5d",
+    "sector_return_1d",
+    "price_to_sma20"
   ],
   "data_range": "2024-06-01 to 2026-04-15",
   "hyperparameters": {
