@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-21
+[TIME] Report Generated (EST): 2026-04-21 17:28:22
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-21
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2064
+[BUY] Buy Signals: 9
+[SELL] Sell Signals: 2055
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1419
+[DATA] Medium Confidence: 613
+[LOW] Low Confidence: 32
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 71.76
+[DATA] Average RSI: 72.2
+[COMPANY] Stocks Processed: 2064
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] JKIPL.NS: Sell (94.9%) - INR 110.11 [GradientBoosting_V2_Calibrated]
+[SELL] KAKATCEM.NS: Sell (86.5%) - INR 148.36 [GradientBoosting_V2_Calibrated]
+[SELL] AARTECH.NS: Sell (85.4%) - INR 52.27 [GradientBoosting_V2_Calibrated]
+[SELL] FLFL.NS: Sell (85.4%) - INR 1.57 [GradientBoosting_V2_Calibrated]
+[SELL] KRITINUT.NS: Sell (85.4%) - INR 97.74 [GradientBoosting_V2_Calibrated]
+[SELL] MANAKSTEEL.NS: Sell (85.4%) - INR 79.21 [GradientBoosting_V2_Calibrated]
+[SELL] SADHNANIQ.NS: Sell (85.4%) - INR 2.29 [GradientBoosting_V2_Calibrated]
+[SELL] STLNETWORK.NS: Sell (85.4%) - INR 30.56 [GradientBoosting_V2_Calibrated]
+[SELL] SVPGLOB.NS: Sell (85.4%) - INR 3.23 [GradientBoosting_V2_Calibrated]
+[SELL] VINEETLAB.NS: Sell (85.4%) - INR 39.21 [GradientBoosting_V2_Calibrated]

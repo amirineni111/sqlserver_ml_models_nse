@@ -1,12 +1,12 @@
 @echo off
 :: NSE 500 Daily Predictions - Windows Task Scheduler
 :: Run this script daily to generate NSE trading signals
-:: Schedule: Monday-Friday at 7:30 AM EST
+:: Schedule: Monday-Friday at 4:30 PM EST
 ::
 :: DATA PIPELINE (EST):
 ::   3:30 PM IST (~5:00 AM EST) - NSE market closes
-::   7:00 AM EST - yfinance data fetch loads today's NSE data into DB
-::   7:30 AM EST - THIS SCRIPT runs ML predictions on fresh data
+::   3:00 PM EST - yfinance data fetch loads today's NSE data into DB
+::   4:30 PM EST - THIS SCRIPT runs ML predictions on fresh data
 ::
 :: This calls daily_nse_automation.py which handles:
 ::   1. Data status check (verifies today's NSE data is loaded)
@@ -40,7 +40,7 @@ exit /b %errorlevel%
 echo ============================================================
 echo NSE 500 Daily Predictions - %date% %time% (EST)
 echo ============================================================
-echo Data pipeline: yfinance fetch at 7 AM EST, ML predictions at 7:30 AM EST
+echo Data pipeline: yfinance fetch at 3 PM EST, ML predictions at 4:30 PM EST
 
 :: Set working directory
 cd /d "%~dp0"

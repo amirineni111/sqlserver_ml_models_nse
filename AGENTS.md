@@ -6,6 +6,8 @@ This repo does NOT contain CrewAI agents. It is a **5-model ensemble ML training
 ## ML Pipeline Architecture
 
 ```
+[NSE Market closes 3:30 PM IST → yfinance fetch 3 PM EST]
+        │
 [nse_500_hist_data] + [nse_500_fundamentals] (SQL Server)
         │
         ▼
@@ -24,7 +26,7 @@ This repo does NOT contain CrewAI agents. It is a **5-model ensemble ML training
         │
         ▼
   predict_daily.py  (daily predictions → SQL Server)
-        │
+        │          Uses max(trading_date) from database
         ▼
   [ml_nse_trading_predictions] + [ml_nse_predict_summary]
 ```

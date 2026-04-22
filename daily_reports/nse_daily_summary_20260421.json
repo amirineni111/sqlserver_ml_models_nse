@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-21",
+  "generated_at": "2026-04-21T17:28:22.137417",
+  "summary": {
+    "analysis_date": "2026-04-21",
+    "total_predictions": 2064,
+    "total_buy_signals": 9,
+    "total_sell_signals": 2055,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1419,
+    "medium_confidence_count": 613,
+    "low_confidence_count": 32,
+    "avg_confidence": 71.76145226403011,
+    "avg_rsi": 72.17385699333666,
+    "total_stocks_processed": 2064,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-21 17:28:21.817000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "JKIPL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 94.90445859872611,
+      "close_price": 110.11,
+      "rsi": 94.5404408114272,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KAKATCEM.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.52482269503547,
+      "close_price": 148.36,
+      "rsi": 93.0495200987214,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AARTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 52.27,
+      "rsi": 67.49794464236777,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FLFL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 1.57,
+      "rsi": 78.94736710017409,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRITINUT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 97.74,
+      "rsi": 85.83906629206511,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANAKSTEEL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 79.21,
+      "rsi": 81.47771421657032,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SADHNANIQ.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 2.29,
+      "rsi": 97.91666618030933,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "STLNETWORK.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 30.56,
+      "rsi": 94.78429080214666,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SVPGLOB.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 3.23,
+      "rsi": 72.43242869854342,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VINEETLAB.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 39.21,
+      "rsi": 82.66961419351362,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

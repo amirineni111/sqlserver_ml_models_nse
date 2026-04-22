@@ -162,8 +162,8 @@ def check_nse_data_status():
         logging.info(f"  [DATE] Unique Dates: {unique_dates}")
         
         # Calculate data age with EST/IST timezone awareness
-        # NSE closes 3:30 PM IST = ~5 AM EST, so on weekdays at 7 AM EST,
-        # today's NSE data should already be in the DB (data_age = 0 days)
+        # NSE closes 3:30 PM IST = ~5 AM EST, data fetch at 3 PM EST,
+        # so by 4:30 PM EST today's NSE data should be in the DB (data_age = 0 days)
         if latest_date:
             if hasattr(latest_date, 'date'):
                 latest_dt = latest_date.date()
@@ -687,8 +687,8 @@ def main():
     safe_print("[START] Starting Daily NSE 500 Automation")
     safe_print(f"[DATE] Target Date: {args.date or 'Today (EST)'}")
     safe_print(f"[TIME] Run Time (EST): {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    safe_print(f"[INFO] Pipeline: yfinance fetch at 7 AM EST -> ML predictions at 7:30 AM EST")
-    safe_print(f"[INFO] NSE closes 3:30 PM IST (~5 AM EST) -> data fetched at 7 AM -> ready now")
+    safe_print(f"[INFO] Pipeline: yfinance fetch at 3 PM EST -> ML predictions at 4:30 PM EST")
+    safe_print(f"[INFO] NSE closes 3:30 PM IST (~5 AM EST) -> data fetched at 3 PM -> ready now")
     safe_print(f"[LOG] Log File: {log_filename}")
     
     success_count = 0
@@ -784,7 +784,7 @@ def main():
                 logging.error("[ERROR] NSE predictions failed")
                 pipeline_failed = True
                 failure_step = "NSE Predictions"
-                failure_message = ("predict_nse_signals.py returned a non-zero exit code.\n"
+                failure_message = ("predict_nse_signals_v2.py returned a non-zero exit code.\n"
                                    "No predictions were written to ml_nse_trading_predictions.\n"
                                    "Check the log file for detailed error output.")
                 send_failure_alert(failure_message, failure_step, str(log_filename))

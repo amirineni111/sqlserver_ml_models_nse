@@ -33,6 +33,11 @@ Trains a **5-model ensemble** (Random Forest, Gradient Boosting, Extra Trees, Lo
 Sunday 12:00 PM     Weekly full retrain    → Updated model + regressor files
 ```
 
+**Data Pipeline:**
+- NSE market closes: 3:30 PM IST (~5:00 AM EST)
+- yfinance data fetch: 3:00 PM EST daily
+- ML predictions: 4:30 PM EST daily (after data fetch completes)
+
 ### Key Files
 
 ```

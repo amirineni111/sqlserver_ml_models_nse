@@ -24,8 +24,13 @@ This is the **NSE ML training pipeline** — part of a 7-repo stock trading anal
 5. `predict_daily.py` — Daily predictions → SQL Server
 
 ## Schedule
-- Daily 4:30 PM (Mon-Fri): NSE prediction run
+- Daily 4:30 PM (Mon-Fri): NSE prediction run (after 3 PM EST data fetch)
 - Sunday 12:00 PM (noon): Weekly full retrain (classifiers + regressors)
+
+## Data Pipeline
+- **NSE Market**: Closes 3:30 PM IST (~5 AM EST)
+- **Data Fetch**: 3:00 PM EST daily via yfinance
+- **Predictions**: 4:30 PM EST daily (uses latest available trading_date from database)
 
 ## Database Notes
 - **Server**: `192.168.86.28\MSSQLSERVER01` (named instance, NOT port-based)

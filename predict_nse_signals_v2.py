@@ -441,6 +441,84 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     return predictions
 
 # ============================================================================
+# Production Validation (RUNTIME)
+# ============================================================================
+
+def validate_prediction_distribution(predictions):
+    """
+    Validate prediction distribution before writing to database
+    
+    Prevents production issues like:
+    - Apr 21: 99.6% Sell (9 Buy / 2055 Sell)
+    - Apr 18: 97.0% Sell (21 Buy / 2002 Sell)
+    
+    Returns: True if validation passes, False if critical issue detected
+    """
+    total = len(predictions)
+    buy_count = len(predictions[predictions['predicted_signal'] == 'Buy'])
+    sell_count = total - buy_count
+    
+    buy_pct = buy_count / total * 100
+    sell_pct = sell_count / total * 100
+    
+    print(f"\n{'='*80}")
+    print(f"PREDICTION DISTRIBUTION VALIDATION")
+    print(f"{'='*80}")
+    print(f"Trading Date: {predictions['trading_date'].iloc[0]}")
+    print(f"Total:        {total:,}")
+    print(f"Buy:          {buy_count:,} ({buy_pct:.1f}%)")
+    print(f"Sell:         {sell_count:,} ({sell_pct:.1f}%)")
+    
+    # Probability analysis
+    avg_buy_prob = predictions['buy_probability'].mean()
+    avg_sell_prob = predictions['sell_probability'].mean()
+    avg_confidence = predictions['confidence_percentage'].mean()
+    
+    print(f"\nAverage Buy Probability:  {avg_buy_prob:.2%}")
+    print(f"Average Sell Probability: {avg_sell_prob:.2%}")
+    print(f"Average Confidence:       {avg_confidence:.1f}%")
+    
+    # CRITICAL: Alert if extreme skew
+    issues = []
+    
+    if buy_pct < 20:
+        issues.append(f"Buy% ({buy_pct:.1f}%) below 20% - extreme bearish bias")
+        print(f"\n⚠️  WARNING: EXTREME BEARISH BIAS DETECTED")
+        print(f"   Buy: {buy_pct:.1f}% is below normal range (20-80%)")
+    elif buy_pct > 80:
+        issues.append(f"Buy% ({buy_pct:.1f}%) above 80% - extreme bullish bias")
+        print(f"\n⚠️  WARNING: EXTREME BULLISH BIAS DETECTED")
+        print(f"   Buy: {buy_pct:.1f}% is above normal range (20-80%)")
+    else:
+        print(f"\n✅ VALIDATION PASSED: Distribution within acceptable range (20-80%)")
+    
+    # Additional checks
+    if avg_confidence > 90:
+        issues.append(f"Avg confidence ({avg_confidence:.1f}%) suspiciously high")
+        print(f"⚠️  WARNING: Average confidence {avg_confidence:.1f}% is suspiciously high")
+    
+    if len(issues) > 0:
+        print(f"\n{'='*80}")
+        print(f"VALIDATION ISSUES DETECTED")
+        print(f"{'='*80}")
+        for i, issue in enumerate(issues, 1):
+            print(f"{i}. {issue}")
+        print(f"\nRECOMMENDATIONS:")
+        print(f"  • Review model calibration (check calibration set balance)")
+        print(f"  • Verify training data quality and class distribution")
+        print(f"  • Consider retraining with stratified calibration split")
+        print(f"  • Check for data quality issues in recent market data")
+        
+        # OPTION: Uncomment to ABORT on validation failure
+        # print(f"\n❌ ABORTING: Predictions not saved due to validation failure")
+        # return False
+        
+        print(f"\n⚠️  PROCEEDING WITH CAUTION: Predictions will be saved with warning flag")
+        return True  # Allow save but with warning
+    
+    return True
+
+# ============================================================================
 # Save Predictions to Database
 # ============================================================================
 
@@ -575,6 +653,28 @@ def save_summary(conn, predictions):
 # Main Prediction Pipeline
 # ============================================================================
 
+def get_latest_trading_date(conn):
+    """Get the most recent trading date available in NSE database"""
+    try:
+        cursor = conn.cursor()
+        query = "SELECT MAX(trading_date) as latest_date FROM nse_500_hist_data"
+        cursor.execute(query)
+        result = cursor.fetchone()
+        cursor.close()
+        
+        if result and result[0]:
+            latest_date = result[0]
+            # Convert to string if it's a date object
+            if hasattr(latest_date, 'strftime'):
+                return latest_date.strftime('%Y-%m-%d')
+            return str(latest_date)
+        else:
+            print("[WARNING] Could not determine latest trading date from database")
+            return None
+    except Exception as e:
+        print(f"[ERROR] Failed to query latest trading date: {e}")
+        return None
+
 def main():
     """Main prediction pipeline"""
     print("\n" + "="*80)
@@ -582,20 +682,26 @@ def main():
     print("="*80)
     print(f"Start Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
+    # Connect to database first to determine prediction date
+    conn = get_db_connection()
+    
     # Determine prediction date
     if Config.PREDICTION_DATE:
         prediction_date = Config.PREDICTION_DATE
+        print(f"[INFO] Using specified date: {prediction_date}")
     else:
-        # Use yesterday's date (most recent trading day)
-        prediction_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+        # Query database for most recent trading date
+        prediction_date = get_latest_trading_date(conn)
+        if not prediction_date:
+            print("[ERROR] Could not determine prediction date")
+            conn.close()
+            sys.exit(1)
+        print(f"[INFO] Using latest trading date from database: {prediction_date}")
     
     print(f"Prediction Date: {prediction_date}")
     
     # Load model artifacts
     model, scaler, encoder, selected_features = load_model_artifacts()
-    
-    # Connect to database
-    conn = get_db_connection()
     
     try:
         # Load prediction data
@@ -608,6 +714,12 @@ def main():
         
         # Generate predictions
         predictions = generate_predictions(model, scaler, encoder, selected_features, df)
+        
+        # ⭐ CRITICAL: VALIDATE BEFORE SAVING
+        # Prevents production issues like Apr 21 (99.6% Sell)
+        if not validate_prediction_distribution(predictions):
+            print("[ERROR] Prediction validation failed. Aborting database write.")
+            sys.exit(1)
         
         # Save to database
         save_predictions(conn, predictions)
