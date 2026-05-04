@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-27",
+  "generated_at": "2026-04-27T16:47:27.919704",
+  "summary": {
+    "analysis_date": "2026-04-27",
+    "total_predictions": 2062,
+    "total_buy_signals": 0,
+    "total_sell_signals": 2062,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2053,
+    "medium_confidence_count": 9,
+    "low_confidence_count": 0,
+    "avg_confidence": 76.49402117479383,
+    "avg_rsi": 69.62334519678697,
+    "total_stocks_processed": 2062,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-27 16:47:25.840000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.95774647887323,
+      "close_price": 331.39,
+      "rsi": 92.3046522131888,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMAMIREAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.55405405405405,
+      "close_price": 104.45,
+      "rsi": 89.4446360814074,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DHARAN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 0.15,
+      "rsi": 54.54545424989432,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 46.28,
+      "rsi": 47.434590553856616,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 2359.8,
+      "rsi": 86.8758819971776,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADFFOODS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 267.42,
+      "rsi": 91.01516919486583,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ENERGYDEV.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 17.21,
+      "rsi": 85.86065573770495,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IGL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 164.88,
+      "rsi": 75.10153077163382,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRITINUT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 99.97,
+      "rsi": 89.06786941580755,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OSIAHYPER.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 6.55,
+      "rsi": 100.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

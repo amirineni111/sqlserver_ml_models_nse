@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-23",
+  "generated_at": "2026-04-23T16:32:49.817296",
+  "summary": {
+    "analysis_date": "2026-04-23",
+    "total_predictions": 2064,
+    "total_buy_signals": 2,
+    "total_sell_signals": 2062,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1322,
+    "medium_confidence_count": 734,
+    "low_confidence_count": 8,
+    "avg_confidence": 71.06358686861557,
+    "avg_rsi": 73.95376720256161,
+    "total_stocks_processed": 2064,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-23 16:32:47.903000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 90.00738370662073,
+      "close_price": 2470.3,
+      "rsi": 92.79356262906785,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RHETAN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.56791720569211,
+      "close_price": 28.71,
+      "rsi": 82.05928237129483,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SADHNANIQ.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.56791720569211,
+      "close_price": 2.49,
+      "rsi": 98.18181818181819,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ABCOTS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.11605337646583,
+      "close_price": 388.55,
+      "rsi": 36.25730994152054,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.11605337646583,
+      "close_price": 286.63,
+      "rsi": 88.70251225490198,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RSSOFTWARE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.11605337646583,
+      "close_price": 45.48,
+      "rsi": 100.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ENRIN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.12924071082391,
+      "close_price": 3221.6,
+      "rsi": 94.32530999270604,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GSPL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.12924071082391,
+      "close_price": 283.48,
+      "rsi": 87.97957920792078,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GVKPIL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.12924071082391,
+      "close_price": 3.03,
+      "rsi": 100.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CAMLINFINE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.65174129353234,
+      "close_price": 120.4,
+      "rsi": 74.32851239669422,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

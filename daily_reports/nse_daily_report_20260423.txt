@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-23
+[TIME] Report Generated (EST): 2026-04-23 16:32:49
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2064
+[BUY] Buy Signals: 2
+[SELL] Sell Signals: 2062
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1322
+[DATA] Medium Confidence: 734
+[LOW] Low Confidence: 8
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 71.06
+[DATA] Average RSI: 74.0
+[COMPANY] Stocks Processed: 2064
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] INDOTECH.NS: Sell (90.0%) - INR 2470.30 [GradientBoosting_V2_Calibrated]
+[SELL] RHETAN.NS: Sell (82.6%) - INR 28.71 [GradientBoosting_V2_Calibrated]
+[SELL] SADHNANIQ.NS: Sell (82.6%) - INR 2.49 [GradientBoosting_V2_Calibrated]
+[SELL] ABCOTS.NS: Sell (81.1%) - INR 388.55 [GradientBoosting_V2_Calibrated]
+[SELL] IRMENERGY.NS: Sell (81.1%) - INR 286.63 [GradientBoosting_V2_Calibrated]
+[SELL] RSSOFTWARE.NS: Sell (81.1%) - INR 45.48 [GradientBoosting_V2_Calibrated]
+[SELL] ENRIN.NS: Sell (80.1%) - INR 3221.60 [GradientBoosting_V2_Calibrated]
+[SELL] GSPL.NS: Sell (80.1%) - INR 283.48 [GradientBoosting_V2_Calibrated]
+[SELL] GVKPIL.NS: Sell (80.1%) - INR 3.03 [GradientBoosting_V2_Calibrated]
+[SELL] CAMLINFINE.NS: Sell (79.7%) - INR 120.40 [GradientBoosting_V2_Calibrated]

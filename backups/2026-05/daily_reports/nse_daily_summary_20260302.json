@@ -1,0 +1,114 @@
+{
+  "date": "2026-03-02",
+  "generated_at": "2026-03-03T21:00:11.749390",
+  "summary": {
+    "analysis_date": "2026-03-02",
+    "total_predictions": 780,
+    "total_buy_signals": 633,
+    "total_sell_signals": 147,
+    "total_hold_signals": 0,
+    "high_confidence_count": 468,
+    "medium_confidence_count": 235,
+    "low_confidence_count": 77,
+    "avg_confidence": 0.7931464011622851,
+    "avg_rsi": 34.81388938457601,
+    "total_stocks_processed": 780,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-03-03 21:00:08.560000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CEATLTD.NS",
+      "company": "CEAT Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.3510308390383,
+      "close_price": 3459.6,
+      "rsi": 6.314878892733503,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.12122461945587,
+      "close_price": 85.87,
+      "rsi": 22.841590771556582,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ARVINDFASN.NS",
+      "company": "ARVIND FASHIONS",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97603996339622,
+      "close_price": 440.05,
+      "rsi": 18.76925599226361,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "SRF.NS",
+      "company": "SRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.93271170390506,
+      "close_price": 2537.0,
+      "rsi": 11.041784836452962,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ENTERO.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.91967122521459,
+      "close_price": 1024.9,
+      "rsi": 22.34138110316239,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "LUXIND.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.72253182045061,
+      "close_price": 886.95,
+      "rsi": 11.779059646531778,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "RAYMONDLSL.NS",
+      "company": "TBD",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.69916663730612,
+      "close_price": 867.3,
+      "rsi": 8.366765834569776,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ANGELONE.NS",
+      "company": "Angel One Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.67593413577255,
+      "close_price": 226.32,
+      "rsi": 1.9304728717759474,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JKTYRE.NS",
+      "company": "JK Tyre & Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.62030534335476,
+      "close_price": 477.75,
+      "rsi": 5.866018743491722,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "MOTILALOFS.NS",
+      "company": "Motilal Oswal Financial Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.61001293189075,
+      "close_price": 717.5,
+      "rsi": 1.4278159703864333,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

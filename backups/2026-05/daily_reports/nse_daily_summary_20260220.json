@@ -1,0 +1,87 @@
+{
+  "date": "2026-02-20",
+  "generated_at": "2026-02-20T07:46:12.221348",
+  "summary": {
+    "analysis_date": "2026-02-20",
+    "total_predictions": 530,
+    "total_buy_signals": 107,
+    "total_sell_signals": 423,
+    "total_hold_signals": 0,
+    "high_confidence_count": 10,
+    "medium_confidence_count": 411,
+    "low_confidence_count": 109,
+    "avg_confidence": 0.5870540465424732,
+    "avg_rsi": 53.954490258421224,
+    "total_stocks_processed": 530,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6216253389397571,
+    "run_timestamp": "2026-02-20 07:46:10.683000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RTNINDIA.NS",
+      "company": "RattanIndia Enterprises Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 77.44492359612308,
+      "close_price": 31.08,
+      "rsi": 34.164420485174944,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "BLUEJET.NS",
+      "company": "Blue Jet Healthcare",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.77185111693811,
+      "close_price": 355.85,
+      "rsi": 34.944018856806196,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.04670358195644,
+      "close_price": 243.15,
+      "rsi": 19.506172839506164,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "CLEAN.NS",
+      "company": "Clean Science and Technology Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.97719885655583,
+      "close_price": 711.05,
+      "rsi": 26.26506024096372,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "LEMONTREE.NS",
+      "company": "Lemon Tree Hotels Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.7193506704503,
+      "close_price": 116.27,
+      "rsi": 33.8186813186813,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHAKTIPUMP.NS",
+      "company": "Shakti Pumps India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.72792341229625,
+      "close_price": 560.0,
+      "rsi": 41.473640150678634,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.25906084539497,
+      "close_price": 96.67,
+      "rsi": 36.49965205288849,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

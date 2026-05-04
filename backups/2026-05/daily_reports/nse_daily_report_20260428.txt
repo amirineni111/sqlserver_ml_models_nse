@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-28
+[TIME] Report Generated (EST): 2026-04-28 16:47:12
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-28
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2060
+[BUY] Buy Signals: 0
+[SELL] Sell Signals: 2060
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1953
+[DATA] Medium Confidence: 106
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 73.19
+[DATA] Average RSI: 68.0
+[COMPANY] Stocks Processed: 2060
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] IRMENERGY.NS: Sell (89.9%) - INR 347.66 [GradientBoosting_V2_Calibrated]
+[SELL] CEWATER.NS: Sell (80.2%) - INR 329.50 [GradientBoosting_V2_Calibrated]
+[SELL] ACMESOLAR.NS: Sell (79.6%) - INR 305.20 [GradientBoosting_V2_Calibrated]
+[SELL] BAJEL.NS: Sell (79.6%) - INR 181.37 [GradientBoosting_V2_Calibrated]
+[SELL] ENERGYDEV.NS: Sell (79.6%) - INR 17.43 [GradientBoosting_V2_Calibrated]
+[SELL] MGL.NS: Sell (79.6%) - INR 1133.00 [GradientBoosting_V2_Calibrated]
+[SELL] NTPC.NS: Sell (79.6%) - INR 406.85 [GradientBoosting_V2_Calibrated]
+[SELL] ONGC.NS: Sell (79.6%) - INR 301.30 [GradientBoosting_V2_Calibrated]
+[SELL] POWERGRID.NS: Sell (79.6%) - INR 319.00 [GradientBoosting_V2_Calibrated]
+[SELL] SJVN.NS: Sell (79.6%) - INR 81.79 [GradientBoosting_V2_Calibrated]

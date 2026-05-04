@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-30
+[TIME] Report Generated (EST): 2026-05-01 16:46:31
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-30
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2063
+[BUY] Buy Signals: 217
+[SELL] Sell Signals: 1846
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2
+[DATA] Medium Confidence: 348
+[LOW] Low Confidence: 1713
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.52
+[DATA] Average RSI: 61.3
+[COMPANY] Stocks Processed: 2063
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] ABCOTS.NS: Buy (74.9%) - INR 223.60 [GradientBoosting_V2_Calibrated]
+[SELL] IRMENERGY.NS: Sell (70.5%) - INR 356.91 [GradientBoosting_V2_Calibrated]
+[SELL] ARTNIRMAN.NS: Sell (66.0%) - INR 44.52 [GradientBoosting_V2_Calibrated]
+[SELL] FELDVR.NS: Sell (66.0%) - INR 2.96 [GradientBoosting_V2_Calibrated]
+[SELL] COHANCE.NS: Sell (64.4%) - INR 483.25 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (64.4%) - INR 2702.30 [GradientBoosting_V2_Calibrated]
+[SELL] STAR.NS: Sell (64.4%) - INR 1036.80 [GradientBoosting_V2_Calibrated]
+[BUY] BGRENERGY.NS: Buy (63.8%) - INR 282.04 [GradientBoosting_V2_Calibrated]
+[BUY] SAFARI.NS: Buy (63.8%) - INR 1412.50 [GradientBoosting_V2_Calibrated]
+[BUY] SAMPANN.NS: Buy (63.8%) - INR 27.51 [GradientBoosting_V2_Calibrated]

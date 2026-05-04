@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-21
+[TIME] Report Generated (EST): 2026-04-21 20:11:32
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-21
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2064
+[BUY] Buy Signals: 42
+[SELL] Sell Signals: 2022
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 51
+[DATA] Medium Confidence: 324
+[LOW] Low Confidence: 1689
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 57.64
+[DATA] Average RSI: 72.2
+[COMPANY] Stocks Processed: 2064
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] MEP.NS: Buy (86.7%) - INR 0.93 [GradientBoosting_V2_Calibrated]
+[SELL] JKIPL.NS: Sell (84.9%) - INR 110.11 [GradientBoosting_V2_Calibrated]
+[BUY] ANSALAPI.NS: Buy (82.0%) - INR 3.57 [GradientBoosting_V2_Calibrated]
+[BUY] AKSHOPTFBR.NS: Buy (80.0%) - INR 6.00 [GradientBoosting_V2_Calibrated]
+[BUY] GVKPIL.NS: Buy (77.4%) - INR 2.93 [GradientBoosting_V2_Calibrated]
+[BUY] FEL.NS: Buy (76.1%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] DISHTV.NS: Sell (75.7%) - INR 3.69 [GradientBoosting_V2_Calibrated]
+[SELL] FLFL.NS: Sell (75.7%) - INR 1.57 [GradientBoosting_V2_Calibrated]
+[SELL] SHYAMCENT.NS: Sell (75.7%) - INR 5.50 [GradientBoosting_V2_Calibrated]
+[SELL] STLNETWORK.NS: Sell (75.7%) - INR 30.56 [GradientBoosting_V2_Calibrated]

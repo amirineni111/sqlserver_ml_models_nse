@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-29
+[TIME] Report Generated (EST): 2026-04-29 16:47:22
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-29
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2059
+[BUY] Buy Signals: 0
+[SELL] Sell Signals: 2059
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2019
+[DATA] Medium Confidence: 37
+[LOW] Low Confidence: 3
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 72.31
+[DATA] Average RSI: 62.4
+[COMPANY] Stocks Processed: 2059
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] IRMENERGY.NS: Sell (84.8%) - INR 357.08 [GradientBoosting_V2_Calibrated]
+[SELL] OSIAHYPER.NS: Sell (77.1%) - INR 6.53 [GradientBoosting_V2_Calibrated]
+[SELL] SHEKHAWATI.NS: Sell (77.1%) - INR 17.16 [GradientBoosting_V2_Calibrated]
+[SELL] ACMESOLAR.NS: Sell (76.8%) - INR 303.10 [GradientBoosting_V2_Calibrated]
+[SELL] ADANIGREEN.NS: Sell (76.8%) - INR 1244.80 [GradientBoosting_V2_Calibrated]
+[SELL] ADANIPOWER.NS: Sell (76.8%) - INR 219.28 [GradientBoosting_V2_Calibrated]
+[SELL] ASMS.NS: Sell (76.8%) - INR 7.91 [GradientBoosting_V2_Calibrated]
+[SELL] ATGL.NS: Sell (76.8%) - INR 656.95 [GradientBoosting_V2_Calibrated]
+[SELL] AUSOMENT.NS: Sell (76.8%) - INR 142.93 [GradientBoosting_V2_Calibrated]
+[SELL] BAJEL.NS: Sell (76.8%) - INR 186.86 [GradientBoosting_V2_Calibrated]

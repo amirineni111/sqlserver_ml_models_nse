@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-27
+[TIME] Report Generated (EST): 2026-04-27 16:47:27
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-27
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2062
+[BUY] Buy Signals: 0
+[SELL] Sell Signals: 2062
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2053
+[DATA] Medium Confidence: 9
+[LOW] Low Confidence: 0
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 76.49
+[DATA] Average RSI: 69.6
+[COMPANY] Stocks Processed: 2062
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] IRMENERGY.NS: Sell (93.0%) - INR 331.39 [GradientBoosting_V2_Calibrated]
+[SELL] EMAMIREAL.NS: Sell (86.6%) - INR 104.45 [GradientBoosting_V2_Calibrated]
+[SELL] DHARAN.NS: Sell (84.8%) - INR 0.15 [GradientBoosting_V2_Calibrated]
+[SELL] EMBDL.NS: Sell (84.8%) - INR 46.28 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (84.8%) - INR 2359.80 [GradientBoosting_V2_Calibrated]
+[SELL] ADFFOODS.NS: Sell (82.1%) - INR 267.42 [GradientBoosting_V2_Calibrated]
+[SELL] ENERGYDEV.NS: Sell (82.1%) - INR 17.21 [GradientBoosting_V2_Calibrated]
+[SELL] IGL.NS: Sell (82.1%) - INR 164.88 [GradientBoosting_V2_Calibrated]
+[SELL] KRITINUT.NS: Sell (82.1%) - INR 99.97 [GradientBoosting_V2_Calibrated]
+[SELL] OSIAHYPER.NS: Sell (82.1%) - INR 6.55 [GradientBoosting_V2_Calibrated]

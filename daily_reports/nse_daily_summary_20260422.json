@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-22",
+  "generated_at": "2026-04-22T16:32:40.694471",
+  "summary": {
+    "analysis_date": "2026-04-22",
+    "total_predictions": 2064,
+    "total_buy_signals": 662,
+    "total_sell_signals": 1402,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2,
+    "medium_confidence_count": 53,
+    "low_confidence_count": 2009,
+    "avg_confidence": 54.585783608672585,
+    "avg_rsi": 79.23781250350225,
+    "total_stocks_processed": 2064,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-22 16:32:41.437000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "JKIPL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.11605337646583,
+      "close_price": 106.78,
+      "rsi": 91.79472719582688,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.99151643690351,
+      "close_price": 2245.8,
+      "rsi": 92.46631430060297,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CENTRUM.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 65.98401598401598,
+      "close_price": 24.99,
+      "rsi": 35.159817351598164,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PASHUPATI.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 65.98401598401598,
+      "close_price": 81.95,
+      "rsi": 4.947654519830877,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANMOL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.64334085778782,
+      "close_price": 12.3,
+      "rsi": 81.49999999999999,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ALPHAGEO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.64334085778782,
+      "close_price": 223.67,
+      "rsi": 76.14636405743401,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BPCL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.64334085778782,
+      "close_price": 314.4,
+      "rsi": 74.3085880640465,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CASTROLIND.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.64334085778782,
+      "close_price": 183.34,
+      "rsi": 87.48091603053426,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ONGC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.64334085778782,
+      "close_price": 283.65,
+      "rsi": 48.30508474576271,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADANIENT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.00208073241781,
+      "close_price": 2260.8,
+      "rsi": 93.83513796716731,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

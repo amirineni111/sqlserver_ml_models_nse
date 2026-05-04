@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T16:33:22.780998",
+  "summary": {
+    "analysis_date": "2026-04-15",
+    "total_predictions": 2070,
+    "total_buy_signals": 33,
+    "total_sell_signals": 2004,
+    "total_hold_signals": 33,
+    "high_confidence_count": 1995,
+    "medium_confidence_count": 42,
+    "low_confidence_count": 33,
+    "avg_confidence": 0.6958794365636347,
+    "avg_rsi": 59.404708401846825,
+    "total_stocks_processed": 2070,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.7944496801748511,
+    "run_timestamp": "2026-04-15 16:33:17.273000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NARMADA.NS",
+      "company": "Narmada Agrobase Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.61621143677827,
+      "close_price": 34.45,
+      "rsi": 59.185246679052334,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "STLTECH.NS",
+      "company": "Sterlite Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.4944113882651,
+      "close_price": 254.91,
+      "rsi": 76.11568118408216,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "MTARTECH.NS",
+      "company": "MTAR Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.41743071687429,
+      "close_price": 4941.1,
+      "rsi": 81.57949158183702,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "BLISSGVS.NS",
+      "company": "Bliss GVS Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.32185957576198,
+      "close_price": 257.42,
+      "rsi": 67.91834770913394,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "INDSWFTLAB.NS",
+      "company": "Ind-Swift Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.26525019575962,
+      "close_price": 144.05,
+      "rsi": 54.296359984572895,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "DCBBANK.NS",
+      "company": "DCB BANK",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.23957597391417,
+      "close_price": 188.65,
+      "rsi": 58.70108783093921,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "SBC.NS",
+      "company": "SBC Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.17435239400064,
+      "close_price": 33.01,
+      "rsi": 65.18702678639832,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "SHAH.NS",
+      "company": "Shah Metacorp Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.04380456988623,
+      "close_price": 5.08,
+      "rsi": 62.36392619056169,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "VCL.NS",
+      "company": "Vaxtex Cotfab Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.03442351331002,
+      "close_price": 1.8,
+      "rsi": 63.719501370934026,
+      "model_name": "Ensemble"
+    },
+    {
+      "ticker": "SETCO.NS",
+      "company": "Setco Automotive Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.02708396849378,
+      "close_price": 25.16,
+      "rsi": 78.68408152654813,
+      "model_name": "Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

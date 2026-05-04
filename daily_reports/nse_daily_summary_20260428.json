@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-28",
+  "generated_at": "2026-04-28T16:47:12.652977",
+  "summary": {
+    "analysis_date": "2026-04-28",
+    "total_predictions": 2060,
+    "total_buy_signals": 0,
+    "total_sell_signals": 2060,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1953,
+    "medium_confidence_count": 106,
+    "low_confidence_count": 1,
+    "avg_confidence": 73.18671538597565,
+    "avg_rsi": 68.01878697566566,
+    "total_stocks_processed": 2060,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-28 16:47:11.587000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.8738379814077,
+      "close_price": 347.66,
+      "rsi": 92.87245725043142,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CEWATER.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.21877848678214,
+      "close_price": 329.5,
+      "rsi": 62.03259827420903,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ACMESOLAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 305.2,
+      "rsi": 68.01801801801804,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BAJEL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 181.37,
+      "rsi": 80.6245726008662,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ENERGYDEV.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 17.43,
+      "rsi": 84.93449781659392,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MGL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 1133.0,
+      "rsi": 86.94479036944796,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NTPC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 406.85,
+      "rsi": 82.20338983050854,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ONGC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 301.3,
+      "rsi": 70.54698457223004,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "POWERGRID.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 319.0,
+      "rsi": 78.71046228710479,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SJVN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.59758551307849,
+      "close_price": 81.79,
+      "rsi": 79.85762144053601,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

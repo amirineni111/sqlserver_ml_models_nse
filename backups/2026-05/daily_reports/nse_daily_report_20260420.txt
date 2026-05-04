@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-20
+[TIME] Report Generated (EST): 2026-04-21 16:32:09
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-20
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2073
+[BUY] Buy Signals: 616
+[SELL] Sell Signals: 1457
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 42
+[DATA] Medium Confidence: 176
+[LOW] Low Confidence: 1855
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.18
+[DATA] Average RSI: 66.2
+[COMPANY] Stocks Processed: 2073
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] MEP.NS: Buy (88.9%) - INR 0.92 [GradientBoosting_V2_Calibrated]
+[SELL] JKIPL.NS: Sell (85.4%) - INR 104.87 [GradientBoosting_V2_Calibrated]
+[BUY] 21STCENMGM.NS: Buy (84.1%) - INR 33.05 [GradientBoosting_V2_Calibrated]
+[BUY] FEL.NS: Buy (80.9%) - INR 0.48 [GradientBoosting_V2_Calibrated]
+[BUY] ANSALAPI.NS: Buy (80.9%) - INR 3.50 [GradientBoosting_V2_Calibrated]
+[SELL] PEARLPOLY.NS: Sell (80.4%) - INR 22.35 [GradientBoosting_V2_Calibrated]
+[SELL] IBULLSLTD.NS: Sell (78.9%) - INR 16.99 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (78.9%) - INR 1917.90 [GradientBoosting_V2_Calibrated]
+[SELL] KRITINUT.NS: Sell (78.9%) - INR 98.03 [GradientBoosting_V2_Calibrated]
+[SELL] OILCOUNTUB.NS: Sell (78.9%) - INR 63.57 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-09",
+  "generated_at": "2026-02-09T07:31:07.439601",
+  "summary": {
+    "analysis_date": "2026-02-09",
+    "total_predictions": 525,
+    "total_buy_signals": 525,
+    "total_sell_signals": 0,
+    "total_hold_signals": 0,
+    "high_confidence_count": 502,
+    "medium_confidence_count": 21,
+    "low_confidence_count": 2,
+    "avg_confidence": 0.821942821144672,
+    "avg_rsi": 56.62113838753745,
+    "total_stocks_processed": 525,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": 0.9910685413459922,
+    "run_timestamp": "2026-02-09 07:31:06.120000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SBIN.NS",
+      "company": "State Bank of India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 93.86073065860595,
+      "close_price": 1146.0,
+      "rsi": 68.5825703628349,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "E2E.NS",
+      "company": "E2E Networks",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 92.80000401971877,
+      "close_price": 2634.4,
+      "rsi": 64.08005079644477,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "TITAN.NS",
+      "company": "Titan Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 92.09125992959028,
+      "close_price": 4257.8,
+      "rsi": 64.59100368176738,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "AUBANK.NS",
+      "company": "AU Small Finance Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 91.45065966705236,
+      "close_price": 1005.3,
+      "rsi": 51.433628318583814,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "CAPLIPOINT.NS",
+      "company": "Caplin Point Laboratories Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 91.36892472552512,
+      "close_price": 1758.4,
+      "rsi": 47.5535786494138,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "GODREJCP.NS",
+      "company": "Godrej Consumer Products Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 90.92236284734305,
+      "close_price": 1197.7,
+      "rsi": 41.613198900091355,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "ANANTRAJ.NS",
+      "company": "Anant Raj Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 90.61329380170349,
+      "close_price": 564.3,
+      "rsi": 62.791342952275265,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "IFCI.NS",
+      "company": "IFCI Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 90.45662888286576,
+      "close_price": 64.61,
+      "rsi": 67.24222989639865,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "ABB.NS",
+      "company": "ABB India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 90.36372919378572,
+      "close_price": 5815.5,
+      "rsi": 86.80419122462345,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "CANFINHOME.NS",
+      "company": "Can Fin Homes Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 90.30069447854594,
+      "close_price": 950.2,
+      "rsi": 58.465991316932026,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

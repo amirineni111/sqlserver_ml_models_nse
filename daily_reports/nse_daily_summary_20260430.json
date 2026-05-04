@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-30",
+  "generated_at": "2026-05-01T16:46:31.097477",
+  "summary": {
+    "analysis_date": "2026-04-30",
+    "total_predictions": 2063,
+    "total_buy_signals": 217,
+    "total_sell_signals": 1846,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2,
+    "medium_confidence_count": 348,
+    "low_confidence_count": 1713,
+    "avg_confidence": 56.516461391974694,
+    "avg_rsi": 61.316905258397945,
+    "total_stocks_processed": 2063,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-01 16:46:30.430000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ABCOTS.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.88183659689399,
+      "close_price": 223.6,
+      "rsi": 7.12036812787602,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.53214395570593,
+      "close_price": 356.91,
+      "rsi": 92.70613107822412,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ARTNIRMAN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 66.04042129234271,
+      "close_price": 44.52,
+      "rsi": 64.13612565445027,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FELDVR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 66.04042129234271,
+      "close_price": 2.96,
+      "rsi": 57.547169811320764,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COHANCE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.42105263157895,
+      "close_price": 483.25,
+      "rsi": 75.4278728606357,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.42105263157895,
+      "close_price": 2702.3,
+      "rsi": 91.64805986361716,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "STAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.37177280550775,
+      "close_price": 1036.8,
+      "rsi": 60.36819227818971,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BGRENERGY.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 63.75878220140516,
+      "close_price": 282.04,
+      "rsi": 44.65436075322101,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SAFARI.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 63.75878220140516,
+      "close_price": 1412.5,
+      "rsi": 26.369104146881952,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SAMPANN.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 63.75878220140516,
+      "close_price": 27.51,
+      "rsi": 38.49765258215964,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

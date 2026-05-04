@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-30
+[TIME] Report Generated (EST): 2026-04-30 16:48:35
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-30
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2058
+[BUY] Buy Signals: 53
+[SELL] Sell Signals: 2005
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 19
+[DATA] Medium Confidence: 1692
+[LOW] Low Confidence: 347
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 62.63
+[DATA] Average RSI: 61.3
+[COMPANY] Stocks Processed: 2058
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] FELDVR.NS: Sell (72.9%) - INR 2.96 [GradientBoosting_V2_Calibrated]
+[SELL] SEJALLTD.NS: Sell (72.9%) - INR 843.35 [GradientBoosting_V2_Calibrated]
+[SELL] IRMENERGY.NS: Sell (71.4%) - INR 356.91 [GradientBoosting_V2_Calibrated]
+[SELL] COHANCE.NS: Sell (71.4%) - INR 483.25 [GradientBoosting_V2_Calibrated]
+[SELL] AYE.NS: Sell (71.4%) - INR 132.43 [GradientBoosting_V2_Calibrated]
+[SELL] BHAGYANGR.NS: Sell (70.9%) - INR 269.40 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (70.9%) - INR 2702.30 [GradientBoosting_V2_Calibrated]
+[SELL] INA.NS: Sell (70.9%) - INR 147.18 [GradientBoosting_V2_Calibrated]
+[SELL] MTARTECH.NS: Sell (70.9%) - INR 6457.10 [GradientBoosting_V2_Calibrated]
+[SELL] SIGMAADV.NS: Sell (70.9%) - INR 287.64 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-22
+[TIME] Report Generated (EST): 2026-04-22 16:32:40
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-22
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2064
+[BUY] Buy Signals: 662
+[SELL] Sell Signals: 1402
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2
+[DATA] Medium Confidence: 53
+[LOW] Low Confidence: 2009
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.59
+[DATA] Average RSI: 79.2
+[COMPANY] Stocks Processed: 2064
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] JKIPL.NS: Sell (81.1%) - INR 106.78 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (76.0%) - INR 2245.80 [GradientBoosting_V2_Calibrated]
+[BUY] CENTRUM.NS: Buy (66.0%) - INR 24.99 [GradientBoosting_V2_Calibrated]
+[BUY] PASHUPATI.NS: Buy (66.0%) - INR 81.95 [GradientBoosting_V2_Calibrated]
+[SELL] ANMOL.NS: Sell (65.6%) - INR 12.30 [GradientBoosting_V2_Calibrated]
+[SELL] ALPHAGEO.NS: Sell (65.6%) - INR 223.67 [GradientBoosting_V2_Calibrated]
+[SELL] BPCL.NS: Sell (65.6%) - INR 314.40 [GradientBoosting_V2_Calibrated]
+[SELL] CASTROLIND.NS: Sell (65.6%) - INR 183.34 [GradientBoosting_V2_Calibrated]
+[SELL] ONGC.NS: Sell (65.6%) - INR 283.65 [GradientBoosting_V2_Calibrated]
+[SELL] ADANIENT.NS: Sell (65.0%) - INR 2260.80 [GradientBoosting_V2_Calibrated]

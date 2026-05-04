@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-30",
+  "generated_at": "2026-04-30T16:48:35.632499",
+  "summary": {
+    "analysis_date": "2026-04-30",
+    "total_predictions": 2058,
+    "total_buy_signals": 53,
+    "total_sell_signals": 2005,
+    "total_hold_signals": 0,
+    "high_confidence_count": 19,
+    "medium_confidence_count": 1692,
+    "low_confidence_count": 347,
+    "avg_confidence": 62.63320607417061,
+    "avg_rsi": 61.330467055043734,
+    "total_stocks_processed": 2058,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-30 16:48:33.660000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "FELDVR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.94261294261293,
+      "close_price": 2.96,
+      "rsi": 57.547169811320764,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SEJALLTD.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.94261294261293,
+      "close_price": 843.35,
+      "rsi": 81.8500508877078,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.39201637666326,
+      "close_price": 356.91,
+      "rsi": 92.70613107822412,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COHANCE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.39201637666326,
+      "close_price": 483.25,
+      "rsi": 75.4278728606357,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AYE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.39201637666326,
+      "close_price": 132.43,
+      "rsi": 70.88145008039763,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BHAGYANGR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.90163934426229,
+      "close_price": 269.4,
+      "rsi": 86.09045054287421,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.90163934426229,
+      "close_price": 2702.3,
+      "rsi": 91.64805986361716,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.90163934426229,
+      "close_price": 147.18,
+      "rsi": 75.37219278324501,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MTARTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.90163934426229,
+      "close_price": 6457.1,
+      "rsi": 88.6865490776895,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SIGMAADV.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.90163934426229,
+      "close_price": 287.64,
+      "rsi": 93.83494781106853,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

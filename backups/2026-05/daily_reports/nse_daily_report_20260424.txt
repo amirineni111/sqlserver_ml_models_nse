@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-24
+[TIME] Report Generated (EST): 2026-04-24 16:33:06
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2062
+[BUY] Buy Signals: 893
+[SELL] Sell Signals: 1169
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 0
+[DATA] Medium Confidence: 239
+[LOW] Low Confidence: 1823
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.22
+[DATA] Average RSI: 69.5
+[COMPANY] Stocks Processed: 2062
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ATLANTAELE.NS: Sell (69.8%) - INR 1778.50 [GradientBoosting_V2_Calibrated]
+[SELL] EMAMIREAL.NS: Sell (69.8%) - INR 90.92 [GradientBoosting_V2_Calibrated]
+[SELL] ONELIFECAP.NS: Sell (68.7%) - INR 18.48 [GradientBoosting_V2_Calibrated]
+[BUY] ABCOTS.NS: Buy (67.9%) - INR 310.85 [GradientBoosting_V2_Calibrated]
+[BUY] MAHASTEEL.NS: Buy (66.9%) - INR 846.95 [GradientBoosting_V2_Calibrated]
+[BUY] VIPIND.NS: Buy (66.0%) - INR 299.30 [GradientBoosting_V2_Calibrated]
+[SELL] IRMENERGY.NS: Sell (65.9%) - INR 283.71 [GradientBoosting_V2_Calibrated]
+[SELL] ADFFOODS.NS: Sell (65.0%) - INR 260.15 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (65.0%) - INR 2402.90 [GradientBoosting_V2_Calibrated]
+[SELL] JKIPL.NS: Sell (65.0%) - INR 96.51 [GradientBoosting_V2_Calibrated]

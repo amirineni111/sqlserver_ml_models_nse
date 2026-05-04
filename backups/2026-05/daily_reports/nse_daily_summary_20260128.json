@@ -1,0 +1,100 @@
+{
+  "date": "2026-01-28",
+  "generated_at": "2026-01-28T07:30:54.398318",
+  "summary": {
+    "analysis_date": "2026-01-28",
+    "total_predictions": 520,
+    "total_buy_signals": 285,
+    "total_sell_signals": 235,
+    "total_hold_signals": 0,
+    "high_confidence_count": 201,
+    "medium_confidence_count": 61,
+    "low_confidence_count": 258,
+    "avg_confidence": 0.6942114184880828,
+    "avg_rsi": 37.07135560917827,
+    "total_stocks_processed": 520,
+    "processing_time_seconds": 0.0
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ONESOURCE.NS",
+      "company": "One Source",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 97.27116651765087,
+      "close_price": 1155.1,
+      "rsi": 6.472533420665997
+    },
+    {
+      "ticker": "SYNGENE.NS",
+      "company": "Syngene International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.97418240523493,
+      "close_price": 480.3,
+      "rsi": 5.408120970397931
+    },
+    {
+      "ticker": "KALYANKJIL.NS",
+      "company": "Kalyan Jewellers India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.73265713861235,
+      "close_price": 367.95,
+      "rsi": 1.1544992468115822
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "company": "Godrej Properties Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.33823641222665,
+      "close_price": 1550.3,
+      "rsi": 7.417062556738017
+    },
+    {
+      "ticker": "LODHA.NS",
+      "company": "Macrotech Developers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 96.24362446527334,
+      "close_price": 929.1,
+      "rsi": 20.972976663319415
+    },
+    {
+      "ticker": "WABAG.NS",
+      "company": "Va Tech Wabag",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.70645244055166,
+      "close_price": 1071.9,
+      "rsi": 20.13915243087071
+    },
+    {
+      "ticker": "AFFLE.NS",
+      "company": "Affle (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.55833431796694,
+      "close_price": 1561.6,
+      "rsi": 10.27349459323618
+    },
+    {
+      "ticker": "NEWGEN.NS",
+      "company": "Newgen Software Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.41857603268886,
+      "close_price": 599.95,
+      "rsi": 7.219105568128455
+    },
+    {
+      "ticker": "PNBHOUSING.NS",
+      "company": "PNB Housing Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.3104767342905,
+      "close_price": 845.55,
+      "rsi": 17.535262414393628
+    },
+    {
+      "ticker": "CIPLA.NS",
+      "company": "Cipla Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 95.23292992433386,
+      "close_price": 1328.4,
+      "rsi": 11.696858012968661
+    }
+  ]
+}

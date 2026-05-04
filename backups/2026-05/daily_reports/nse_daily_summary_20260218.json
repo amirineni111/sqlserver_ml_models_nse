@@ -1,0 +1,78 @@
+{
+  "date": "2026-02-18",
+  "generated_at": "2026-02-18T07:46:53.967289",
+  "summary": {
+    "analysis_date": "2026-02-18",
+    "total_predictions": 530,
+    "total_buy_signals": 92,
+    "total_sell_signals": 438,
+    "total_hold_signals": 0,
+    "high_confidence_count": 10,
+    "medium_confidence_count": 423,
+    "low_confidence_count": 97,
+    "avg_confidence": 0.5878566761517602,
+    "avg_rsi": 54.10861653592187,
+    "total_stocks_processed": 530,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": 0.6216253389397571,
+    "run_timestamp": "2026-02-18 07:46:52.113000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "BLUEJET.NS",
+      "company": "Blue Jet Healthcare",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.9646452620417,
+      "close_price": 359.35,
+      "rsi": 32.546323968918145,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "RTNINDIA.NS",
+      "company": "RattanIndia Enterprises Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.43296959568755,
+      "close_price": 33.29,
+      "rsi": 38.88888888888836,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.68135868146483,
+      "close_price": 98.87,
+      "rsi": 35.01816980508825,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "ROUTE.NS",
+      "company": "Route Mobile Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.30993357131162,
+      "close_price": 529.1,
+      "rsi": 20.081411126187703,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.89483022784654,
+      "close_price": 259.95,
+      "rsi": 19.86921529175048,
+      "model_name": "NSE_Ensemble"
+    },
+    {
+      "ticker": "SHAKTIPUMP.NS",
+      "company": "Shakti Pumps India",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.0991993223428,
+      "close_price": 575.8,
+      "rsi": 41.93862122136378,
+      "model_name": "NSE_Ensemble"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

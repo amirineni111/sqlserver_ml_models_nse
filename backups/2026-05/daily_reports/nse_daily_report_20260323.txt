@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-03-23
+[TIME] Report Generated (EST): 2026-03-23 21:41:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-03-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 780
+[BUY] Buy Signals: 720
+[SELL] Sell Signals: 60
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 503
+[DATA] Medium Confidence: 234
+[LOW] Low Confidence: 43
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.76
+[DATA] Average RSI: 35.5
+[COMPANY] Stocks Processed: 780
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] RAJESHEXPO.NS: Buy (99.6%) - INR 89.31 [ExtraTreesClassifier (Legacy)]
+[BUY] RAJESHEXPO.NS: Buy (99.6%) - INR 89.31 [ExtraTreesClassifier (Legacy)]
+[BUY] RELINFRA.NS: Buy (99.1%) - INR 73.59 [ExtraTreesClassifier (Legacy)]
+[BUY] RELINFRA.NS: Buy (99.1%) - INR 73.59 [ExtraTreesClassifier (Legacy)]
+[BUY] EMBDL.NS: Buy (99.1%) - INR 45.41 [ExtraTreesClassifier (Legacy)]
+[BUY] EMBDL.NS: Buy (99.1%) - INR 45.41 [ExtraTreesClassifier (Legacy)]
+[BUY] COFFEEDAY.NS: Buy (99.0%) - INR 22.34 [ExtraTreesClassifier (Legacy)]
+[BUY] COFFEEDAY.NS: Buy (99.0%) - INR 22.34 [ExtraTreesClassifier (Legacy)]
+[BUY] LATENTVIEW.NS: Buy (98.9%) - INR 249.60 [ExtraTreesClassifier (Legacy)]
+[BUY] LATENTVIEW.NS: Buy (98.9%) - INR 249.60 [ExtraTreesClassifier (Legacy)]

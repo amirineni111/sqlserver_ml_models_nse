@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-20",
+  "generated_at": "2026-04-21T16:32:09.928789",
+  "summary": {
+    "analysis_date": "2026-04-20",
+    "total_predictions": 2073,
+    "total_buy_signals": 616,
+    "total_sell_signals": 1457,
+    "total_hold_signals": 0,
+    "high_confidence_count": 42,
+    "medium_confidence_count": 176,
+    "low_confidence_count": 1855,
+    "avg_confidence": 55.17614537405502,
+    "avg_rsi": 66.22744780436855,
+    "total_stocks_processed": 2073,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-21 16:32:09.373000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MEP.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 88.85832187070152,
+      "close_price": 0.92,
+      "rsi": 66.66666931576209,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JKIPL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.43143485700317,
+      "close_price": 104.87,
+      "rsi": 92.13604099360764,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "21STCENMGM.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 84.08221797323135,
+      "close_price": 33.05,
+      "rsi": 71.38728166288516,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FEL.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 80.9077809798271,
+      "close_price": 0.48,
+      "rsi": 84.61539392640707,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANSALAPI.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 80.9077809798271,
+      "close_price": 3.5,
+      "rsi": 77.0270369538793,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PEARLPOLY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.38674033149171,
+      "close_price": 22.35,
+      "rsi": 79.49346330904373,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IBULLSLTD.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.90662796323173,
+      "close_price": 16.99,
+      "rsi": 82.14608009040744,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.90662796323173,
+      "close_price": 1917.9,
+      "rsi": 77.73809523809523,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRITINUT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.90662796323173,
+      "close_price": 98.03,
+      "rsi": 81.09199351308594,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OILCOUNTUB.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.90662796323173,
+      "close_price": 63.57,
+      "rsi": 86.79012468300512,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

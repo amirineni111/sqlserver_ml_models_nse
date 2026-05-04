@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-24",
+  "generated_at": "2026-04-24T16:33:06.117494",
+  "summary": {
+    "analysis_date": "2026-04-24",
+    "total_predictions": 2062,
+    "total_buy_signals": 893,
+    "total_sell_signals": 1169,
+    "total_hold_signals": 0,
+    "high_confidence_count": 0,
+    "medium_confidence_count": 239,
+    "low_confidence_count": 1823,
+    "avg_confidence": 56.22293482330097,
+    "avg_rsi": 69.47575937315618,
+    "total_stocks_processed": 2062,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-24 16:33:04.683000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ATLANTAELE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 69.79372704153715,
+      "close_price": 1778.5,
+      "rsi": 96.27118644067791,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMAMIREAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 69.79372704153715,
+      "close_price": 90.92,
+      "rsi": 82.98332972504872,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ONELIFECAP.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.73015873015873,
+      "close_price": 18.48,
+      "rsi": 84.08602150537631,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ABCOTS.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 67.90357529794152,
+      "close_price": 310.85,
+      "rsi": 13.513513513513544,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MAHASTEEL.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 66.9291338582677,
+      "close_price": 846.95,
+      "rsi": 32.1435425062368,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VIPIND.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 65.98401598401598,
+      "close_price": 299.3,
+      "rsi": 37.68736616702355,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.86538461538461,
+      "close_price": 283.71,
+      "rsi": 87.2588908981314,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADFFOODS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.00208073241781,
+      "close_price": 260.15,
+      "rsi": 88.75165000942866,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.00208073241781,
+      "close_price": 2402.9,
+      "rsi": 89.54167525596095,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JKIPL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.00208073241781,
+      "close_price": 96.51,
+      "rsi": 77.56553262688233,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

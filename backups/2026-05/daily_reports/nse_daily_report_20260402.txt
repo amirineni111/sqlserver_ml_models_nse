@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-04-02
+[TIME] Report Generated (EST): 2026-04-06 18:30:46
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-04-02
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2067
+[BUY] Buy Signals: 1440
+[SELL] Sell Signals: 627
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 280
+[DATA] Medium Confidence: 1231
+[LOW] Low Confidence: 556
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 0.62
+[DATA] Average RSI: 45.4
+[COMPANY] Stocks Processed: 2067
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] IRB.NS: Buy (99.4%) - INR 21.80 [ExtraTreesClassifier (Legacy)]
+[BUY] 21STCENMGM.NS: Buy (99.1%) - INR 28.82 [ExtraTreesClassifier (Legacy)]
+[BUY] WEL.NS: Buy (99.0%) - INR 80.31 [ExtraTreesClassifier (Legacy)]
+[BUY] GSLSU.NS: Buy (98.8%) - INR 48.71 [ExtraTreesClassifier (Legacy)]
+[BUY] SADBHIN.NS: Buy (98.8%) - INR 2.18 [ExtraTreesClassifier (Legacy)]
+[BUY] SABEVENTS.NS: Buy (98.8%) - INR 8.52 [ExtraTreesClassifier (Legacy)]
+[BUY] IL&FSTRANS.NS: Buy (98.6%) - INR 1.90 [ExtraTreesClassifier (Legacy)]
+[BUY] AQYLON.NS: Buy (98.6%) - INR 45.77 [ExtraTreesClassifier (Legacy)]
+[BUY] MOKSH.NS: Buy (98.4%) - INR 9.05 [ExtraTreesClassifier (Legacy)]
+[BUY] GOLDENTOBC.NS: Buy (98.4%) - INR 21.70 [ExtraTreesClassifier (Legacy)]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-02-27",
+  "generated_at": "2026-02-27T21:52:37.745363",
+  "summary": {
+    "analysis_date": "2026-02-27",
+    "total_predictions": 547,
+    "total_buy_signals": 380,
+    "total_sell_signals": 167,
+    "total_hold_signals": 0,
+    "high_confidence_count": 244,
+    "medium_confidence_count": 212,
+    "low_confidence_count": 91,
+    "avg_confidence": 0.7379480232067978,
+    "avg_rsi": 41.88107694678891,
+    "total_stocks_processed": 547,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-02-27 21:52:34.697000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "BALKRISIND.NS",
+      "company": "Balkrishna Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 99.59905529202962,
+      "close_price": 2383.9,
+      "rsi": 14.70658682634759,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "NETWEB.NS",
+      "company": "Netweb Technologies India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 99.16030383621302,
+      "close_price": 3861.4,
+      "rsi": 79.29245684156813,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "FSL.NS",
+      "company": "Firstsource Solutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.97173931746111,
+      "close_price": 213.15,
+      "rsi": 12.500000000000128,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "CEATLTD.NS",
+      "company": "CEAT Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.92086388723136,
+      "close_price": 3531.4,
+      "rsi": 14.892691415313365,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "DATAPATTNS.NS",
+      "company": "Data Patterns (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 98.89891764820938,
+      "close_price": 3210.2,
+      "rsi": 79.28292612404266,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JUSTDIAL.NS",
+      "company": "Just Dial Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.80070284985082,
+      "close_price": 550.15,
+      "rsi": 1.833660772757156,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ANGELONE.NS",
+      "company": "Angel One Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.799074811033,
+      "close_price": 233.2,
+      "rsi": 4.3678076399867365,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "INOXWIND.NS",
+      "company": "Inox Wind Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.75869041207439,
+      "close_price": 92.13,
+      "rsi": 1.5848670756655139,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "JWL.NS",
+      "company": "Jupiter Wagons Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.73819530417256,
+      "close_price": 267.2,
+      "rsi": 10.239234449760602,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    },
+    {
+      "ticker": "ALOKINDS.NS",
+      "company": "Alok Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 98.70855181112995,
+      "close_price": 14.3,
+      "rsi": 3.349282296650429,
+      "model_name": "ExtraTreesClassifier (Legacy)"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

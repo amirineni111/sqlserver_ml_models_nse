@@ -1,0 +1,114 @@
+{
+  "date": "2026-04-29",
+  "generated_at": "2026-04-29T16:47:22.971734",
+  "summary": {
+    "analysis_date": "2026-04-29",
+    "total_predictions": 2059,
+    "total_buy_signals": 0,
+    "total_sell_signals": 2059,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2019,
+    "medium_confidence_count": 37,
+    "low_confidence_count": 3,
+    "avg_confidence": 72.31145398177416,
+    "avg_rsi": 62.408392434442675,
+    "total_stocks_processed": 2059,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-04-29 16:47:21.727000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 357.08,
+      "rsi": 92.83235170382835,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OSIAHYPER.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.109375,
+      "close_price": 6.53,
+      "rsi": 90.36827195467423,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SHEKHAWATI.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.109375,
+      "close_price": 17.16,
+      "rsi": 80.21739130434783,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ACMESOLAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 303.1,
+      "rsi": 69.72295514511879,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADANIGREEN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 1244.8,
+      "rsi": 94.260440238634,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADANIPOWER.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 219.28,
+      "rsi": 89.27841534349946,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ASMS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 7.91,
+      "rsi": 35.06493506493506,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ATGL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 656.95,
+      "rsi": 76.5087956698241,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AUSOMENT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 142.93,
+      "rsi": 90.63350174893122,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BAJEL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 186.86,
+      "rsi": 79.91493383742912,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
