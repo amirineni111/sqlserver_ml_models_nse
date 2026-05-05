@@ -95,8 +95,8 @@ class Config:
     CONFIDENCE_HIGH_THRESHOLD = 0.60  # 60% confidence = High
     CONFIDENCE_STRONG_THRESHOLD = 0.70  # 70% confidence = Strong
     
-    # Prediction date (default to today)
-    PREDICTION_DATE = None  # Set at runtime
+    # Prediction date (can be set via environment variable for manual runs)
+    PREDICTION_DATE = os.getenv('NSE_PREDICTION_DATE', None)  # Set at runtime or via env
 
 def get_db_connection():
     """Get SQL Server connection"""
@@ -345,13 +345,28 @@ def merge_market_context(conn, df):
         market_cols = [c for c in df_context.columns if c != 'trading_date']
         df = df.merge(df_context, on='trading_date', how='left')
         
-        # Handle missing market data (forward-fill levels, zero-fill returns)
+        # CRITICAL FIX (May 4, 2026): Handle missing market data properly
+        # Missing NIFTY data breaks all hybrid features - forward-fill from previous days
         level_cols = [c for c in market_cols if 'return' not in c and 'change' not in c]
+        return_cols = [c for c in market_cols if 'return' in c or 'change' in c]
+        
+        # Forward-fill price levels (VIX, NIFTY, S&P 500, etc.)
         for col in level_cols:
             if col in df.columns:
                 df[col] = df[col].ffill().bfill().fillna(0)
         
-        return_cols = [c for c in market_cols if 'return' in c or 'change' in c]
+        # Calculate returns if missing but price levels exist
+        if 'nifty50_close' in df.columns:
+            if 'nifty50_return_1d' not in df.columns or df['nifty50_return_1d'].isna().any():
+                df['nifty50_return_1d_calc'] = df['nifty50_close'].pct_change() * 100
+                if 'nifty50_return_1d' not in df.columns:
+                    df['nifty50_return_1d'] = df['nifty50_return_1d_calc']
+                else:
+                    df['nifty50_return_1d'] = df['nifty50_return_1d'].fillna(df['nifty50_return_1d_calc'])
+                df = df.drop('nifty50_return_1d_calc', axis=1)
+                print(f"  [FIX] Calculated missing nifty50_return_1d values")
+        
+        # Fill any remaining missing returns with 0
         for col in return_cols:
             if col in df.columns:
                 df[col] = df[col].fillna(0)

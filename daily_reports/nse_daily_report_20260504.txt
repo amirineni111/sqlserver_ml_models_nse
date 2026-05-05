@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-04
+[TIME] Report Generated (EST): 2026-05-04 16:50:16
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-04
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2062
+[BUY] Buy Signals: 1
+[SELL] Sell Signals: 2061
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1955
+[DATA] Medium Confidence: 87
+[LOW] Low Confidence: 20
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 75.88
+[DATA] Average RSI: 59.5
+[COMPANY] Stocks Processed: 2062
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] CEMPRO.NS: Sell (82.1%) - INR 956.45 [GradientBoosting_V2_Calibrated]
+[SELL] IDEAFORGE.NS: Sell (82.1%) - INR 731.00 [GradientBoosting_V2_Calibrated]
+[SELL] IRMENERGY.NS: Sell (82.1%) - INR 346.50 [GradientBoosting_V2_Calibrated]
+[SELL] INDOTECH.NS: Sell (81.1%) - INR 2729.00 [GradientBoosting_V2_Calibrated]
+[SELL] SIGMAADV.NS: Sell (81.1%) - INR 295.50 [GradientBoosting_V2_Calibrated]
+[SELL] RRKABEL.NS: Sell (80.8%) - INR 1775.20 [GradientBoosting_V2_Calibrated]
+[SELL] EMCURE.NS: Sell (80.8%) - INR 1793.20 [GradientBoosting_V2_Calibrated]
+[SELL] INNOVACAP.NS: Sell (80.8%) - INR 844.40 [GradientBoosting_V2_Calibrated]
+[SELL] ACMESOLAR.NS: Sell (80.2%) - INR 298.75 [GradientBoosting_V2_Calibrated]
+[SELL] ESABINDIA.NS: Sell (80.2%) - INR 7138.00 [GradientBoosting_V2_Calibrated]

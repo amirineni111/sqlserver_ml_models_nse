@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-04",
+  "generated_at": "2026-05-04T16:50:16.680345",
+  "summary": {
+    "analysis_date": "2026-05-04",
+    "total_predictions": 2062,
+    "total_buy_signals": 1,
+    "total_sell_signals": 2061,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1955,
+    "medium_confidence_count": 87,
+    "low_confidence_count": 20,
+    "avg_confidence": 75.87598036390854,
+    "avg_rsi": 59.49900171971163,
+    "total_stocks_processed": 2062,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-04 16:50:16.377000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CEMPRO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 956.45,
+      "rsi": 88.24771287825476,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IDEAFORGE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 731.0,
+      "rsi": 88.19255222524976,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IRMENERGY.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 346.5,
+      "rsi": 87.42533631122423,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INDOTECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.14285714285714,
+      "close_price": 2729.0,
+      "rsi": 91.75159425472316,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SIGMAADV.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.14285714285714,
+      "close_price": 295.5,
+      "rsi": 93.80330590987997,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RRKABEL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.77889447236181,
+      "close_price": 1775.2,
+      "rsi": 79.48598130841123,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMCURE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.75,
+      "close_price": 1793.2,
+      "rsi": 68.30704921147635,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "INNOVACAP.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.75,
+      "close_price": 844.4,
+      "rsi": 81.5977175463623,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ACMESOLAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.21877848678214,
+      "close_price": 298.75,
+      "rsi": 69.90740740740745,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ESABINDIA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.21877848678214,
+      "close_price": 7138.0,
+      "rsi": 86.75364682431821,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

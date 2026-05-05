@@ -1,5 +1,5 @@
 {
-  "timestamp": "20260503_121309",
+  "timestamp": "20260504_221635",
   "model_type": "GradientBoostingClassifier",
   "calibration": "isotonic",
   "n_features": 20,
@@ -13,7 +13,7 @@
     "sector_rsi_avg",
     "sector_return_5d",
     "sector_return_1d",
-    "sector_volume_ratio"
+    "price_to_sma20"
   ],
   "data_range": "2024-06-01 to 2026-04-15",
   "hyperparameters": {
