@@ -86,7 +86,7 @@ set RETRAIN_RESULT=%errorlevel%
 echo.
 if %RETRAIN_RESULT%==0 (
     echo Testing retrained NSE models...
-    python -c "from predict_nse_signals import NSETradingSignalPredictor; p = NSETradingSignalPredictor(); print('[SUCCESS] NSE model loaded:', 'NSE-specific' if p.use_nse_models else 'Legacy'); print('[SUCCESS] Classifiers:', len(p.clf_models)); print('[SUCCESS] Regressors:', len(p.reg_models))"
+    python -c "import joblib, json; m=joblib.load('data/nse_models/nse_gb_model_v2.joblib'); f=json.load(open('data/nse_models/selected_features_v2.json')); print('[SUCCESS] Model loaded:', type(m).__name__); print('[SUCCESS] Features:', len(f))"
     set TEST_RESULT=%errorlevel%
 ) else (
     set TEST_RESULT=1

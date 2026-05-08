@@ -318,7 +318,11 @@ def load_prediction_data(conn, prediction_date):
     return df
 
 def merge_market_context(conn, df):
-    """Merge market context features (same as training)"""
+    """Merge market context features (same as training)
+    
+    FIXED (May 8, 2026): Add normalized ratio-to-MA features to match retrain script.
+    Raw absolute levels (nifty50_close, sp500_close) are non-stationary and cause bias.
+    """
     query = """
     SELECT 
         trading_date,
@@ -340,36 +344,58 @@ def merge_market_context(conn, df):
     try:
         df_context = pd.read_sql(query, conn)
         df_context['trading_date'] = pd.to_datetime(df_context['trading_date'])
+        df_context = df_context.sort_values('trading_date').reset_index(drop=True)
+        
+        # CRITICAL FIX (May 8, 2026): Add NORMALIZED (stationary) ratio-to-MA features.
+        # Must match retrain_nse_model_v2.py exactly so features align with saved model.
+        df_context['vix_vs_60d'] = (
+            df_context['vix_close'] /
+            df_context['vix_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 3.0)
+        
+        df_context['india_vix_vs_60d'] = (
+            df_context['india_vix_close'] /
+            df_context['india_vix_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 3.0)
+        
+        df_context['nifty50_vs_200d'] = (
+            df_context['nifty50_close'] /
+            df_context['nifty50_close'].rolling(200, min_periods=20).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['sp500_vs_200d'] = (
+            df_context['sp500_close'] /
+            df_context['sp500_close'].rolling(200, min_periods=20).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['dxy_vs_60d'] = (
+            df_context['dxy_close'] /
+            df_context['dxy_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['us10y_vs_60d'] = (
+            df_context['us_10y_yield_close'] /
+            df_context['us_10y_yield_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
         
         df['trading_date'] = pd.to_datetime(df['trading_date'])
         market_cols = [c for c in df_context.columns if c != 'trading_date']
         df = df.merge(df_context, on='trading_date', how='left')
         
-        # CRITICAL FIX (May 4, 2026): Handle missing market data properly
-        # Missing NIFTY data breaks all hybrid features - forward-fill from previous days
+        # Forward-fill price levels (VIX, NIFTY, S&P 500, etc.)
         level_cols = [c for c in market_cols if 'return' not in c and 'change' not in c]
         return_cols = [c for c in market_cols if 'return' in c or 'change' in c]
         
-        # Forward-fill price levels (VIX, NIFTY, S&P 500, etc.)
         for col in level_cols:
             if col in df.columns:
-                df[col] = df[col].ffill().bfill().fillna(0)
-        
-        # Calculate returns if missing but price levels exist
-        if 'nifty50_close' in df.columns:
-            if 'nifty50_return_1d' not in df.columns or df['nifty50_return_1d'].isna().any():
-                df['nifty50_return_1d_calc'] = df['nifty50_close'].pct_change() * 100
-                if 'nifty50_return_1d' not in df.columns:
-                    df['nifty50_return_1d'] = df['nifty50_return_1d_calc']
-                else:
-                    df['nifty50_return_1d'] = df['nifty50_return_1d'].fillna(df['nifty50_return_1d_calc'])
-                df = df.drop('nifty50_return_1d_calc', axis=1)
-                print(f"  [FIX] Calculated missing nifty50_return_1d values")
+                df[col] = df[col].ffill().bfill().fillna(1.0 if 'vs_' in col else 0)
         
         # Fill any remaining missing returns with 0
         for col in return_cols:
             if col in df.columns:
                 df[col] = df[col].fillna(0)
+        
+        print(f"[SUCCESS] Merged {len(market_cols)} market context features (incl. normalized)")
         
     except Exception as e:
         print(f"[WARNING] Could not load market context: {e}")

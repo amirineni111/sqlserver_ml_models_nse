@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-05",
+  "generated_at": "2026-05-05T16:50:01.220297",
+  "summary": {
+    "analysis_date": "2026-05-05",
+    "total_predictions": 2059,
+    "total_buy_signals": 12,
+    "total_sell_signals": 2047,
+    "total_hold_signals": 0,
+    "high_confidence_count": 188,
+    "medium_confidence_count": 1643,
+    "low_confidence_count": 228,
+    "avg_confidence": 64.29025014818626,
+    "avg_rsi": 60.186251289038516,
+    "total_stocks_processed": 2059,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-05 16:50:02.143000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IDEAFORGE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.55405405405405,
+      "close_price": 804.1,
+      "rsi": 90.02849002849001,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 18.94,
+      "rsi": 94.1614906832298,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRITINUT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.109375,
+      "close_price": 96.0,
+      "rsi": 80.52287581699345,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AEQUS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 193.25,
+      "rsi": 69.08942054034387,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ADFFOODS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 262.55,
+      "rsi": 82.89509108857578,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AAREYDRUGS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 90.47,
+      "rsi": 75.8217875577289,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "63MOONS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 733.75,
+      "rsi": 77.68830733098473,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "APOLLO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 308.05,
+      "rsi": 82.43220048060421,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ATAM.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 78.4,
+      "rsi": 71.52263374485602,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AUSOMENT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8085842852198,
+      "close_price": 151.78,
+      "rsi": 91.24750317777375,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

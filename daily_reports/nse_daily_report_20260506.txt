@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-06
+[TIME] Report Generated (EST): 2026-05-06 16:49:10
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-06
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2060
+[BUY] Buy Signals: 0
+[SELL] Sell Signals: 2060
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1955
+[DATA] Medium Confidence: 103
+[LOW] Low Confidence: 2
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 75.86
+[DATA] Average RSI: 58.1
+[COMPANY] Stocks Processed: 2060
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] OMAXAUTO.NS: Sell (100.0%) - INR 206.05 [GradientBoosting_V2_Calibrated]
+[SELL] CALSOFT.NS: Sell (92.7%) - INR 20.83 [GradientBoosting_V2_Calibrated]
+[SELL] IDEAFORGE.NS: Sell (89.9%) - INR 812.25 [GradientBoosting_V2_Calibrated]
+[SELL] AJANTPHARM.NS: Sell (82.1%) - INR 3096.30 [GradientBoosting_V2_Calibrated]
+[SELL] ALBERTDAVD.NS: Sell (82.1%) - INR 806.45 [GradientBoosting_V2_Calibrated]
+[SELL] DBREALTY.NS: Sell (82.1%) - INR 138.00 [GradientBoosting_V2_Calibrated]
+[SELL] GLOBAL.NS: Sell (82.1%) - INR 113.90 [GradientBoosting_V2_Calibrated]
+[SELL] JSLL.NS: Sell (82.1%) - INR 753.20 [GradientBoosting_V2_Calibrated]
+[SELL] LUPIN.NS: Sell (82.1%) - INR 2442.90 [GradientBoosting_V2_Calibrated]
+[SELL] NGLFINE.NS: Sell (82.1%) - INR 2640.80 [GradientBoosting_V2_Calibrated]

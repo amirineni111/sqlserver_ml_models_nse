@@ -444,6 +444,41 @@ def merge_market_context(conn, df):
     try:
         df_context = pd.read_sql(query, conn)
         df_context['trading_date'] = pd.to_datetime(df_context['trading_date'])
+        df_context = df_context.sort_values('trading_date').reset_index(drop=True)
+        
+        # CRITICAL FIX (May 8, 2026): Add NORMALIZED (stationary) versions of close levels.
+        # Raw absolute levels (nifty50_close=24000) are non-stationary — the model memorizes
+        # price ranges from training data, not generalizable patterns.
+        # Ratio-to-MA = 1.0 means at average, >1 elevated, <1 depressed. Always stationary.
+        df_context['vix_vs_60d'] = (
+            df_context['vix_close'] /
+            df_context['vix_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 3.0)
+        
+        df_context['india_vix_vs_60d'] = (
+            df_context['india_vix_close'] /
+            df_context['india_vix_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 3.0)
+        
+        df_context['nifty50_vs_200d'] = (
+            df_context['nifty50_close'] /
+            df_context['nifty50_close'].rolling(200, min_periods=20).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['sp500_vs_200d'] = (
+            df_context['sp500_close'] /
+            df_context['sp500_close'].rolling(200, min_periods=20).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['dxy_vs_60d'] = (
+            df_context['dxy_close'] /
+            df_context['dxy_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
+        
+        df_context['us10y_vs_60d'] = (
+            df_context['us_10y_yield_close'] /
+            df_context['us_10y_yield_close'].rolling(60, min_periods=10).mean()
+        ).fillna(1.0).clip(0.5, 2.0)
         
         # Merge with main data
         df['trading_date'] = pd.to_datetime(df['trading_date'])
@@ -455,7 +490,7 @@ def merge_market_context(conn, df):
         level_cols = [c for c in market_cols if 'return' not in c and 'change' not in c]
         for col in level_cols:
             if col in df.columns:
-                df[col] = df[col].ffill().bfill().fillna(0)
+                df[col] = df[col].ffill().bfill().fillna(1.0 if 'vs_' in col else 0)
         
         # Zero-fill returns (neutral assumption for missing days)
         return_cols = [c for c in market_cols if 'return' in c or 'change' in c]
@@ -463,7 +498,10 @@ def merge_market_context(conn, df):
             if col in df.columns:
                 df[col] = df[col].fillna(0)
         
+        normalized_added = ['vix_vs_60d', 'india_vix_vs_60d', 'nifty50_vs_200d',
+                            'sp500_vs_200d', 'dxy_vs_60d', 'us10y_vs_60d']
         print(f"[SUCCESS] Merged {len(market_cols)} market context features")
+        print(f"[SUCCESS] Added {len(normalized_added)} normalized features (stationary ratio-to-MA)")
         
     except Exception as e:
         print(f"[WARNING] Could not load market context: {e}")
@@ -787,7 +825,12 @@ def categorize_features(feature_list):
         feat_lower = feat.lower()
         
         # Market context keywords
-        if any(x in feat_lower for x in ['vix', 'dxy', 'yield', 'sp500', 'nifty50_return', 'india_vix']):
+        # FIXED (May 8, 2026): Use 'nifty50' (not 'nifty50_return') to capture nifty50_close
+        # Guard: 'vs_nifty' must not match (that's relative/neutral)
+        # Also add normalized ratio features (vs_60d, vs_200d)
+        if (any(x in feat_lower for x in ['vix', 'dxy', 'yield', 'sp500', 'nifty50', 'india_vix',
+                                           'vs_60d', 'vs_200d'])
+                and 'vs_nifty' not in feat_lower):
             market_context.append(feat)
         
         # Interaction features (our new additions)
@@ -797,8 +840,12 @@ def categorize_features(feature_list):
             interactions.append(feat)
         
         # Relative/neutral features
-        elif any(x in feat_lower for x in ['vs_nifty', 'vs_sector', 'beta', 'relative_strength', 
-                                            '_anomaly', 'momentum_vs']):
+        # FIXED (May 8, 2026): Added sector_rsi, sector_return, sector_volume, sector_momentum
+        # These are sector-AVERAGE features, NOT stock-specific — they caused market dominance
+        elif any(x in feat_lower for x in ['vs_nifty', 'vs_sector', 'beta', 'relative_strength',
+                                            '_anomaly', 'momentum_vs',
+                                            'sector_rsi', 'sector_return', 'sector_volume',
+                                            'sector_momentum']):
             relative_neutral.append(feat)
         
         # Stock-specific (price, volume, technical indicators)
@@ -1244,11 +1291,22 @@ def main():
         print("="*80)
         
         # Exclude non-feature columns
+        # CRITICAL: Exclude absolute market price LEVELS — they are non-stationary
+        # and cause distribution shift (model memorises price ranges from training period).
+        # Use only the stationary ratio-to-MA variants (vix_vs_60d, nifty50_vs_200d, etc.)
+        NON_STATIONARY_MARKET_LEVELS = [
+            'vix_close',          # → use vix_vs_60d
+            'india_vix_close',    # → use india_vix_vs_60d
+            'nifty50_close',      # → use nifty50_vs_200d
+            'sp500_close',        # → use sp500_vs_200d
+            'dxy_close',          # → use dxy_vs_60d
+            'us_10y_yield_close', # → use us10y_vs_60d
+        ]
         exclude_cols = [
             'trading_date', 'ticker', 'direction_5d',
             'sector', 'industry', 'market_cap_category',
             'open_price', 'high_price', 'low_price', 'close_price', 'volume'
-        ] + FUTURE_LEAK_FEATURES
+        ] + FUTURE_LEAK_FEATURES + NON_STATIONARY_MARKET_LEVELS
         
         feature_cols = [c for c in df.columns if c not in exclude_cols]
         
