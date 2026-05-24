@@ -128,6 +128,9 @@ class Config:
     # Class imbalance threshold (from NASDAQ)
     MAX_IMBALANCE = 0.20  # Warn if class imbalance > 20%
     
+    # Penny stock / investability filter
+    MIN_STOCK_PRICE = 10.0  # Exclude stocks below ₹10 (penny/micro-cap)
+    
     # Calibration method
     CALIBRATION_METHOD = 'isotonic'  # NASDAQ uses isotonic calibration
     
@@ -236,6 +239,8 @@ def load_training_data(conn):
         SELECT 
             ticker,
             market_cap,
+            trailing_pe,
+            profit_margin,
             ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY fetch_date DESC) as rn
         FROM nse_500_fundamentals
     ),
@@ -274,6 +279,8 @@ def load_training_data(conn):
           AND h.close_price IS NOT NULL
           AND h.close_price <> '0'
           AND CAST(h.volume AS FLOAT) > 0
+          AND CAST(h.close_price AS FLOAT) >= {Config.MIN_STOCK_PRICE}
+          AND (f.trailing_pe IS NOT NULL OR f.profit_margin IS NOT NULL)
     )
     
     SELECT 
@@ -480,6 +487,12 @@ def merge_market_context(conn, df):
             df_context['us_10y_yield_close'].rolling(60, min_periods=10).mean()
         ).fillna(1.0).clip(0.5, 2.0)
         
+        # Market regime: 5-day NIFTY momentum (rolling sum of 1d returns).
+        # Captures multi-day trend context — positive = sustained up-move, negative = down-move.
+        df_context['nifty50_return_5d'] = (
+            df_context['nifty50_return_1d'].rolling(5, min_periods=1).sum()
+        ).fillna(0.0)
+        
         # Merge with main data
         df['trading_date'] = pd.to_datetime(df['trading_date'])
         market_cols = [c for c in df_context.columns if c != 'trading_date']
@@ -498,10 +511,30 @@ def merge_market_context(conn, df):
             if col in df.columns:
                 df[col] = df[col].fillna(0)
         
+        # Market regime features computed from stock data (no extra DB query needed).
+        # adv_decline_ratio: advancing stocks / declining stocks per date.
+        # sector_breadth_score: fraction of stocks rising within each sector per date.
+        if 'return_1d' in df.columns:
+            adv_df = df.groupby('trading_date')['return_1d'].apply(
+                lambda x: (x > 0).sum() / max((x < 0).sum(), 1)
+            ).reset_index()
+            adv_df.columns = ['trading_date', 'adv_decline_ratio']
+            df = df.merge(adv_df, on='trading_date', how='left')
+            df['adv_decline_ratio'] = df['adv_decline_ratio'].fillna(1.0)
+            
+            if 'sector' in df.columns:
+                breadth_df = df.groupby(['trading_date', 'sector'])['return_1d'].apply(
+                    lambda x: (x > 0).mean()
+                ).reset_index()
+                breadth_df.columns = ['trading_date', 'sector', 'sector_breadth_score']
+                df = df.merge(breadth_df, on=['trading_date', 'sector'], how='left')
+                df['sector_breadth_score'] = df['sector_breadth_score'].fillna(0.5)
+        
         normalized_added = ['vix_vs_60d', 'india_vix_vs_60d', 'nifty50_vs_200d',
-                            'sp500_vs_200d', 'dxy_vs_60d', 'us10y_vs_60d']
+                            'sp500_vs_200d', 'dxy_vs_60d', 'us10y_vs_60d',
+                            'nifty50_return_5d', 'adv_decline_ratio', 'sector_breadth_score']
         print(f"[SUCCESS] Merged {len(market_cols)} market context features")
-        print(f"[SUCCESS] Added {len(normalized_added)} normalized features (stationary ratio-to-MA)")
+        print(f"[SUCCESS] Added {len(normalized_added)} normalized/regime features")
         
     except Exception as e:
         print(f"[WARNING] Could not load market context: {e}")
@@ -829,7 +862,7 @@ def categorize_features(feature_list):
         # Guard: 'vs_nifty' must not match (that's relative/neutral)
         # Also add normalized ratio features (vs_60d, vs_200d)
         if (any(x in feat_lower for x in ['vix', 'dxy', 'yield', 'sp500', 'nifty50', 'india_vix',
-                                           'vs_60d', 'vs_200d'])
+                                           'vs_60d', 'vs_200d', 'adv_decline'])
                 and 'vs_nifty' not in feat_lower):
             market_context.append(feat)
         
@@ -845,7 +878,7 @@ def categorize_features(feature_list):
         elif any(x in feat_lower for x in ['vs_nifty', 'vs_sector', 'beta', 'relative_strength',
                                             '_anomaly', 'momentum_vs',
                                             'sector_rsi', 'sector_return', 'sector_volume',
-                                            'sector_momentum']):
+                                            'sector_momentum', 'sector_breadth']):
             relative_neutral.append(feat)
         
         # Stock-specific (price, volume, technical indicators)

@@ -97,6 +97,9 @@ class Config:
     
     # Prediction date (can be set via environment variable for manual runs)
     PREDICTION_DATE = os.getenv('NSE_PREDICTION_DATE', None)  # Set at runtime or via env
+    
+    # Penny stock / investability filter
+    MIN_STOCK_PRICE = 10.0  # Exclude stocks below ₹10 (penny/micro-cap)
 
 def get_db_connection():
     """Get SQL Server connection"""
@@ -148,7 +151,19 @@ def load_model_artifacts():
         selected_features = json.load(f)
     print(f"[SUCCESS] Loaded {len(selected_features)} selected features")
     
-    return model, scaler, encoder, selected_features
+    # Load model version from metadata JSON
+    metadata_file = Config.MODELS_DIR / 'model_metadata_v2.json'
+    model_version = 'unknown'
+    if metadata_file.exists():
+        try:
+            with open(metadata_file, 'r') as f:
+                metadata = json.load(f)
+            model_version = metadata.get('timestamp', 'unknown')
+            print(f"[SUCCESS] Model version: {model_version}")
+        except Exception as e:
+            print(f"[WARNING] Could not load model metadata: {e}")
+    
+    return model, scaler, encoder, selected_features, model_version
 
 # ============================================================================
 # Feature Engineering (Same as Training)
@@ -238,6 +253,31 @@ def calculate_technical_indicators(df):
         ticker_df['breakout_high'] = (ticker_df['close_price'] >= ticker_df['high_20d'].shift(1)).astype(int)
         ticker_df['breakout_low'] = (ticker_df['close_price'] <= ticker_df['low_20d'].shift(1)).astype(int)
         
+        # === Additional indicators for ml_nse_technical_indicators table ===
+        ticker_df['sma_5'] = ticker_df['close_price'].rolling(5).mean()
+        ticker_df['sma_10'] = ticker_df['close_price'].rolling(10).mean()
+        ticker_df['ema_5'] = ticker_df['close_price'].ewm(span=5).mean()
+        ticker_df['ema_10'] = ticker_df['close_price'].ewm(span=10).mean()
+        ticker_df['ema_20'] = ticker_df['close_price'].ewm(span=20).mean()
+        ticker_df['ema_50'] = ticker_df['close_price'].ewm(span=50).mean()
+        ticker_df['price_vs_ema20'] = ticker_df['close_price'] / ticker_df['ema_20']
+        ticker_df['sma20_vs_sma50'] = ticker_df['sma_20'] / ticker_df['sma_50']
+        ticker_df['ema20_vs_ema50'] = ticker_df['ema_20'] / ticker_df['ema_50']
+        ticker_df['sma5_vs_sma20'] = ticker_df['sma_5'] / ticker_df['sma_20']
+        ticker_df['rsi_oversold'] = (ticker_df['rsi'] < 30).astype(int)
+        ticker_df['rsi_overbought'] = (ticker_df['rsi'] > 70).astype(int)
+        ticker_df['rsi_momentum'] = ticker_df['rsi'].diff()
+        ticker_df['volume_sma_20'] = ticker_df['volume'].rolling(20).mean()
+        ticker_df['price_momentum_5'] = ticker_df['close_price'] / ticker_df['close_price'].shift(5)
+        ticker_df['price_momentum_10'] = ticker_df['close_price'] / ticker_df['close_price'].shift(10)
+        ticker_df['daily_volatility'] = ticker_df['return_1d'].rolling(10).std()
+        ticker_df['price_volatility_10'] = ticker_df['close_price'].pct_change().rolling(10).std()
+        ticker_df['price_volatility_20'] = ticker_df['close_price'].pct_change().rolling(20).std()
+        ticker_df['trend_strength_10'] = ticker_df['close_price'].rolling(10).apply(
+            lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0, raw=False
+        )
+        ticker_df['volume_price_trend'] = (ticker_df['return_1d'] * ticker_df['volume']).rolling(10).mean()
+        
         results.append(ticker_df)
     
     return pd.concat(results, ignore_index=True)
@@ -255,6 +295,8 @@ def load_prediction_data(conn, prediction_date):
         SELECT 
             ticker,
             market_cap,
+            trailing_pe,
+            profit_margin,
             ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY fetch_date DESC) as rn
         FROM nse_500_fundamentals
     ),
@@ -267,6 +309,7 @@ def load_prediction_data(conn, prediction_date):
             CAST(h.low_price AS FLOAT) AS low_price,
             CAST(h.close_price AS FLOAT) AS close_price,
             CAST(h.volume AS FLOAT) AS volume,
+            h.company,
             n.sector,
             n.industry,
             
@@ -275,7 +318,9 @@ def load_prediction_data(conn, prediction_date):
                 WHEN f.market_cap >= 100000000000 THEN 'Large Cap'  -- >= 100B
                 WHEN f.market_cap >= 10000000000 THEN 'Mid Cap'     -- >= 10B
                 ELSE 'Small Cap'
-            END AS market_cap_category
+            END AS market_cap_category,
+            f.trailing_pe,
+            f.profit_margin
             
         FROM nse_500_hist_data h
         INNER JOIN nse_500 n ON h.ticker = n.ticker
@@ -313,7 +358,19 @@ def load_prediction_data(conn, prediction_date):
     
     # Keep only prediction date
     df = df[df['trading_date'] == prediction_date].copy()
-    print(f"[SUCCESS] {len(df)} tickers ready for prediction on {prediction_date}")
+    
+    # Penny stock filter: exclude stocks below ₹10 or with no earnings data at all.
+    # Sub-₹10 stocks are dominated by circuit-breaker moves and have no tradeable signal.
+    # Stocks with neither trailing_pe nor profit_margin have zero fundamental coverage.
+    pre_filter = len(df)
+    df = df[df['close_price'] >= Config.MIN_STOCK_PRICE]
+    if 'trailing_pe' in df.columns and 'profit_margin' in df.columns:
+        df = df[df['trailing_pe'].notna() | df['profit_margin'].notna()]
+    excluded = pre_filter - len(df)
+    if excluded > 0:
+        print(f"[INFO] Penny stock filter: excluded {excluded} tickers "
+              f"(price < ₹{Config.MIN_STOCK_PRICE:.0f} or no earnings data)")
+    print(f"[SUCCESS] {len(df)} investable tickers ready for prediction on {prediction_date}")
     
     return df
 
@@ -378,6 +435,12 @@ def merge_market_context(conn, df):
             df_context['us_10y_yield_close'].rolling(60, min_periods=10).mean()
         ).fillna(1.0).clip(0.5, 2.0)
         
+        # Market regime: 5-day NIFTY momentum (rolling sum of 1d returns).
+        # Captures multi-day trend context — positive = sustained up-move, negative = down-move.
+        df_context['nifty50_return_5d'] = (
+            df_context['nifty50_return_1d'].rolling(5, min_periods=1).sum()
+        ).fillna(0.0)
+        
         df['trading_date'] = pd.to_datetime(df['trading_date'])
         market_cols = [c for c in df_context.columns if c != 'trading_date']
         df = df.merge(df_context, on='trading_date', how='left')
@@ -394,6 +457,25 @@ def merge_market_context(conn, df):
         for col in return_cols:
             if col in df.columns:
                 df[col] = df[col].fillna(0)
+        
+        # Market regime features computed from stock data (no extra DB query needed).
+        # adv_decline_ratio: advancing stocks / declining stocks per date.
+        # sector_breadth_score: fraction of stocks rising within each sector per date.
+        if 'return_1d' in df.columns:
+            adv_df = df.groupby('trading_date')['return_1d'].apply(
+                lambda x: (x > 0).sum() / max((x < 0).sum(), 1)
+            ).reset_index()
+            adv_df.columns = ['trading_date', 'adv_decline_ratio']
+            df = df.merge(adv_df, on='trading_date', how='left')
+            df['adv_decline_ratio'] = df['adv_decline_ratio'].fillna(1.0)
+            
+            if 'sector' in df.columns:
+                breadth_df = df.groupby(['trading_date', 'sector'])['return_1d'].apply(
+                    lambda x: (x > 0).mean()
+                ).reset_index()
+                breadth_df.columns = ['trading_date', 'sector', 'sector_breadth_score']
+                df = df.merge(breadth_df, on=['trading_date', 'sector'], how='left')
+                df['sector_breadth_score'] = df['sector_breadth_score'].fillna(0.5)
         
         print(f"[SUCCESS] Merged {len(market_cols)} market context features (incl. normalized)")
         
@@ -601,9 +683,14 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     
     print(f"[INFO] Class mapping: Down={down_idx}, Up={up_idx}")
     
-    # Create predictions dataframe
-    predictions = df[['ticker', 'trading_date', 'close_price', 'sector', 
-                     'industry', 'market_cap_category', 'rsi']].copy()
+    # Create predictions dataframe — include volume and company for DB write
+    base_cols = ['ticker', 'trading_date', 'close_price', 'sector',
+                 'industry', 'market_cap_category', 'rsi']
+    if 'volume' in df.columns:
+        base_cols.append('volume')
+    if 'company' in df.columns:
+        base_cols.append('company')
+    predictions = df[base_cols].copy()
     
     # Probabilities
     predictions['buy_probability'] = y_proba[:, up_idx]  # Up = Buy
@@ -622,21 +709,20 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
         predictions['sell_probability']
     ) * 100
     
-    # Signal strength (database expects 'Low', 'Medium', 'High')
+    # Signal strength: percentile rank within this day's predictions
+    # top 5% = High (~100 signals/day), next 20% = Medium, rest = Low
+    # Guarantees consistent counts regardless of absolute confidence level
+    conf_rank = predictions['confidence_percentage'].rank(pct=True)
     predictions['signal_strength'] = np.where(
-        predictions['confidence_percentage'] >= Config.CONFIDENCE_STRONG_THRESHOLD * 100,
+        conf_rank >= 0.95,
         'High',
-        np.where(
-            predictions['confidence_percentage'] >= Config.CONFIDENCE_HIGH_THRESHOLD * 100,
-            'Medium',
-            'Low'
-        )
+        np.where(conf_rank >= 0.75, 'Medium', 'Low')
     )
     
-    # High confidence flag
-    predictions['high_confidence'] = (
-        predictions['confidence_percentage'] >= Config.CONFIDENCE_HIGH_THRESHOLD * 100
-    ).astype(int)
+    # All three boolean confidence flags — derived from signal_strength
+    predictions['high_confidence'] = (predictions['signal_strength'] == 'High').astype(int)
+    predictions['medium_confidence'] = (predictions['signal_strength'] == 'Medium').astype(int)
+    predictions['low_confidence'] = (predictions['signal_strength'] == 'Low').astype(int)
     
     # Model name
     predictions['model_name'] = 'GradientBoosting_V2_Calibrated'
@@ -651,21 +737,31 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     
     print(f"\n[INFO] High Confidence Signals: {predictions['high_confidence'].sum():,}")
     
+    # Signal strength distribution
+    strength_counts = predictions['signal_strength'].value_counts()
+    print("[INFO] Signal Strength Distribution (percentile-based):")
+    for strength in ['High', 'Medium', 'Low']:
+        count = strength_counts.get(strength, 0)
+        pct = count / len(predictions) * 100
+        print(f"  {strength:6s}: {count:6,} ({pct:5.1f}%)")
+    
     return predictions
 
 # ============================================================================
 # Production Validation (RUNTIME)
 # ============================================================================
 
-def validate_prediction_distribution(predictions):
+def validate_prediction_distribution(predictions, conn=None):
     """
-    Validate prediction distribution before writing to database
-    
-    Prevents production issues like:
-    - Apr 21: 99.6% Sell (9 Buy / 2055 Sell)
-    - Apr 18: 97.0% Sell (21 Buy / 2002 Sell)
-    
-    Returns: True if validation passes, False if critical issue detected
+    Validate prediction distribution before writing to database.
+
+    Hard-abort conditions (return False → caller does sys.exit(1)):
+      - buy_pct < 5%  or > 95%  (catastrophic bias like Apr 21 99.6% Sell)
+      - total predictions < 95% of rolling 5-day average (unexpected data loss)
+
+    Soft warnings (log only, do NOT abort):
+      - buy_pct < 20% or > 80% (moderate bias, worth monitoring)
+      - avg_confidence > 90%  (suspiciously overconfident model)
     """
     total = len(predictions)
     buy_count = len(predictions[predictions['predicted_signal'] == 'Buy'])
@@ -682,7 +778,6 @@ def validate_prediction_distribution(predictions):
     print(f"Buy:          {buy_count:,} ({buy_pct:.1f}%)")
     print(f"Sell:         {sell_count:,} ({sell_pct:.1f}%)")
     
-    # Probability analysis
     avg_buy_prob = predictions['buy_probability'].mean()
     avg_sell_prob = predictions['sell_probability'].mean()
     avg_confidence = predictions['confidence_percentage'].mean()
@@ -691,43 +786,67 @@ def validate_prediction_distribution(predictions):
     print(f"Average Sell Probability: {avg_sell_prob:.2%}")
     print(f"Average Confidence:       {avg_confidence:.1f}%")
     
-    # CRITICAL: Alert if extreme skew
-    issues = []
+    fatal_issues = []
+    warnings = []
     
-    if buy_pct < 20:
-        issues.append(f"Buy% ({buy_pct:.1f}%) below 20% - extreme bearish bias")
-        print(f"\n⚠️  WARNING: EXTREME BEARISH BIAS DETECTED")
-        print(f"   Buy: {buy_pct:.1f}% is below normal range (20-80%)")
-    elif buy_pct > 80:
-        issues.append(f"Buy% ({buy_pct:.1f}%) above 80% - extreme bullish bias")
-        print(f"\n⚠️  WARNING: EXTREME BULLISH BIAS DETECTED")
-        print(f"   Buy: {buy_pct:.1f}% is above normal range (20-80%)")
-    else:
-        print(f"\n✅ VALIDATION PASSED: Distribution within acceptable range (20-80%)")
+    # ── Hard-abort: catastrophic buy/sell skew ─────────────────────────────
+    if buy_pct < 5:
+        fatal_issues.append(f"Buy% ({buy_pct:.1f}%) below 5% — catastrophic bearish bias")
+    elif buy_pct > 95:
+        fatal_issues.append(f"Buy% ({buy_pct:.1f}%) above 95% — catastrophic bullish bias")
     
-    # Additional checks
+    # ── Hard-abort: unexpected prediction count drop ───────────────────────
+    if conn is not None:
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT AVG(CAST(total_predictions AS FLOAT))
+                FROM (
+                    SELECT TOP 5 total_predictions
+                    FROM ml_nse_predict_summary
+                    ORDER BY analysis_date DESC
+                ) recent
+            """)
+            row = cursor.fetchone()
+            cursor.close()
+            if row and row[0]:
+                rolling_avg = float(row[0])
+                if total < rolling_avg * 0.95:
+                    fatal_issues.append(
+                        f"Total predictions ({total:,}) is more than 5% below "
+                        f"rolling 5-day average ({rolling_avg:.0f}) — possible data loss"
+                    )
+        except Exception as e:
+            print(f"[WARNING] Could not fetch rolling prediction count: {e}")
+    
+    # ── Soft warnings ──────────────────────────────────────────────────────
+    if not fatal_issues:
+        if buy_pct < 20:
+            warnings.append(f"Buy% ({buy_pct:.1f}%) below 20% — moderate bearish skew")
+        elif buy_pct > 80:
+            warnings.append(f"Buy% ({buy_pct:.1f}%) above 80% — moderate bullish skew")
+        else:
+            print(f"\n[OK] Distribution within acceptable range (20-80%)")
+    
     if avg_confidence > 90:
-        issues.append(f"Avg confidence ({avg_confidence:.1f}%) suspiciously high")
-        print(f"⚠️  WARNING: Average confidence {avg_confidence:.1f}% is suspiciously high")
+        warnings.append(f"Avg confidence ({avg_confidence:.1f}%) suspiciously high")
     
-    if len(issues) > 0:
+    if warnings:
+        print(f"\n[WARNING] Soft validation issues (proceeding):")
+        for w in warnings:
+            print(f"  • {w}")
+    
+    if fatal_issues:
         print(f"\n{'='*80}")
-        print(f"VALIDATION ISSUES DETECTED")
+        print(f"[FATAL] VALIDATION FAILED — ABORTING DB WRITE")
         print(f"{'='*80}")
-        for i, issue in enumerate(issues, 1):
-            print(f"{i}. {issue}")
-        print(f"\nRECOMMENDATIONS:")
-        print(f"  • Review model calibration (check calibration set balance)")
-        print(f"  • Verify training data quality and class distribution")
-        print(f"  • Consider retraining with stratified calibration split")
-        print(f"  • Check for data quality issues in recent market data")
-        
-        # OPTION: Uncomment to ABORT on validation failure
-        # print(f"\n❌ ABORTING: Predictions not saved due to validation failure")
-        # return False
-        
-        print(f"\n⚠️  PROCEEDING WITH CAUTION: Predictions will be saved with warning flag")
-        return True  # Allow save but with warning
+        for issue in fatal_issues:
+            print(f"  ✗ {issue}")
+        print(f"\nRecommendations:")
+        print(f"  • Check market_context_daily for missing data (all-zero market features)")
+        print(f"  • Verify nse_500_hist_data loaded correctly for this date")
+        print(f"  • Consider retraining if model appears permanently biased")
+        return False
     
     return True
 
@@ -735,7 +854,7 @@ def validate_prediction_distribution(predictions):
 # Save Predictions to Database
 # ============================================================================
 
-def save_predictions(conn, predictions):
+def save_predictions(conn, predictions, model_version='unknown'):
     """Save predictions to ml_nse_trading_predictions table"""
     print("\n" + "="*80)
     print("SAVING PREDICTIONS TO DATABASE")
@@ -753,41 +872,51 @@ def save_predictions(conn, predictions):
     deleted_count = cursor.rowcount
     print(f"[INFO] Deleted {deleted_count} existing V2 predictions for {prediction_date}")
     
-    # Insert new predictions
+    # Insert new predictions (19 columns — includes all boolean flags, company, volume, model_version)
     insert_query = """
     INSERT INTO ml_nse_trading_predictions (
         ticker, trading_date, predicted_signal, confidence, confidence_percentage,
         signal_strength, close_price, rsi, buy_probability, sell_probability,
-        model_name, sector, market_cap_category, high_confidence
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        model_name, sector, market_cap_category,
+        high_confidence, medium_confidence, low_confidence,
+        company, volume, model_version
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
     
     rows_to_insert = []
     for _, row in predictions.iterrows():
         confidence_pct = float(row['confidence_percentage'])
-        confidence_decimal = confidence_pct / 100.0  # Convert to 0-1 range
+        confidence_decimal = confidence_pct / 100.0
         close_price_val = float(row['close_price']) if pd.notna(row['close_price']) else 0.0
+        volume_val = float(row['volume']) if 'volume' in row and pd.notna(row.get('volume')) else None
+        company_val = str(row['company']) if 'company' in row and pd.notna(row.get('company')) else None
         rows_to_insert.append((
             row['ticker'],
             row['trading_date'],
             row['predicted_signal'],
-            confidence_decimal,  # confidence (0-1 decimal for constraint)
-            confidence_pct,      # confidence_percentage (0-100 percentage)
+            confidence_decimal,
+            confidence_pct,
             row['signal_strength'],
-            close_price_val,     # close_price (required NOT NULL column)
+            close_price_val,
             float(row['rsi']) if pd.notna(row['rsi']) else None,
             float(row['buy_probability']),
             float(row['sell_probability']),
             row['model_name'],
             row['sector'],
             row['market_cap_category'],
-            row['high_confidence']
+            int(row['high_confidence']),
+            int(row['medium_confidence']),
+            int(row['low_confidence']),
+            company_val,
+            volume_val,
+            model_version
         ))
     
     cursor.executemany(insert_query, rows_to_insert)
     conn.commit()
     
     print(f"[SUCCESS] Inserted {len(rows_to_insert):,} predictions")
+    print(f"[INFO] Model version stamped: {model_version}")
     
     # Create summary record
     save_summary(conn, predictions)
@@ -862,6 +991,147 @@ def save_summary(conn, predictions):
     
     print(f"[SUCCESS] Saved prediction summary: {buy_count} Buy / {sell_count} Sell")
 
+
+def _safe_float(value, default=None):
+    """Convert value to float, returning default on NaN/None."""
+    if value is None:
+        return default
+    try:
+        f = float(value)
+        return default if np.isnan(f) else f
+    except (TypeError, ValueError):
+        return default
+
+
+def save_technical_indicators(conn, df, prediction_date):
+    """Save technical indicators snapshot to ml_nse_technical_indicators table.
+    
+    Added in V2 (May 2026) to restore the write that existed in V1 but was
+    accidentally omitted during the V1 → V2 architecture refactor (Apr 18 2026).
+    Failure here is non-fatal and will not block prediction saves.
+    """
+    print("\n" + "="*80)
+    print("SAVING TECHNICAL INDICATORS TO DATABASE")
+    print("="*80)
+    
+    try:
+        cursor = conn.cursor()
+        
+        # Idempotent: delete before insert
+        cursor.execute(
+            "DELETE FROM ml_nse_technical_indicators WHERE trading_date = ?",
+            prediction_date
+        )
+        print(f"[INFO] Deleted {cursor.rowcount} existing technical indicator rows for {prediction_date}")
+        
+        run_timestamp = datetime.now()
+        
+        insert_query = """
+        INSERT INTO ml_nse_technical_indicators (
+            run_timestamp, trading_date, ticker,
+            rsi, rsi_oversold, rsi_overbought, rsi_momentum,
+            sma_5, sma_10, sma_20, sma_50,
+            ema_5, ema_10, ema_20, ema_50,
+            macd, macd_signal, macd_histogram,
+            price_vs_sma20, price_vs_sma50, price_vs_ema20,
+            sma20_vs_sma50, ema20_vs_ema50, sma5_vs_sma20,
+            volume_sma_20, volume_sma_ratio,
+            price_momentum_5, price_momentum_10,
+            daily_volatility, price_volatility_10, price_volatility_20,
+            trend_strength_10, volume_price_trend,
+            gap, bb_upper, bb_lower, bb_middle, bb_width,
+            atr, atr_percentage
+        ) VALUES (
+            ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?,
+            ?, ?, ?,
+            ?, ?, ?,
+            ?, ?,
+            ?, ?,
+            ?, ?, ?,
+            ?, ?,
+            ?, ?, ?, ?, ?,
+            ?, ?
+        )
+        """
+        
+        rows_to_insert = []
+        sf = _safe_float  # local alias
+        
+        for _, row in df.iterrows():
+            bb_upper = sf(row.get('bb_upper'))
+            bb_lower = sf(row.get('bb_lower'))
+            bb_width = (bb_upper - bb_lower) if (bb_upper is not None and bb_lower is not None) else None
+            
+            rows_to_insert.append((
+                run_timestamp,
+                row['trading_date'],
+                row['ticker'],
+                # RSI group
+                sf(row.get('rsi')),
+                int(row.get('rsi_oversold', 0)),
+                int(row.get('rsi_overbought', 0)),
+                sf(row.get('rsi_momentum')),
+                # SMA group (price_to_sma20/50 = V2 rename of price_vs_sma20/50)
+                sf(row.get('sma_5')),
+                sf(row.get('sma_10')),
+                sf(row.get('sma_20')),
+                sf(row.get('sma_50')),
+                # EMA group
+                sf(row.get('ema_5')),
+                sf(row.get('ema_10')),
+                sf(row.get('ema_20')),
+                sf(row.get('ema_50')),
+                # MACD group
+                sf(row.get('macd')),
+                sf(row.get('macd_signal')),
+                sf(row.get('macd_histogram')),
+                # Price vs MA ratios (V2 renamed price_to_sma20/50 → map back)
+                sf(row.get('price_to_sma20', row.get('price_vs_sma20'))),
+                sf(row.get('price_to_sma50', row.get('price_vs_sma50'))),
+                sf(row.get('price_vs_ema20')),
+                # MA cross ratios
+                sf(row.get('sma20_vs_sma50')),
+                sf(row.get('ema20_vs_ema50')),
+                sf(row.get('sma5_vs_sma20')),
+                # Volume
+                sf(row.get('volume_sma_20')),
+                sf(row.get('volume_ratio', row.get('volume_sma_ratio'))),
+                # Price momentum (V2 uses price/shift ratio, same semantic as V1)
+                sf(row.get('price_momentum_5')),
+                sf(row.get('price_momentum_10')),
+                # Volatility
+                sf(row.get('daily_volatility')),
+                sf(row.get('price_volatility_10')),
+                sf(row.get('price_volatility_20')),
+                # Trend
+                sf(row.get('trend_strength_10')),
+                sf(row.get('volume_price_trend')),
+                # Gap
+                sf(row.get('gap')),
+                # Bollinger Bands
+                bb_upper,
+                bb_lower,
+                sf(row.get('bb_middle')),
+                bb_width,
+                # ATR (V2: atr / atr_pct)
+                sf(row.get('atr')),
+                sf(row.get('atr_pct')),
+            ))
+        
+        cursor.executemany(insert_query, rows_to_insert)
+        conn.commit()
+        cursor.close()
+        
+        print(f"[SUCCESS] Saved {len(rows_to_insert):,} technical indicator rows for {prediction_date}")
+        
+    except Exception as e:
+        print(f"[WARNING] Could not save technical indicators: {e}")
+        print(f"[INFO] Predictions are already saved — this is non-fatal, continuing")
+
 # ============================================================================
 # Main Prediction Pipeline
 # ============================================================================
@@ -913,8 +1183,8 @@ def main():
     
     print(f"Prediction Date: {prediction_date}")
     
-    # Load model artifacts
-    model, scaler, encoder, selected_features = load_model_artifacts()
+    # Load model artifacts (now returns 5-tuple including model_version)
+    model, scaler, encoder, selected_features, model_version = load_model_artifacts()
     
     try:
         # Load prediction data
@@ -929,23 +1199,30 @@ def main():
         predictions = generate_predictions(model, scaler, encoder, selected_features, df)
         
         # ⭐ CRITICAL: VALIDATE BEFORE SAVING
-        # Prevents production issues like Apr 21 (99.6% Sell)
-        if not validate_prediction_distribution(predictions):
+        # Hard-aborts on catastrophic bias (< 5% or > 95% Buy) or data loss
+        if not validate_prediction_distribution(predictions, conn):
             print("[ERROR] Prediction validation failed. Aborting database write.")
             sys.exit(1)
         
         # Save to database
-        save_predictions(conn, predictions)
+        save_predictions(conn, predictions, model_version)
+        
+        # Save technical indicators snapshot (non-fatal if it fails)
+        save_technical_indicators(conn, df, prediction_date)
         
         # Final summary
         print("\n" + "="*80)
         print("PREDICTION COMPLETE")
         print("="*80)
         print(f"Date: {prediction_date}")
+        print(f"Model Version: {model_version}")
         print(f"Tickers: {len(predictions):,}")
         print(f"Buy Signals: {len(predictions[predictions['predicted_signal'] == 'Buy']):,}")
         print(f"Sell Signals: {len(predictions[predictions['predicted_signal'] == 'Sell']):,}")
-        print(f"High Confidence: {predictions['high_confidence'].sum():,}")
+        high_c = predictions['high_confidence'].sum()
+        med_c = predictions['medium_confidence'].sum()
+        low_c = predictions['low_confidence'].sum()
+        print(f"High Confidence: {high_c:,} | Medium: {med_c:,} | Low: {low_c:,}")
         print(f"Model: GradientBoosting V2 + Isotonic Calibration")
         print(f"End Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         

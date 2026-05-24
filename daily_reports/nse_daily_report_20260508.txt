@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-08
+[TIME] Report Generated (EST): 2026-05-08 16:52:40
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-08
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2059
+[BUY] Buy Signals: 1491
+[SELL] Sell Signals: 568
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 7
+[DATA] Medium Confidence: 483
+[LOW] Low Confidence: 1569
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.97
+[DATA] Average RSI: 56.1
+[COMPANY] Stocks Processed: 2059
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] AVROIND.NS: Buy (78.4%) - INR 12.06 [GradientBoosting_V2_Calibrated]
+[SELL] CALSOFT.NS: Sell (76.2%) - INR 24.05 [GradientBoosting_V2_Calibrated]
+[SELL] OMAXAUTO.NS: Sell (76.2%) - INR 235.35 [GradientBoosting_V2_Calibrated]
+[BUY] LTM.NS: Buy (74.9%) - INR 4349.80 [GradientBoosting_V2_Calibrated]
+[BUY] VOLTAMP.NS: Buy (71.1%) - INR 9535.00 [GradientBoosting_V2_Calibrated]
+[BUY] CEMPRO.NS: Buy (70.3%) - INR 956.15 [GradientBoosting_V2_Calibrated]
+[BUY] RPGLIFE.NS: Buy (70.3%) - INR 2463.10 [GradientBoosting_V2_Calibrated]
+[BUY] MANOMAY.NS: Buy (68.8%) - INR 191.64 [GradientBoosting_V2_Calibrated]
+[BUY] MRF.NS: Buy (68.8%) - INR 130425.00 [GradientBoosting_V2_Calibrated]
+[BUY] NAHARSPING.NS: Buy (68.8%) - INR 275.41 [GradientBoosting_V2_Calibrated]

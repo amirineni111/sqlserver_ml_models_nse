@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-20",
+  "generated_at": "2026-05-20T16:51:45.000306",
+  "summary": {
+    "analysis_date": "2026-05-20",
+    "total_predictions": 2053,
+    "total_buy_signals": 28,
+    "total_sell_signals": 2025,
+    "total_hold_signals": 0,
+    "high_confidence_count": 163,
+    "medium_confidence_count": 777,
+    "low_confidence_count": 1113,
+    "avg_confidence": 60.77244867796377,
+    "avg_rsi": 45.675987994394916,
+    "total_stocks_processed": 2053,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-20 16:51:43.580000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "COMPINFO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.91304347826087,
+      "close_price": 1.39,
+      "rsi": 52.77777777777775,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IL&FSTRANS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 2.37,
+      "rsi": 47.91666666666667,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KEEPLEARN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.82828282828282,
+      "close_price": 2.08,
+      "rsi": 57.29166666666666,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECHDVR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 0.5,
+      "rsi": 57.14285714285714,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GLOBE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 2.46,
+      "rsi": 41.17647058823532,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HAVISHA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 1.58,
+      "rsi": 48.14814814814815,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NAVKARURB.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 0.8,
+      "rsi": 51.724137931034484,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ORCHASP.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 2.03,
+      "rsi": 50.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANKITMETAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.98159509202453,
+      "close_price": 1.6,
+      "rsi": 46.15384615384616,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SAMBHAAV.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.78835978835978,
+      "close_price": 7.0,
+      "rsi": 58.6046511627907,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

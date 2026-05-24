@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-22",
+  "generated_at": "2026-05-22T16:56:40.756964",
+  "summary": {
+    "analysis_date": "2026-05-22",
+    "total_predictions": 2053,
+    "total_buy_signals": 1270,
+    "total_sell_signals": 783,
+    "total_hold_signals": 0,
+    "high_confidence_count": 6,
+    "medium_confidence_count": 215,
+    "low_confidence_count": 1832,
+    "avg_confidence": 55.31038449289886,
+    "avg_rsi": 46.03040115652725,
+    "total_stocks_processed": 2053,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-22 16:56:40.050000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NOIDATOLL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.31372549019606,
+      "close_price": 7.17,
+      "rsi": 86.7965367965368,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANSALAPI.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 4.18,
+      "rsi": 66.33663366336633,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FEL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.48972602739725,
+      "close_price": 0.45,
+      "rsi": 25.00000000000003,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ESSENTIA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.48972602739725,
+      "close_price": 1.63,
+      "rsi": 67.36842105263159,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "UFBL.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.1282410651717,
+      "close_price": 475.25,
+      "rsi": 69.4415357766143,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.85545722713864,
+      "close_price": 0.51,
+      "rsi": 54.54545454545455,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.97310513447434,
+      "close_price": 0.49,
+      "rsi": 62.50000000000001,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANTGRAPHIC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.97310513447434,
+      "close_price": 0.84,
+      "rsi": 51.724137931034484,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GTLINFRA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.97310513447434,
+      "close_price": 1.31,
+      "rsi": 55.71428571428573,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HAVISHA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 68.97310513447434,
+      "close_price": 1.55,
+      "rsi": 50.98039215686275,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

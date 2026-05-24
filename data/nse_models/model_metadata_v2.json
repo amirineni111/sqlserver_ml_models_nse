@@ -1,5 +1,5 @@
 {
-  "timestamp": "20260508_142710",
+  "timestamp": "20260522_164842",
   "model_type": "GradientBoostingClassifier",
   "calibration": "isotonic",
   "n_features": 20,
