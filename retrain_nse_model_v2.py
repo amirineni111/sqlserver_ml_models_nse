@@ -40,7 +40,7 @@ SOLUTION: Three-pronged hybrid approach:
 EXPECTED OUTCOME: 40-50% Buy signals (balanced), not 2% or 98%
 
 Previous fixes (same symptom, different root causes):
-- Apr 21 (Part 1): Stratified calibration split (59.5% DOWN → 50/50)
+- Apr 21 (Part 1): Stratified calibration split (59.5% DOWN -> 50/50)
 - Apr 18: Removed VotingClassifier retraining bug
 - Apr 16: Added class balancing to GradientBoosting
 - Apr 14: Fixed undefined variables (silent failure)
@@ -58,7 +58,7 @@ import pandas as pd
 import pyodbc
 import joblib
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 # ML libraries
@@ -123,13 +123,13 @@ class Config:
     # NASDAQ excludes Nov 2025 bull run; NSE should exclude recent bear runs
     # Updated Apr 18 2026: Now including Mar-Apr data since market_context_daily is fixed
     DATA_START_DATE = '2024-06-01'  # Start after initial downtrend
-    DATA_END_DATE = '2026-04-15'    # Extended to include recent data (was 2026-02-28)
+    DATA_END_DATE = (datetime.today() - timedelta(days=10)).strftime('%Y-%m-%d')  # Dynamic: always 10 days before today
     
     # Class imbalance threshold (from NASDAQ)
     MAX_IMBALANCE = 0.20  # Warn if class imbalance > 20%
     
     # Penny stock / investability filter
-    MIN_STOCK_PRICE = 10.0  # Exclude stocks below ₹10 (penny/micro-cap)
+    MIN_STOCK_PRICE = 10.0  # Exclude stocks below INR10 (penny/micro-cap)
     
     # Calibration method
     CALIBRATION_METHOD = 'isotonic'  # NASDAQ uses isotonic calibration
@@ -454,7 +454,7 @@ def merge_market_context(conn, df):
         df_context = df_context.sort_values('trading_date').reset_index(drop=True)
         
         # CRITICAL FIX (May 8, 2026): Add NORMALIZED (stationary) versions of close levels.
-        # Raw absolute levels (nifty50_close=24000) are non-stationary — the model memorizes
+        # Raw absolute levels (nifty50_close=24000) are non-stationary -- the model memorizes
         # price ranges from training data, not generalizable patterns.
         # Ratio-to-MA = 1.0 means at average, >1 elevated, <1 depressed. Always stationary.
         df_context['vix_vs_60d'] = (
@@ -488,7 +488,7 @@ def merge_market_context(conn, df):
         ).fillna(1.0).clip(0.5, 2.0)
         
         # Market regime: 5-day NIFTY momentum (rolling sum of 1d returns).
-        # Captures multi-day trend context — positive = sustained up-move, negative = down-move.
+        # Captures multi-day trend context -- positive = sustained up-move, negative = down-move.
         df_context['nifty50_return_5d'] = (
             df_context['nifty50_return_1d'].rolling(5, min_periods=1).sum()
         ).fillna(0.0)
@@ -567,11 +567,11 @@ def add_market_neutral_features(df):
     if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
         df['stock_return_vs_nifty'] = df['return_1d'] - df['nifty50_return_1d']
         df['stock_return_vs_nifty_5d'] = df['return_5d'] - (df['nifty50_return_1d'].rolling(5).sum())
-        print("  ✓ Added stock_return_vs_nifty (outperformance metric)")
+        print("  [OK] Added stock_return_vs_nifty (outperformance metric)")
     else:
         df['stock_return_vs_nifty'] = 0
         df['stock_return_vs_nifty_5d'] = 0
-        print("  ⚠ Missing NIFTY data - using neutral values")
+        print("  [WARN] Missing NIFTY data - using neutral values")
     
     # 2. Sector-relative performance and RSI
     if 'sector' in df.columns:
@@ -596,18 +596,18 @@ def add_market_neutral_features(df):
         df['rsi_vs_sector_avg'] = df['rsi'] - df['sector_rsi_avg']
         df['volume_vs_sector'] = df['volume_ratio'] - df['sector_volume_ratio']
         
-        print(f"  ✓ Added sector-relative features for {df['sector'].nunique()} sectors")
+        print(f"  [OK] Added sector-relative features for {df['sector'].nunique()} sectors")
     else:
         df['stock_return_vs_sector'] = 0
         df['rsi_vs_sector_avg'] = 0
         df['volume_vs_sector'] = 0
-        print("  ⚠ No sector data - using neutral values")
+        print("  [WARN] No sector data - using neutral values")
     
     # 3. Volume anomaly detection (stock-specific)
     df['volume_anomaly'] = df.groupby('ticker')['volume'].transform(
         lambda x: (x - x.rolling(50, min_periods=10).mean()) / x.rolling(50, min_periods=10).std()
     ).fillna(0)
-    print("  ✓ Added volume_anomaly (unusual volume detection)")
+    print("  [OK] Added volume_anomaly (unusual volume detection)")
     
     # 4. Simple beta estimation (rolling 60-day correlation with NIFTY)
     if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
@@ -632,18 +632,18 @@ def add_market_neutral_features(df):
             results.append(ticker_df)
         
         df = pd.concat(results, ignore_index=True)
-        print("  ✓ Added beta and beta_adjusted_return (market risk adjustment)")
+        print("  [OK] Added beta and beta_adjusted_return (market risk adjustment)")
     else:
         df['beta'] = 1.0
         df['beta_adjusted_return'] = 0
-        print("  ⚠ Missing NIFTY data - using neutral beta")
+        print("  [WARN] Missing NIFTY data - using neutral beta")
     
     # 5. Relative strength (20-day cumulative outperformance)
     if 'stock_return_vs_nifty' in df.columns:
         df['relative_strength_20d'] = df.groupby('ticker')['stock_return_vs_nifty'].transform(
             lambda x: x.rolling(20, min_periods=5).sum()
         ).fillna(0)
-        print("  ✓ Added relative_strength_20d (cumulative outperformance)")
+        print("  [OK] Added relative_strength_20d (cumulative outperformance)")
     else:
         df['relative_strength_20d'] = 0
     
@@ -654,7 +654,7 @@ def add_market_neutral_features(df):
             lambda x: x.pct_change(10)
         )
         df['momentum_vs_sector'] = df['return_10d'] - sector_momentum
-        print("  ✓ Added momentum_vs_sector (10-day relative momentum)")
+        print("  [OK] Added momentum_vs_sector (10-day relative momentum)")
     else:
         df['momentum_vs_sector'] = 0
     
@@ -704,7 +704,7 @@ def add_interaction_features(df):
         # When VIX is low (greed), outperformance might be momentum
         df['outperformance_in_greed'] = df['stock_return_vs_nifty'] * (vix_neutral / df['vix_close'].clip(lower=10))
         
-        print("  ✓ Added fear/greed performance interactions")
+        print("  [OK] Added fear/greed performance interactions")
     else:
         df['outperformance_in_fear'] = 0
         df['outperformance_in_greed'] = 0
@@ -714,7 +714,7 @@ def add_interaction_features(df):
     if 'rsi_vs_sector_avg' in df.columns and 'volume_anomaly' in df.columns:
         # Normalize RSI difference to -1 to +1 range (typical RSI diff is -20 to +20)
         df['sector_leader_conviction'] = (df['rsi_vs_sector_avg'] / 20).clip(-1, 1) * df['volume_anomaly'].clip(-3, 3)
-        print("  ✓ Added sector leader conviction (RSI + volume)")
+        print("  [OK] Added sector leader conviction (RSI + volume)")
     else:
         df['sector_leader_conviction'] = 0
     
@@ -729,7 +729,7 @@ def add_interaction_features(df):
             # Clip beta to avoid division issues
             safe_beta = df['beta'].clip(lower=0.5)
             df['quality_opportunity'] = df['stock_return_vs_nifty'] / safe_beta
-            print("  ✓ Added defensive/aggressive positioning scores")
+            print("  [OK] Added defensive/aggressive positioning scores")
         else:
             df['quality_opportunity'] = 0
     else:
@@ -744,7 +744,7 @@ def add_interaction_features(df):
         df['risk_adjusted_momentum'] = df['stock_return_vs_nifty_5d'] / atr_pct
         # Clip extreme values
         df['risk_adjusted_momentum'] = df['risk_adjusted_momentum'].clip(-5, 5)
-        print("  ✓ Added risk-adjusted momentum (return/volatility)")
+        print("  [OK] Added risk-adjusted momentum (return/volatility)")
     else:
         df['risk_adjusted_momentum'] = 0
     
@@ -754,7 +754,7 @@ def add_interaction_features(df):
         # Positive = stock follows global trend (coordinated)
         # Negative = stock moves opposite (divergent - could be red flag or opportunity)
         df['global_market_sync'] = df['stock_return_vs_nifty'] * df['sp500_return_1d']
-        print("  ✓ Added global market synchronization signal")
+        print("  [OK] Added global market synchronization signal")
     else:
         df['global_market_sync'] = 0
     
@@ -763,7 +763,7 @@ def add_interaction_features(df):
     if 'stock_return_vs_nifty' in df.columns and 'nifty50_return_1d' in df.columns:
         # Positive when stock beats market on down days (contrarian strength)
         df['contrarian_strength'] = df['stock_return_vs_nifty'] * (-df['nifty50_return_1d'])
-        print("  ✓ Added contrarian strength (up when market down)")
+        print("  [OK] Added contrarian strength (up when market down)")
     else:
         df['contrarian_strength'] = 0
     
@@ -777,7 +777,7 @@ def add_interaction_features(df):
         # RSI strength during VIX spikes = quality in chaos
         df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * vix_spike
         df['quality_in_volatility'] = df['quality_in_volatility'].clip(-3, 3)
-        print("  ✓ Added quality-in-volatility (strength during market stress)")
+        print("  [OK] Added quality-in-volatility (strength during market stress)")
     else:
         df['quality_in_volatility'] = 0
     
@@ -787,7 +787,7 @@ def add_interaction_features(df):
         # Strong sector leader in rising market = momentum
         # Weak in falling market = warning
         df['sector_momentum_confirmed'] = df['momentum_vs_sector'] * df['nifty50_return_1d']
-        print("  ✓ Added sector momentum with market confirmation")
+        print("  [OK] Added sector momentum with market confirmation")
     else:
         df['sector_momentum_confirmed'] = 0
     
@@ -874,7 +874,7 @@ def categorize_features(feature_list):
         
         # Relative/neutral features
         # FIXED (May 8, 2026): Added sector_rsi, sector_return, sector_volume, sector_momentum
-        # These are sector-AVERAGE features, NOT stock-specific — they caused market dominance
+        # These are sector-AVERAGE features, NOT stock-specific -- they caused market dominance
         elif any(x in feat_lower for x in ['vs_nifty', 'vs_sector', 'beta', 'relative_strength',
                                             '_anomaly', 'momentum_vs',
                                             'sector_rsi', 'sector_return', 'sector_volume',
@@ -932,9 +932,9 @@ def select_features(X, y):
     
     # Define target distribution (for 20 features)
     target_counts = {
-        'market': 5,       # 25% - keep market context but limited
+        'market': 3,       # 15% - capped to prevent 'bear market = sell all' bias
         'stock': 7,        # 35% - core stock signals
-        'relative': 5,     # 25% - comparative metrics
+        'relative': 7,     # 35% - comparative/relative metrics (INCREASED to find outperformers)
         'interaction': 3   # 15% - smart combinations
     }
     
@@ -1209,13 +1209,13 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     
     if cal_imbalance > 0.15:
         issues.append(f"Calibration imbalance {cal_imbalance:.1%} > 15%")
-        print(f"  ❌ FAIL: Calibration imbalance {cal_imbalance:.1%} > 15%")
+        print(f"  [FAIL] FAIL: Calibration imbalance {cal_imbalance:.1%} > 15%")
         for i, (cls, count) in enumerate(zip(unique, counts)):
             cls_name = encoder.classes_[cls]
             pct = count / len(y_cal) * 100
             print(f"     {cls_name}: {count:,} ({pct:.1f}%)")
     else:
-        print(f"  ✅ PASS: Calibration balance OK ({cal_imbalance:.1%})")
+        print(f"  [OK] PASS: Calibration balance OK ({cal_imbalance:.1%})")
         for i, (cls, count) in enumerate(zip(unique, counts)):
             cls_name = encoder.classes_[cls]
             pct = count / len(y_cal) * 100
@@ -1228,9 +1228,9 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     
     if train_imbalance > 0.20:
         issues.append(f"Training imbalance {train_imbalance:.1%} > 20%")
-        print(f"  ❌ FAIL: Training imbalance {train_imbalance:.1%} > 20%")
+        print(f"  [FAIL] FAIL: Training imbalance {train_imbalance:.1%} > 20%")
     else:
-        print(f"  ✅ PASS: Training balance OK ({train_imbalance:.1%})")
+        print(f"  [OK] PASS: Training balance OK ({train_imbalance:.1%})")
     
     # CHECK 3: Prediction distribution on test set (should be 20-80% for either class)
     print("\n[CHECK 3] Test Set Prediction Distribution...")
@@ -1246,9 +1246,9 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
         
         if cls_pct < 20 or cls_pct > 80:
             issues.append(f"Test predictions for '{cls_name}' = {cls_pct:.1f}% (outside 20-80%)")
-            print(f"  ❌ FAIL: {cls_name}: {cls_pct:.1f}% (outside 20-80%)")
+            print(f"  [FAIL] FAIL: {cls_name}: {cls_pct:.1f}% (outside 20-80%)")
         else:
-            print(f"  ✅ PASS: {cls_name}: {cls_pct:.1f}%")
+            print(f"  [OK] PASS: {cls_name}: {cls_pct:.1f}%")
     
     # CHECK 4: Probability calibration sanity
     print("\n[CHECK 4] Probability Calibration...")
@@ -1258,9 +1258,9 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     for i, cls_name in enumerate(encoder.classes_):
         if avg_proba[i] < 0.25 or avg_proba[i] > 0.75:
             issues.append(f"Avg probability for '{cls_name}' = {avg_proba[i]:.2%} (outside 25-75%)")
-            print(f"  ❌ FAIL: Avg P({cls_name}): {avg_proba[i]:.2%} (outside 25-75%)")
+            print(f"  [FAIL] FAIL: Avg P({cls_name}): {avg_proba[i]:.2%} (outside 25-75%)")
         else:
-            print(f"  ✅ PASS: Avg P({cls_name}): {avg_proba[i]:.2%}")
+            print(f"  [OK] PASS: Avg P({cls_name}): {avg_proba[i]:.2%}")
     
     # CHECK 5: Model artifact integrity
     print("\n[CHECK 5] Model Serialization...")
@@ -1273,25 +1273,25 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
         
         # Test prediction on small sample
         test_pred = test_model.predict(X_test[:10])
-        print(f"  ✅ PASS: Model serialization OK")
+        print(f"  [OK] PASS: Model serialization OK")
     except Exception as e:
         issues.append(f"Model serialization error: {e}")
-        print(f"  ❌ FAIL: Model serialization error: {e}")
+        print(f"  [FAIL] FAIL: Model serialization error: {e}")
     
     # FINAL VERDICT
     print("\n" + "="*80)
     if issues:
-        print("❌ VALIDATION FAILED - ABORTING TRAINING")
+        print("[FAIL] VALIDATION FAILED - ABORTING TRAINING")
         print("="*80)
         print("\nIssues found:")
         for i, issue in enumerate(issues, 1):
             print(f"  {i}. {issue}")
-        print("\n⚠️  MODEL NOT SAVED")
+        print("\n[WARN]  MODEL NOT SAVED")
         print("Fix issues above and retrain.")
         print("="*80)
         sys.exit(1)
     else:
-        print("✅ ALL VALIDATION CHECKS PASSED")
+        print("[OK] ALL VALIDATION CHECKS PASSED")
         print("="*80)
         print("Model is safe to save and deploy.")
         return True
@@ -1324,16 +1324,16 @@ def main():
         print("="*80)
         
         # Exclude non-feature columns
-        # CRITICAL: Exclude absolute market price LEVELS — they are non-stationary
+        # CRITICAL: Exclude absolute market price LEVELS -- they are non-stationary
         # and cause distribution shift (model memorises price ranges from training period).
         # Use only the stationary ratio-to-MA variants (vix_vs_60d, nifty50_vs_200d, etc.)
         NON_STATIONARY_MARKET_LEVELS = [
-            'vix_close',          # → use vix_vs_60d
-            'india_vix_close',    # → use india_vix_vs_60d
-            'nifty50_close',      # → use nifty50_vs_200d
-            'sp500_close',        # → use sp500_vs_200d
-            'dxy_close',          # → use dxy_vs_60d
-            'us_10y_yield_close', # → use us10y_vs_60d
+            'vix_close',          # -> use vix_vs_60d
+            'india_vix_close',    # -> use india_vix_vs_60d
+            'nifty50_close',      # -> use nifty50_vs_200d
+            'sp500_close',        # -> use sp500_vs_200d
+            'dxy_close',          # -> use dxy_vs_60d
+            'us_10y_yield_close', # -> use us10y_vs_60d
         ]
         exclude_cols = [
             'trading_date', 'ticker', 'direction_5d',
@@ -1432,7 +1432,7 @@ def main():
             X_test_scaled, y_test
         )
         
-        # ⭐ CRITICAL: VALIDATE BEFORE SAVING
+        # * CRITICAL: VALIDATE BEFORE SAVING
         # This prevents production bugs from bad models (Apr 14, 16, 18, 21 incidents)
         print("\n" + "="*80)
         print("PRE-SAVE VALIDATION (MANDATORY)")

@@ -2,7 +2,7 @@
 NSE 500 Daily Trading Report
 ================================
 [DATE] NSE Trading Date (data from): 2026-05-22
-[TIME] Report Generated (EST): 2026-05-22 16:56:40
+[TIME] Report Generated (EST): 2026-05-26 16:56:12
 [MODEL] Model Type: NSE-trained ensemble
 [NOTE] Predictions are for the NEXT trading day after 2026-05-22
 [NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs

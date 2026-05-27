@@ -1,6 +1,6 @@
 {
   "date": "2026-05-22",
-  "generated_at": "2026-05-22T16:56:40.756964",
+  "generated_at": "2026-05-26T16:56:12.175089",
   "summary": {
     "analysis_date": "2026-05-22",
     "total_predictions": 2053,
@@ -21,7 +21,7 @@
   "high_confidence_signals": [
     {
       "ticker": "NOIDATOLL.NS",
-      "company": null,
+      "company": "Noida Toll Bridge Company Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 74.31372549019606,
       "close_price": 7.17,
@@ -30,7 +30,7 @@
     },
     {
       "ticker": "ANSALAPI.NS",
-      "company": null,
+      "company": "Ansal Properties & Infrastructure Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 72.95511948707986,
       "close_price": 4.18,
@@ -39,7 +39,7 @@
     },
     {
       "ticker": "FEL.NS",
-      "company": null,
+      "company": "Future Enterprises Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 71.48972602739725,
       "close_price": 0.45,
@@ -48,7 +48,7 @@
     },
     {
       "ticker": "ESSENTIA.NS",
-      "company": null,
+      "company": "Integra Essentia Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 71.48972602739725,
       "close_price": 1.63,
@@ -57,7 +57,7 @@
     },
     {
       "ticker": "UFBL.NS",
-      "company": null,
+      "company": "UNITED FOODBRANDS LIMITED",
       "predicted_signal": "Buy",
       "confidence_percentage": 71.1282410651717,
       "close_price": 475.25,
@@ -66,7 +66,7 @@
     },
     {
       "ticker": "GATECH.NS",
-      "company": null,
+      "company": "GACM Technologies Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 70.85545722713864,
       "close_price": 0.51,
@@ -75,7 +75,7 @@
     },
     {
       "ticker": "AKSHAR.NS",
-      "company": null,
+      "company": "Akshar Spintex Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 68.97310513447434,
       "close_price": 0.49,
@@ -84,7 +84,7 @@
     },
     {
       "ticker": "ANTGRAPHIC.NS",
-      "company": null,
+      "company": "Antarctica Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 68.97310513447434,
       "close_price": 0.84,
@@ -93,7 +93,7 @@
     },
     {
       "ticker": "GTLINFRA.NS",
-      "company": null,
+      "company": "GTL Infrastructure Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 68.97310513447434,
       "close_price": 1.31,
@@ -102,7 +102,7 @@
     },
     {
       "ticker": "HAVISHA.NS",
-      "company": null,
+      "company": "Sri Havisha Hospitality and Infrastructure Limited",
       "predicted_signal": "Sell",
       "confidence_percentage": 68.97310513447434,
       "close_price": 1.55,
