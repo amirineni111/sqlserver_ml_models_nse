@@ -87,7 +87,7 @@ echo.
 if %RETRAIN_RESULT%==0 (
     echo Testing retrained NSE models...
     :: Import retrain module first so IsotonicCalibratedModel class is available for joblib.load
-    python -c "import sys; sys.path.insert(0,'.'); import retrain_nse_model_v2; import joblib, json; m=joblib.load('data/nse_models/nse_gb_model_v2.joblib'); f=json.load(open('data/nse_models/selected_features_v2.json')); print('[SUCCESS] Model loaded:', type(m).__name__); print('[SUCCESS] Features:', len(f))"
+    python -c "import sys; sys.path.insert(0,'.'); from nse_model_classes import IsotonicCalibratedModel, SigmoidCalibratedModel; import joblib, json; m=joblib.load('data/nse_models/nse_gb_model_v2.joblib'); f=json.load(open('data/nse_models/selected_features_v2.json')); print('[SUCCESS] Model loaded:', type(m).__name__); print('[SUCCESS] Features:', len(f))"
     set TEST_RESULT=!errorlevel!
 ) else (
     set TEST_RESULT=1
