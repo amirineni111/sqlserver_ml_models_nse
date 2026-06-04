@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-18
+[TIME] Report Generated (EST): 2026-05-18 16:55:27
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-18
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2055
+[BUY] Buy Signals: 215
+[SELL] Sell Signals: 1840
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 88
+[DATA] Medium Confidence: 288
+[LOW] Low Confidence: 1679
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.87
+[DATA] Average RSI: 43.5
+[COMPANY] Stocks Processed: 2055
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] KSHITIJPOL.NS: Sell (87.6%) - INR 3.74 [GradientBoosting_V2_Calibrated]
+[SELL] CYBERMEDIA.NS: Sell (83.9%) - INR 17.56 [GradientBoosting_V2_Calibrated]
+[SELL] EMAMIREAL.NS: Sell (83.9%) - INR 93.30 [GradientBoosting_V2_Calibrated]
+[SELL] SEMAC.NS: Sell (83.9%) - INR 371.15 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (83.8%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] COMPINFO.NS: Sell (83.8%) - INR 1.33 [GradientBoosting_V2_Calibrated]
+[SELL] ESSENTIA.NS: Sell (83.8%) - INR 1.63 [GradientBoosting_V2_Calibrated]
+[SELL] GATECH.NS: Sell (83.8%) - INR 0.52 [GradientBoosting_V2_Calibrated]
+[SELL] ANTGRAPHIC.NS: Sell (82.8%) - INR 0.85 [GradientBoosting_V2_Calibrated]
+[SELL] MEP.NS: Sell (82.8%) - INR 1.01 [GradientBoosting_V2_Calibrated]

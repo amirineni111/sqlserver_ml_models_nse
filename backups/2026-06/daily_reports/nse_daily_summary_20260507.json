@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-07",
+  "generated_at": "2026-05-07T16:49:46.839609",
+  "summary": {
+    "analysis_date": "2026-05-07",
+    "total_predictions": 2059,
+    "total_buy_signals": 0,
+    "total_sell_signals": 2059,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2035,
+    "medium_confidence_count": 23,
+    "low_confidence_count": 1,
+    "avg_confidence": 78.44116362745903,
+    "avg_rsi": 58.74997705796573,
+    "total_stocks_processed": 2059,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-07 16:49:46.213000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 22.91,
+      "rsi": 96.04043807919123,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OMAXAUTO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 226.65,
+      "rsi": 94.62033043053633,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BANARISUG.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 3685.7,
+      "rsi": 54.852761805192536,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 69.96,
+      "rsi": 77.40655669242012,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RAYMONDREL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.83892394553305,
+      "close_price": 635.2,
+      "rsi": 83.51627906976745,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ABLBL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 118.21,
+      "rsi": 70.41707080504361,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AEROFLEX.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 413.6,
+      "rsi": 76.1624537470465,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AJMERA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 133.94,
+      "rsi": 62.46801251066249,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "APOLLOPIPE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 498.8,
+      "rsi": 64.40281030444964,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ARVIND.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.08762886597938,
+      "close_price": 447.9,
+      "rsi": 80.29937228392079,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

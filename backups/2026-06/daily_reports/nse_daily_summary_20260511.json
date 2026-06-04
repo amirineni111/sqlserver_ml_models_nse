@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-11",
+  "generated_at": "2026-05-11T16:53:52.694468",
+  "summary": {
+    "analysis_date": "2026-05-11",
+    "total_predictions": 2060,
+    "total_buy_signals": 38,
+    "total_sell_signals": 2022,
+    "total_hold_signals": 0,
+    "high_confidence_count": 79,
+    "medium_confidence_count": 473,
+    "low_confidence_count": 1508,
+    "avg_confidence": 57.66689332202002,
+    "avg_rsi": 54.45261111843212,
+    "total_stocks_processed": 2060,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-11 16:53:50.723000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "OMAXAUTO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.68853640951694,
+      "close_price": 229.81,
+      "rsi": 92.69904931669637,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.91304347826087,
+      "close_price": 25.25,
+      "rsi": 96.59173313995649,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TPHQ.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 0.57,
+      "rsi": 45.454545454545446,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SUNDARAM.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.21943048576215,
+      "close_price": 1.43,
+      "rsi": 42.30769230769231,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GAYAHWS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 2.41,
+      "rsi": 35.78947368421052,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GLOBE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 2.48,
+      "rsi": 47.826086956521735,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IL&FSTRANS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 2.51,
+      "rsi": 44.11764705882353,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NAVKARURB.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 0.84,
+      "rsi": 40.74074074074073,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NDL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 2.79,
+      "rsi": 39.4736842105263,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PREMIER.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 2.98,
+      "rsi": 46.42857142857143,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

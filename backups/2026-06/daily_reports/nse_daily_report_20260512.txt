@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-12
+[TIME] Report Generated (EST): 2026-05-12 16:56:30
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-12
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2057
+[BUY] Buy Signals: 1466
+[SELL] Sell Signals: 591
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 22
+[DATA] Medium Confidence: 673
+[LOW] Low Confidence: 1362
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.12
+[DATA] Average RSI: 47.5
+[COMPANY] Stocks Processed: 2057
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] LTM.NS: Buy (84.6%) - INR 4143.80 [GradientBoosting_V2_Calibrated]
+[BUY] MUTHOOTFIN.NS: Buy (74.6%) - INR 3353.40 [GradientBoosting_V2_Calibrated]
+[SELL] CALSOFT.NS: Sell (74.3%) - INR 26.51 [GradientBoosting_V2_Calibrated]
+[SELL] KRIDHANINF.NS: Sell (73.0%) - INR 3.28 [GradientBoosting_V2_Calibrated]
+[SELL] SADHNANIQ.NS: Sell (73.0%) - INR 2.58 [GradientBoosting_V2_Calibrated]
+[SELL] ANKITMETAL.NS: Sell (71.5%) - INR 1.64 [GradientBoosting_V2_Calibrated]
+[BUY] JSWHL.NS: Buy (71.1%) - INR 12339.00 [GradientBoosting_V2_Calibrated]
+[BUY] TVSSRICHAK.NS: Buy (71.1%) - INR 3722.30 [GradientBoosting_V2_Calibrated]
+[BUY] TVSHLTD.NS: Buy (71.0%) - INR 13996.00 [GradientBoosting_V2_Calibrated]
+[SELL] GLOBE.NS: Sell (70.9%) - INR 2.49 [GradientBoosting_V2_Calibrated]

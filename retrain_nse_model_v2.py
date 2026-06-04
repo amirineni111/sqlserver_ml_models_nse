@@ -473,6 +473,15 @@ def merge_market_context(conn, df):
         for col in return_cols:
             if col in df.columns:
                 df[col] = df[col].fillna(0)
+
+        # Convert market returns from percentage to fraction to match pct_change() output.
+        # market_context_daily stores returns as pct (0.43 = +0.43%).
+        # Stock returns from pct_change() are fractions (0.0043 = +0.43%).
+        # Without this, stock_return_vs_nifty is dominated by NIFTY sign (100x too large),
+        # making the model predict purely based on market direction, not individual stocks.
+        for col in return_cols:
+            if col in df.columns:
+                df[col] = df[col] / 100.0
         
         # Market regime features computed from stock data (no extra DB query needed).
         # adv_decline_ratio: advancing stocks / declining stocks per date.

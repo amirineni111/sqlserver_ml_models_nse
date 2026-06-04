@@ -380,7 +380,9 @@ def run_sentiment_collection():
         else:
             logging.warning(f"[WARN] Sentiment collection returned code: {result.returncode}")
             if result.stderr:
-                logging.warning(f"Error: {result.stderr[-300:]}")
+                logging.warning(f"Stderr: {result.stderr[-300:]}")
+            if result.stdout:
+                logging.warning(f"Stdout (last 500 chars): {result.stdout[-500:]}")
             return False
         
     except subprocess.TimeoutExpired:
@@ -422,7 +424,9 @@ def run_nse_predictions(target_date=None):
         else:
             logging.error(f"[ERROR] NSE predictions failed with return code: {result.returncode}")
             if result.stderr:
-                logging.error(f"Error output: {result.stderr[-500:]}")
+                logging.error(f"Stderr: {result.stderr[-500:]}")
+            if result.stdout:
+                logging.error(f"Stdout (last 1000 chars): {result.stdout[-1000:]}")
             return False
         
     except subprocess.TimeoutExpired:

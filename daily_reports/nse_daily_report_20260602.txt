@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-02
+[TIME] Report Generated (EST): 2026-06-03 16:55:15
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-02
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1914
+[BUY] Buy Signals: 727
+[SELL] Sell Signals: 1187
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 131
+[DATA] Medium Confidence: 315
+[LOW] Low Confidence: 1468
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 90.90
+[DATA] Average RSI: 50.3
+[COMPANY] Stocks Processed: 1914
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] GTECJAINX.NS: Sell (100.0%) - INR 24.02 [GradientBoosting_V2_Calibrated]
+[SELL] MODISONLTD.NS: Sell (100.0%) - INR 313.70 [GradientBoosting_V2_Calibrated]
+[SELL] NIITLTD.NS: Sell (100.0%) - INR 89.59 [GradientBoosting_V2_Calibrated]
+[SELL] EQUIPPP.NS: Sell (96.8%) - INR 17.83 [GradientBoosting_V2_Calibrated]
+[SELL] FCL.NS: Sell (96.8%) - INR 42.36 [GradientBoosting_V2_Calibrated]
+[SELL] GOLDENTOBC.NS: Sell (96.8%) - INR 24.50 [GradientBoosting_V2_Calibrated]
+[SELL] HCL-INSYS.NS: Sell (96.8%) - INR 13.48 [GradientBoosting_V2_Calibrated]
+[SELL] JARO.NS: Sell (96.8%) - INR 576.00 [GradientBoosting_V2_Calibrated]
+[SELL] NSLNISP.NS: Sell (96.8%) - INR 52.55 [GradientBoosting_V2_Calibrated]
+[SELL] OCCLLTD.NS: Sell (96.8%) - INR 113.17 [GradientBoosting_V2_Calibrated]
