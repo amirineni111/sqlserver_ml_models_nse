@@ -137,7 +137,7 @@ Configure your SQL Server connection in `.env` file:
 SQL_SERVER=192.168.86.55\MSSQLSERVER01
 SQL_DATABASE=stockdata_db
 SQL_USERNAME=remote_user
-SQL_PASSWORD=YourStrongPassword123!
+SQL_PASSWORD=<YOUR_PASSWORD>
 SQL_TRUSTED_CONNECTION=no
 ```
 

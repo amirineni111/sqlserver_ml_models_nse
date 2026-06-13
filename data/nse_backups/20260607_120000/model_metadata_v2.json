@@ -1,21 +1,21 @@
 {
-  "timestamp": "20260612_201620",
+  "timestamp": "20260605_170453",
   "model_type": "GradientBoostingClassifier",
   "calibration": "isotonic",
   "n_features": 20,
   "top_features": [
-    "india_vix_vs_60d",
     "sp500_vs_200d",
     "nifty50_vs_200d",
+    "india_vix_vs_60d",
     "price_to_sma20",
     "bb_position",
+    "bb_upper",
     "return_5d",
-    "atr_pct",
-    "stochastic_k",
-    "price_to_high_20d",
+    "sma_20",
+    "bb_middle",
     "return_10d"
   ],
-  "data_range": "2024-06-01 to 2026-06-02",
+  "data_range": "2024-06-01 to 2026-05-26",
   "hyperparameters": {
     "n_estimators": 200,
     "max_depth": 5,
@@ -26,12 +26,6 @@
     "random_state": 42,
     "verbose": 1
   },
-  "test_accuracy": 0.5395,
-  "test_f1": 0.5227,
-  "split": {
-    "train_range": "2024-06-03 to 2025-08-05",
-    "cal_range": "2025-08-13 to 2025-12-29",
-    "test_range": "2026-01-06 to 2026-05-25",
-    "embargo_days": 5
-  }
+  "test_accuracy": 0.6998,
+  "test_f1": 0.6989
 }

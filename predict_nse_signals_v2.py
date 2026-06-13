@@ -25,6 +25,9 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
 warnings.filterwarnings('ignore')
 
 # ============================================================================
@@ -44,7 +47,7 @@ class Config:
     SQL_SERVER = os.getenv('SQL_SERVER', '192.168.86.28\\MSSQLSERVER01')
     SQL_DATABASE = os.getenv('SQL_DATABASE', 'stockdata_db')
     SQL_USERNAME = os.getenv('SQL_USERNAME', 'remote_user')
-    SQL_PASSWORD = os.getenv('SQL_PASSWORD', 'YourStrongPassword123!')
+    SQL_PASSWORD = os.getenv('SQL_PASSWORD')  # No default: must come from .env (never hardcode)
     SQL_DRIVER = os.getenv('SQL_DRIVER', 'ODBC Driver 17 for SQL Server')
     
     # Model paths (V2)
@@ -66,6 +69,9 @@ class Config:
 
 def get_db_connection():
     """Get SQL Server connection"""
+    if not Config.SQL_PASSWORD:
+        print("[ERROR] SQL_PASSWORD is not set. Add it to the .env file (see .env.example).")
+        sys.exit(1)
     try:
         conn_str = (
             f"DRIVER={{{Config.SQL_DRIVER}}};"
@@ -215,7 +221,20 @@ def calculate_technical_indicators(df):
         ticker_df['low_20d'] = ticker_df['low_price'].rolling(20).min()
         ticker_df['breakout_high'] = (ticker_df['close_price'] >= ticker_df['high_20d'].shift(1)).astype(int)
         ticker_df['breakout_low'] = (ticker_df['close_price'] <= ticker_df['low_20d'].shift(1)).astype(int)
-        
+
+        # Stationary ratio variants of absolute price/volume levels
+        # (must match retrain_nse_model_v2.py exactly -- the raw levels are
+        # excluded from model features there but still saved to the
+        # ml_nse_technical_indicators table below)
+        ticker_df['price_to_sma200'] = ticker_df['close_price'] / ticker_df['sma_200']
+        ticker_df['price_to_high_20d'] = ticker_df['close_price'] / ticker_df['high_20d']
+        ticker_df['price_to_low_20d'] = ticker_df['close_price'] / ticker_df['low_20d']
+        ticker_df['bb_width_pct'] = (ticker_df['bb_upper'] - ticker_df['bb_lower']) / ticker_df['bb_middle']
+        ticker_df['macd_normalized'] = ticker_df['macd'] / ticker_df['close_price']
+        ticker_df['macd_hist_normalized'] = ticker_df['macd_histogram'] / ticker_df['close_price']
+        obv_std = ticker_df['obv'].rolling(50, min_periods=10).std()
+        ticker_df['obv_divergence'] = ((ticker_df['obv'] - ticker_df['obv_ema']) / obv_std).clip(-5, 5)
+
         # === Additional indicators for ml_nse_technical_indicators table ===
         ticker_df['sma_5'] = ticker_df['close_price'].rolling(5).mean()
         ticker_df['sma_10'] = ticker_df['close_price'].rolling(10).mean()
@@ -380,7 +399,14 @@ def merge_market_context(conn, df):
             df_context['india_vix_close'] /
             df_context['india_vix_close'].rolling(60, min_periods=10).mean()
         ).clip(0.5, 3.0)
-        
+
+        # Short-horizon VIX spike ratio, computed per-date on market context
+        # (used by quality_in_volatility -- must match retrain script exactly)
+        df_context['vix_vs_20d'] = (
+            df_context['vix_close'] /
+            df_context['vix_close'].rolling(20, min_periods=5).mean()
+        ).clip(0.5, 3.0)
+
         df_context['nifty50_vs_200d'] = (
             df_context['nifty50_close'] /
             df_context['nifty50_close'].rolling(200, min_periods=20).mean()
@@ -467,7 +493,12 @@ def add_market_neutral_features(df):
     # 1. Relative performance vs NIFTY 50
     if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
         df['stock_return_vs_nifty'] = df['return_1d'] - df['nifty50_return_1d']
-        df['stock_return_vs_nifty_5d'] = df['return_5d'] - (df['nifty50_return_1d'].rolling(5).sum())
+        # Use the per-date NIFTY 5d return merged from market context -- a raw
+        # rolling() here would cross ticker boundaries in the stacked frame.
+        if 'nifty50_return_5d' in df.columns:
+            df['stock_return_vs_nifty_5d'] = df['return_5d'] - df['nifty50_return_5d']
+        else:
+            df['stock_return_vs_nifty_5d'] = 0
     else:
         df['stock_return_vs_nifty'] = 0
         df['stock_return_vs_nifty_5d'] = 0
@@ -535,9 +566,9 @@ def add_market_neutral_features(df):
     
     # 6. Price momentum relative to sector
     if 'sector' in df.columns:
-        sector_momentum = df.groupby(['trading_date', 'sector'])['close_price'].transform(
-            lambda x: x.pct_change(10)
-        )
+        # Sector-average 10-day return per date. (The old pct_change(10) inside
+        # a (date, sector) group compared prices ACROSS tickers -- pure noise.)
+        sector_momentum = df.groupby(['trading_date', 'sector'])['return_10d'].transform('mean')
         df['momentum_vs_sector'] = df['return_10d'] - sector_momentum
     else:
         df['momentum_vs_sector'] = 0
@@ -604,10 +635,9 @@ def add_interaction_features(df):
         df['contrarian_strength'] = 0
     
     # 7. QUALITY IN CHAOS
-    if 'rsi_vs_sector_avg' in df.columns and 'vix_close' in df.columns:
-        vix_20d_avg = df['vix_close'].rolling(20, min_periods=5).mean()
-        vix_spike = (df['vix_close'] / vix_20d_avg).fillna(1.0)
-        df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * vix_spike
+    if 'rsi_vs_sector_avg' in df.columns and 'vix_vs_20d' in df.columns:
+        # vix_vs_20d is computed per-date on market context in merge_market_context()
+        df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * df['vix_vs_20d']
         df['quality_in_volatility'] = df['quality_in_volatility'].clip(-3, 3)
     else:
         df['quality_in_volatility'] = 0
@@ -638,7 +668,9 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
         for f in missing_features:
             df[f] = 0
     
-    X = df[selected_features].fillna(0)
+    # Replace inf (e.g. ratio features with a zero denominator) before filling,
+    # mirroring the training-side cleaning
+    X = df[selected_features].replace([np.inf, -np.inf], np.nan).fillna(0)
     
     # Scale features
     X_scaled = scaler.transform(X)
@@ -679,18 +711,23 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     avg_buy_prob = predictions['buy_probability'].mean()
     if avg_buy_prob >= 0.45:
         # Normal/bull market: use standard 50% threshold
-        buy_threshold = 0.50
         threshold_mode = "absolute (50%)"
+        predictions['predicted_signal'] = np.where(
+            predictions['buy_probability'] >= 0.50,
+            'Buy',
+            'Sell'
+        )
     else:
-        # Bear market: use relative threshold -- top 30% by buy probability
-        buy_threshold = float(predictions['buy_probability'].quantile(0.70))
-        threshold_mode = f"relative (top 30%, threshold={buy_threshold:.3f})"
+        # Bear market: select the EXACT top 30% by buy probability.
+        # Isotonic calibration produces many TIED probabilities, so a quantile
+        # threshold with >= can sweep in the whole tie cluster (observed:
+        # "top 30%" rule yielding 82% Buy). nlargest gives an exact count.
+        n_buy = int(len(predictions) * 0.30)
+        buy_idx = predictions['buy_probability'].nlargest(n_buy).index
+        threshold_mode = f"relative (top 30% = {n_buy} stocks)"
+        predictions['predicted_signal'] = 'Sell'
+        predictions.loc[buy_idx, 'predicted_signal'] = 'Buy'
     print(f"[INFO] Signal threshold mode: {threshold_mode}")
-    predictions['predicted_signal'] = np.where(
-        predictions['buy_probability'] >= buy_threshold,
-        'Buy',
-        'Sell'
-    )
 
     # Confidence
     predictions['confidence_percentage'] = np.maximum(
@@ -700,8 +737,10 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     
     # Signal strength: percentile rank within this day's predictions
     # top 5% = High (~100 signals/day), next 20% = Medium, rest = Low
-    # Guarantees consistent counts regardless of absolute confidence level
-    conf_rank = predictions['confidence_percentage'].rank(pct=True)
+    # Guarantees consistent counts regardless of absolute confidence level.
+    # method='first' breaks the heavy ties produced by isotonic calibration --
+    # average ranks let a tie cluster skip an entire band (observed: 0 Medium).
+    conf_rank = predictions['confidence_percentage'].rank(pct=True, method='first')
     predictions['signal_strength'] = np.where(
         conf_rank >= 0.95,
         'High',

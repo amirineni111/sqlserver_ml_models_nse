@@ -61,10 +61,12 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # ML libraries
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     classification_report, confusion_matrix
@@ -84,7 +86,7 @@ class Config:
     SQL_SERVER = os.getenv('SQL_SERVER', '192.168.86.28\\MSSQLSERVER01')
     SQL_DATABASE = os.getenv('SQL_DATABASE', 'stockdata_db')
     SQL_USERNAME = os.getenv('SQL_USERNAME', 'remote_user')
-    SQL_PASSWORD = os.getenv('SQL_PASSWORD', 'YourStrongPassword123!')
+    SQL_PASSWORD = os.getenv('SQL_PASSWORD')  # No default: must come from .env (never hardcode)
     SQL_DRIVER = os.getenv('SQL_DRIVER', 'ODBC Driver 17 for SQL Server')
     
     # Model paths
@@ -130,7 +132,7 @@ class Config:
     
     # Penny stock / investability filter
     MIN_STOCK_PRICE = 10.0  # Exclude stocks below INR10 (penny/micro-cap)
-    
+
     # Calibration method
     CALIBRATION_METHOD = 'isotonic'  # NASDAQ uses isotonic calibration
     
@@ -156,6 +158,9 @@ from nse_model_classes import IsotonicCalibratedModel, SigmoidCalibratedModel  #
 
 def get_db_connection():
     """Get SQL Server connection"""
+    if not Config.SQL_PASSWORD:
+        print("[ERROR] SQL_PASSWORD is not set. Add it to the .env file (see .env.example).")
+        sys.exit(1)
     try:
         conn_str = (
             f"DRIVER={{{Config.SQL_DRIVER}}};"
@@ -182,6 +187,40 @@ FUTURE_LEAK_FEATURES = [
     'direction', 'direction_3d',  # Derived from future data
     'next_close', 'next_3d_close', 'next_5d_close',  # Future prices
 ]
+
+# Absolute market price LEVELS are non-stationary and cause distribution shift
+# (model memorises price ranges from the training period). Use only the
+# stationary ratio-to-MA variants (vix_vs_60d, nifty50_vs_200d, etc.)
+NON_STATIONARY_MARKET_LEVELS = [
+    'vix_close',          # -> use vix_vs_60d / vix_vs_20d
+    'india_vix_close',    # -> use india_vix_vs_60d
+    'nifty50_close',      # -> use nifty50_vs_200d
+    'sp500_close',        # -> use sp500_vs_200d
+    'dxy_close',          # -> use dxy_vs_60d
+    'us_10y_yield_close', # -> use us10y_vs_60d
+]
+
+# Absolute per-STOCK price/volume levels: same non-stationarity problem as the
+# market levels above, but cross-sectional too (feature range depends on the
+# stock's price). Each has a stationary ratio variant computed in
+# calculate_technical_indicators().
+NON_STATIONARY_STOCK_LEVELS = [
+    'sma_20', 'sma_50', 'sma_200',        # -> price_to_sma20/50/200
+    'ema_12', 'ema_26',                   # -> captured by macd_normalized
+    'bb_middle', 'bb_upper', 'bb_lower',  # -> bb_position, bb_width_pct
+    'atr',                                # -> atr_pct
+    'high_20d', 'low_20d',                # -> price_to_high_20d/low_20d, breakout_high/low
+    'pivot', 'resistance_1', 'support_1', # -> sr_pivot_position
+    'obv', 'obv_ema',                     # -> obv_divergence
+    'macd', 'macd_signal', 'macd_histogram',  # -> macd_normalized, macd_hist_normalized
+]
+
+# Non-feature columns shared by training and the walk-forward harness
+EXCLUDE_COLS = [
+    'trading_date', 'ticker', 'direction_5d',
+    'sector', 'industry', 'market_cap_category',
+    'open_price', 'high_price', 'low_price', 'close_price', 'volume'
+] + FUTURE_LEAK_FEATURES + NON_STATIONARY_MARKET_LEVELS + NON_STATIONARY_STOCK_LEVELS
 
 def load_training_data(conn):
     """
@@ -281,14 +320,21 @@ def load_training_data(conn):
     print("[INFO] Calculating interaction features...")
     df = add_interaction_features(df)
     
+    # Remove rows without a future return BEFORE labeling.
+    # np.where(NaN > 0, ...) evaluates False, so unlabeled rows would silently
+    # be tagged 'Down' -- the last 5 days per ticker must be dropped here.
+    initial_rows = len(df)
+    df = df[df['next_5d_return'].notna()].copy()
+    print(f"[INFO] Removed {initial_rows - len(df):,} unlabeled rows (last 5 days per ticker)")
+
+    # NOTE (Jun 12, 2026): a +/-1% label deadband was tried here and REVERTED.
+    # Walk-forward mean accuracy dropped 55.6% -> 50.9% and prediction
+    # distributions became erratic (99.8% Up in one fold). Do not re-add
+    # without walk-forward evidence.
+
     # Create target variable (following NASDAQ's approach)
     print("[INFO] Creating target variable...")
     df = create_target_variable(df)
-    
-    # Remove rows without target (last 5 days for each ticker)
-    initial_rows = len(df)
-    df = df[df['direction_5d'].notna()].copy()
-    print(f"[INFO] Removed {initial_rows - len(df):,} rows without target (last 5 days per ticker)")
     
     return df
 
@@ -379,7 +425,21 @@ def calculate_technical_indicators(df):
         ticker_df['low_20d'] = ticker_df['low_price'].rolling(20).min()
         ticker_df['breakout_high'] = (ticker_df['close_price'] >= ticker_df['high_20d'].shift(1)).astype(int)
         ticker_df['breakout_low'] = (ticker_df['close_price'] <= ticker_df['low_20d'].shift(1)).astype(int)
-        
+
+        # Stationary ratio variants of absolute price/volume levels. The raw
+        # levels (sma_20, bb_middle, high_20d, obv, raw macd, ...) are excluded
+        # from model features via NON_STATIONARY_STOCK_LEVELS: a INR 5,000
+        # stock and a INR 50 stock would otherwise occupy different feature
+        # ranges that the model memorises instead of learning patterns.
+        ticker_df['price_to_sma200'] = ticker_df['close_price'] / ticker_df['sma_200']
+        ticker_df['price_to_high_20d'] = ticker_df['close_price'] / ticker_df['high_20d']
+        ticker_df['price_to_low_20d'] = ticker_df['close_price'] / ticker_df['low_20d']
+        ticker_df['bb_width_pct'] = (ticker_df['bb_upper'] - ticker_df['bb_lower']) / ticker_df['bb_middle']
+        ticker_df['macd_normalized'] = ticker_df['macd'] / ticker_df['close_price']
+        ticker_df['macd_hist_normalized'] = ticker_df['macd_histogram'] / ticker_df['close_price']
+        obv_std = ticker_df['obv'].rolling(50, min_periods=10).std()
+        ticker_df['obv_divergence'] = ((ticker_df['obv'] - ticker_df['obv_ema']) / obv_std).clip(-5, 5)
+
         results.append(ticker_df)
     
     df = pd.concat(results, ignore_index=True)
@@ -429,7 +489,15 @@ def merge_market_context(conn, df):
             df_context['india_vix_close'] /
             df_context['india_vix_close'].rolling(60, min_periods=10).mean()
         ).fillna(1.0).clip(0.5, 3.0)
-        
+
+        # Short-horizon VIX spike ratio, computed per-date on market context
+        # (used by quality_in_volatility -- a rolling() over the stacked
+        # multi-ticker frame would cross ticker boundaries)
+        df_context['vix_vs_20d'] = (
+            df_context['vix_close'] /
+            df_context['vix_close'].rolling(20, min_periods=5).mean()
+        ).fillna(1.0).clip(0.5, 3.0)
+
         df_context['nifty50_vs_200d'] = (
             df_context['nifty50_close'] /
             df_context['nifty50_close'].rolling(200, min_periods=20).mean()
@@ -502,7 +570,7 @@ def merge_market_context(conn, df):
                 df = df.merge(breadth_df, on=['trading_date', 'sector'], how='left')
                 df['sector_breadth_score'] = df['sector_breadth_score'].fillna(0.5)
         
-        normalized_added = ['vix_vs_60d', 'india_vix_vs_60d', 'nifty50_vs_200d',
+        normalized_added = ['vix_vs_60d', 'vix_vs_20d', 'india_vix_vs_60d', 'nifty50_vs_200d',
                             'sp500_vs_200d', 'dxy_vs_60d', 'us10y_vs_60d',
                             'nifty50_return_5d', 'adv_decline_ratio', 'sector_breadth_score']
         print(f"[SUCCESS] Merged {len(market_cols)} market context features")
@@ -538,7 +606,12 @@ def add_market_neutral_features(df):
     # 1. Relative performance vs NIFTY 50
     if 'nifty50_return_1d' in df.columns and 'return_1d' in df.columns:
         df['stock_return_vs_nifty'] = df['return_1d'] - df['nifty50_return_1d']
-        df['stock_return_vs_nifty_5d'] = df['return_5d'] - (df['nifty50_return_1d'].rolling(5).sum())
+        # Use the per-date NIFTY 5d return merged from market context -- a raw
+        # rolling() here would cross ticker boundaries in the stacked frame.
+        if 'nifty50_return_5d' in df.columns:
+            df['stock_return_vs_nifty_5d'] = df['return_5d'] - df['nifty50_return_5d']
+        else:
+            df['stock_return_vs_nifty_5d'] = 0
         print("  [OK] Added stock_return_vs_nifty (outperformance metric)")
     else:
         df['stock_return_vs_nifty'] = 0
@@ -621,10 +694,9 @@ def add_market_neutral_features(df):
     
     # 6. Price momentum relative to sector
     if 'sector' in df.columns:
-        # Calculate sector average price changes
-        sector_momentum = df.groupby(['trading_date', 'sector'])['close_price'].transform(
-            lambda x: x.pct_change(10)
-        )
+        # Sector-average 10-day return per date. (The old pct_change(10) inside
+        # a (date, sector) group compared prices ACROSS tickers -- pure noise.)
+        sector_momentum = df.groupby(['trading_date', 'sector'])['return_10d'].transform('mean')
         df['momentum_vs_sector'] = df['return_10d'] - sector_momentum
         print("  [OK] Added momentum_vs_sector (10-day relative momentum)")
     else:
@@ -741,13 +813,9 @@ def add_interaction_features(df):
     
     # 7. QUALITY IN CHAOS
     # Relative strength during volatility spikes
-    if 'rsi_vs_sector_avg' in df.columns and 'vix_close' in df.columns:
-        # Calculate VIX percentile (how elevated is current VIX?)
-        vix_20d_avg = df['vix_close'].rolling(20, min_periods=5).mean()
-        vix_spike = (df['vix_close'] / vix_20d_avg).fillna(1.0)
-        
-        # RSI strength during VIX spikes = quality in chaos
-        df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * vix_spike
+    if 'rsi_vs_sector_avg' in df.columns and 'vix_vs_20d' in df.columns:
+        # vix_vs_20d is computed per-date on market context in merge_market_context()
+        df['quality_in_volatility'] = (df['rsi_vs_sector_avg'] / 20) * df['vix_vs_20d']
         df['quality_in_volatility'] = df['quality_in_volatility'].clip(-3, 3)
         print("  [OK] Added quality-in-volatility (strength during market stress)")
     else:
@@ -972,7 +1040,7 @@ def select_features(X, y):
 # Model Training (NASDAQ's Proven Architecture)
 # ============================================================================
 
-def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test):
+def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None):
     """
     Train Gradient Boosting model with calibration
     
@@ -989,8 +1057,15 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test):
     print("[INFO] Calculating sample weights...")
     class_weights = compute_sample_weight('balanced', y_train)
     
-    # Time-based weighting (recent data more important)
-    positions = np.arange(len(y_train)) / len(y_train)
+    # Time-based weighting (recent data more important).
+    # Use the date rank, not the row index: many rows share one date, and row
+    # order is only chronological after the explicit sort in main() -- the raw
+    # SQL order is by ticker, which would weight alphabetically-later tickers.
+    if train_dates is not None:
+        date_rank = pd.Series(train_dates).rank(method='dense').to_numpy()
+        positions = (date_rank - 1) / max(date_rank.max() - 1, 1)
+    else:
+        positions = np.arange(len(y_train)) / len(y_train)
     time_weights = np.exp(1.2 * (positions - 1))
     time_weights = time_weights / time_weights.sum() * len(time_weights)
     
@@ -1102,7 +1177,7 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test):
 # Model Persistence
 # ============================================================================
 
-def save_model_artifacts(model, base_model, scaler, encoder, selected_features, importances):
+def save_model_artifacts(model, base_model, scaler, encoder, selected_features, importances, test_results=None, split_info=None):
     """Save all model artifacts"""
     print("\n" + "="*80)
     print("STEP 4: SAVING MODEL ARTIFACTS")
@@ -1142,8 +1217,13 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
         'n_features': len(selected_features),
         'top_features': selected_features[:10],
         'data_range': f"{Config.DATA_START_DATE} to {Config.DATA_END_DATE}",
-        'hyperparameters': Config.GB_PARAMS
+        'hyperparameters': Config.GB_PARAMS,
     }
+    if test_results:
+        metadata['test_accuracy'] = round(test_results.get('accuracy', 0), 4)
+        metadata['test_f1'] = round(test_results.get('f1', 0), 4)
+    if split_info:
+        metadata['split'] = split_info
     
     metadata_file = Config.MODELS_DIR / 'model_metadata_v2.json'
     with open(metadata_file, 'w') as f:
@@ -1295,24 +1375,10 @@ def main():
         print("PREPARING FEATURES AND TARGET")
         print("="*80)
         
-        # Exclude non-feature columns
-        # CRITICAL: Exclude absolute market price LEVELS -- they are non-stationary
-        # and cause distribution shift (model memorises price ranges from training period).
-        # Use only the stationary ratio-to-MA variants (vix_vs_60d, nifty50_vs_200d, etc.)
-        NON_STATIONARY_MARKET_LEVELS = [
-            'vix_close',          # -> use vix_vs_60d
-            'india_vix_close',    # -> use india_vix_vs_60d
-            'nifty50_close',      # -> use nifty50_vs_200d
-            'sp500_close',        # -> use sp500_vs_200d
-            'dxy_close',          # -> use dxy_vs_60d
-            'us_10y_yield_close', # -> use us10y_vs_60d
-        ]
-        exclude_cols = [
-            'trading_date', 'ticker', 'direction_5d',
-            'sector', 'industry', 'market_cap_category',
-            'open_price', 'high_price', 'low_price', 'close_price', 'volume'
-        ] + FUTURE_LEAK_FEATURES + NON_STATIONARY_MARKET_LEVELS
-        
+        # Exclude non-feature columns (incl. future-leak columns and
+        # non-stationary market levels -- see module-level EXCLUDE_COLS)
+        exclude_cols = EXCLUDE_COLS
+
         feature_cols = [c for c in df.columns if c not in exclude_cols]
         
         print(f"[INFO] Available features: {len(feature_cols)}")
@@ -1326,9 +1392,14 @@ def main():
         else:
             print(f"[SUCCESS] No future-leak features detected")
         
+        # Sort chronologically: the split below is by DATE, and time-decay
+        # weights assume date order (data arrives from SQL ordered by ticker)
+        df = df.sort_values(['trading_date', 'ticker']).reset_index(drop=True)
+
         # Prepare X and y
         X = df[feature_cols].copy()
         y = df['direction_5d'].copy()
+        dates = df['trading_date']
         
         # Replace infinity values with NaN, then fill with 0
         X = X.replace([np.inf, -np.inf], np.nan)
@@ -1344,38 +1415,53 @@ def main():
         for i, label in enumerate(encoder.classes_):
             print(f"  {label} = {i}")
         
-        # Feature selection
-        selected_features, importances = select_features(X, y_encoded)
-        X_selected = X[selected_features]
-        
-        # Split data (60/20/20 like NASDAQ) with STRATIFIED calibration
+        # Split data chronologically by DATE (60/20/20) with a 5-day embargo.
+        # The previous row-count split on ticker-ordered data was effectively a
+        # TICKER split: train and test covered the same dates for different
+        # stocks, leaking market-wide outcomes into training (stocks co-move).
         print("\n" + "="*80)
-        print("SPLITTING DATA (60% Train / 20% Cal / 20% Test)")
+        print("SPLITTING DATA BY DATE (60% Train / 20% Cal / 20% Test, 5-day embargo)")
         print("="*80)
-        
-        # CRITICAL FIX: Use stratified split for calibration set
-        # Time-series split for train/test (oldest 60% = train, newest 40% = test+cal)
-        train_size = int(Config.TRAIN_RATIO * len(X_selected))
-        
-        X_train = X_selected.iloc[:train_size]
-        y_train = y_encoded[:train_size]
-        
-        X_remaining = X_selected.iloc[train_size:]
-        y_remaining = y_encoded[train_size:]
-        
-        # Stratified split of remaining 40% into calibration (50%) and test (50%)
-        # This ensures calibration set is balanced even if recent market is biased
-        X_cal, X_test, y_cal, y_test = train_test_split(
-            X_remaining, y_remaining,
-            test_size=0.5,  # 50% of remaining 40% = 20% of total
-            stratify=y_remaining,  # CRITICAL: Ensure balanced calibration set
-            random_state=42
-        )
-        
+
+        EMBARGO_DAYS = 5  # matches the 5-day label horizon
+        unique_dates = np.sort(dates.unique())
+        n_dates = len(unique_dates)
+        train_end = int(Config.TRAIN_RATIO * n_dates)
+        cal_end = int((Config.TRAIN_RATIO + Config.CAL_RATIO) * n_dates)
+
+        train_dates = unique_dates[:train_end]
+        cal_dates = unique_dates[train_end + EMBARGO_DAYS:cal_end]
+        test_dates = unique_dates[cal_end + EMBARGO_DAYS:]
+
+        train_mask = dates.isin(train_dates).to_numpy()
+        cal_mask = dates.isin(cal_dates).to_numpy()
+        test_mask = dates.isin(test_dates).to_numpy()
+
+        split_info = {
+            'train_range': f"{pd.Timestamp(train_dates[0]).date()} to {pd.Timestamp(train_dates[-1]).date()}",
+            'cal_range': f"{pd.Timestamp(cal_dates[0]).date()} to {pd.Timestamp(cal_dates[-1]).date()}",
+            'test_range': f"{pd.Timestamp(test_dates[0]).date()} to {pd.Timestamp(test_dates[-1]).date()}",
+            'embargo_days': EMBARGO_DAYS,
+        }
+        for k, v in split_info.items():
+            print(f"[INFO] {k}: {v}")
+
+        # Feature selection on the TRAINING partition only (selecting on the
+        # full dataset would let calibration/test labels influence the choice)
+        selected_features, importances = select_features(X[train_mask], y_encoded[train_mask])
+
+        X_train = X.loc[train_mask, selected_features]
+        y_train = y_encoded[train_mask]
+        X_cal = X.loc[cal_mask, selected_features]
+        y_cal = y_encoded[cal_mask]
+        X_test = X.loc[test_mask, selected_features]
+        y_test = y_encoded[test_mask]
+        train_dates_arr = dates.to_numpy()[train_mask]
+
         print(f"[INFO] Training set:    {len(X_train):8,} samples")
-        print(f"[INFO] Calibration set: {len(X_cal):8,} samples (STRATIFIED)")
+        print(f"[INFO] Calibration set: {len(X_cal):8,} samples (middle date block)")
         print(f"[INFO] Test set:        {len(X_test):8,} samples")
-        
+
         # Print calibration set distribution
         unique, counts = np.unique(y_cal, return_counts=True)
         print(f"\n[INFO] Calibration set balance:")
@@ -1383,9 +1469,22 @@ def main():
             cls_name = encoder.classes_[cls]
             pct = count / len(y_cal) * 100
             print(f"  {cls_name}: {count:,} ({pct:.1f}%)")
-        
+
         cal_imbalance = abs(counts[0] - counts[1]) / len(y_cal)
-        if cal_imbalance > 0.10:
+        if cal_imbalance > 0.15:
+            # Downsample the majority class WITHIN the calibration date block
+            # (never mixing in test dates) so isotonic calibration stays unbiased
+            rng = np.random.RandomState(42)
+            idx_by_class = [np.where(y_cal == cls)[0] for cls in unique]
+            n_keep = min(len(idx) for idx in idx_by_class)
+            keep = np.sort(np.concatenate([
+                rng.choice(idx, n_keep, replace=False) for idx in idx_by_class
+            ]))
+            X_cal = X_cal.iloc[keep]
+            y_cal = y_cal[keep]
+            print(f"[INFO] Calibration imbalance was {cal_imbalance:.1%} -- downsampled to "
+                  f"{len(y_cal):,} balanced samples within the calibration window")
+        elif cal_imbalance > 0.10:
             print(f"[WARNING] Calibration imbalance: {cal_imbalance:.1%}")
         else:
             print(f"[SUCCESS] Calibration set is balanced: {cal_imbalance:.1%} imbalance")
@@ -1401,7 +1500,8 @@ def main():
         model, base_model, results = train_model(
             X_train_scaled, y_train,
             X_cal_scaled, y_cal,
-            X_test_scaled, y_test
+            X_test_scaled, y_test,
+            train_dates=train_dates_arr
         )
         
         # * CRITICAL: VALIDATE BEFORE SAVING
@@ -1419,7 +1519,8 @@ def main():
         )
         
         # Only save if validation passed (function exits with code 1 if validation fails)
-        save_model_artifacts(model, base_model, scaler, encoder, selected_features, importances)
+        save_model_artifacts(model, base_model, scaler, encoder, selected_features, importances,
+                             test_results=results.get('Test'), split_info=split_info)
         
         # Final summary
         print("\n" + "="*80)

@@ -213,99 +213,92 @@ def check_nse_data_status():
 def check_model_status():
     """Check NSE model status and determine if retraining is needed."""
     logging.info("[INFO] Checking NSE model status...")
-    
+
     nse_model_dir = Path('data/nse_models')
-    metadata_path = nse_model_dir / 'nse_training_metadata.pkl'
-    
+    model_path = nse_model_dir / 'nse_gb_model_v2.joblib'
+    metadata_path = nse_model_dir / 'model_metadata_v2.json'
+
     needs_retrain = False
     reason = ""
-    
-    # Check if NSE models exist
-    if not metadata_path.exists():
-        logging.warning("=" * 60)
-        logging.warning("[WARN] NO NSE-SPECIFIC MODELS FOUND!")
-        logging.warning("[WARN] The system will fall back to legacy NASDAQ-trained models")
-        logging.warning("[WARN] which produce UNRELIABLE predictions for NSE stocks.")
-        logging.warning("[WARN] NSE retraining will be triggered now.")
-        logging.warning("=" * 60)
+
+    # Check if V2 model exists
+    if not model_path.exists():
+        logging.warning("[WARN] V2 model not found — retraining required.")
         needs_retrain = True
-        reason = "No NSE-specific models found - using NASDAQ models is unreliable"
+        reason = "V2 model file missing"
         return needs_retrain, reason
-    
-    # Load metadata
+
+    # Load V2 metadata
     try:
-        with open(metadata_path, 'rb') as f:
-            metadata = pickle.load(f)
-        
-        training_timestamp = metadata.get('training_timestamp', '')
-        best_clf = metadata.get('best_clf_model', 'Unknown')
-        clf_results = metadata.get('clf_results', {})
-        reg_results = metadata.get('reg_results', {})
-        
+        with open(metadata_path, 'r') as f:
+            metadata = json.load(f)
+
+        training_timestamp = metadata.get('timestamp', '')
+        model_type = metadata.get('model_type', 'Unknown')
+        test_accuracy = metadata.get('test_accuracy', None)
+        f1_score = metadata.get('test_f1', None)
+
         logging.info(f"  [OK] Models found - trained at: {training_timestamp}")
-        logging.info(f"  [OK] Best classifier: {best_clf}")
-        
-        # Check model age
+        logging.info(f"  [OK] Best classifier: {model_type}")
+
+        # Check model age (only retrain if > 14 days — weekly retrain handles routine refresh)
         if training_timestamp:
             try:
                 train_date = datetime.strptime(training_timestamp[:8], '%Y%m%d')
                 model_age_days = (datetime.now() - train_date).days
                 logging.info(f"  [TIME] Model age: {model_age_days} days")
-                
-                if model_age_days > 7:
+                if model_age_days > 14:
                     needs_retrain = True
-                    reason = f"Model is {model_age_days} days old (>7 days)"
+                    reason = f"Model is {model_age_days} days old (>14 days)"
                     logging.warning(f"  [WARN] {reason}")
             except Exception:
                 pass
-        
-        # Check model accuracy from metadata
-        if best_clf in clf_results:
-            accuracy = clf_results[best_clf].get('accuracy', 0)
-            f1 = clf_results[best_clf].get('f1_score', 0)
-            logging.info(f"  [DATA] Best model accuracy: {accuracy:.1%}, F1: {f1:.3f}")
-            
-            if accuracy < 0.52:
+
+        # Check model accuracy from metadata if saved
+        if test_accuracy is not None:
+            f1_str = f", F1: {f1_score:.3f}" if f1_score else ""
+            logging.info(f"  [DATA] Best model accuracy: {test_accuracy:.1%}{f1_str}")
+            if test_accuracy < 0.52:
                 needs_retrain = True
-                reason = f"Model accuracy ({accuracy:.1%}) below threshold (52%)"
+                reason = f"Model accuracy ({test_accuracy:.1%}) below threshold (52%)"
                 logging.warning(f"  [WARN] {reason}")
-        
-        # Check recent prediction accuracy from ai_prediction_history
+
+        # Check recent live prediction accuracy from ai_prediction_history
         try:
             db = SQLServerConnection()
             accuracy_query = """
-            SELECT 
+            SELECT
                 COUNT(*) as total,
                 SUM(CASE WHEN direction_correct = 1 THEN 1 ELSE 0 END) as correct,
-                CAST(SUM(CASE WHEN direction_correct = 1 THEN 1.0 ELSE 0.0 END) / 
+                CAST(SUM(CASE WHEN direction_correct = 1 THEN 1.0 ELSE 0.0 END) /
                      NULLIF(COUNT(*), 0) * 100 AS DECIMAL(5,2)) as accuracy_pct
-            FROM dbo.ai_prediction_history 
+            FROM dbo.ai_prediction_history
             WHERE market = 'NSE 500'
                 AND target_date >= DATEADD(day, -7, CAST(GETDATE() AS DATE))
                 AND actual_price IS NOT NULL
             """
             accuracy_result = db.execute_query(accuracy_query)
-            
+
             if not accuracy_result.empty and accuracy_result.iloc[0]['total'] > 0:
                 live_accuracy = float(accuracy_result.iloc[0]['accuracy_pct'])
                 total = accuracy_result.iloc[0]['total']
                 logging.info(f"  [DATA] Live prediction accuracy (7 days): {live_accuracy:.1f}% ({total} predictions)")
-                
-                if live_accuracy < 50.0 and total > 100:
+
+                if live_accuracy < 48.0 and total > 200:
                     needs_retrain = True
-                    reason = f"Live accuracy ({live_accuracy:.1f}%) below 50%"
+                    reason = f"Live accuracy ({live_accuracy:.1f}%) below 48%"
                     logging.warning(f"  [WARN] {reason}")
         except Exception as e:
             logging.warning(f"  [WARN] Could not check live accuracy: {e}")
-        
+
     except Exception as e:
         logging.error(f"  [ERROR] Error reading model metadata: {e}")
         needs_retrain = True
         reason = f"Error reading metadata: {e}"
-    
+
     if not needs_retrain:
         logging.info("  [SUCCESS] Models are current and performing adequately")
-    
+
     return needs_retrain, reason
 
 

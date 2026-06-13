@@ -1,6 +1,9 @@
 import pandas as pd
 import joblib
+import os
 import pyodbc
+from dotenv import load_dotenv
+load_dotenv()
 
 # Load the model artifacts
 scaler = joblib.load('data/nse_models/nse_scaler_v2.joblib')
@@ -18,7 +21,7 @@ conn = pyodbc.connect(
     'SERVER=192.168.86.28\\MSSQLSERVER01;'
     'DATABASE=stockdata_db;'
     'UID=remote_user;'
-    'PWD=YourStrongPassword123!;'
+    f'PWD={os.environ["SQL_PASSWORD"]};'
     'TrustServerCertificate=yes'
 )
 

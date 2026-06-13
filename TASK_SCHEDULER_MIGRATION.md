@@ -63,7 +63,7 @@ python retrain_nse_model_v2.py --backup-old
 python predict_nse_signals_v2.py
 
 # Check results in database
-python -c "import pyodbc; conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.86.28\MSSQLSERVER01;DATABASE=stockdata_db;UID=remote_user;PWD=YourStrongPassword123!;TrustServerCertificate=yes'); cursor = conn.cursor(); cursor.execute('SELECT predicted_signal, COUNT(*) as count FROM ml_nse_trading_predictions WHERE model_name LIKE ''%V2%'' AND trading_date = (SELECT MAX(trading_date) FROM ml_nse_trading_predictions) GROUP BY predicted_signal'); print('V2 Signal Distribution:'); for row in cursor: print(f'  {row[0]}: {row[1]}'); conn.close()"
+python -c "import pyodbc; conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.86.28\MSSQLSERVER01;DATABASE=stockdata_db;UID=remote_user;PWD=<YOUR_PASSWORD>;TrustServerCertificate=yes'); cursor = conn.cursor(); cursor.execute('SELECT predicted_signal, COUNT(*) as count FROM ml_nse_trading_predictions WHERE model_name LIKE ''%V2%'' AND trading_date = (SELECT MAX(trading_date) FROM ml_nse_trading_predictions) GROUP BY predicted_signal'); print('V2 Signal Distribution:'); for row in cursor: print(f'  {row[0]}: {row[1]}'); conn.close()"
 ```
 
 ### Test 2: Full Automation Wrapper

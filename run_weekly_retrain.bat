@@ -63,6 +63,8 @@ mkdir "%BACKUP_DIR%"
 if exist "%~dp0data\nse_models" (
     copy "%~dp0data\nse_models\*.joblib" "%BACKUP_DIR%\" >nul 2>&1
     copy "%~dp0data\nse_models\*.pkl" "%BACKUP_DIR%\" >nul 2>&1
+    copy "%~dp0data\nse_models\*.json" "%BACKUP_DIR%\" >nul 2>&1
+    copy "%~dp0data\nse_models\*.csv"  "%BACKUP_DIR%\" >nul 2>&1
     echo NSE models backed up to: %BACKUP_DIR%
 ) else (
     echo No existing NSE models found - first time training
@@ -103,10 +105,12 @@ if %RETRAIN_RESULT%==0 (
 ) else (
     echo [ERROR] NSE Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
     echo [RESTORE] Restoring backup models...
-    if exist "%BACKUP_DIR%\nse_best_classifier.joblib" (
+    if exist "%BACKUP_DIR%\nse_gb_model_v2.joblib" (
         if not exist "%~dp0data\nse_models" mkdir "%~dp0data\nse_models"
         copy "%BACKUP_DIR%\*.joblib" "%~dp0data\nse_models\" >nul 2>&1
-        copy "%BACKUP_DIR%\*.pkl" "%~dp0data\nse_models\" >nul 2>&1
+        copy "%BACKUP_DIR%\*.pkl"    "%~dp0data\nse_models\" >nul 2>&1
+        copy "%BACKUP_DIR%\*.json"   "%~dp0data\nse_models\" >nul 2>&1
+        copy "%BACKUP_DIR%\*.csv"    "%~dp0data\nse_models\" >nul 2>&1
         echo [INFO] NSE model backup restored
     ) else (
         echo [WARN] No NSE backup models to restore

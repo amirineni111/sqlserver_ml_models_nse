@@ -1,4 +1,7 @@
+import os
 import pyodbc
+from dotenv import load_dotenv
+load_dotenv()
 import pandas as pd
 
 # Connect to database
@@ -7,7 +10,7 @@ conn = pyodbc.connect(
     'SERVER=192.168.86.28\\MSSQLSERVER01;'
     'DATABASE=stockdata_db;'
     'UID=remote_user;'
-    'PWD=YourStrongPassword123!;'
+    f'PWD={os.environ["SQL_PASSWORD"]};'
     'TrustServerCertificate=yes'
 )
 

@@ -32,7 +32,7 @@ load_dotenv()
 SQL_SERVER = os.getenv('SQL_SERVER', '192.168.86.28\\MSSQLSERVER01')
 SQL_DATABASE = os.getenv('SQL_DATABASE', 'stockdata_db')
 SQL_USERNAME = os.getenv('SQL_USERNAME', 'remote_user')
-SQL_PASSWORD = os.getenv('SQL_PASSWORD', 'YourStrongPassword123!')
+SQL_PASSWORD = os.getenv('SQL_PASSWORD')
 SQL_DRIVER = os.getenv('SQL_DRIVER', 'ODBC Driver 17 for SQL Server')
 
 

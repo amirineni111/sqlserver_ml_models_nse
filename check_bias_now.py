@@ -1,9 +1,12 @@
+import os
 import pyodbc
+from dotenv import load_dotenv
+load_dotenv()
 conn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server};'
     'SERVER=192.168.86.28\\MSSQLSERVER01;'
     'DATABASE=stockdata_db;'
-    'UID=remote_user;PWD=YourStrongPassword123!;TrustServerCertificate=yes'
+    f'UID=remote_user;PWD={os.environ["SQL_PASSWORD"]};TrustServerCertificate=yes'
 )
 cursor = conn.cursor()
 sql = (

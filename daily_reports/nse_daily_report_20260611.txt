@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-11
+[TIME] Report Generated (EST): 2026-06-11 16:54:46
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-11
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1909
+[BUY] Buy Signals: 689
+[SELL] Sell Signals: 1220
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 59
+[DATA] Medium Confidence: 363
+[LOW] Low Confidence: 1487
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 87.98
+[DATA] Average RSI: 44.9
+[COMPANY] Stocks Processed: 1909
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] FISCHER.NS: Sell (100.0%) - INR 34.83 [GradientBoosting_V2_Calibrated]
+[SELL] NEPHROPLUS.NS: Sell (100.0%) - INR 751.30 [GradientBoosting_V2_Calibrated]
+[SELL] TCIFINANCE.NS: Sell (100.0%) - INR 25.30 [GradientBoosting_V2_Calibrated]
+[SELL] ABBOTINDIA.NS: Sell (99.8%) - INR 26065.00 [GradientBoosting_V2_Calibrated]
+[SELL] BIOFILCHEM.NS: Sell (97.0%) - INR 35.40 [GradientBoosting_V2_Calibrated]
+[SELL] BCLIND.NS: Sell (97.0%) - INR 38.14 [GradientBoosting_V2_Calibrated]
+[SELL] ANUHPHR.NS: Sell (97.0%) - INR 76.28 [GradientBoosting_V2_Calibrated]
+[SELL] AMANTA.NS: Sell (97.0%) - INR 148.62 [GradientBoosting_V2_Calibrated]
+[SELL] ALIVUS.NS: Sell (97.0%) - INR 1017.20 [GradientBoosting_V2_Calibrated]
+[SELL] ALBERTDAVD.NS: Sell (97.0%) - INR 694.85 [GradientBoosting_V2_Calibrated]

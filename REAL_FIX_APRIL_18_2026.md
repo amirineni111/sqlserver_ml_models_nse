@@ -191,7 +191,7 @@ WHERE trading_date = CAST(GETDATE() AS DATE)
 GROUP BY trading_date, predicted_signal
 ORDER BY predicted_signal
 "@
-Invoke-Sqlcmd -ServerInstance "192.168.86.28\MSSQLSERVER01" -Database "stockdata_db" -Username "remote_user" -Password "YourStrongPassword123!" -Query $query
+Invoke-Sqlcmd -ServerInstance "192.168.86.28\MSSQLSERVER01" -Database "stockdata_db" -Username "remote_user" -Password "<YOUR_PASSWORD>" -Query $query
 ```
 
 **Expected:**

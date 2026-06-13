@@ -262,7 +262,7 @@ python predict_nse_signals_v2.py
 
 **Check:**
 ```cmd
-python -c "import pyodbc; conn=pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.86.28\\MSSQLSERVER01;DATABASE=stockdata_db;UID=remote_user;PWD=YourStrongPassword123!;TrustServerCertificate=yes'); print('✅ Connected')"
+python -c "import pyodbc; conn=pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.86.28\\MSSQLSERVER01;DATABASE=stockdata_db;UID=remote_user;PWD=<YOUR_PASSWORD>;TrustServerCertificate=yes'); print('✅ Connected')"
 ```
 
 ---
