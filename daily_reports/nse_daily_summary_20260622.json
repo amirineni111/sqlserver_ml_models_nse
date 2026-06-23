@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-22",
+  "generated_at": "2026-06-22T16:38:14.564774",
+  "summary": {
+    "analysis_date": "2026-06-22",
+    "total_predictions": 1908,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1336,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1430,
+    "avg_confidence": 56.09344947624932,
+    "avg_rsi": 57.19069593197971,
+    "total_stocks_processed": 1908,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-22 16:37:52.233000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "TVSELECT.NS",
+      "company": "TVS Electronics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 481.45,
+      "rsi": 48.295687885010246,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BAJAJINDEF.NS",
+      "company": "INDEF MANUFACTURING LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 252.2,
+      "rsi": 52.849740932642476,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BIRLACABLE.NS",
+      "company": "Birla Cable Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 222.33,
+      "rsi": 53.55746026462512,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CYBERTECH.NS",
+      "company": "CyberTech Systems and Software Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 147.95,
+      "rsi": 55.73514077163709,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DENTA.NS",
+      "company": "DENTA WATER N INFRA SOL L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 324.9,
+      "rsi": 90.94650205761317,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DGCONTENT.NS",
+      "company": "Digicontent Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 27.61,
+      "rsi": 52.631578947368425,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DSSL.NS",
+      "company": "Dynacons Systems & Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1474.9,
+      "rsi": 47.90919952210275,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ECLERX.NS",
+      "company": "eClerx Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1449.8,
+      "rsi": 42.31646146830824,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMSLIMITED.NS",
+      "company": "EMS Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 408.15,
+      "rsi": 81.77676537585424,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GOLDTECH.NS",
+      "company": "AION-TECH Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 44.53,
+      "rsi": 57.3053368328959,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

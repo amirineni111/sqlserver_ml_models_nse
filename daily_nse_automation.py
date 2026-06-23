@@ -103,6 +103,61 @@ def safe_print(text):
         print(safe_text)
 
 
+def check_nse_holiday(check_date=None):
+    """Check dbo.market_calendar to see if a date is an NSE non-trading day.
+
+    The calendar holds one row per (market, calendar_date) for NSE/NASDAQ/FOREX.
+    We filter to market='NSE' and treat the day as closed if it's flagged as a
+    holiday or otherwise marked as a non-trading day.
+
+    Args:
+        check_date: date/datetime/'YYYY-MM-DD' string to check. Defaults to today.
+
+    Returns:
+        (should_skip, reason)
+          should_skip=True  -> NSE is closed; skip the run
+          should_skip=False -> NSE is open, OR status couldn't be determined
+                               (fail-open so a missing calendar row never blocks
+                               a legitimate trading day)
+    """
+    if check_date is None:
+        check_date = datetime.now().date()
+    if hasattr(check_date, 'strftime'):
+        date_str = check_date.strftime('%Y-%m-%d')
+    else:
+        date_str = str(check_date)
+
+    try:
+        db = SQLServerConnection()
+        query = f"""
+        SELECT TOP 1 is_trading_day, is_holiday, holiday_name
+        FROM dbo.market_calendar
+        WHERE market = 'NSE' AND calendar_date = '{date_str}'
+        """
+        result = db.execute_query(query)
+
+        if result.empty:
+            logging.warning(f"[WARN] No NSE market_calendar entry for {date_str} - "
+                            f"assuming trading day (fail-open).")
+            return False, ""
+
+        row = result.iloc[0]
+        is_trading_day = bool(row['is_trading_day'])
+        is_holiday = bool(row['is_holiday'])
+        holiday_name = row['holiday_name'] or "NSE non-trading day"
+
+        if is_holiday or not is_trading_day:
+            reason = holiday_name if is_holiday else "NSE non-trading day"
+            return True, reason
+
+        return False, ""
+
+    except Exception as e:
+        logging.warning(f"[WARN] Could not check NSE holiday calendar ({e}) - "
+                        f"assuming trading day (fail-open).")
+        return False, ""
+
+
 def check_nse_data_status():
     """Check NSE data availability and quality. Retries DB connection up to 3 times."""
     max_retries = 3
@@ -700,6 +755,23 @@ def main():
         logging.info("[EMAIL] Email alerts not configured (set ALERT_EMAIL_FROM/PASSWORD/TO in .env)")
     
     try:
+        # Step 0: NSE holiday gate
+        # On NSE holidays there is no fresh market data, so a prediction run would
+        # only re-insert stale signals for the prior trading day. Skip the whole
+        # run on holidays. Exit 0 so Task Scheduler does not flag a failure and no
+        # failure email is sent. (--check-only is allowed through for diagnostics.)
+        if not args.check_only:
+            should_skip, holiday_reason = check_nse_holiday(args.date)
+            if should_skip:
+                skip_date = args.date or datetime.now().strftime('%Y-%m-%d')
+                logging.info("=" * 60)
+                logging.info(f"[INFO] NSE HOLIDAY: {skip_date} ({holiday_reason})")
+                logging.info("[INFO] NSE market is closed - skipping predictions and inserts.")
+                logging.info("=" * 60)
+                safe_print(f"[SKIP] {skip_date} is an NSE holiday ({holiday_reason}). "
+                           f"No predictions generated.")
+                return
+
         # Step 1: Check data status
         total_steps += 1
         logging.info("=" * 60)

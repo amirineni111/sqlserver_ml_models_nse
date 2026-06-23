@@ -1,5 +1,5 @@
 {
-  "timestamp": "20260616_164529",
+  "timestamp": "20260612_201620",
   "model_type": "GradientBoostingClassifier",
   "calibration": "isotonic",
   "n_features": 20,
@@ -7,15 +7,15 @@
     "india_vix_vs_60d",
     "sp500_vs_200d",
     "nifty50_vs_200d",
-    "bb_position",
     "price_to_sma20",
-    "price_to_high_20d",
-    "bb_width_pct",
-    "stochastic_k",
+    "bb_position",
+    "return_5d",
     "atr_pct",
-    "price_to_low_20d"
+    "stochastic_k",
+    "price_to_high_20d",
+    "return_10d"
   ],
-  "data_range": "2024-06-01 to 2026-06-06",
+  "data_range": "2024-06-01 to 2026-06-02",
   "hyperparameters": {
     "n_estimators": 200,
     "max_depth": 5,
@@ -26,12 +26,12 @@
     "random_state": 42,
     "verbose": 1
   },
-  "test_accuracy": 0.5273,
-  "test_f1": 0.5106,
+  "test_accuracy": 0.5395,
+  "test_f1": 0.5227,
   "split": {
-    "train_range": "2024-06-03 to 2025-08-06",
-    "cal_range": "2025-08-14 to 2025-12-31",
-    "test_range": "2026-01-08 to 2026-05-29",
+    "train_range": "2024-06-03 to 2025-08-05",
+    "cal_range": "2025-08-13 to 2025-12-29",
+    "test_range": "2026-01-06 to 2026-05-25",
     "embargo_days": 5
   }
 }

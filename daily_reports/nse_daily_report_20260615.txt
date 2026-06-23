@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-15
+[TIME] Report Generated (EST): 2026-06-15 16:51:49
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-15
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1910
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1337
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1432
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.47
+[DATA] Average RSI: 50.5
+[COMPANY] Stocks Processed: 1910
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] CIFL.NS: Sell (74.1%) - INR 24.63 [GradientBoosting_V2_Calibrated]
+[SELL] AUSOMENT.NS: Sell (74.1%) - INR 118.74 [GradientBoosting_V2_Calibrated]
+[SELL] EMBDL.NS: Sell (74.1%) - INR 61.46 [GradientBoosting_V2_Calibrated]
+[SELL] FMNL.NS: Sell (74.1%) - INR 10.62 [GradientBoosting_V2_Calibrated]
+[SELL] IITL.NS: Sell (74.1%) - INR 141.14 [GradientBoosting_V2_Calibrated]
+[SELL] HESTERBIO.NS: Sell (70.6%) - INR 2066.60 [GradientBoosting_V2_Calibrated]
+[SELL] ONELIFECAP.NS: Sell (70.6%) - INR 26.93 [GradientBoosting_V2_Calibrated]
+[SELL] RNBDENIMS.NS: Sell (70.6%) - INR 11.27 [GradientBoosting_V2_Calibrated]
+[SELL] SKYGOLD.NS: Sell (70.6%) - INR 533.65 [GradientBoosting_V2_Calibrated]
+[SELL] SURAJEST.NS: Sell (70.6%) - INR 195.99 [GradientBoosting_V2_Calibrated]

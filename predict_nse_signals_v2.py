@@ -1191,6 +1191,36 @@ def get_latest_trading_date(conn):
         print(f"[ERROR] Failed to query latest trading date: {e}")
         return None
 
+def is_nse_holiday(conn, check_date):
+    """Check dbo.market_calendar for whether `check_date` is an NSE non-trading day.
+
+    Returns (is_holiday, reason). Fail-open: returns (False, '') when the date is
+    not in the calendar or the query errors, so a calendar gap never blocks a
+    legitimate trading day.
+    """
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            """SELECT TOP 1 is_trading_day, is_holiday, holiday_name
+               FROM dbo.market_calendar
+               WHERE market = 'NSE' AND calendar_date = ?""",
+            check_date,
+        )
+        row = cursor.fetchone()
+        cursor.close()
+
+        if row is None:
+            return False, ''
+
+        is_trading_day, is_holiday, holiday_name = bool(row[0]), bool(row[1]), row[2]
+        if is_holiday or not is_trading_day:
+            return True, (holiday_name or 'NSE non-trading day')
+        return False, ''
+    except Exception as e:
+        print(f"[WARN] Could not check NSE holiday calendar: {e} (assuming trading day)")
+        return False, ''
+
+
 def main():
     """Main prediction pipeline"""
     print("\n" + "="*80)
@@ -1200,7 +1230,19 @@ def main():
     
     # Connect to database first to determine prediction date
     conn = get_db_connection()
-    
+
+    # NSE holiday gate: never write predictions on an NSE holiday. Checks the
+    # actual run date (today) against dbo.market_calendar. Set NSE_IGNORE_HOLIDAY=1
+    # to override for manual backfills.
+    if os.getenv('NSE_IGNORE_HOLIDAY', '').lower() not in ('1', 'true', 'yes'):
+        run_date = datetime.now().strftime('%Y-%m-%d')
+        holiday, reason = is_nse_holiday(conn, run_date)
+        if holiday:
+            print(f"[SKIP] {run_date} is an NSE holiday ({reason}). "
+                  f"Skipping predictions - nothing written to database.")
+            conn.close()
+            sys.exit(0)
+
     # Determine prediction date
     if Config.PREDICTION_DATE:
         prediction_date = Config.PREDICTION_DATE

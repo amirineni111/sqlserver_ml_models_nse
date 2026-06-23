@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-18
+[TIME] Report Generated (EST): 2026-06-18 16:37:38
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-18
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1911
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1338
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1433
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.96
+[DATA] Average RSI: 54.2
+[COMPANY] Stocks Processed: 1911
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] AMNPLST.NS: Sell (64.8%) - INR 200.55 [GradientBoosting_V2_Calibrated]
+[SELL] BALPHARMA.NS: Sell (64.8%) - INR 87.79 [GradientBoosting_V2_Calibrated]
+[SELL] BHARATWIRE.NS: Sell (64.8%) - INR 214.22 [GradientBoosting_V2_Calibrated]
+[SELL] COASTCORP.NS: Sell (64.8%) - INR 51.53 [GradientBoosting_V2_Calibrated]
+[SELL] E2E.NS: Sell (64.8%) - INR 405.70 [GradientBoosting_V2_Calibrated]
+[SELL] ELECTHERM.NS: Sell (64.8%) - INR 1081.50 [GradientBoosting_V2_Calibrated]
+[SELL] MAXIND.NS: Sell (64.8%) - INR 168.68 [GradientBoosting_V2_Calibrated]
+[SELL] ODIGMA.NS: Sell (64.8%) - INR 24.04 [GradientBoosting_V2_Calibrated]
+[SELL] PRUDMOULI.NS: Sell (64.8%) - INR 15.50 [GradientBoosting_V2_Calibrated]
+[SELL] RESPONIND.NS: Sell (64.8%) - INR 185.72 [GradientBoosting_V2_Calibrated]
