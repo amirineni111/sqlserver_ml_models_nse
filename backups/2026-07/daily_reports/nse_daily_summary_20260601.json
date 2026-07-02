@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-01",
+  "generated_at": "2026-06-01T16:55:29.854886",
+  "summary": {
+    "analysis_date": "2026-06-01",
+    "total_predictions": 1915,
+    "total_buy_signals": 975,
+    "total_sell_signals": 940,
+    "total_hold_signals": 0,
+    "high_confidence_count": 108,
+    "medium_confidence_count": 0,
+    "low_confidence_count": 1807,
+    "avg_confidence": 93.86531913310256,
+    "avg_rsi": 43.39330985541435,
+    "total_stocks_processed": 1915,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-01 16:54:58.830000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AFIL.NS",
+      "company": "AKME FINTRADE (INDIA) LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 10.17,
+      "rsi": 72.41379310344826,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CORDSCABLE.NS",
+      "company": "Cords Cable Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 227.91,
+      "rsi": 54.72224436120188,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DMCC.NS",
+      "company": "DMCC Speciality Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 261.2,
+      "rsi": 25.787965616045838,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GLOTTIS.NS",
+      "company": "GLOTTIS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 65.07,
+      "rsi": 57.24244771494963,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GTECJAINX.NS",
+      "company": "G-Tec Jainx Education Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 20.02,
+      "rsi": 50.46153846153847,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KECL.NS",
+      "company": "Kirloskar Electric Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 115.36,
+      "rsi": 41.78932842686292,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "LAMBODHARA.NS",
+      "company": "Lambodhara Textiles Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 118.34,
+      "rsi": 61.02108768035516,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MODISONLTD.NS",
+      "company": "Modison Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 298.8,
+      "rsi": 91.14642451759364,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RPPL.NS",
+      "company": "Rajshree Polypack Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 18.67,
+      "rsi": 54.13533834586467,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VALIANTLAB.NS",
+      "company": "Valiant Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 99.13615916962021,
+      "close_price": 80.31,
+      "rsi": 54.986225895316814,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

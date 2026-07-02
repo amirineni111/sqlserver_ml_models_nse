@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-25",
+  "generated_at": "2026-06-26T16:37:51.204944",
+  "summary": {
+    "analysis_date": "2026-06-25",
+    "total_predictions": 1913,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1340,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 383,
+    "low_confidence_count": 1434,
+    "avg_confidence": 58.584642970757606,
+    "avg_rsi": 54.184392291001856,
+    "total_stocks_processed": 1913,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-26 16:37:22.140000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "COASTCORP.NS",
+      "company": "Coastal Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 50.11,
+      "rsi": 51.17493472584856,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 962.2,
+      "rsi": 26.681332495285986,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRITINUT.NS",
+      "company": "Kriti Nutrients Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 82.93,
+      "rsi": 36.89129365469749,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MGEL.NS",
+      "company": "Mangalam Global Enterprise Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 16.1,
+      "rsi": 59.51661631419939,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NARMADA.NS",
+      "company": "Narmada Agrobase Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 42.73,
+      "rsi": 59.02052574720921,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OILCOUNTUB.NS",
+      "company": "Oil Country Tubular Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 59.13,
+      "rsi": 40.1114206128134,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RKDL.NS",
+      "company": "Ravi Kumar Distilleries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 19.38,
+      "rsi": 42.33576642335766,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CYBERMEDIA.NS",
+      "company": "Cyber Media (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 16.74,
+      "rsi": 48.019801980198025,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CTE.NS",
+      "company": "Cambridge Technology Enterprises Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 31.18,
+      "rsi": 31.733746130030966,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CLSEL.NS",
+      "company": "Chaman Lal Setia Exports Ltd.",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 285.35,
+      "rsi": 53.4282700421941,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

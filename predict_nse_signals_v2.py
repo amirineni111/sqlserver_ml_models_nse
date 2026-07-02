@@ -679,7 +679,23 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     print(f"[INFO] Predicting for {len(df)} tickers...")
     y_pred = model.predict(X_scaled)
     y_proba = model.predict_proba(X_scaled)
-    
+
+    # Guard: degenerate isotonic calibrators output a constant for every sample.
+    # Detect this before it silently corrupts buy_probability / confidence_percentage.
+    proba_std = y_proba.std(axis=0)
+    if proba_std.max() < 0.01:
+        print(f"[ERROR] FROZEN PROBABILITIES DETECTED — calibrated output has no variance "
+              f"(per-class std: {proba_std}). The saved model has degenerate calibrators.")
+        print(f"[ERROR] Falling back to raw base model probabilities. Model MUST be retrained.")
+        if hasattr(model, 'base_model'):
+            y_proba = model.base_model.predict_proba(X_scaled)
+            print(f"[INFO] Using base model probabilities (per-class std: {y_proba.std(axis=0)})")
+        else:
+            raise RuntimeError(
+                "Frozen calibrated probabilities and model has no base_model attribute. "
+                "Cannot continue — retrain the model first."
+            )
+
     # Get class indices (encoder.classes_ is alphabetically sorted)
     # For NSE: 'Down' = 0, 'Up' = 1
     class_names = encoder.classes_

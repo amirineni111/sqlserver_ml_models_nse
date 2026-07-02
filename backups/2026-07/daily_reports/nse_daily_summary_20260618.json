@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-18",
+  "generated_at": "2026-06-18T16:37:38.176270",
+  "summary": {
+    "analysis_date": "2026-06-18",
+    "total_predictions": 1911,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1338,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1433,
+    "avg_confidence": 55.957521428768885,
+    "avg_rsi": 54.20161076166475,
+    "total_stocks_processed": 1911,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-18 16:37:17.037000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AMNPLST.NS",
+      "company": "Amines & Plasticizers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 200.55,
+      "rsi": 56.950390329891725,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BALPHARMA.NS",
+      "company": "Bal Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 87.79,
+      "rsi": 44.78747203579417,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BHARATWIRE.NS",
+      "company": "Bharat Wire Ropes Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 214.22,
+      "rsi": 44.28792969759627,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COASTCORP.NS",
+      "company": "Coastal Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 51.53,
+      "rsi": 34.01759530791789,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "E2E.NS",
+      "company": "E2E Networks",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 405.7,
+      "rsi": 13.5944843578542,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ELECTHERM.NS",
+      "company": "Electrotherm (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1081.5,
+      "rsi": 63.412983144926564,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MAXIND.NS",
+      "company": "Max India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 168.68,
+      "rsi": 58.578332662102305,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ODIGMA.NS",
+      "company": "Odigma Consultancy Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 24.04,
+      "rsi": 53.33333333333334,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PRUDMOULI.NS",
+      "company": "Prudential Sugar Corporation Ltd.",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 15.5,
+      "rsi": 53.670886075949355,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RESPONIND.NS",
+      "company": "Responsive Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 185.72,
+      "rsi": 44.477573243453456,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-19
+[TIME] Report Generated (EST): 2026-06-19 16:38:04
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-19
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1908
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1336
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1430
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.82
+[DATA] Average RSI: 56.9
+[COMPANY] Stocks Processed: 1908
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] E2E.NS: Sell (67.1%) - INR 425.90 [GradientBoosting_V2_Calibrated]
+[SELL] SURANAT&P.NS: Sell (56.3%) - INR 19.35 [GradientBoosting_V2_Calibrated]
+[SELL] SPAL.NS: Sell (56.3%) - INR 1028.40 [GradientBoosting_V2_Calibrated]
+[SELL] RAJESHEXPO.NS: Sell (56.3%) - INR 97.51 [GradientBoosting_V2_Calibrated]
+[SELL] MCLOUD.NS: Sell (56.3%) - INR 29.24 [GradientBoosting_V2_Calibrated]
+[SELL] HATHWAY.NS: Sell (56.3%) - INR 12.18 [GradientBoosting_V2_Calibrated]
+[SELL] VPRPL.NS: Sell (56.3%) - INR 31.47 [GradientBoosting_V2_Calibrated]
+[SELL] CARBORUNIV.NS: Sell (55.9%) - INR 1241.70 [GradientBoosting_V2_Calibrated]
+[SELL] VERANDA.NS: Sell (55.8%) - INR 244.89 [GradientBoosting_V2_Calibrated]
+[SELL] VENUSREM.NS: Sell (55.8%) - INR 1739.10 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-13",
+  "generated_at": "2026-05-13T16:55:48.103105",
+  "summary": {
+    "analysis_date": "2026-05-13",
+    "total_predictions": 2056,
+    "total_buy_signals": 270,
+    "total_sell_signals": 1786,
+    "total_hold_signals": 0,
+    "high_confidence_count": 121,
+    "medium_confidence_count": 389,
+    "low_confidence_count": 1546,
+    "avg_confidence": 57.430673525692306,
+    "avg_rsi": 46.882749324346925,
+    "total_stocks_processed": 2056,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-13 16:55:46.763000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 25.19,
+      "rsi": 89.55773955773955,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECHDVR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 0.49,
+      "rsi": 52.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 0.49,
+      "rsi": 55.55555555555556,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 0.52,
+      "rsi": 60.000000000000014,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GVKPIL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 3.32,
+      "rsi": 69.7674418604651,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HAVISHA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 1.59,
+      "rsi": 45.00000000000003,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FLEXITUFF.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.98159509202453,
+      "close_price": 7.04,
+      "rsi": 51.724137931034484,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FLFL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.98159509202453,
+      "close_price": 1.71,
+      "rsi": 61.53846153846153,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MTEDUCARE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.98159509202453,
+      "close_price": 1.62,
+      "rsi": 66.17647058823532,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SADHNANIQ.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.98159509202453,
+      "close_price": 2.53,
+      "rsi": 57.42574257425742,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

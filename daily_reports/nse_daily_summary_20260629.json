@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-29",
+  "generated_at": "2026-06-29T16:35:42.470137",
+  "summary": {
+    "analysis_date": "2026-06-29",
+    "total_predictions": 1909,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1337,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1431,
+    "avg_confidence": 57.29567548977177,
+    "avg_rsi": 56.4329862853105,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-29 16:35:20.400000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KOTYARK.NS",
+      "company": "KOTYARK INDUSTRIES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 43.2,
+      "rsi": 14.781755762628734,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DGCONTENT.NS",
+      "company": "Digicontent Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 26.58,
+      "rsi": 49.32975871313672,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GULFPETRO.NS",
+      "company": "GP Petroleums Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 39.37,
+      "rsi": 47.16446124763704,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANTELOPUS.NS",
+      "company": "ANTELOPUS SELAN ENRGY LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 808.9,
+      "rsi": 36.57552666965488,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "20MICRONS.NS",
+      "company": "20 Microns Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 197.42,
+      "rsi": 59.83659083627042,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CHENNPETRO.NS",
+      "company": "Chennai Petroleum Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 1153.8,
+      "rsi": 45.55371116907754,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IMAGICAA.NS",
+      "company": "Imagicaaworld Entertainment Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 46.64,
+      "rsi": 59.66993295513151,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MRPL.NS",
+      "company": "Mangalore Refinery and Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 149.19,
+      "rsi": 48.00810263335583,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NGIL.NS",
+      "company": "Nakoda Group of Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 37.95,
+      "rsi": 35.086206896551744,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RKDL.NS",
+      "company": "Ravi Kumar Distilleries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 18.69,
+      "rsi": 38.92617449664429,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

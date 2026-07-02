@@ -1,14 +1,14 @@
 [
   "india_vix_vs_60d",
-  "nifty50_vs_200d",
   "sp500_vs_200d",
-  "price_to_sma20",
+  "nifty50_vs_200d",
   "bb_position",
-  "stochastic_d",
-  "return_10d",
-  "atr_pct",
+  "price_to_sma20",
+  "price_to_high_20d",
+  "bb_width_pct",
   "stochastic_k",
-  "return_5d",
+  "atr_pct",
+  "price_to_low_20d",
   "sector_return_5d",
   "sector_rsi_avg",
   "sector_breadth_score",
@@ -17,6 +17,6 @@
   "stock_return_vs_nifty_5d",
   "beta",
   "defensive_risk_score",
-  "sector_momentum_confirmed",
+  "contrarian_strength",
   "global_market_sync"
 ]

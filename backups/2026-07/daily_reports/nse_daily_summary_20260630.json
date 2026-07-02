@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-30",
+  "generated_at": "2026-06-30T16:39:25.901700",
+  "summary": {
+    "analysis_date": "2026-06-30",
+    "total_predictions": 1909,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1337,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1431,
+    "avg_confidence": 55.95108768542864,
+    "avg_rsi": 54.869242761896906,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-30 16:39:04.957000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KOTYARK.NS",
+      "company": "KOTYARK INDUSTRIES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.05881527995432,
+      "close_price": 41.05,
+      "rsi": 13.886971101686555,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ZFCVINDIA.NS",
+      "company": "ZF Commercial Vehicle Control Systems India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 2566.0,
+      "rsi": 14.391412456789382,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CCCL.NS",
+      "company": "Consolidated Construction Consortium Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 17.31,
+      "rsi": 63.6919315403423,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ELECTHERM.NS",
+      "company": "Electrotherm (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1097.9,
+      "rsi": 57.492180835939735,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IITL.NS",
+      "company": "Industrial Investment Trust Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 135.19,
+      "rsi": 48.721355031550985,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MOREPENLAB.NS",
+      "company": "Morepen Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 59.12,
+      "rsi": 75.13202112337974,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NACLIND.NS",
+      "company": "NACL Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 220.76,
+      "rsi": 70.37159372419488,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NECCLTD.NS",
+      "company": "North Eastern Carrying Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 17.18,
+      "rsi": 63.47826086956521,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OMAXE.NS",
+      "company": "Omaxe Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 80.85,
+      "rsi": 66.34819532908702,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PANACEABIO.NS",
+      "company": "Panacea Biotec Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 565.85,
+      "rsi": 38.736559139784966,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

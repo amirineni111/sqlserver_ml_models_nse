@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-02",
+  "generated_at": "2026-06-03T16:55:15.083789",
+  "summary": {
+    "analysis_date": "2026-06-02",
+    "total_predictions": 1914,
+    "total_buy_signals": 727,
+    "total_sell_signals": 1187,
+    "total_hold_signals": 0,
+    "high_confidence_count": 131,
+    "medium_confidence_count": 315,
+    "low_confidence_count": 1468,
+    "avg_confidence": 90.90403495036932,
+    "avg_rsi": 50.330301518733854,
+    "total_stocks_processed": 1914,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-02 16:54:27.163000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "GTECJAINX.NS",
+      "company": "G-Tec Jainx Education Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 24.02,
+      "rsi": 64.15552855407049,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MODISONLTD.NS",
+      "company": "Modison Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 313.7,
+      "rsi": 96.43159550018146,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NIITLTD.NS",
+      "company": "NIIT Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 89.59,
+      "rsi": 79.34041973289726,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EQUIPPP.NS",
+      "company": "Equippp Social Impact Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 17.83,
+      "rsi": 69.82055464926589,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FCL.NS",
+      "company": "Fineotex Chemical Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 42.36,
+      "rsi": 79.88235294117649,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GOLDENTOBC.NS",
+      "company": "Golden Tobacco Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 24.5,
+      "rsi": 40.21543985637343,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HCL-INSYS.NS",
+      "company": "HCL Infosystems Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 13.48,
+      "rsi": 71.84035476718402,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JARO.NS",
+      "company": "JARO INS OF TEC MG N RE L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 576.0,
+      "rsi": 84.61218548554793,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NSLNISP.NS",
+      "company": "NMDC Steel Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 52.55,
+      "rsi": 77.83585990590694,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OCCLLTD.NS",
+      "company": "OCCL Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 96.83257918552036,
+      "close_price": 113.17,
+      "rsi": 69.59489211800968,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

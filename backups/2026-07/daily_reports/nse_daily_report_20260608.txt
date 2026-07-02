@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-08
+[TIME] Report Generated (EST): 2026-06-08 16:54:05
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-08
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1910
+[BUY] Buy Signals: 663
+[SELL] Sell Signals: 1247
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 103
+[DATA] Medium Confidence: 334
+[LOW] Low Confidence: 1473
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 93.07
+[DATA] Average RSI: 49.9
+[COMPANY] Stocks Processed: 1910
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] BEARDSELL.NS: Sell (100.0%) - INR 29.40 [GradientBoosting_V2_Calibrated]
+[SELL] BCLIND.NS: Sell (100.0%) - INR 37.02 [GradientBoosting_V2_Calibrated]
+[SELL] BCG.NS: Sell (100.0%) - INR 11.12 [GradientBoosting_V2_Calibrated]
+[SELL] BANKA.NS: Sell (100.0%) - INR 90.65 [GradientBoosting_V2_Calibrated]
+[SELL] BAJAJHIND.NS: Sell (100.0%) - INR 19.44 [GradientBoosting_V2_Calibrated]
+[SELL] ASPINWALL.NS: Sell (100.0%) - INR 236.12 [GradientBoosting_V2_Calibrated]
+[SELL] APTECHT.NS: Sell (100.0%) - INR 101.79 [GradientBoosting_V2_Calibrated]
+[SELL] AHCL.NS: Sell (100.0%) - INR 14.06 [GradientBoosting_V2_Calibrated]
+[SELL] AGRITECH.NS: Sell (100.0%) - INR 152.16 [GradientBoosting_V2_Calibrated]
+[SELL] AFIL.NS: Sell (100.0%) - INR 10.21 [GradientBoosting_V2_Calibrated]

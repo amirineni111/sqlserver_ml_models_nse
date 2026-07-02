@@ -1102,18 +1102,40 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
             iso_reg = IsotonicRegression(out_of_bounds='clip', y_min=0.0, y_max=1.0)
             iso_reg.fit(base_proba[:, i], (y_cal == i).astype(int))
             calibrators.append(iso_reg)
-        
-        # Use module-level class for pickling compatibility
-        calibrated_model = IsotonicCalibratedModel(model, calibrators)
-        print(f"[SUCCESS] Isotonic calibration applied using {len(X_cal):,} samples")
+
+        # Validate calibrators: isotonic regression on near-constant input learns a flat
+        # mapping and will output the same probability for every future sample. Detect this
+        # by probing the calibrator across the full [0,1] range.
+        test_range = np.linspace(0.01, 0.99, 100)
+        degenerate = False
+        for i, cal in enumerate(calibrators):
+            cal_std = cal.transform(test_range).std()
+            print(f"[INFO] Calibrator class {i} output std: {cal_std:.4f}")
+            if cal_std < 0.05:
+                print(f"[WARNING] Calibrator for class {i} is degenerate (std={cal_std:.4f}) — "
+                      f"base model probabilities had too little variance on the calibration set. "
+                      f"Falling back to sigmoid (Platt scaling).")
+                degenerate = True
+                break
+
+        if degenerate:
+            from sklearn.linear_model import LogisticRegression
+            platt_scaler = LogisticRegression(max_iter=1000, random_state=42)
+            platt_scaler.fit(base_proba, y_cal)
+            calibrated_model = SigmoidCalibratedModel(model, platt_scaler)
+            print(f"[SUCCESS] Sigmoid (Platt) fallback calibration applied using {len(X_cal):,} samples")
+        else:
+            # Use module-level class for pickling compatibility
+            calibrated_model = IsotonicCalibratedModel(model, calibrators)
+            print(f"[SUCCESS] Isotonic calibration applied using {len(X_cal):,} samples")
     else:
         # For 'sigmoid' (Platt scaling), use simplified approach
         from sklearn.linear_model import LogisticRegression
-        
+
         # Use base model probabilities as features for Platt scaling
         platt_scaler = LogisticRegression(max_iter=1000, random_state=42)
         platt_scaler.fit(base_proba, y_cal)
-        
+
         # Use module-level class for pickling compatibility
         calibrated_model = SigmoidCalibratedModel(model, platt_scaler)
         print(f"[SUCCESS] Sigmoid (Platt) calibration applied using {len(X_cal):,} samples")
