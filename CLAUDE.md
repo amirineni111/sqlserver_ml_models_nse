@@ -45,6 +45,8 @@ sqlserver_copilot_nse/
 ├── retrain_nse_model_v2.py          # V2 training script (single GB + calibration)
 ├── predict_nse_signals_v2.py        # V2 prediction script (matches training features)
 ├── daily_nse_automation.py          # Orchestrates daily workflow
+├── score_nse_predictions.py         # Settles predictions at 1d/5d/10d, writes success_rate_* (in-repo; do NOT use ai_prediction_history — different process/horizon)
+├── backfill_signal_strength.py      # One-off: recompute H/M/L bands for historical rows
 ├── run_daily_predictions.bat        # Windows Task Scheduler wrapper (4:30 PM Mon-Fri)
 ├── run_weekly_retrain.bat           # Weekly retrain wrapper (Sunday 12 PM)
 ├── data/nse_models/

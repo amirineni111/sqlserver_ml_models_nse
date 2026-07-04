@@ -318,33 +318,34 @@ def check_model_status():
                 reason = f"Model accuracy ({test_accuracy:.1%}) below threshold (52%)"
                 logging.warning(f"  [WARN] {reason}")
 
-        # Check recent live prediction accuracy from ai_prediction_history
+        # Check recent live success from our OWN settled scores at the model's native
+        # 5-day horizon (ml_nse_predict_summary.success_rate_5d, written by
+        # score_nse_predictions.py). dbo.ai_prediction_history is a different process
+        # with a different method/horizon and must not drive this pipeline's decisions.
         try:
             db = SQLServerConnection()
             accuracy_query = """
-            SELECT
-                COUNT(*) as total,
-                SUM(CASE WHEN direction_correct = 1 THEN 1 ELSE 0 END) as correct,
-                CAST(SUM(CASE WHEN direction_correct = 1 THEN 1.0 ELSE 0.0 END) /
-                     NULLIF(COUNT(*), 0) * 100 AS DECIMAL(5,2)) as accuracy_pct
-            FROM dbo.ai_prediction_history
-            WHERE market = 'NSE 500'
-                AND target_date >= DATEADD(day, -7, CAST(GETDATE() AS DATE))
-                AND actual_price IS NOT NULL
+            SELECT AVG(success_rate_5d) as rolling_sr5d, COUNT(*) as sessions
+            FROM (
+                SELECT TOP 10 success_rate_5d
+                FROM ml_nse_predict_summary
+                WHERE success_rate_5d IS NOT NULL
+                ORDER BY analysis_date DESC
+            ) recent
             """
             accuracy_result = db.execute_query(accuracy_query)
 
-            if not accuracy_result.empty and accuracy_result.iloc[0]['total'] > 0:
-                live_accuracy = float(accuracy_result.iloc[0]['accuracy_pct'])
-                total = accuracy_result.iloc[0]['total']
-                logging.info(f"  [DATA] Live prediction accuracy (7 days): {live_accuracy:.1f}% ({total} predictions)")
+            if not accuracy_result.empty and accuracy_result.iloc[0]['sessions'] >= 5:
+                rolling_sr5d = float(accuracy_result.iloc[0]['rolling_sr5d'])
+                sessions = int(accuracy_result.iloc[0]['sessions'])
+                logging.info(f"  [DATA] Rolling success_rate_5d (last {sessions} settled sessions): {rolling_sr5d:.1f}%")
 
-                if live_accuracy < 48.0 and total > 200:
+                if rolling_sr5d < 50.0:
                     needs_retrain = True
-                    reason = f"Live accuracy ({live_accuracy:.1f}%) below 48%"
+                    reason = f"Rolling success_rate_5d ({rolling_sr5d:.1f}%) below 50%"
                     logging.warning(f"  [WARN] {reason}")
         except Exception as e:
-            logging.warning(f"  [WARN] Could not check live accuracy: {e}")
+            logging.warning(f"  [WARN] Could not check settled success rates: {e}")
 
     except Exception as e:
         logging.error(f"  [ERROR] Error reading model metadata: {e}")
@@ -485,50 +486,92 @@ def run_nse_predictions(target_date=None):
         return False
 
 
+def run_prediction_scoring():
+    """Settle past predictions against realized prices (score_nse_predictions.py).
+
+    Rewrites actual_return_1d/5d/10d + direction_correct flags on
+    ml_nse_trading_predictions and success_rate_1d/5d/10d on ml_nse_predict_summary.
+    Only the recent window needs refreshing: anything older than the 10-day horizon
+    is already final.
+    """
+    try:
+        logging.info("[START] Scoring settled predictions (1d/5d/10d outcomes)...")
+        start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+
+        result = subprocess.run(
+            [sys.executable, "score_nse_predictions.py", "--start", start_date],
+            capture_output=True,
+            text=True,
+            timeout=900,
+            encoding='utf-8',
+            errors='replace'
+        )
+
+        if result.returncode == 0:
+            for line in result.stdout.strip().split('\n')[-6:]:
+                if line.strip():
+                    logging.info(f"  {line}")
+            return True
+        else:
+            logging.error(f"[ERROR] Prediction scoring failed with return code: {result.returncode}")
+            if result.stderr:
+                logging.error(f"Stderr: {result.stderr[-500:]}")
+            return False
+
+    except subprocess.TimeoutExpired:
+        logging.error("[TIME] Prediction scoring timed out after 15 minutes")
+        return False
+    except Exception as e:
+        logging.error(f"[ERROR] Error running prediction scoring: {e}")
+        return False
+
+
 def log_model_performance():
     """Log current model performance metrics."""
     try:
         logging.info("[DATA] Checking model performance metrics...")
         
         db = SQLServerConnection()
-        
-        # 7-day accuracy by model
+
+        # Settled success rates from our own in-repo scoring (score_nse_predictions.py).
+        # The model's native horizon is 5 trading days; 1d/10d are informational.
         accuracy_query = """
-        SELECT 
-            model_name,
-            COUNT(*) as total,
-            SUM(CASE WHEN direction_correct = 1 THEN 1 ELSE 0 END) as correct,
-            CAST(SUM(CASE WHEN direction_correct = 1 THEN 1.0 ELSE 0.0 END) / 
-                 NULLIF(COUNT(*), 0) * 100 AS DECIMAL(5,2)) as accuracy_pct,
-            AVG(CAST(percentage_error AS FLOAT)) as avg_pct_error
-        FROM dbo.ai_prediction_history 
-        WHERE market = 'NSE 500'
-            AND target_date >= DATEADD(day, -7, CAST(GETDATE() AS DATE))
-            AND actual_price IS NOT NULL
-        GROUP BY model_name
-        ORDER BY accuracy_pct DESC
+        SELECT TOP 10
+            analysis_date,
+            total_predictions,
+            success_rate_1d,
+            success_rate_5d,
+            success_rate_10d
+        FROM ml_nse_predict_summary
+        WHERE success_rate_5d IS NOT NULL
+        ORDER BY analysis_date DESC
         """
-        
+
         accuracy_df = db.execute_query(accuracy_query)
-        
+
         if not accuracy_df.empty:
-            logging.info("  [DATA] NSE 500 Model Performance (Last 7 Days):")
-            logging.info(f"  {'Model':<25} {'Total':<10} {'Correct':<10} {'Accuracy':<12} {'Avg Error'}")
-            logging.info(f"  {'-'*70}")
-            
+            logging.info("  [DATA] NSE V2 Settled Success Rates (last settled sessions):")
+            logging.info(f"  {'Date':<12} {'Preds':<8} {'1d':<8} {'5d':<8} {'10d'}")
+            logging.info(f"  {'-'*48}")
+
+            def _pct(v):
+                return f"{float(v):.1f}%" if v is not None and v == v else '--'
+
             for _, row in accuracy_df.iterrows():
                 logging.info(
-                    f"  {row['model_name']:<25} {row['total']:<10} {row['correct']:<10} "
-                    f"{row['accuracy_pct']:.1f}%{' ':>6} {row['avg_pct_error']:.2f}%"
+                    f"  {str(row['analysis_date']):<12} {row['total_predictions']:<8} "
+                    f"{_pct(row['success_rate_1d']):<8} {_pct(row['success_rate_5d']):<8} "
+                    f"{_pct(row['success_rate_10d'])}"
                 )
-            
-            # Alert if all models below 50%
-            max_accuracy = accuracy_df['accuracy_pct'].max()
-            if max_accuracy < 50:
-                logging.warning(f"  [WARN] ALL models below 50% accuracy! Best: {max_accuracy:.1f}%")
-                logging.warning(f"  [WARN] Consider running: python retrain_nse_model.py")
+
+            rolling_sr5d = float(accuracy_df['success_rate_5d'].mean())
+            logging.info(f"  Rolling success_rate_5d: {rolling_sr5d:.1f}%")
+            if rolling_sr5d < 50:
+                logging.warning(f"  [WARN] Rolling 5-day success rate below 50% ({rolling_sr5d:.1f}%) — "
+                                f"retrain trigger will fire on the next run")
         else:
-            logging.info("  [INFO] No recent prediction results to evaluate")
+            logging.info("  [INFO] No settled prediction results to evaluate yet "
+                         "(score_nse_predictions.py has not run)")
         
         # Today's prediction summary
         summary_query = """
@@ -556,7 +599,8 @@ def log_model_performance():
             logging.info(f"    Avg Confidence: {row['avg_confidence']:.2f}")
             logging.info(f"    Market Trend: {row['market_trend']}")
             if row.get('model_accuracy'):
-                logging.info(f"    Model Accuracy: {row['model_accuracy']:.1%}")
+                # model_accuracy is stored as a percentage (e.g. 56.77), not a fraction
+                logging.info(f"    Model Accuracy (5d, settled): {row['model_accuracy']:.1f}%")
         
     except Exception as e:
         logging.error(f"[ERROR] Error checking model performance: {e}")
@@ -858,6 +902,20 @@ def main():
                                    "Check the log file for detailed error output.")
                 send_failure_alert(failure_message, failure_step, str(log_filename))
         
+        # Step 3c: Settle past predictions against realized prices (in-repo scoring;
+        # runs even when today's predictions are skipped -- old sessions still settle)
+        total_steps += 1
+        logging.info("=" * 60)
+        logging.info("[SCORING] STEP 3c: Scoring Settled Predictions")
+        logging.info("=" * 60)
+
+        if run_prediction_scoring():
+            success_count += 1
+            logging.info("[SUCCESS] Prediction scoring completed")
+        else:
+            logging.warning("[WARN] Prediction scoring failed, success rates may be stale")
+            success_count += 1  # Don't block the rest of the pipeline
+
         # Step 4: Log model performance
         total_steps += 1
         logging.info("=" * 60)

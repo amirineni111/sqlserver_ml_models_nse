@@ -69,7 +69,8 @@ from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
-    classification_report, confusion_matrix
+    classification_report, confusion_matrix,
+    roc_auc_score, brier_score_loss
 )
 from sklearn.utils.class_weight import compute_sample_weight
 
@@ -1183,11 +1184,26 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
         y_pred = calibrated_model.predict(X)
         y_proba = calibrated_model.predict_proba(X)
         
+        # Ranking-quality metrics: the served product is the top-ranked picks
+        # (top 30% by buy probability), so how well P(Up) RANKS outcomes matters
+        # more than the 50%-threshold accuracy.
+        p_up = y_proba[:, 1]  # class 1 = 'Up' (LabelEncoder: Down=0, Up=1)
+        try:
+            auc = roc_auc_score(y, p_up)
+        except ValueError:  # single-class edge case
+            auc = None
+        n_top = max(int(len(p_up) * 0.10), 1)
+        top_idx = np.argsort(p_up)[-n_top:]
+        top_decile_precision = float(np.asarray(y)[top_idx].mean())
+
         results[name] = {
             'accuracy': accuracy_score(y, y_pred),
             'precision': precision_score(y, y_pred, average='weighted', zero_division=0),
             'recall': recall_score(y, y_pred, average='weighted', zero_division=0),
             'f1': f1_score(y, y_pred, average='weighted', zero_division=0),
+            'auc': auc,
+            'brier': brier_score_loss(y, p_up, pos_label=1),
+            'top_decile_precision': top_decile_precision,
             'y_pred': y_pred,
             'y_proba': y_proba
         }
@@ -1204,6 +1220,9 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
         print(f"  Precision: {r['precision']:.4f}")
         print(f"  Recall:    {r['recall']:.4f}")
         print(f"  F1 Score:  {r['f1']:.4f}")
+        print(f"  AUC:       {r['auc']:.4f}" if r['auc'] is not None else "  AUC:       n/a")
+        print(f"  Brier:     {r['brier']:.4f}")
+        print(f"  Top-decile precision: {r['top_decile_precision']:.4f}")
     
     # Detailed test set analysis
     print("\n" + "="*80)
@@ -1280,6 +1299,12 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
     if test_results:
         metadata['test_accuracy'] = round(test_results.get('accuracy', 0), 4)
         metadata['test_f1'] = round(test_results.get('f1', 0), 4)
+        if test_results.get('auc') is not None:
+            metadata['test_auc'] = round(test_results['auc'], 4)
+        if test_results.get('brier') is not None:
+            metadata['test_brier'] = round(test_results['brier'], 4)
+        if test_results.get('top_decile_precision') is not None:
+            metadata['test_top_decile_precision'] = round(test_results['top_decile_precision'], 4)
     if split_info:
         metadata['split'] = split_info
     
