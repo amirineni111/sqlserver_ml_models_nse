@@ -117,6 +117,7 @@ def evaluate_fold(fold_num, X, y_encoded, dates, unique_dates, test_start_idx, e
     top_mask = confidence >= decile_cut
     top_decile_acc = float(accuracy_score(y_test[top_mask], y_pred[top_mask])) if top_mask.any() else None
 
+    test_metrics = results['Test']
     return {
         'fold': fold_num,
         'train_range': f"{pd.Timestamp(train_dates[0]).date()} to {pd.Timestamp(train_dates[-1]).date()}",
@@ -125,6 +126,9 @@ def evaluate_fold(fold_num, X, y_encoded, dates, unique_dates, test_start_idx, e
         'n_test': int(test_mask.sum()),
         'accuracy': round(float(accuracy_score(y_test, y_pred)), 4),
         'f1': round(float(f1_score(y_test, y_pred, average='weighted', zero_division=0)), 4),
+        'auc': round(float(test_metrics['auc']), 4) if test_metrics.get('auc') is not None else None,
+        'top_decile_precision': (round(float(test_metrics['top_decile_precision']), 4)
+                                 if test_metrics.get('top_decile_precision') is not None else None),
         'pred_up_pct': round(pred_up_pct, 1),
         'actual_up_pct': round(actual_up_pct, 1),
         'top_decile_accuracy': round(top_decile_acc, 4) if top_decile_acc is not None else None,
@@ -138,6 +142,7 @@ def main():
     print("=" * 80)
     print(f"Start Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Folds: {N_FOLDS} x {TEST_WINDOW_DAYS} trading days, embargo {EMBARGO_DAYS} days")
+    print(f"Label mode: {rt.Config.LABEL_MODE}")
 
     # Silence per-tree GB output across folds
     rt.Config.GB_PARAMS['verbose'] = 0
@@ -178,33 +183,48 @@ def main():
     print("\n" + "=" * 80)
     print("WALK-FORWARD SUMMARY (honest forward-in-time estimates)")
     print("=" * 80)
-    header = f"{'Fold':4s} {'Test Range':26s} {'Acc':>7s} {'F1':>7s} {'PredUp%':>8s} {'ActUp%':>7s} {'Top10%Acc':>10s}"
+    header = (f"{'Fold':4s} {'Test Range':26s} {'Acc':>7s} {'F1':>7s} {'AUC':>7s} "
+              f"{'Top10%P':>8s} {'PredUp%':>8s} {'ActUp%':>7s} {'Top10%Acc':>10s}")
     print(header)
     print("-" * len(header))
     for r in fold_results:
         top = f"{r['top_decile_accuracy']:.4f}" if r['top_decile_accuracy'] is not None else "n/a"
+        auc_s = f"{r['auc']:.4f}" if r['auc'] is not None else "n/a"
+        tdp_s = f"{r['top_decile_precision']:.4f}" if r['top_decile_precision'] is not None else "n/a"
         print(f"{r['fold']:<4d} {r['test_range']:26s} {r['accuracy']:7.4f} {r['f1']:7.4f} "
+              f"{auc_s:>7s} {tdp_s:>8s} "
               f"{r['pred_up_pct']:8.1f} {r['actual_up_pct']:7.1f} {top:>10s}")
 
     accs = [r['accuracy'] for r in fold_results]
+    aucs = [r['auc'] for r in fold_results if r['auc'] is not None]
+    tdps = [r['top_decile_precision'] for r in fold_results if r['top_decile_precision'] is not None]
     print("-" * len(header))
     print(f"Mean accuracy: {np.mean(accs):.4f}  (std {np.std(accs):.4f})")
+    if aucs:
+        print(f"Mean AUC: {np.mean(aucs):.4f} | Mean top-decile precision: {np.mean(tdps):.4f}")
     print("\n[NOTE] ~50% is coin-flip; 53-58% is realistic for 5-day direction.")
     print("[NOTE] A fold at 90%+ would indicate residual leakage, not skill.")
 
     summary = {
         'timestamp': datetime.now().strftime('%Y%m%d_%H%M%S'),
+        'label_mode': rt.Config.LABEL_MODE,
         'n_folds': N_FOLDS,
         'test_window_days': TEST_WINDOW_DAYS,
         'embargo_days': EMBARGO_DAYS,
         'mean_accuracy': round(float(np.mean(accs)), 4),
         'std_accuracy': round(float(np.std(accs)), 4),
+        'mean_auc': round(float(np.mean(aucs)), 4) if aucs else None,
+        'mean_top_decile_precision': round(float(np.mean(tdps)), 4) if tdps else None,
         'folds': fold_results,
     }
-    RESULTS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(RESULTS_FILE, 'w') as f:
+    # Experiments write mode-suffixed files so the absolute-label baseline is kept
+    results_file = RESULTS_FILE
+    if rt.Config.LABEL_MODE != 'absolute':
+        results_file = RESULTS_FILE.with_name(f"walkforward_results_{rt.Config.LABEL_MODE}.json")
+    results_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(results_file, 'w') as f:
         json.dump(summary, f, indent=2)
-    print(f"\n[SUCCESS] Results written to {RESULTS_FILE}")
+    print(f"\n[SUCCESS] Results written to {results_file}")
     print(f"End Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 

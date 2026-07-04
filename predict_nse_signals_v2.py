@@ -352,8 +352,18 @@ def load_prediction_data(conn, prediction_date):
     if excluded > 0:
         print(f"[INFO] Penny stock filter: excluded {excluded} tickers "
               f"(price < INR {Config.MIN_STOCK_PRICE:.0f} or no earnings data)")
+
+    # Fundamental + sentiment features (Jul 2026) -- SHARED implementations from the
+    # retrain module so train/predict cannot drift (this repo's classic failure mode).
+    # Runs after the date filter, so ranks are computed over the investable universe.
+    from retrain_nse_model_v2 import merge_fundamental_features, merge_sector_sentiment
+    print("[INFO] Merging fundamental features (point-in-time ranks)...")
+    df = merge_fundamental_features(conn, df)
+    print("[INFO] Merging sector sentiment features...")
+    df = merge_sector_sentiment(conn, df)
+
     print(f"[SUCCESS] {len(df)} investable tickers ready for prediction on {prediction_date}")
-    
+
     return df
 
 def merge_market_context(conn, df):

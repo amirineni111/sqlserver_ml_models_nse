@@ -136,6 +136,12 @@ class Config:
 
     # Calibration method
     CALIBRATION_METHOD = 'isotonic'  # NASDAQ uses isotonic calibration
+
+    # Label definition (env-switchable for walk-forward experiments):
+    #   'absolute'        = sign of the stock's 5-day forward return (original)
+    #   'market_relative' = sign of (stock 5d return - NIFTY 5d return) --
+    #                       matches how predictions are SERVED (relative top-30% picks)
+    LABEL_MODE = os.getenv('NSE_LABEL_MODE', 'absolute')
     
     # Logging
     LOG_DIR = Path('logs')
@@ -187,6 +193,7 @@ FUTURE_LEAK_FEATURES = [
     'next_5d_return', 'next_day_return', 'next_3d_return',  # Future returns
     'direction', 'direction_3d',  # Derived from future data
     'next_close', 'next_3d_close', 'next_5d_close',  # Future prices
+    'nifty_next_5d_return',  # Benchmark for the market_relative label ONLY
 ]
 
 # Absolute market price LEVELS are non-stationary and cause distribution shift
@@ -320,7 +327,13 @@ def load_training_data(conn):
     # Add interaction features (HYBRID APPROACH - April 21, 2026)
     print("[INFO] Calculating interaction features...")
     df = add_interaction_features(df)
-    
+
+    # Fundamental + sentiment candidates (Jul 2026): previously unused data
+    print("[INFO] Merging fundamental features (point-in-time ranks)...")
+    df = merge_fundamental_features(conn, df)
+    print("[INFO] Merging sector sentiment features...")
+    df = merge_sector_sentiment(conn, df)
+
     # Remove rows without a future return BEFORE labeling.
     # np.where(NaN > 0, ...) evaluates False, so unlabeled rows would silently
     # be tagged 'Down' -- the last 5 days per ticker must be dropped here.
@@ -524,7 +537,15 @@ def merge_market_context(conn, df):
         df_context['nifty50_return_5d'] = (
             df_context['nifty50_return_1d'].rolling(5, min_periods=1).sum()
         ).fillna(0.0)
-        
+
+        # FORWARD NIFTY 5d return -- benchmark for the market_relative LABEL only.
+        # Looks 5 days ahead, so it is in FUTURE_LEAK_FEATURES and never a feature.
+        # Already a fraction (computed from closes): must skip the pct->fraction
+        # division applied to the market return columns below.
+        df_context['nifty_next_5d_return'] = (
+            df_context['nifty50_close'].shift(-5) / df_context['nifty50_close'] - 1
+        )
+
         # Merge with main data
         df['trading_date'] = pd.to_datetime(df['trading_date'])
         market_cols = [c for c in df_context.columns if c != 'trading_date']
@@ -549,7 +570,8 @@ def merge_market_context(conn, df):
         # Without this, stock_return_vs_nifty is dominated by NIFTY sign (100x too large),
         # making the model predict purely based on market direction, not individual stocks.
         for col in return_cols:
-            if col in df.columns:
+            # nifty_next_5d_return is computed from closes and is already a fraction
+            if col in df.columns and col != 'nifty_next_5d_return':
                 df[col] = df[col] / 100.0
         
         # Market regime features computed from stock data (no extra DB query needed).
@@ -580,8 +602,115 @@ def merge_market_context(conn, df):
     except Exception as e:
         print(f"[WARNING] Could not load market context: {e}")
         print("[INFO] Continuing without market features...")
-    
+
     return df
+
+
+# Fundamental metrics used as features (as within-date percentile ranks).
+# Slow-moving value/quality/growth factors; raw levels are dropped after ranking
+# because they are not comparable across stocks or time.
+FUNDAMENTAL_METRICS = [
+    'trailing_pe', 'forward_pe', 'price_to_book', 'peg_ratio',
+    'profit_margin', 'operating_margin', 'return_on_equity', 'return_on_assets',
+    'revenue_growth', 'earnings_growth', 'debt_to_equity', 'dividend_yield',
+]
+
+
+def merge_fundamental_features(conn, df):
+    """
+    Merge point-in-time fundamentals as cross-sectional percentile ranks.
+
+    POINT-IN-TIME is critical: each row may only see the latest snapshot with
+    fetch_date <= trading_date (merge_asof backward). Joining the newest snapshot
+    onto all history would leak 2026 valuations into 2024 training rows.
+    Snapshots exist from 2026-01-19; earlier rows get a neutral 0.5 rank.
+    """
+    query = f"""
+    SELECT ticker, fetch_date, {', '.join(FUNDAMENTAL_METRICS)}
+    FROM nse_500_fundamentals
+    ORDER BY fetch_date
+    """
+    try:
+        fund = pd.read_sql(query, conn)
+        if fund.empty:
+            print("[WARNING] nse_500_fundamentals is empty -- skipping fundamental features")
+            return df
+
+        fund['fetch_date'] = pd.to_datetime(fund['fetch_date'])
+        df['trading_date'] = pd.to_datetime(df['trading_date'])
+
+        # The predict-side frame already carries some raw metrics (penny filter);
+        # drop them so merge_asof doesn't suffix-collide -- they are re-added
+        # point-in-time below
+        overlap = [c for c in FUNDAMENTAL_METRICS if c in df.columns]
+        if overlap:
+            df = df.drop(columns=overlap)
+
+        df = df.sort_values('trading_date').reset_index(drop=True)
+        fund = fund.sort_values('fetch_date').reset_index(drop=True)
+        df = pd.merge_asof(
+            df, fund,
+            left_on='trading_date', right_on='fetch_date',
+            by='ticker', direction='backward'
+        )
+
+        # Within-date percentile ranks: comparable across stocks and stationary
+        # over time, unlike raw PE/margin levels
+        for col in FUNDAMENTAL_METRICS:
+            df[f'fund_{col}_rank'] = (
+                df.groupby('trading_date')[col].rank(pct=True).fillna(0.5)
+            )
+        df = df.drop(columns=FUNDAMENTAL_METRICS + ['fetch_date'])
+
+        coverage = (df['fund_trailing_pe_rank'] != 0.5).mean()
+        print(f"[SUCCESS] Added {len(FUNDAMENTAL_METRICS)} fundamental rank features "
+              f"(point-in-time coverage: {coverage:.0%} of rows)")
+    except Exception as e:
+        print(f"[WARNING] Could not load fundamentals: {e}")
+        print("[INFO] Continuing without fundamental features...")
+    return df
+
+
+def merge_sector_sentiment(conn, df):
+    """
+    Merge daily sector news sentiment (nse_sector_sentiment, collected by
+    collect_sector_sentiment.py since Nov 2025). Joined on (trading_date, sector);
+    dates before collection began get neutral zero-fill.
+    """
+    query = """
+    SELECT trading_date, sector,
+           sentiment_score, sentiment_momentum_3d, sentiment_momentum_7d,
+           sentiment_vs_avg_30d
+    FROM nse_sector_sentiment
+    """
+    try:
+        sent = pd.read_sql(query, conn)
+        if sent.empty:
+            print("[WARNING] nse_sector_sentiment is empty -- skipping sentiment features")
+            return df
+
+        sent['trading_date'] = pd.to_datetime(sent['trading_date'])
+        sent = sent.rename(columns={
+            'sentiment_score': 'sent_score',
+            'sentiment_momentum_3d': 'sent_momentum_3d',
+            'sentiment_momentum_7d': 'sent_momentum_7d',
+            'sentiment_vs_avg_30d': 'sent_vs_avg_30d',
+        })
+
+        df['trading_date'] = pd.to_datetime(df['trading_date'])
+        df = df.merge(sent, on=['trading_date', 'sector'], how='left')
+        sent_cols = ['sent_score', 'sent_momentum_3d', 'sent_momentum_7d', 'sent_vs_avg_30d']
+        for col in sent_cols:
+            df[col] = df[col].fillna(0)
+
+        coverage = (df['sent_score'] != 0).mean()
+        print(f"[SUCCESS] Added {len(sent_cols)} sector sentiment features "
+              f"(coverage: {coverage:.0%} of rows)")
+    except Exception as e:
+        print(f"[WARNING] Could not load sector sentiment: {e}")
+        print("[INFO] Continuing without sentiment features...")
+    return df
+
 
 def add_market_neutral_features(df):
     """
@@ -843,14 +972,26 @@ def add_interaction_features(df):
 def create_target_variable(df):
     """
     Create target variable (direction_5d)
-    
-    Following NSE approach: 'Up' and 'Down' labels
-    LabelEncoder will sort alphabetically: Down=0, Up=1
+
+    'Up'/'Down' labels; LabelEncoder sorts alphabetically: Down=0, Up=1.
+    Config.LABEL_MODE selects the definition:
+      absolute        -> sign of the stock's own 5d forward return
+      market_relative -> sign of (stock 5d return - NIFTY 5d return), matching
+                         how predictions are served (relative top-30% picks)
     """
+    if Config.LABEL_MODE == 'market_relative' and 'nifty_next_5d_return' in df.columns:
+        # Missing benchmark days were zero-filled in merge_market_context, which
+        # degrades gracefully to the absolute label for those rows
+        target_return = df['next_5d_return'] - df['nifty_next_5d_return']
+        print(f"[INFO] Label mode: market_relative (stock 5d return vs NIFTY 5d return)")
+    else:
+        target_return = df['next_5d_return']
+        print(f"[INFO] Label mode: absolute (sign of stock 5d return)")
+
     df['direction_5d'] = np.where(
-        df['next_5d_return'] > 0,
-        'Up',    # Positive 5-day return
-        'Down'   # Negative 5-day return
+        target_return > 0,
+        'Up',    # Positive 5-day (excess) return
+        'Down'   # Negative 5-day (excess) return
     )
     
     # Class distribution
@@ -919,7 +1060,8 @@ def categorize_features(feature_list):
         elif any(x in feat_lower for x in ['vs_nifty', 'vs_sector', 'beta', 'relative_strength',
                                             '_anomaly', 'momentum_vs',
                                             'sector_rsi', 'sector_return', 'sector_volume',
-                                            'sector_momentum', 'sector_breadth']):
+                                            'sector_momentum', 'sector_breadth',
+                                            'sent_']):  # sector sentiment = sector-average attribute
             relative_neutral.append(feat)
         
         # Stock-specific (price, volume, technical indicators)
@@ -1435,16 +1577,52 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
 # Main Training Pipeline
 # ============================================================================
 
+def parse_args():
+    """CLI flags. daily_nse_automation.py passes --quick --backup-old; until
+    Jul 2026 there was no argument parsing at all and both were silent no-ops."""
+    import argparse
+    parser = argparse.ArgumentParser(description='NSE V2 model retraining')
+    parser.add_argument('--quick', action='store_true',
+                        help='Faster automation-triggered retrain: halves n_estimators')
+    parser.add_argument('--backup-old', action='store_true',
+                        help='Copy current model artifacts to a timestamped backup dir before overwriting')
+    return parser.parse_args()
+
+
+def backup_current_artifacts():
+    """Copy existing model artifacts to data/nse_models/backups/<timestamp>/."""
+    import shutil
+    backup_dir = Config.MODELS_DIR / 'backups' / datetime.now().strftime('%Y%m%d_%H%M%S')
+    artifacts = list(Config.MODELS_DIR.glob('*.joblib')) + \
+                list(Config.MODELS_DIR.glob('*.json')) + \
+                list(Config.MODELS_DIR.glob('*.csv'))
+    if not artifacts:
+        print("[INFO] No existing artifacts to back up")
+        return
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    for path in artifacts:
+        shutil.copy2(path, backup_dir / path.name)
+    print(f"[SUCCESS] Backed up {len(artifacts)} artifacts to {backup_dir}")
+
+
 def main():
     """Main training pipeline"""
+    args = parse_args()
+
     print("\n" + "="*80)
     print("NSE MODEL RETRAINING V2 - SIMPLIFIED ARCHITECTURE")
     print("="*80)
     print(f"Start Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Based on proven NASDAQ approach (65-70% accuracy)")
-    
+
     # Ensure directories exist
     Config.ensure_dirs()
+
+    if args.quick:
+        Config.GB_PARAMS['n_estimators'] = max(Config.GB_PARAMS['n_estimators'] // 2, 50)
+        print(f"[INFO] --quick: n_estimators reduced to {Config.GB_PARAMS['n_estimators']}")
+    if args.backup_old:
+        backup_current_artifacts()
     
     # Connect to database
     conn = get_db_connection()
