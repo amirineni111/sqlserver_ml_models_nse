@@ -134,6 +134,22 @@ class Config:
     # Penny stock / investability filter
     MIN_STOCK_PRICE = 10.0  # Exclude stocks below INR10 (penny/micro-cap)
 
+    # Base model type: 'gb' (GradientBoosting) | 'lgbm' (LightGBM).
+    # Jul 2026 sweep (sweep_models_v2.py): LightGBM 300x63 beat the GB baseline
+    # at BOTH protocols -- 2-fold screen (top-decile precision 0.713 vs 0.574)
+    # and 4-fold confirmation (0.579 vs 0.501, AUC 0.534 vs 0.509). Adopted Jul 4.
+    MODEL_TYPE = os.getenv('NSE_MODEL_TYPE', 'lgbm')
+    LGBM_PARAMS = {
+        'n_estimators': 300,
+        'num_leaves': 63,
+        'learning_rate': 0.05,
+        'subsample': 0.8,
+        'colsample_bytree': 0.8,
+        'min_child_samples': 100,
+        'random_state': 42,
+        'verbose': -1,
+    }
+
     # Calibration method
     CALIBRATION_METHOD = 'isotonic'  # NASDAQ uses isotonic calibration
 
@@ -1222,11 +1238,16 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
         effective_weight = sample_weights[cls_mask].mean()
         print(f"  Class {cls}: effective weight = {effective_weight:.4f}")
     
-    # Train Gradient Boosting
-    print(f"\n[INFO] Training Gradient Boosting Classifier...")
-    print(f"[INFO] Parameters: {Config.GB_PARAMS}")
-    
-    model = GradientBoostingClassifier(**Config.GB_PARAMS)
+    # Train base model (Config.MODEL_TYPE selects the implementation)
+    if Config.MODEL_TYPE == 'lgbm':
+        from lightgbm import LGBMClassifier
+        print(f"\n[INFO] Training LightGBM Classifier...")
+        print(f"[INFO] Parameters: {Config.LGBM_PARAMS}")
+        model = LGBMClassifier(**Config.LGBM_PARAMS)
+    else:
+        print(f"\n[INFO] Training Gradient Boosting Classifier...")
+        print(f"[INFO] Parameters: {Config.GB_PARAMS}")
+        model = GradientBoostingClassifier(**Config.GB_PARAMS)
     model.fit(X_train, y_train, sample_weight=sample_weights)
     
     # Calibrate on separate calibration set
@@ -1426,7 +1447,7 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
     # Save training metadata
     metadata = {
         'timestamp': timestamp,
-        'model_type': 'GradientBoostingClassifier',
+        'model_type': type(base_model).__name__,
         # Record what was actually applied: the isotonic path falls back to sigmoid
         # (Platt) when the fitted calibrators are degenerate, and to the raw base
         # model when Platt also collapses the probability variance
@@ -1436,7 +1457,8 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
         'n_features': len(selected_features),
         'top_features': selected_features[:10],
         'data_range': f"{Config.DATA_START_DATE} to {Config.DATA_END_DATE}",
-        'hyperparameters': Config.GB_PARAMS,
+        'hyperparameters': (Config.LGBM_PARAMS if Config.MODEL_TYPE == 'lgbm'
+                            else Config.GB_PARAMS),
     }
     if test_results:
         metadata['test_accuracy'] = round(test_results.get('accuracy', 0), 4)
@@ -1620,7 +1642,9 @@ def main():
 
     if args.quick:
         Config.GB_PARAMS['n_estimators'] = max(Config.GB_PARAMS['n_estimators'] // 2, 50)
-        print(f"[INFO] --quick: n_estimators reduced to {Config.GB_PARAMS['n_estimators']}")
+        Config.LGBM_PARAMS['n_estimators'] = max(Config.LGBM_PARAMS['n_estimators'] // 2, 50)
+        print(f"[INFO] --quick: n_estimators halved "
+              f"(gb={Config.GB_PARAMS['n_estimators']}, lgbm={Config.LGBM_PARAMS['n_estimators']})")
     if args.backup_old:
         backup_current_artifacts()
     

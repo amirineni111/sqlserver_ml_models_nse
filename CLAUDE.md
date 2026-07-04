@@ -25,7 +25,7 @@ This is the **NSE ML training pipeline** — one of **7 interconnected repositor
 ## 2. THIS REPO: sqlserver_copilot_nse
 
 ### Purpose
-Trains a **single Gradient Boosting classifier (V2 architecture)** with isotonic calibration on NSE 500 stocks to predict Buy/Sell signals. Uses **hybrid feature approach** combining market context (25%), stock-specific (35%), relative/neutral (25%), and interaction features (15%) for balanced, context-aware predictions. Writes predictions to `ml_nse_trading_predictions`.
+Trains a **single LightGBM classifier (V2 architecture, LightGBM since Jul 2026 — beat GradientBoosting on 4-fold walk-forward)** on NSE 500 stocks to predict Buy/Sell signals. Calibration falls back isotonic → Platt → raw base model when it would collapse probability variance (see incident table); production has served raw probabilities since Jul 2026. Uses **hybrid feature approach** combining market context (25%), stock-specific (35%), relative/neutral (25%), and interaction features (15%) for balanced, context-aware predictions. Writes predictions to `ml_nse_trading_predictions`.
 
 ### Daily Schedule (Windows Task Scheduler)
 ```
@@ -62,14 +62,17 @@ sqlserver_copilot_nse/
 
 ---
 
-## 3. ML MODEL DETAILS (V2 ARCHITECTURE - APRIL 2026)
+## 3. ML MODEL DETAILS (V2 ARCHITECTURE - APRIL 2026, LightGBM JULY 2026)
 
 ### Model Architecture
-**Single Gradient Boosting Classifier** with isotonic probability calibration
-- Based on proven NASDAQ approach (simplified from V1's 5-model ensemble)
-- Training: 60% train / 20% calibration / 20% test
-- Stratified calibration split to prevent bias
+**Single LightGBM Classifier** (`Config.MODEL_TYPE='lgbm'`; 300 estimators × 63 leaves, lr 0.05 — adopted Jul 2026 after beating GradientBoosting on 2-fold AND 4-fold walk-forward; GB path retained behind `NSE_MODEL_TYPE=gb`)
+- Training: 60% train / 20% calibration / 20% test (chronological by date, 5-day embargo)
+- Calibration: isotonic → Platt → raw fallback chain, validated on realistic inputs (this data's weak signal collapses under honest calibration, so production serves raw probabilities)
 - Class + time-based sample weighting
+- Label: absolute 5-day direction (`NSE_LABEL_MODE=market_relative` was tested Jul 2026 and LOST — do not re-adopt without new walk-forward evidence)
+- Features include point-in-time fundamental ranks (`fund_*_rank`) and sector sentiment (`sent_*`) since Jul 2026
+- Evaluation tracks AUC / Brier / top-decile precision (primary product metric: top-ranked picks), not just accuracy
+- Live scoring: `score_nse_predictions.py` settles outcomes at 1d/5d/10d from `nse_500_hist_data` — never `ai_prediction_history` (external process, different horizon)
 
 ### CRITICAL: Hybrid Feature Engineering Approach (April 21, 2026)
 

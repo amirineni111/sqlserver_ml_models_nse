@@ -34,7 +34,7 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 
 import retrain_nse_model_v2 as rt
 
-N_FOLDS = 2             # screening protocol; confirm winners with the full 4-fold harness
+N_FOLDS = 2             # screening protocol; confirm winners with --folds 4
 TEST_WINDOW_DAYS = 42
 EMBARGO_DAYS = 5
 RESULTS_FILE = Path('data/nse_models/sweep_results.json')
@@ -146,23 +146,46 @@ def run_sweep(tag, X, y, dates, up_code, results):
 
 
 def main():
+    global N_FOLDS
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--extended-history', action='store_true',
                         help='Also sweep with DATA_START_DATE=2022-06-01')
+    parser.add_argument('--extended-only', action='store_true',
+                        help='Sweep ONLY the extended 2022-06-01 window')
+    parser.add_argument('--folds', type=int, default=N_FOLDS,
+                        help='Number of forward-in-time test folds (4 = confirmation protocol)')
+    parser.add_argument('--models', default=None,
+                        help='Comma-separated subset of candidate model names to run')
     args = parser.parse_args()
 
-    print(f"Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | label_mode={rt.Config.LABEL_MODE}")
+    N_FOLDS = args.folds
+    if args.models:
+        wanted = {m.strip() for m in args.models.split(',')}
+        global candidate_models
+        all_models = candidate_models
+
+        def candidate_models_filtered():
+            return {k: v for k, v in all_models().items() if k in wanted}
+        candidate_models = candidate_models_filtered
+
+    print(f"Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | "
+          f"label_mode={rt.Config.LABEL_MODE} | folds={N_FOLDS}")
     rt.Config.GB_PARAMS['verbose'] = 0
 
     results = []
 
-    X, y, dates, up_code = load_data()
-    run_sweep(f'standard ({rt.Config.DATA_START_DATE})', X, y, dates, up_code, results)
-
-    if args.extended_history:
+    if args.extended_only:
         rt.Config.DATA_START_DATE = '2022-06-01'
         X, y, dates, up_code = load_data()
         run_sweep('extended (2022-06-01)', X, y, dates, up_code, results)
+    else:
+        X, y, dates, up_code = load_data()
+        run_sweep(f'standard ({rt.Config.DATA_START_DATE})', X, y, dates, up_code, results)
+
+        if args.extended_history:
+            rt.Config.DATA_START_DATE = '2022-06-01'
+            X, y, dates, up_code = load_data()
+            run_sweep('extended (2022-06-01)', X, y, dates, up_code, results)
 
     results.sort(key=lambda r: (r['mean_top_decile_precision'] or 0), reverse=True)
     print(f"\n{'='*80}\nSWEEP RANKING (by top-decile precision)\n{'='*80}")
@@ -170,11 +193,15 @@ def main():
         print(f"  {r['model']:<22} {r['data_window']:<24} "
               f"top10%P={r['mean_top_decile_precision']:.4f} auc={r['mean_auc']} acc={r['mean_accuracy']:.4f}")
 
-    RESULTS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(RESULTS_FILE, 'w') as f:
+    # Confirmation runs (non-default fold count) get their own file so the
+    # screening results are preserved
+    results_file = RESULTS_FILE if N_FOLDS == 2 else \
+        RESULTS_FILE.with_name(f'sweep_results_{N_FOLDS}fold.json')
+    results_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(results_file, 'w') as f:
         json.dump({'timestamp': datetime.now().strftime('%Y%m%d_%H%M%S'),
                    'n_folds': N_FOLDS, 'results': results}, f, indent=2)
-    print(f"\n[SUCCESS] Results written to {RESULTS_FILE}")
+    print(f"\n[SUCCESS] Results written to {results_file}")
     print(f"End: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 

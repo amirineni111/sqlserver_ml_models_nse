@@ -67,3 +67,6 @@ data/raw/*.xlsx
 data/raw/*.json
 data/processed/*.csv
 data/processed/*.xlsx
+
+# Model artifact backups (local safety copies from retrain --backup-old)
+data/nse_models/backups/
