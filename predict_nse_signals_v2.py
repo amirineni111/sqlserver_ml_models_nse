@@ -751,16 +751,17 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
         predictions['sell_probability']
     ) * 100
     
-    # Signal strength: percentile rank within this day's predictions
-    # top 5% = High (~100 signals/day), next 20% = Medium, rest = Low
-    # Guarantees consistent counts regardless of absolute confidence level.
-    # method='first' breaks the heavy ties produced by isotonic calibration --
-    # average ranks let a tie cluster skip an entire band (observed: 0 Medium).
-    conf_rank = predictions['confidence_percentage'].rank(pct=True, method='first')
+    # Signal strength: absolute confidence thresholds (High >= 70, Medium 60-70, Low < 60).
+    # Replaced percentile ranking (top 5%/20%) Jul 2026: percentile bands over a fixed
+    # universe pinned the summary counts at 96/382/1431 regardless of actual confidence,
+    # and method='first' tie-breaking gave identical confidences different labels.
     predictions['signal_strength'] = np.where(
-        conf_rank >= 0.95,
+        predictions['confidence_percentage'] >= Config.CONFIDENCE_STRONG_THRESHOLD * 100,
         'High',
-        np.where(conf_rank >= 0.75, 'Medium', 'Low')
+        np.where(
+            predictions['confidence_percentage'] >= Config.CONFIDENCE_HIGH_THRESHOLD * 100,
+            'Medium', 'Low'
+        )
     )
     
     # All three boolean confidence flags -- derived from signal_strength
@@ -783,7 +784,7 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     
     # Signal strength distribution
     strength_counts = predictions['signal_strength'].value_counts()
-    print("[INFO] Signal Strength Distribution (percentile-based):")
+    print("[INFO] Signal Strength Distribution (threshold-based):")
     for strength in ['High', 'Medium', 'Low']:
         count = strength_counts.get(strength, 0)
         pct = count / len(predictions) * 100
@@ -806,6 +807,12 @@ def validate_prediction_distribution(predictions, conn=None):
     Soft warnings (log only, do NOT abort):
       - buy_pct < 20% or > 80% (moderate bias, worth monitoring)
       - avg_confidence > 90%  (suspiciously overconfident model)
+      - distinct confidence values < 5% of predictions (narrowing distribution,
+        like the Jun 9-12 2026 pre-freeze drift)
+
+    Additional hard-abort:
+      - distinct confidence values <= 5 (frozen probabilities, like the
+        Jun 15-Jul 2 2026 constant-55.8% episode)
     """
     total = len(predictions)
     buy_count = len(predictions[predictions['predicted_signal'] == 'Buy'])
@@ -833,6 +840,22 @@ def validate_prediction_distribution(predictions, conn=None):
     fatal_issues = []
     warnings = []
     
+    # -- Hard-abort: frozen confidence distribution -------------------------
+    # Degenerate calibrators emit one constant probability for every ticker
+    # (Jun 15 - Jul 2 2026: every Buy at exactly 55.809%). Features stay
+    # differentiated, so only the confidence columns reveal it.
+    distinct_conf = predictions['confidence_percentage'].nunique()
+    if distinct_conf <= 5:
+        fatal_issues.append(
+            f"Only {distinct_conf} distinct confidence value(s) across {total:,} "
+            f"predictions -- probabilities are frozen (degenerate calibrators?)"
+        )
+    elif distinct_conf < total * 0.05:
+        warnings.append(
+            f"Only {distinct_conf} distinct confidence values across {total:,} "
+            f"predictions -- distribution is narrowing, watch for a freeze"
+        )
+
     # -- Hard-abort: catastrophic buy/sell skew -----------------------------
     if buy_pct < 5:
         fatal_issues.append(f"Buy% ({buy_pct:.1f}%) below 5% -- catastrophic bearish bias")

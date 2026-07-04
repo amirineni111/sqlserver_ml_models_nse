@@ -1103,17 +1103,32 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
             iso_reg.fit(base_proba[:, i], (y_cal == i).astype(int))
             calibrators.append(iso_reg)
 
-        # Validate calibrators: isotonic regression on near-constant input learns a flat
-        # mapping and will output the same probability for every future sample. Detect this
-        # by probing the calibrator across the full [0,1] range.
-        test_range = np.linspace(0.01, 0.99, 100)
+        # Validate calibrators on the calibration set's own base probabilities -- the
+        # realistic input distribution. A linspace probe over [0,1] is NOT sufficient:
+        # the Jul 3 2026 model varied across the full range (probe std 0.23) but had only
+        # 21 output levels with giant flat steps, so any single day's narrow cross-section
+        # of base probabilities mapped to ONE constant value (runtime std 0.009 -> frozen
+        # confidence). Check step granularity and variance where the inputs actually live.
+        calibrated_cal = np.column_stack([
+            cal.transform(base_proba[:, i]) for i, cal in enumerate(calibrators)
+        ])
+        calibrated_cal = calibrated_cal / calibrated_cal.sum(axis=1, keepdims=True)
+
         degenerate = False
         for i, cal in enumerate(calibrators):
-            cal_std = cal.transform(test_range).std()
-            print(f"[INFO] Calibrator class {i} output std: {cal_std:.4f}")
-            if cal_std < 0.05:
-                print(f"[WARNING] Calibrator for class {i} is degenerate (std={cal_std:.4f}) — "
-                      f"base model probabilities had too little variance on the calibration set. "
+            col = np.round(calibrated_cal[:, i], 6)
+            levels, level_counts = np.unique(col, return_counts=True)
+            modal_frac = level_counts.max() / len(col)
+            # A typical prediction day is a narrow cross-section of base probabilities;
+            # the interquartile band of the calibration set approximates it.
+            band_lo, band_hi = np.percentile(base_proba[:, i], [25, 75])
+            band_std = cal.transform(np.linspace(band_lo, band_hi, 200)).std()
+            print(f"[INFO] Calibrator class {i}: {len(levels)} output levels, "
+                  f"modal fraction {modal_frac:.2f}, "
+                  f"IQR-band [{band_lo:.3f}, {band_hi:.3f}] output std {band_std:.4f}")
+            if len(levels) < 50 or modal_frac > 0.25 or band_std < 0.01:
+                print(f"[WARNING] Calibrator for class {i} is degenerate on realistic inputs -- "
+                      f"a daily cross-section would collapse to near-constant probabilities. "
                       f"Falling back to sigmoid (Platt scaling).")
                 degenerate = True
                 break
@@ -1123,7 +1138,23 @@ def train_model(X_train, y_train, X_cal, y_cal, X_test, y_test, train_dates=None
             platt_scaler = LogisticRegression(max_iter=1000, random_state=42)
             platt_scaler.fit(base_proba, y_cal)
             calibrated_model = SigmoidCalibratedModel(model, platt_scaler)
-            print(f"[SUCCESS] Sigmoid (Platt) fallback calibration applied using {len(X_cal):,} samples")
+            # Platt can also collapse: when the base scores barely predict the labels
+            # (test accuracy ~50%), the fitted sigmoid is nearly flat and squeezes the
+            # daily cross-section's variance to ~0 (observed Jul 3 2026: base std 0.053
+            # -> Platt std 0.003, tripping the frozen-probability guard at predict time).
+            # In that case ship the raw base model: its probabilities are what the
+            # runtime fallback has been serving anyway, with real per-ticker spread.
+            platt_std = calibrated_model.predict_proba(X_cal).std(axis=0).max()
+            base_std = base_proba.std(axis=0).max()
+            print(f"[INFO] Platt output std on calibration set: {platt_std:.4f} "
+                  f"(base model std: {base_std:.4f})")
+            if platt_std < 0.02 or platt_std < 0.2 * base_std:
+                print(f"[WARNING] Platt calibration also collapses probability variance "
+                      f"({platt_std:.4f}) -- the base signal is too weak to calibrate. "
+                      f"Using the RAW base model (uncalibrated probabilities).")
+                calibrated_model = model
+            else:
+                print(f"[SUCCESS] Sigmoid (Platt) fallback calibration applied using {len(X_cal):,} samples")
         else:
             # Use module-level class for pickling compatibility
             calibrated_model = IsotonicCalibratedModel(model, calibrators)
@@ -1235,7 +1266,12 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
     metadata = {
         'timestamp': timestamp,
         'model_type': 'GradientBoostingClassifier',
-        'calibration': Config.CALIBRATION_METHOD,
+        # Record what was actually applied: the isotonic path falls back to sigmoid
+        # (Platt) when the fitted calibrators are degenerate, and to the raw base
+        # model when Platt also collapses the probability variance
+        'calibration': ('sigmoid' if type(model).__name__ == 'SigmoidCalibratedModel'
+                        else 'isotonic' if type(model).__name__ == 'IsotonicCalibratedModel'
+                        else 'none (raw base model -- calibration collapsed variance)'),
         'n_features': len(selected_features),
         'top_features': selected_features[:10],
         'data_range': f"{Config.DATA_START_DATE} to {Config.DATA_END_DATE}",

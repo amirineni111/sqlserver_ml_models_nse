@@ -129,6 +129,8 @@ select_features() [weighted]         → 20 features (balanced across categories
 | Apr 18 | 97.0% Sell | VotingClassifier retraining bug | Removed ensemble, use single GB |
 | Apr 21 (Part 1) | 99.6% Sell | Biased calibration set | Stratified calibration split |
 | Apr 21 (Part 2) | 98.0% Sell (42 Buy) | Market feature dominance | Hybrid approach (this fix) |
+| Jun 9–Jul 2 | Frozen confidence (all Buys at 55.8%) | Degenerate isotonic calibrators from Jun 7 retrain returned constant predict_proba; base signal too weak (~50% acc) for ANY calibration — Platt also collapsed daily variance to ~0 | Train-time three-tier fallback (isotonic → Platt → raw base model, validated on realistic inputs); frozen-proba guard + distinct-confidence validation at predict time |
+| Jun 23–Jul 3 | Summary H/M/L counts frozen at 96/382/1431 | signal_strength used percentile rank (top 5%/20% of fixed 1909-ticker universe) | Absolute confidence thresholds (High ≥ 70, Medium ≥ 60); historical rows backfilled |
 
 ### Output Table: `ml_nse_trading_predictions`
 | Column | Type | Description |
@@ -137,14 +139,14 @@ select_features() [weighted]         → 20 features (balanced across categories
 | trading_date | DATE | Prediction date |
 | predicted_signal | VARCHAR | 'Buy' or 'Sell' |
 | confidence_percentage | FLOAT | Ensemble confidence (0-100) |
-| signal_strength | VARCHAR | 'Strong'/'Moderate'/'Weak' |
+| signal_strength | VARCHAR | 'High' (conf ≥ 70%) / 'Medium' (60–70%) / 'Low' (< 60%) — absolute thresholds since Jul 2026 (was percentile rank, which froze summary counts) |
 | RSI | FLOAT | Current RSI value |
 | buy_probability | FLOAT | P(Buy) from ensemble |
 | sell_probability | FLOAT | P(Sell) from ensemble |
 | model_name | VARCHAR | Model identifier |
 | sector | VARCHAR | Stock sector |
 | market_cap_category | VARCHAR | Large/Mid/Small cap |
-| high_confidence | BIT | Flag for confidence ≥ 60% (lowered from 70% Apr 2026) |
+| high_confidence | BIT | 1 when signal_strength = 'High' (confidence ≥ 70%); medium_confidence / low_confidence bits mirror the other bands |
 
 ### Also Writes
 - `ml_nse_predict_summary` — Daily aggregates + model_accuracy, success_rate_1d/5d/10d
