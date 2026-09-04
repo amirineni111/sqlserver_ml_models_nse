@@ -27,7 +27,7 @@ SELECT
     COUNT(DISTINCT ticker) as unique_tickers
 FROM ml_nse_trading_predictions 
 WHERE trading_date = '2026-04-17' 
-  AND model_name = 'GradientBoosting_V2_Calibrated'
+  AND model_name LIKE '%V2%'   -- matches GradientBoosting_V2_Calibrated AND LightGBM_V2
 """
 df = pd.read_sql(query, conn)
 print(df.to_string(index=False))
@@ -65,7 +65,7 @@ SELECT
     COUNT(*) as prediction_count
 FROM ml_nse_trading_predictions 
 WHERE trading_date = '2026-04-17' 
-  AND model_name = 'GradientBoosting_V2_Calibrated'
+  AND model_name LIKE '%V2%'   -- matches GradientBoosting_V2_Calibrated AND LightGBM_V2
 GROUP BY ticker 
 HAVING COUNT(*) > 1
 ORDER BY prediction_count DESC

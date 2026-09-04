@@ -259,10 +259,72 @@ def calculate_technical_indicators(df):
             lambda x: (x.iloc[-1] - x.iloc[0]) / x.std() if x.std() != 0 else 0, raw=False
         )
         ticker_df['volume_price_trend'] = (ticker_df['return_1d'] * ticker_df['volume']).rolling(10).mean()
-        
+
+        # ---- Data-quality diagnostics (NOT model features) -----------------
+        # A real NSE feed never produces a 14-session window with zero down-days
+        # for weeks on end. When it appears (VIJIFIN.NS: RSI pinned at exactly
+        # 100.0 for 25+ sessions from Aug 2026), the price series itself is
+        # degenerate -- stale/repeated closes or a broken adjustment -- and every
+        # indicator derived from it is meaningless. These columns let the caller
+        # quarantine such tickers before they reach scoring.
+        # rs = gain/loss is +inf when the 14d window has no down-day, which makes
+        # rsi land on exactly 100.0; the mirror case (no up-day) gives exactly 0.0.
+        dq_rsi_saturated = ticker_df['rsi'].isin([0.0, 100.0])
+        ticker_df['dq_rsi_saturated'] = dq_rsi_saturated.astype(int)
+        ticker_df['dq_rsi_saturated_run'] = (
+            dq_rsi_saturated.groupby((~dq_rsi_saturated).cumsum()).cumsum()
+        )
+        # Stale feed: how many of the last 20 closes repeat the previous close.
+        ticker_df['dq_repeated_close_20d'] = (
+            (ticker_df['close_price'].diff() == 0).rolling(20).sum()
+        )
+        # Zero dispersion over 20 sessions -- a frozen series.
+        ticker_df['dq_close_std_20d'] = ticker_df['close_price'].rolling(20).std()
+
         results.append(ticker_df)
     
     return pd.concat(results, ignore_index=True)
+
+def backfill_company_names(conn, df):
+    """Fill company names that are NULL in nse_500_hist_data from the nse_500 master.
+
+    `company` is selected from nse_500_hist_data, and that column went NULL for
+    new rows around Apr 17 2026, so every prediction written since carries a NULL
+    company. The ticker master still has the name, but its column has been spelled
+    differently across migrations -- so resolve it from INFORMATION_SCHEMA instead
+    of hardcoding a name that would hard-fail the 4:30 PM job with "Invalid column".
+    """
+    if 'company' not in df.columns:
+        df['company'] = None
+    missing = df['company'].isna().sum()
+    if missing == 0:
+        return df
+
+    try:
+        cols = pd.read_sql(
+            "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'nse_500'",
+            conn)['COLUMN_NAME'].str.lower().tolist()
+    except Exception as e:
+        print(f"[WARNING] Could not inspect nse_500 columns ({e}); leaving {missing:,} company values NULL")
+        return df
+
+    name_col = next((c for c in ('company', 'company_name', 'name', 'security_name',
+                                 'long_name', 'short_name') if c in cols), None)
+    if name_col is None:
+        print(f"[WARNING] nse_500 has no recognisable company-name column (saw: {cols}); "
+              f"leaving {missing:,} company values NULL")
+        return df
+
+    lookup = pd.read_sql(f"SELECT ticker, {name_col} AS company_master FROM nse_500", conn)
+    # One row per ticker, or the merge would duplicate predictions.
+    lookup = lookup.drop_duplicates(subset='ticker', keep='first')
+    df = df.merge(lookup, on='ticker', how='left')
+    df['company'] = df['company'].fillna(df['company_master'])
+    df = df.drop(columns=['company_master'])
+    filled = missing - df['company'].isna().sum()
+    print(f"[INFO] Company backfill from nse_500.{name_col}: filled {filled:,} of {missing:,} NULL names")
+    return df
+
 
 def load_prediction_data(conn, prediction_date):
     """Load latest data for prediction"""
@@ -352,6 +414,15 @@ def load_prediction_data(conn, prediction_date):
     if excluded > 0:
         print(f"[INFO] Penny stock filter: excluded {excluded} tickers "
               f"(price < INR {Config.MIN_STOCK_PRICE:.0f} or no earnings data)")
+
+    # Company names: nse_500_hist_data.company has been NULL since ~Apr 17 2026
+    df = backfill_company_names(conn, df)
+
+    # Degenerate-input quarantine: drop tickers whose price series is provably
+    # broken before any of it reaches the model. Shared with the training script
+    # so a ticker excluded from training is excluded from scoring too.
+    from retrain_nse_model_v2 import quarantine_degenerate_rows
+    df = quarantine_degenerate_rows(df, context='prediction')
 
     # Fundamental + sentiment features (Jul 2026) -- SHARED implementations from the
     # retrain module so train/predict cannot drift (this repo's classic failure mode).
@@ -738,6 +809,7 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     if avg_buy_prob >= 0.45:
         # Normal/bull market: use standard 50% threshold
         threshold_mode = "absolute (50%)"
+        decision_threshold = 0.50
         predictions['predicted_signal'] = np.where(
             predictions['buy_probability'] >= 0.50,
             'Buy',
@@ -753,23 +825,59 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
         threshold_mode = f"relative (top 30% = {n_buy} stocks)"
         predictions['predicted_signal'] = 'Sell'
         predictions.loc[buy_idx, 'predicted_signal'] = 'Buy'
+        # The effective boundary is the weakest probability that still bought.
+        # Falls back to the median if the Buy set is empty (tiny universe), which
+        # keeps conviction finite instead of NaN-ing every row.
+        decision_threshold = (float(predictions.loc[buy_idx, 'buy_probability'].min())
+                              if n_buy > 0 else float(predictions['buy_probability'].median()))
     print(f"[INFO] Signal threshold mode: {threshold_mode}")
 
-    # Confidence
-    predictions['confidence_percentage'] = np.maximum(
+    # -- Confidence: probability of the PREDICTED class ---------------------
+    # Was max(buy_probability, sell_probability) until Sep 2026. Under the
+    # relative (top-30%) rule a Buy is emitted with buy_probability < 0.50, so
+    # max() reported P(Sell) as the confidence OF A BUY. That capped Buy-side
+    # confidence below Sell-side by construction and put a bucket of confident
+    # Sells at the top of the scale, where realized accuracy was 44% (n=455).
+    # This column is now a genuine probability and nothing else.
+    predictions['confidence_percentage'] = np.where(
+        predictions['predicted_signal'] == 'Buy',
         predictions['buy_probability'],
         predictions['sell_probability']
     ) * 100
-    
-    # Signal strength: absolute confidence thresholds (High >= 70, Medium 60-70, Low < 60).
-    # Replaced percentile ranking (top 5%/20%) Jul 2026: percentile bands over a fixed
-    # universe pinned the summary counts at 96/382/1431 regardless of actual confidence,
-    # and method='first' tie-breaking gave identical confidences different labels.
+
+    # -- Conviction: signed distance from the day's actual decision boundary --
+    # The product is the RANKING (top-decile precision 0.62), not the absolute
+    # probability (AUC 0.516), and on relative-mode days every Buy sits below
+    # 50% probability. Ranking downstream selection on confidence alone would
+    # therefore discard the entire Buy book, so conviction is published as its
+    # own column and signal_strength bands on it.
+    #
+    # Scaled by the day's own cross-sectional dispersion, so it cannot freeze
+    # the way the Jun 2026 percentile bands did (top 5% of a fixed 1909-ticker
+    # universe is always 96 rows, whatever the model actually said). Here both
+    # the distance and the scale move with the daily distribution.
+    #
+    # NOTE: conviction_score is NOT a probability. Do not read 80 as "80% likely".
+    sigma = float(predictions['buy_probability'].std())
+    if not np.isfinite(sigma) or sigma < 1e-6:
+        print(f"[WARNING] Buy-probability dispersion is ~0 (std={sigma:.2e}); "
+              f"conviction collapses to 50 for every ticker")
+        predictions['conviction_score'] = 50.0
+    else:
+        distance = (predictions['buy_probability'] - decision_threshold).abs()
+        predictions['conviction_score'] = 50 + 50 * np.tanh(distance / (2 * sigma))
+    print(f"[INFO] Decision threshold: {decision_threshold:.4f} | "
+          f"buy_prob std: {sigma:.4f} | conviction range: "
+          f"{predictions['conviction_score'].min():.1f}-{predictions['conviction_score'].max():.1f}")
+
+    # Signal strength now bands CONVICTION, not confidence (see above). Absolute
+    # thresholds retained (High >= 70, Medium 60-70, Low < 60) -- the Jul 2026
+    # move away from percentile bands still stands.
     predictions['signal_strength'] = np.where(
-        predictions['confidence_percentage'] >= Config.CONFIDENCE_STRONG_THRESHOLD * 100,
+        predictions['conviction_score'] >= Config.CONFIDENCE_STRONG_THRESHOLD * 100,
         'High',
         np.where(
-            predictions['confidence_percentage'] >= Config.CONFIDENCE_HIGH_THRESHOLD * 100,
+            predictions['conviction_score'] >= Config.CONFIDENCE_HIGH_THRESHOLD * 100,
             'Medium', 'Low'
         )
     )
@@ -940,6 +1048,32 @@ def validate_prediction_distribution(predictions, conn=None):
 # Save Predictions to Database
 # ============================================================================
 
+def ensure_conviction_column(conn):
+    """Add ml_nse_trading_predictions.conviction_score if it is not there yet.
+
+    conviction_score was split out of confidence_percentage in Sep 2026 (see
+    generate_predictions). Idempotent, so the 4:30 PM job can call it every run.
+    Returns True when the column is available for writing.
+    """
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            IF NOT EXISTS (
+                SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_NAME = 'ml_nse_trading_predictions'
+                  AND COLUMN_NAME = 'conviction_score'
+            )
+            ALTER TABLE ml_nse_trading_predictions ADD conviction_score FLOAT NULL
+        """)
+        conn.commit()
+        cursor.close()
+        return True
+    except Exception as e:
+        print(f"[WARNING] Could not ensure conviction_score column ({e}); "
+              f"predictions will be written without it")
+        return False
+
+
 def save_predictions(conn, predictions, model_version='unknown'):
     """Save predictions to ml_nse_trading_predictions table"""
     print("\n" + "="*80)
@@ -958,15 +1092,19 @@ def save_predictions(conn, predictions, model_version='unknown'):
     deleted_count = cursor.rowcount
     print(f"[INFO] Deleted {deleted_count} existing V2 predictions for {prediction_date}")
     
-    # Insert new predictions (19 columns -- includes all boolean flags, company, volume, model_version)
-    insert_query = """
+    # Insert new predictions. conviction_score is appended only when the column
+    # exists, so an un-migrated database still gets its daily predictions.
+    has_conviction = ensure_conviction_column(conn) and 'conviction_score' in predictions.columns
+    extra_col = ", conviction_score" if has_conviction else ""
+    extra_val = ", ?" if has_conviction else ""
+    insert_query = f"""
     INSERT INTO ml_nse_trading_predictions (
         ticker, trading_date, predicted_signal, confidence, confidence_percentage,
         signal_strength, close_price, rsi, buy_probability, sell_probability,
         model_name, sector, market_cap_category,
         high_confidence, medium_confidence, low_confidence,
-        company, volume, model_version
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        company, volume, model_version{extra_col}
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?{extra_val})
     """
     
     rows_to_insert = []
@@ -976,7 +1114,7 @@ def save_predictions(conn, predictions, model_version='unknown'):
         close_price_val = float(row['close_price']) if pd.notna(row['close_price']) else 0.0
         volume_val = float(row['volume']) if 'volume' in row and pd.notna(row.get('volume')) else None
         company_val = str(row['company']) if 'company' in row and pd.notna(row.get('company')) else None
-        rows_to_insert.append((
+        values = (
             row['ticker'],
             row['trading_date'],
             row['predicted_signal'],
@@ -996,8 +1134,11 @@ def save_predictions(conn, predictions, model_version='unknown'):
             company_val,
             volume_val,
             model_version
-        ))
-    
+        )
+        if has_conviction:
+            values += (float(row['conviction_score']),)
+        rows_to_insert.append(values)
+
     cursor.executemany(insert_query, rows_to_insert)
     conn.commit()
     

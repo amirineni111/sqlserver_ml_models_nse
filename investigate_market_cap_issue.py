@@ -104,7 +104,7 @@ SELECT
     AVG(confidence_percentage) as avg_confidence
 FROM ml_nse_trading_predictions
 WHERE trading_date = '2026-04-17'
-  AND model_name = 'GradientBoosting_V2_Calibrated'
+  AND model_name LIKE '%V2%'   -- matches GradientBoosting_V2_Calibrated AND LightGBM_V2
 GROUP BY predicted_signal
 """
 

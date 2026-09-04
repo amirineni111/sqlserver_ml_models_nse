@@ -160,6 +160,104 @@ def update_summaries(conn, start, end):
     cursor.close()
 
 
+def confidence_reliability(conn, start, end):
+    """Realized 5d accuracy per confidence bucket, split by predicted signal.
+
+    Two defects this exists to catch (Sep 2026 review):
+
+    1. Inversion -- the 85%+ bucket realized 44% (n=455) while 65-85% realized
+       53-57%. Reported confidence is anti-predictive at the top end, so anything
+       downstream that ranks on it is ranking backwards.
+    2. Buy/Sell asymmetry -- confidence_percentage is max(buy_prob, sell_prob),
+       which is the probability of the WINNING class, not of the PREDICTED one.
+       Whenever the relative (top-30%) threshold is active, a Buy is emitted with
+       buy_prob < 0.50, so its reported confidence is literally P(Sell). That caps
+       Buy confidence below Sell confidence by construction.
+
+    Reports both so the fix can be verified rather than assumed.
+    """
+    df = pd.read_sql(f"""
+        SELECT predicted_signal, confidence_percentage, buy_probability, sell_probability,
+               signal_strength,
+               COALESCE(conviction_score, confidence_percentage) AS conviction_score,
+               CAST(direction_correct_5d AS INT) AS direction_correct_5d
+        FROM ml_nse_trading_predictions
+        WHERE {V2_FILTER} AND trading_date BETWEEN ? AND ?
+          AND direction_correct_5d IS NOT NULL
+    """, conn, params=(start, end))
+    if df.empty:
+        print()
+        print("[WARNING] No settled rows -- cannot assess confidence reliability")
+        return
+
+    print()
+    print("=" * 80)
+    print("CONFIDENCE RELIABILITY (settled 5d outcomes)")
+    print("=" * 80)
+
+    bins = [0, 55, 60, 65, 70, 75, 85, 100]
+    df['bucket'] = pd.cut(df['confidence_percentage'], bins=bins, right=False)
+
+    print()
+    print(f"{'confidence':>14} {'n':>7} {'realized':>9} {'buys':>7} {'sells':>7}")
+    table = []
+    for bucket, grp in df.groupby('bucket', observed=True):
+        acc = grp['direction_correct_5d'].mean()
+        n_buy = (grp['predicted_signal'] == 'Buy').sum()
+        table.append((bucket, len(grp), acc))
+        print(f"{str(bucket):>14} {len(grp):>7,} {acc * 100:>8.1f}% "
+              f"{n_buy:>7,} {len(grp) - n_buy:>7,}")
+
+    # Monotonicity: does realized accuracy rise with reported confidence?
+    populated = [(b, n, a) for b, n, a in table if n >= 100]
+    if len(populated) >= 2:
+        top_bucket, top_n, top_acc = populated[-1]
+        rest_acc = df[df['bucket'] != top_bucket]['direction_correct_5d'].mean()
+        if top_acc < rest_acc:
+            print()
+            print(f"[WARNING] CONFIDENCE IS INVERTED at the top end: highest bucket "
+                  f"{top_bucket} realized {top_acc * 100:.1f}% (n={top_n:,}) vs "
+                  f"{rest_acc * 100:.1f}% for everything below it.")
+            print("[WARNING] Reported confidence is anti-predictive there -- do not rank on it.")
+
+    # Buy/Sell asymmetry, and how often confidence is the losing class's probability
+    print()
+    print(f"{'signal':>8} {'n':>8} {'avg_conf':>9} {'realized':>9}")
+    for signal, grp in df.groupby('predicted_signal'):
+        print(f"{signal:>8} {len(grp):>8,} {grp['confidence_percentage'].mean():>8.1f}% "
+              f"{grp['direction_correct_5d'].mean() * 100:>8.1f}%")
+
+    # Conviction is what signal_strength bands and what downstream selection
+    # ranks on, so its reliability is the one that decides product quality.
+    print()
+    print(f"{'conviction':>14} {'n':>7} {'realized':>9} {'buys':>7} {'sells':>7}")
+    df['conv_bucket'] = pd.cut(df['conviction_score'], bins=bins, right=False)
+    for bucket, grp in df.groupby('conv_bucket', observed=True):
+        n_buy = (grp['predicted_signal'] == 'Buy').sum()
+        print(f"{str(bucket):>14} {len(grp):>7,} "
+              f"{grp['direction_correct_5d'].mean() * 100:>8.1f}% "
+              f"{n_buy:>7,} {len(grp) - n_buy:>7,}")
+
+    mislabelled = (
+        ((df['predicted_signal'] == 'Buy') & (df['buy_probability'] < df['sell_probability'])) |
+        ((df['predicted_signal'] == 'Sell') & (df['sell_probability'] < df['buy_probability']))
+    ).sum()
+    if mislabelled:
+        print()
+        print(f"[WARNING] {mislabelled:,} of {len(df):,} settled rows "
+              f"({mislabelled / len(df) * 100:.1f}%) report the probability of the class "
+              f"that was NOT predicted -- confidence_percentage uses max(buy, sell) while "
+              f"the signal came from the relative top-30% rule. Expected for rows "
+              f"written before Sep 2026; should be 0 for rows after.")
+
+    # Realized rates per signal_strength band -- the numbers any downstream
+    # baseline should be recomputed from.
+    print()
+    print(f"{'strength':>10} {'n':>8} {'realized':>9}   <- recompute downstream baselines from these")
+    for strength, grp in df.groupby('signal_strength'):
+        print(f"{strength:>10} {len(grp):>8,} {grp['direction_correct_5d'].mean() * 100:>8.1f}%")
+
+
 def rolling_success_rate_5d(conn, sessions=10):
     """Rolling success_rate_5d over the last N settled sessions (retrain-trigger input)."""
     df = pd.read_sql(f"""
@@ -193,6 +291,8 @@ def main():
     print(f"[SUCCESS] Settled/refreshed {updated:,} prediction rows")
 
     update_summaries(conn, args.start, args.end)
+
+    confidence_reliability(conn, args.start, args.end)
 
     rolling, n = rolling_success_rate_5d(conn)
     if rolling is not None:

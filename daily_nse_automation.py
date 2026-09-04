@@ -654,20 +654,25 @@ def generate_daily_report(target_date=None):
         else:
             actual_trading_date = target_date or datetime.now().strftime('%Y-%m-%d')
         
-        # Get high confidence signals using the actual trading date
+        # Get high conviction signals using the actual trading date.
+        # Ranked by conviction_score (Sep 2026): signal_strength/high_confidence
+        # band conviction, so ordering by confidence_percentage would rank the
+        # selected set by a different quantity than the one that selected it.
+        # COALESCE keeps this working on a database not yet carrying the column.
         high_conf_query = f"""
         SELECT TOP 10
             ticker,
             company,
             predicted_signal,
             confidence_percentage,
+            COALESCE(conviction_score, confidence_percentage) AS conviction_score,
             close_price,
             rsi,
             model_name
         FROM ml_nse_trading_predictions
         WHERE trading_date = '{actual_trading_date}'
             AND high_confidence = 1
-        ORDER BY confidence_percentage DESC
+        ORDER BY COALESCE(conviction_score, confidence_percentage) DESC
         """
         
         high_conf_result = db.execute_query(high_conf_query)
@@ -720,7 +725,7 @@ NSE 500 Daily Trading Report
         
         if not high_conf_result.empty:
             report_content += """
-[TARGET] TOP HIGH CONFIDENCE SIGNALS
+[TARGET] TOP HIGH CONVICTION SIGNALS
 -------------------------------
 """
             for _, row in high_conf_result.iterrows():
@@ -728,7 +733,8 @@ NSE 500 Daily Trading Report
                 model_info = f" [{row.get('model_name', '')}]" if row.get('model_name') else ""
                 report_content += (
                     f"{signal_tag} {row['ticker']}: {row['predicted_signal']} "
-                    f"({row['confidence_percentage']:.1f}%) - INR {row['close_price']:.2f}{model_info}\n"
+                    f"(conviction {row['conviction_score']:.1f}, P={row['confidence_percentage']:.1f}%) "
+                    f"- INR {row['close_price']:.2f}{model_info}\n"
                 )
         
         # Save report

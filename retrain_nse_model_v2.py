@@ -357,6 +357,12 @@ def load_training_data(conn):
     df = df[df['next_5d_return'].notna()].copy()
     print(f"[INFO] Removed {initial_rows - len(df):,} unlabeled rows (last 5 days per ticker)")
 
+    # Degenerate-input quarantine (Sep 2026): a broken price feed produces
+    # arithmetically impossible indicators (RSI pinned at exactly 100.0 for
+    # weeks). Training on those rows teaches the model to trust garbage, so
+    # drop them here -- the same gate runs at prediction time.
+    df = quarantine_degenerate_rows(df, context='training')
+
     # NOTE (Jun 12, 2026): a +/-1% label deadband was tried here and REVERTED.
     # Walk-forward mean accuracy dropped 55.6% -> 50.9% and prediction
     # distributions became erratic (99.8% Up in one fold). Do not re-add
@@ -469,6 +475,24 @@ def calculate_technical_indicators(df):
         ticker_df['macd_hist_normalized'] = ticker_df['macd_histogram'] / ticker_df['close_price']
         obv_std = ticker_df['obv'].rolling(50, min_periods=10).std()
         ticker_df['obv_divergence'] = ((ticker_df['obv'] - ticker_df['obv_ema']) / obv_std).clip(-5, 5)
+
+        # ---- Data-quality diagnostics (NOT model features) -----------------
+        # Mirrors predict_nse_signals_v2.calculate_technical_indicators exactly.
+        # A real NSE feed never produces a 14-session window with zero down-days
+        # for weeks on end. When it appears (VIJIFIN.NS: RSI pinned at exactly
+        # 100.0 for 25+ sessions from Aug 2026), the price series itself is
+        # degenerate -- stale/repeated closes or a broken adjustment -- and every
+        # indicator derived from it is meaningless. Training rows for such
+        # tickers are dropped so the model never learns from a broken feed.
+        dq_rsi_saturated = ticker_df['rsi'].isin([0.0, 100.0])
+        ticker_df['dq_rsi_saturated'] = dq_rsi_saturated.astype(int)
+        ticker_df['dq_rsi_saturated_run'] = (
+            dq_rsi_saturated.groupby((~dq_rsi_saturated).cumsum()).cumsum()
+        )
+        ticker_df['dq_repeated_close_20d'] = (
+            (ticker_df['close_price'].diff() == 0).rolling(20).sum()
+        )
+        ticker_df['dq_close_std_20d'] = ticker_df['close_price'].rolling(20).std()
 
         results.append(ticker_df)
     
@@ -630,6 +654,76 @@ FUNDAMENTAL_METRICS = [
     'profit_margin', 'operating_margin', 'return_on_equity', 'return_on_assets',
     'revenue_growth', 'earnings_growth', 'debt_to_equity', 'dividend_yield',
 ]
+
+
+# ============================================================================
+# Degenerate-input quarantine (SHARED by training and prediction)
+# ============================================================================
+
+# A ticker is quarantined when its price series is provably broken, not merely
+# unusual. Thresholds are deliberately conservative so genuine strong runs are
+# kept: a legitimate stock can print RSI 100 for a couple of sessions during a
+# sharp rally, but not for a fortnight.
+DQ_MAX_RSI_SATURATED_RUN = 10   # consecutive sessions at exactly RSI 0.0 / 100.0
+DQ_MAX_REPEATED_CLOSE_20D = 12  # of the last 20 closes, how many repeat the prior close
+DQ_MIN_CLOSE_STD_20D = 1e-9     # a 20-session window with zero dispersion is frozen
+
+
+def flag_degenerate_inputs(df):
+    """Mark rows whose technical inputs are degenerate, with a human-readable reason.
+
+    Adds `dq_degenerate` (int) and `dq_reason` (str, '' when clean). Requires the
+    dq_* diagnostic columns from calculate_technical_indicators(). Returns df.
+
+    Motivation (Sep 2026 review): VIJIFIN.NS carried RSI == 100.0 for 25+ straight
+    sessions -- arithmetically impossible on a live feed -- and the model kept
+    issuing high-confidence Buys on it because nothing inspected the inputs
+    between feature engineering and scoring.
+    """
+    required = ['dq_rsi_saturated_run', 'dq_repeated_close_20d', 'dq_close_std_20d']
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        print(f"[WARNING] Data-quality columns missing ({missing}); skipping quarantine")
+        df['dq_degenerate'] = 0
+        df['dq_reason'] = ''
+        return df
+
+    checks = [
+        (df['dq_rsi_saturated_run'].fillna(0) >= DQ_MAX_RSI_SATURATED_RUN,
+         f'rsi_saturated_{DQ_MAX_RSI_SATURATED_RUN}d+'),
+        (df['dq_repeated_close_20d'].fillna(0) >= DQ_MAX_REPEATED_CLOSE_20D,
+         'stale_close_series'),
+        (df['dq_close_std_20d'].notna() & (df['dq_close_std_20d'] <= DQ_MIN_CLOSE_STD_20D),
+         'zero_price_dispersion'),
+        (~np.isfinite(df['rsi'].astype(float)) if 'rsi' in df.columns
+         else pd.Series(False, index=df.index), 'rsi_not_finite'),
+    ]
+
+    labels = pd.DataFrame(
+        {label: mask.reindex(df.index, fill_value=False).fillna(False).map({True: label, False: ''})
+         for mask, label in checks},
+        index=df.index,
+    )
+    df['dq_reason'] = labels.apply(lambda row: '+'.join(x for x in row if x), axis=1)
+    df['dq_degenerate'] = (df['dq_reason'] != '').astype(int)
+    return df
+
+
+def quarantine_degenerate_rows(df, context='prediction'):
+    """Drop degenerate rows and report exactly which tickers were dropped and why."""
+    df = flag_degenerate_inputs(df)
+    bad = df[df['dq_degenerate'] == 1]
+    if bad.empty:
+        print(f"[INFO] Data-quality gate: 0 degenerate rows in {len(df):,} {context} rows")
+        return df[df['dq_degenerate'] == 0].copy()
+
+    print(f"[WARNING] Data-quality gate: quarantining {len(bad):,} degenerate "
+          f"{context} row(s) across {bad['ticker'].nunique()} ticker(s)")
+    for reason, grp in bad.groupby('dq_reason'):
+        tickers = sorted(grp['ticker'].unique())
+        shown = ', '.join(tickers[:10]) + (f" (+{len(tickers) - 10} more)" if len(tickers) > 10 else '')
+        print(f"          {reason}: {len(tickers)} ticker(s) -- {shown}")
+    return df[df['dq_degenerate'] == 0].copy()
 
 
 def merge_fundamental_features(conn, df):

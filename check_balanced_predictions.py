@@ -23,7 +23,7 @@ SELECT TOP 20
     signal_strength
 FROM ml_nse_trading_predictions
 WHERE trading_date = '2026-04-17'
-  AND model_name = 'GradientBoosting_V2_Calibrated'
+  AND model_name LIKE '%V2%'   -- matches GradientBoosting_V2_Calibrated AND LightGBM_V2
 ORDER BY ticker
 """
 
@@ -46,7 +46,7 @@ SELECT
     SUM(CASE WHEN signal_strength = 'High' THEN 1 ELSE 0 END) as high_conf_count
 FROM ml_nse_trading_predictions
 WHERE trading_date = '2026-04-17'
-  AND model_name = 'GradientBoosting_V2_Calibrated'
+  AND model_name LIKE '%V2%'   -- matches GradientBoosting_V2_Calibrated AND LightGBM_V2
 GROUP BY predicted_signal
 """
 

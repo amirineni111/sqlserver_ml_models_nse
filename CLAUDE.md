@@ -64,6 +64,21 @@ sqlserver_copilot_nse/
 
 ## 3. ML MODEL DETAILS (V2 ARCHITECTURE - APRIL 2026, LightGBM JULY 2026)
 
+### Model Identity (READ FIRST — downstream prompts drift from this)
+The deployed S1 model is **`LightGBM_V2`** and has been since Jul 2026. `model_name`
+is derived from the loaded artifact at `predict_nse_signals_v2.py` (`LGBMClassifier`
+→ `LightGBM_V2`, otherwise `GradientBoosting_V2_Calibrated`), so the column is
+accurate — but consumers that hardcode `'GradientBoosting_V2_Calibrated'` match
+**zero rows**. Always filter `model_name LIKE '%V2%'`.
+
+⚠️ **Known stale reference (Sep 2026):** the saved NSE briefing prompt in
+`stockdata_agenticai` still names `GradientBoosting_V2_Calibrated`, and the
+93% / 80% structural-edge baselines quoted there predate the LightGBM swap.
+Realized rates have run ~30 points below them (62.4% / 58.3%) for weeks, which
+is consistent with baselines that were never recomputed for the current model —
+not necessarily with a regression. Recompute from the `signal_strength` table
+printed by `score_nse_predictions.py` before treating the gap as a defect.
+
 ### Model Architecture
 **Single LightGBM Classifier** (`Config.MODEL_TYPE='lgbm'`; 300 estimators × 63 leaves, lr 0.05 — adopted Jul 2026 after beating GradientBoosting on 2-fold AND 4-fold walk-forward; GB path retained behind `NSE_MODEL_TYPE=gb`)
 - Training: 60% train / 20% calibration / 20% test (chronological by date, 5-day embargo)
@@ -116,7 +131,23 @@ merge_market_context()               → +11 features (VIX, DXY, yields, NIFTY/S
 add_market_neutral_features()        → +10 features (relative performance, beta, anomalies)
 add_interaction_features()           → +10 features (smart combinations)
 select_features() [weighted]         → 20 features (balanced across categories)
+quarantine_degenerate_rows()         → drops tickers with a provably broken feed
 ```
+
+### Data-Quality Gate (Sep 2026)
+Shared by training and prediction so a ticker excluded from one is excluded from the
+other. Thresholds are deliberately conservative — a genuine sharp rally can print
+RSI 100 for a session or two, so only sustained saturation is caught:
+
+| Check | Threshold | Catches |
+|-------|-----------|---------|
+| `dq_rsi_saturated_run` | ≥ 10 consecutive sessions at exactly RSI 0.0/100.0 | VIJIFIN.NS-style frozen feeds |
+| `dq_repeated_close_20d` | ≥ 12 of last 20 closes repeat the prior close | stale price series |
+| `dq_close_std_20d` | ≤ 1e-9 | zero dispersion / frozen series |
+| `rsi` not finite | — | NaN/inf leaking into scoring |
+
+Quarantined tickers are listed by reason in the run log. `dq_*` columns are
+diagnostics only — they are never model features.
 
 ### Expected Behavior
 - **Bearish market + Weak stock** → Sell
@@ -135,6 +166,8 @@ select_features() [weighted]         → 20 features (balanced across categories
 | Apr 21 (Part 1) | 99.6% Sell | Biased calibration set | Stratified calibration split |
 | Apr 21 (Part 2) | 98.0% Sell (42 Buy) | Market feature dominance | Hybrid approach (this fix) |
 | Jun 9–Jul 2 | Frozen confidence (all Buys at 55.8%) | Degenerate isotonic calibrators from Jun 7 retrain returned constant predict_proba; base signal too weak (~50% acc) for ANY calibration — Platt also collapsed daily variance to ~0 | Train-time three-tier fallback (isotonic → Platt → raw base model, validated on realistic inputs); frozen-proba guard + distinct-confidence validation at predict time |
+| Aug 17–Sep 3 | High-confidence Buys on VIJIFIN.NS with RSI pinned at exactly 100.0 for 25+ sessions | `rs = gain/loss` is +inf when a 14d window has no down-day, so a stale/repeated close series lands on exactly RSI 100.0. Nothing inspected inputs between feature engineering and scoring | `flag_degenerate_inputs()` / `quarantine_degenerate_rows()` in `retrain_nse_model_v2.py`, shared by train and predict |
+| Aug 17–Sep 3 | Buy confidence structurally below Sell; 85%+ bucket realized 44% (n=455), worse than 65–85% | `confidence_percentage = max(buy_prob, sell_prob)`. Under the relative top-30% rule a Buy is emitted with buy_prob < 0.50, so the reported figure was P(Sell) — and the top of the scale filled with confident Sells | Split into `confidence_percentage` = P(predicted class) and `conviction_score` = rank distance from the day's boundary; `signal_strength` bands conviction |
 | Jun 23–Jul 3 | Summary H/M/L counts frozen at 96/382/1431 | signal_strength used percentile rank (top 5%/20% of fixed 1909-ticker universe) | Absolute confidence thresholds (High ≥ 70, Medium ≥ 60); historical rows backfilled |
 
 ### Output Table: `ml_nse_trading_predictions`
@@ -143,15 +176,16 @@ select_features() [weighted]         → 20 features (balanced across categories
 | ticker | VARCHAR | NSE stock symbol |
 | trading_date | DATE | Prediction date |
 | predicted_signal | VARCHAR | 'Buy' or 'Sell' |
-| confidence_percentage | FLOAT | Ensemble confidence (0-100) |
-| signal_strength | VARCHAR | 'High' (conf ≥ 70%) / 'Medium' (60–70%) / 'Low' (< 60%) — absolute thresholds since Jul 2026 (was percentile rank, which froze summary counts) |
+| confidence_percentage | FLOAT | P(**predicted** class) × 100. Since Sep 2026 — was `max(buy_prob, sell_prob)`, which reported P(Sell) as the confidence of a Buy whenever the relative top-30% rule was active |
+| conviction_score | FLOAT | Selection rank, 50–100: `50 + 50·tanh(|buy_prob − decision_threshold| / 2σ)`, σ = that day's cross-sectional std of buy_probability. **NOT a probability.** Added Sep 2026 |
+| signal_strength | VARCHAR | 'High' (≥ 70) / 'Medium' (60–70) / 'Low' (< 60), banded on **conviction_score** since Sep 2026 (was confidence_percentage). Absolute thresholds, not percentiles — the Jul 2026 move off percentile bands still stands |
 | RSI | FLOAT | Current RSI value |
 | buy_probability | FLOAT | P(Buy) from ensemble |
 | sell_probability | FLOAT | P(Sell) from ensemble |
 | model_name | VARCHAR | Model identifier |
 | sector | VARCHAR | Stock sector |
 | market_cap_category | VARCHAR | Large/Mid/Small cap |
-| high_confidence | BIT | 1 when signal_strength = 'High' (confidence ≥ 70%); medium_confidence / low_confidence bits mirror the other bands |
+| high_confidence | BIT | 1 when signal_strength = 'High' (conviction ≥ 70); medium_confidence / low_confidence bits mirror the other bands |
 
 ### Also Writes
 - `ml_nse_predict_summary` — Daily aggregates + model_accuracy, success_rate_1d/5d/10d
