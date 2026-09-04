@@ -836,8 +836,9 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     # Was max(buy_probability, sell_probability) until Sep 2026. Under the
     # relative (top-30%) rule a Buy is emitted with buy_probability < 0.50, so
     # max() reported P(Sell) as the confidence OF A BUY. That capped Buy-side
-    # confidence below Sell-side by construction and put a bucket of confident
-    # Sells at the top of the scale, where realized accuracy was 44% (n=455).
+    # confidence below Sell-side by construction (measured over 176,985 settled
+    # V2 rows: avg 59.6% for Buys vs 66.3% for Sells, with 21.4% of rows carrying
+    # the wrong class's probability outright).
     # This column is now a genuine probability and nothing else.
     predictions['confidence_percentage'] = np.where(
         predictions['predicted_signal'] == 'Buy',

@@ -165,9 +165,10 @@ def confidence_reliability(conn, start, end):
 
     Two defects this exists to catch (Sep 2026 review):
 
-    1. Inversion -- the 85%+ bucket realized 44% (n=455) while 65-85% realized
-       53-57%. Reported confidence is anti-predictive at the top end, so anything
-       downstream that ranks on it is ranking backwards.
+    1. Non-monotonic reliability -- measured over 176,985 settled V2 rows,
+       realized accuracy peaks at 57.3% in the 65-70 band and then DECAYS to
+       ~50% above 70. Confidence above the peak carries no information, so
+       anything downstream that ranks on it is ranking on noise.
     2. Buy/Sell asymmetry -- confidence_percentage is max(buy_prob, sell_prob),
        which is the probability of the WINNING class, not of the PREDICTED one.
        Whenever the relative (top-30%) threshold is active, a Buy is emitted with

@@ -74,10 +74,23 @@ accurate — but consumers that hardcode `'GradientBoosting_V2_Calibrated'` matc
 ⚠️ **Known stale reference (Sep 2026):** the saved NSE briefing prompt in
 `stockdata_agenticai` still names `GradientBoosting_V2_Calibrated`, and the
 93% / 80% structural-edge baselines quoted there predate the LightGBM swap.
-Realized rates have run ~30 points below them (62.4% / 58.3%) for weeks, which
-is consistent with baselines that were never recomputed for the current model —
-not necessarily with a regression. Recompute from the `signal_strength` table
-printed by `score_nse_predictions.py` before treating the gap as a defect.
+Realized rates run far below them, which is consistent with baselines never
+recomputed for the current model — not necessarily with a regression. Recompute
+from the `signal_strength` table printed by `score_nse_predictions.py`.
+
+### Measured performance (176,985 settled V2 rows, verified 2026-09-04)
+| Cut | Realized 5d |
+|-----|-------------|
+| **Buy signals** | **46.6%** (n=54,302) |
+| **Sell signals** | **51.6%** (n=122,683) |
+| Aug 17–Sep 3 Buys / Sells | 44.5% / 57.0% |
+| Confidence 65–70 (peak) | 57.3% |
+| Confidence 85+ | 50.1% (n=10,152) |
+
+**Buy signals materially underperform Sell signals** — the opposite of what
+per-ticker anecdotes suggest. Beware reasoning from a handful of names:
+VIJIFIN.NS looked "undefeated" only because it was locked at its 2% upper
+circuit for 58 straight sessions and could not actually be bought.
 
 ### Model Architecture
 **Single LightGBM Classifier** (`Config.MODEL_TYPE='lgbm'`; 300 estimators × 63 leaves, lr 0.05 — adopted Jul 2026 after beating GradientBoosting on 2-fold AND 4-fold walk-forward; GB path retained behind `NSE_MODEL_TYPE=gb`)
@@ -167,7 +180,7 @@ diagnostics only — they are never model features.
 | Apr 21 (Part 2) | 98.0% Sell (42 Buy) | Market feature dominance | Hybrid approach (this fix) |
 | Jun 9–Jul 2 | Frozen confidence (all Buys at 55.8%) | Degenerate isotonic calibrators from Jun 7 retrain returned constant predict_proba; base signal too weak (~50% acc) for ANY calibration — Platt also collapsed daily variance to ~0 | Train-time three-tier fallback (isotonic → Platt → raw base model, validated on realistic inputs); frozen-proba guard + distinct-confidence validation at predict time |
 | Aug 17–Sep 3 | High-confidence Buys on VIJIFIN.NS with RSI pinned at exactly 100.0 for 25+ sessions | `rs = gain/loss` is +inf when a 14d window has no down-day, so a stale/repeated close series lands on exactly RSI 100.0. Nothing inspected inputs between feature engineering and scoring | `flag_degenerate_inputs()` / `quarantine_degenerate_rows()` in `retrain_nse_model_v2.py`, shared by train and predict |
-| Aug 17–Sep 3 | Buy confidence structurally below Sell; 85%+ bucket realized 44% (n=455), worse than 65–85% | `confidence_percentage = max(buy_prob, sell_prob)`. Under the relative top-30% rule a Buy is emitted with buy_prob < 0.50, so the reported figure was P(Sell) — and the top of the scale filled with confident Sells | Split into `confidence_percentage` = P(predicted class) and `conviction_score` = rank distance from the day's boundary; `signal_strength` bands conviction |
+| Aug 17–Sep 3 | Buy confidence structurally below Sell (avg 59.6% vs 66.3%); 21.4% of rows reported the probability of the class that was NOT predicted; reliability non-monotonic — peaks at 57.3% in the 65–70 band then decays to ~50% above it | `confidence_percentage = max(buy_prob, sell_prob)`. Under the relative top-30% rule a Buy is emitted with buy_prob < 0.50, so the reported figure was P(Sell) — and the top of the scale filled with confident Sells | Split into `confidence_percentage` = P(predicted class) and `conviction_score` = rank distance from the day's boundary; `signal_strength` bands conviction |
 | Jun 23–Jul 3 | Summary H/M/L counts frozen at 96/382/1431 | signal_strength used percentile rank (top 5%/20% of fixed 1909-ticker universe) | Absolute confidence thresholds (High ≥ 70, Medium ≥ 60); historical rows backfilled |
 
 ### Output Table: `ml_nse_trading_predictions`
