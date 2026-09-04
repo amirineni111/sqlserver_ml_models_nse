@@ -265,6 +265,11 @@ def check_nse_data_status():
         return False, None, None, None
 
 
+# Retrain triggers. MODEL_ACCURACY_FLOOR is a broken-model floor, NOT a quality
+# target -- see check_model_status(). Below it, training itself is suspect.
+MODEL_ACCURACY_FLOOR = float(os.getenv('NSE_MODEL_ACCURACY_FLOOR', '0.45'))
+
+
 def check_model_status():
     """Check NSE model status and determine if retraining is needed."""
     logging.info("[INFO] Checking NSE model status...")
@@ -309,14 +314,32 @@ def check_model_status():
             except Exception:
                 pass
 
-        # Check model accuracy from metadata if saved
+        # Check model accuracy from metadata if saved.
+        #
+        # This used to be `test_accuracy < 0.52`, which retrained on EVERY run:
+        # the model scores ~0.5195 on this data and structurally cannot clear
+        # 0.52, so the condition was permanently true. Result was a retrain loop
+        # -- 43 distinct model_versions across 43 trading days Jul-Aug 2026, each
+        # a fresh random draw on a near-noise signal, and a degradation alarm
+        # that could never fire because it was already always on.
+        #
+        # The bar is now a BROKEN-model floor, not a quality target. Training
+        # accuracy near the base rate (47.7% up over 5d) is this dataset's
+        # normal state, not a fault; genuine degradation is caught by the live
+        # rolling success_rate_5d check below, which measures settled outcomes
+        # rather than a train-time number.
         if test_accuracy is not None:
             f1_str = f", F1: {f1_score:.3f}" if f1_score else ""
             logging.info(f"  [DATA] Best model accuracy: {test_accuracy:.1%}{f1_str}")
-            if test_accuracy < 0.52:
+            if test_accuracy < MODEL_ACCURACY_FLOOR:
                 needs_retrain = True
-                reason = f"Model accuracy ({test_accuracy:.1%}) below threshold (52%)"
+                reason = (f"Model accuracy ({test_accuracy:.1%}) below broken-model "
+                          f"floor ({MODEL_ACCURACY_FLOOR:.0%}) -- training likely failed")
                 logging.warning(f"  [WARN] {reason}")
+            elif test_accuracy < 0.52:
+                logging.info(f"  [INFO] Accuracy {test_accuracy:.1%} is weak but within "
+                             f"normal range for this dataset (base rate ~47.7%); "
+                             f"not a retrain trigger. Live success_rate_5d governs.")
 
         # Check recent live success from our OWN settled scores at the model's native
         # 5-day horizon (ml_nse_predict_summary.success_rate_5d, written by
