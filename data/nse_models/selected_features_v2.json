@@ -2,13 +2,13 @@
   "india_vix_vs_60d",
   "nifty50_vs_200d",
   "sp500_vs_200d",
-  "bb_position",
-  "stochastic_d",
-  "price_to_sma20",
-  "volume_ratio",
   "return_5d",
-  "price_to_high_20d",
-  "price_to_low_20d",
+  "price_to_sma200",
+  "return_10d",
+  "bb_position",
+  "risk_adjusted_momentum",
+  "stochastic_d",
+  "stochastic_k",
   "sector_return_5d",
   "sector_rsi_avg",
   "sector_return_1d",
@@ -18,5 +18,5 @@
   "beta",
   "defensive_risk_score",
   "contrarian_strength",
-  "sector_momentum_confirmed"
+  "global_market_sync"
 ]

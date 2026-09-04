@@ -1,5 +1,5 @@
 {
-  "timestamp": "20260903_163446",
+  "timestamp": "20260904_110335",
   "model_type": "LGBMClassifier",
   "calibration": "none (raw base model -- calibration collapsed variance)",
   "n_features": 20,
@@ -7,17 +7,17 @@
     "india_vix_vs_60d",
     "nifty50_vs_200d",
     "sp500_vs_200d",
-    "bb_position",
-    "stochastic_d",
-    "price_to_sma20",
-    "volume_ratio",
     "return_5d",
-    "price_to_high_20d",
-    "price_to_low_20d"
+    "price_to_sma200",
+    "return_10d",
+    "bb_position",
+    "risk_adjusted_momentum",
+    "stochastic_d",
+    "stochastic_k"
   ],
-  "data_range": "2024-06-01 to 2026-08-24",
+  "data_range": "2024-06-01 to 2026-08-25",
   "hyperparameters": {
-    "n_estimators": 150,
+    "n_estimators": 300,
     "num_leaves": 63,
     "learning_rate": 0.05,
     "subsample": 0.8,
@@ -26,15 +26,15 @@
     "random_state": 42,
     "verbose": -1
   },
-  "test_accuracy": 0.5195,
-  "test_f1": 0.4925,
-  "test_auc": 0.516,
-  "test_brier": 0.2899,
-  "test_top_decile_precision": 0.6243,
+  "test_accuracy": 0.5339,
+  "test_f1": 0.5057,
+  "test_auc": 0.5344,
+  "test_brier": 0.27,
+  "test_top_decile_precision": 0.7489,
   "split": {
-    "train_range": "2024-06-03 to 2025-09-24",
-    "cal_range": "2025-10-03 to 2026-03-05",
-    "test_range": "2026-03-13 to 2026-08-17",
+    "train_range": "2024-07-01 to 2025-10-08",
+    "cal_range": "2025-10-16 to 2026-03-12",
+    "test_range": "2026-03-20 to 2026-08-18",
     "embargo_days": 5
   }
 }

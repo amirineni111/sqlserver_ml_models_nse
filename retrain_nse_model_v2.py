@@ -742,9 +742,20 @@ def quarantine_degenerate_rows(df, context='prediction'):
         print(f"[INFO] Data-quality gate: 0 degenerate rows in {len(df):,} {context} rows")
         return _drop_dq_columns(df[df['dq_degenerate'] == 0])
 
-    print(f"[WARNING] Data-quality gate: quarantining {len(bad):,} degenerate "
-          f"{context} row(s) across {bad['ticker'].nunique()} ticker(s)")
-    for reason, grp in bad.groupby('dq_reason'):
+    # Warmup is routine and expected -- every ticker has it -- so it is counted
+    # separately. Folding it into a "degenerate" headline (38,499 rows / 2,010
+    # tickers on the Sep 2026 training window) buries the handful of tickers
+    # that are actually broken, which is the whole point of the gate.
+    warm = bad[bad['dq_reason'] == 'insufficient_history']
+    real = bad[bad['dq_reason'] != 'insufficient_history']
+    if len(warm):
+        print(f"[INFO] Data-quality gate: dropped {len(warm):,} {context} row(s) "
+              f"lacking {DQ_MIN_HISTORY_SESSIONS} sessions of history "
+              f"(routine rolling-window warmup, {warm['ticker'].nunique()} tickers)")
+    if len(real):
+        print(f"[WARNING] Data-quality gate: quarantining {len(real):,} DEGENERATE "
+              f"{context} row(s) across {real['ticker'].nunique()} ticker(s)")
+    for reason, grp in real.groupby('dq_reason'):
         tickers = sorted(grp['ticker'].unique())
         shown = ', '.join(tickers[:10]) + (f" (+{len(tickers) - 10} more)" if len(tickers) > 10 else '')
         print(f"          {reason}: {len(tickers)} ticker(s) -- {shown}")
