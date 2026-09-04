@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-28",
+  "generated_at": "2026-07-28T16:42:47.218403",
+  "summary": {
+    "analysis_date": "2026-07-28",
+    "total_predictions": 1892,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1325,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1586,
+    "medium_confidence_count": 305,
+    "low_confidence_count": 1,
+    "avg_confidence": 73.96726026771846,
+    "avg_rsi": 50.17381316327721,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-28 16:42:14.887000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ORIENTLTD.NS",
+      "company": "Orient Press Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.3005793907088,
+      "close_price": 89.85,
+      "rsi": 73.05050505050505,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AEROFLEX.NS",
+      "company": "Aeroflex Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.89023440824269,
+      "close_price": 446.3,
+      "rsi": 69.82947092260603,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RKSWAMY.NS",
+      "company": "R K SWAMY LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.7822128624574,
+      "close_price": 104.03,
+      "rsi": 50.8497932935232,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ICIL.NS",
+      "company": "Indo Count Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.57884809758602,
+      "close_price": 410.75,
+      "rsi": 49.675090252707584,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EPACKPEB.NS",
+      "company": "EPACK PREFAB TECHN LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.55224816896673,
+      "close_price": 253.19,
+      "rsi": 54.28817389432907,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JTEKTINDIA.NS",
+      "company": "JTEKT India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.18651391338842,
+      "close_price": 135.17,
+      "rsi": 38.75619648490309,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BHARATGEAR.NS",
+      "company": "Bharat Gears Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.17476661014908,
+      "close_price": 123.96,
+      "rsi": 57.43091859596712,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NAVKARCORP.NS",
+      "company": "Navkar Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.11104700667033,
+      "close_price": 102.4,
+      "rsi": 50.76726342710999,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TRENT.NS",
+      "company": "Trent Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.09984782876519,
+      "close_price": 2930.7,
+      "rsi": 51.166028541594116,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "POWERMECH.NS",
+      "company": "PowerMech Solutions",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.06709855665231,
+      "close_price": 2636.1,
+      "rsi": 56.97211155378485,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

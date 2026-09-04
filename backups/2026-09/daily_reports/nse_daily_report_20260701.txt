@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-01
+[TIME] Report Generated (EST): 2026-07-01 16:52:17
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-01
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1909
+[BUY] Buy Signals: 1395
+[SELL] Sell Signals: 514
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1431
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 51.60
+[DATA] Average RSI: 57.9
+[COMPANY] Stocks Processed: 1909
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] MOTISONS.NS: Sell (52.2%) - INR 14.15 [GradientBoosting_V2_Calibrated]
+[SELL] MOREPENLAB.NS: Sell (52.2%) - INR 62.68 [GradientBoosting_V2_Calibrated]
+[SELL] MMP.NS: Sell (52.2%) - INR 274.25 [GradientBoosting_V2_Calibrated]
+[SELL] MIRZAINT.NS: Sell (52.2%) - INR 34.62 [GradientBoosting_V2_Calibrated]
+[SELL] MENONBE.NS: Sell (52.2%) - INR 161.51 [GradientBoosting_V2_Calibrated]
+[SELL] MEDICAMEQ.NS: Sell (52.2%) - INR 262.60 [GradientBoosting_V2_Calibrated]
+[SELL] MBLINFRA.NS: Sell (52.2%) - INR 26.76 [GradientBoosting_V2_Calibrated]
+[SELL] MANOMAY.NS: Sell (52.2%) - INR 183.65 [GradientBoosting_V2_Calibrated]
+[SELL] MANALIPETC.NS: Sell (52.2%) - INR 65.38 [GradientBoosting_V2_Calibrated]
+[SELL] LYKALABS.NS: Sell (52.2%) - INR 74.83 [GradientBoosting_V2_Calibrated]

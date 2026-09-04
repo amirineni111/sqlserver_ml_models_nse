@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-22
+[TIME] Report Generated (EST): 2026-05-26 16:56:12
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-22
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2053
+[BUY] Buy Signals: 1270
+[SELL] Sell Signals: 783
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 6
+[DATA] Medium Confidence: 215
+[LOW] Low Confidence: 1832
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.31
+[DATA] Average RSI: 46.0
+[COMPANY] Stocks Processed: 2053
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] NOIDATOLL.NS: Sell (74.3%) - INR 7.17 [GradientBoosting_V2_Calibrated]
+[SELL] ANSALAPI.NS: Sell (73.0%) - INR 4.18 [GradientBoosting_V2_Calibrated]
+[SELL] FEL.NS: Sell (71.5%) - INR 0.45 [GradientBoosting_V2_Calibrated]
+[SELL] ESSENTIA.NS: Sell (71.5%) - INR 1.63 [GradientBoosting_V2_Calibrated]
+[BUY] UFBL.NS: Buy (71.1%) - INR 475.25 [GradientBoosting_V2_Calibrated]
+[SELL] GATECH.NS: Sell (70.9%) - INR 0.51 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (69.0%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] ANTGRAPHIC.NS: Sell (69.0%) - INR 0.84 [GradientBoosting_V2_Calibrated]
+[SELL] GTLINFRA.NS: Sell (69.0%) - INR 1.31 [GradientBoosting_V2_Calibrated]
+[SELL] HAVISHA.NS: Sell (69.0%) - INR 1.55 [GradientBoosting_V2_Calibrated]

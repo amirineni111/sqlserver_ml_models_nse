@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-08",
+  "generated_at": "2026-05-08T16:52:40.818824",
+  "summary": {
+    "analysis_date": "2026-05-08",
+    "total_predictions": 2059,
+    "total_buy_signals": 1491,
+    "total_sell_signals": 568,
+    "total_hold_signals": 0,
+    "high_confidence_count": 7,
+    "medium_confidence_count": 483,
+    "low_confidence_count": 1569,
+    "avg_confidence": 56.96995141910311,
+    "avg_rsi": 56.05325708818739,
+    "total_stocks_processed": 2059,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-08 16:52:40.180000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AVROIND.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.40812870448772,
+      "close_price": 12.06,
+      "rsi": 9.10297610730754,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 24.05,
+      "rsi": 96.29337539432176,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OMAXAUTO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18181818181819,
+      "close_price": 235.35,
+      "rsi": 94.9703241515751,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "LTM.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.87266553480475,
+      "close_price": 4349.8,
+      "rsi": 31.823910694994595,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VOLTAMP.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.1282410651717,
+      "close_price": 9535.0,
+      "rsi": 44.939439190310274,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CEMPRO.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.25431425976385,
+      "close_price": 956.15,
+      "rsi": 80.80848509105464,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RPGLIFE.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.25431425976385,
+      "close_price": 2463.1,
+      "rsi": 74.97437065725026,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANOMAY.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 68.77707430856381,
+      "close_price": 191.64,
+      "rsi": 41.15669132481506,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MRF.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 68.77707430856381,
+      "close_price": 130425.0,
+      "rsi": 20.69608452454942,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NAHARSPING.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 68.77707430856381,
+      "close_price": 275.41,
+      "rsi": 63.68532206969378,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

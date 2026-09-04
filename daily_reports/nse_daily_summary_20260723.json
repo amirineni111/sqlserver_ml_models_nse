@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-23",
+  "generated_at": "2026-07-23T16:42:00.302929",
+  "summary": {
+    "analysis_date": "2026-07-23",
+    "total_predictions": 1893,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 827,
+    "medium_confidence_count": 1037,
+    "low_confidence_count": 29,
+    "avg_confidence": 69.1256423475883,
+    "avg_rsi": 43.515529190761434,
+    "total_stocks_processed": 1893,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-23 16:41:30.750000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "OMAXE.NS",
+      "company": "Omaxe Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.88121126792011,
+      "close_price": 86.88,
+      "rsi": 59.49562532166751,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TRIVENI.NS",
+      "company": "Triveni Engineering & Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.46301043835022,
+      "close_price": 261.75,
+      "rsi": 15.63699825479928,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GAUDIUMIVF.NS",
+      "company": "GAUDIUM IVF N WOMEN H L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.92406652699924,
+      "close_price": 155.0,
+      "rsi": 78.0064686856807,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ORIENTPPR.NS",
+      "company": "Orient Paper & Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.32374681257038,
+      "close_price": 17.76,
+      "rsi": 64.19753086419749,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RHIM.NS",
+      "company": "RHI Magnesita India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.02426051751598,
+      "close_price": 395.6,
+      "rsi": 57.573726541554954,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HUHTAMAKI.NS",
+      "company": "Huhtamaki India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.00606040302421,
+      "close_price": 297.38,
+      "rsi": 84.87330432556949,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDOAMIN.NS",
+      "company": "Indo Amines Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.78252812903627,
+      "close_price": 130.29,
+      "rsi": 49.029982363315675,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DIACABS.NS",
+      "company": "Diamond Power Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.66964078968101,
+      "close_price": 273.93,
+      "rsi": 83.58395989974937,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BLUESTONE.NS",
+      "company": "BLUESTONE JEWEL LFSTL LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.60551883163713,
+      "close_price": 747.0,
+      "rsi": 77.48334108166748,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DIGITIDE.NS",
+      "company": "Digitide Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.49965589067762,
+      "close_price": 101.42,
+      "rsi": 49.29775280898877,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

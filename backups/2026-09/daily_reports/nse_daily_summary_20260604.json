@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T16:54:11.303397",
+  "summary": {
+    "analysis_date": "2026-06-04",
+    "total_predictions": 1915,
+    "total_buy_signals": 768,
+    "total_sell_signals": 1147,
+    "total_hold_signals": 0,
+    "high_confidence_count": 83,
+    "medium_confidence_count": 478,
+    "low_confidence_count": 1354,
+    "avg_confidence": 68.08772708657747,
+    "avg_rsi": 49.53580115575418,
+    "total_stocks_processed": 1915,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-04 16:53:41.867000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ANANDRATHI.NS",
+      "company": "Anand Rathi Wealth Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.51657940663176,
+      "close_price": 1750.6,
+      "rsi": 8.997752808988793,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GICL.NS",
+      "company": "GLOBE INTL CARRIERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.00906344410876,
+      "close_price": 26.93,
+      "rsi": 16.22739018087853,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KWIL.NS",
+      "company": "KWALITY WALL'S (INDIA) L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.00906344410876,
+      "close_price": 35.62,
+      "rsi": 84.32168968318437,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TRENT.NS",
+      "company": "Trent Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.00906344410876,
+      "close_price": 2837.6,
+      "rsi": 18.401015228426388,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "Embassy Developments Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.63959567793657,
+      "close_price": 58.63,
+      "rsi": 18.89548151528983,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RENUKA.NS",
+      "company": "Shree Renuka Sugars Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.63959567793657,
+      "close_price": 22.14,
+      "rsi": 31.711409395973178,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BAJAJHIND.NS",
+      "company": "Bajaj Hindusthan Sugar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.69729236385763,
+      "close_price": 19.31,
+      "rsi": 68.34532374100718,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NIITMTS.NS",
+      "company": "NIIT Learning Systems Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.69729236385763,
+      "close_price": 219.29,
+      "rsi": 39.7691632166604,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SETCO.NS",
+      "company": "Setco Automotive Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.69729236385763,
+      "close_price": 16.56,
+      "rsi": 28.470715835140993,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SUMIT.NS",
+      "company": "Sumit Woods Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.564686285397,
+      "close_price": 41.4,
+      "rsi": 32.03300825206301,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

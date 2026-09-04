@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31T16:43:18.107365",
+  "summary": {
+    "analysis_date": "2026-07-31",
+    "total_predictions": 1892,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1325,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1876,
+    "medium_confidence_count": 13,
+    "low_confidence_count": 3,
+    "avg_confidence": 79.81540629180914,
+    "avg_rsi": 45.132132871101504,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-31 16:42:38.010000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "HINDWAREAP.NS",
+      "company": "Hindware Home Innovation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.48038275638963,
+      "close_price": 220.45,
+      "rsi": 28.560250391236295,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CORALFINAC.NS",
+      "company": "Coral India",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.31891114760285,
+      "close_price": 33.6,
+      "rsi": 51.95936139332367,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BAJAJHCARE.NS",
+      "company": "Bajaj HealthCare Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.25315882033684,
+      "close_price": 336.45,
+      "rsi": 47.579479768786136,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BHARATSE.NS",
+      "company": "Bharat Seats Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.13122662202962,
+      "close_price": 221.65,
+      "rsi": 25.236593059936922,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EMKAY.NS",
+      "company": "Emkay Global Financial Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.1235375149318,
+      "close_price": 241.75,
+      "rsi": 31.946624803767648,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MARATHON.NS",
+      "company": "Marathon Nextgen Realty Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.9532734207357,
+      "close_price": 389.7,
+      "rsi": 35.81806696146556,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ADVENTHTL.NS",
+      "company": "Advent Hotels International Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.88719827938911,
+      "close_price": 147.67,
+      "rsi": 44.040150564617285,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GOCOLORS.NS",
+      "company": "Go Fashion (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.83533394324927,
+      "close_price": 327.05,
+      "rsi": 42.83283709059975,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MSTCLTD.NS",
+      "company": "MSTC Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.809891387513,
+      "close_price": 618.2,
+      "rsi": 39.19032892887268,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LANCORHOL.NS",
+      "company": "Lancor Holdings Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.79660699709677,
+      "close_price": 26.16,
+      "rsi": 40.083073727933545,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

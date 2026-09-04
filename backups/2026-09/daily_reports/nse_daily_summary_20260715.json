@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-15",
+  "generated_at": "2026-07-15T16:42:11.640877",
+  "summary": {
+    "analysis_date": "2026-07-15",
+    "total_predictions": 1902,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1332,
+    "total_hold_signals": 0,
+    "high_confidence_count": 445,
+    "medium_confidence_count": 1308,
+    "low_confidence_count": 149,
+    "avg_confidence": 66.67166325006582,
+    "avg_rsi": 49.17196165596852,
+    "total_stocks_processed": 1902,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-15 16:41:42.157000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "EIFFL.NS",
+      "company": "Euro India Fresh Foods Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.88761119381921,
+      "close_price": 329.25,
+      "rsi": 41.91702432045779,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TARSONS.NS",
+      "company": "Tarsons Products Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.82909520495733,
+      "close_price": 298.25,
+      "rsi": 69.28716118452783,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TOTAL.NS",
+      "company": "Total Transport Systems Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.10406610669527,
+      "close_price": 53.5,
+      "rsi": 59.07284768211922,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TCIEXP.NS",
+      "company": "TCI Express",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.77620622974368,
+      "close_price": 563.0,
+      "rsi": 37.273386511965185,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RAMCOIND.NS",
+      "company": "Ramco Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.72739678729307,
+      "close_price": 366.85,
+      "rsi": 73.43049327354261,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JTEKTINDIA.NS",
+      "company": "JTEKT India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.69401956155171,
+      "close_price": 141.19,
+      "rsi": 58.314855875831476,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DIGITIDE.NS",
+      "company": "Digitide Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.62205527418323,
+      "close_price": 103.62,
+      "rsi": 61.006644987982476,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHEMAROO.NS",
+      "company": "Shemaroo Entertainment Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.60553618378496,
+      "close_price": 123.7,
+      "rsi": 45.74886535552193,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STERTOOLS.NS",
+      "company": "Sterling Tools Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.48137446685882,
+      "close_price": 251.46,
+      "rsi": 38.92617449664429,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RACLGEAR.NS",
+      "company": "RACL Geartech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.45772888787086,
+      "close_price": 1354.4,
+      "rsi": 50.13807916538817,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

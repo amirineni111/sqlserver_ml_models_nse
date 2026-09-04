@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-21
+[TIME] Report Generated (EST): 2026-05-21 16:54:28
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-21
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2052
+[BUY] Buy Signals: 661
+[SELL] Sell Signals: 1391
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 20
+[DATA] Medium Confidence: 135
+[LOW] Low Confidence: 1897
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.36
+[DATA] Average RSI: 47.6
+[COMPANY] Stocks Processed: 2052
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] ONELIFECAP.NS: Buy (78.4%) - INR 23.91 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (74.3%) - INR 0.48 [GradientBoosting_V2_Calibrated]
+[SELL] ANTGRAPHIC.NS: Sell (73.0%) - INR 0.86 [GradientBoosting_V2_Calibrated]
+[SELL] IOLCP.NS: Sell (73.0%) - INR 121.17 [GradientBoosting_V2_Calibrated]
+[SELL] IL&FSTRANS.NS: Sell (73.0%) - INR 2.40 [GradientBoosting_V2_Calibrated]
+[SELL] HAVISHA.NS: Sell (73.0%) - INR 1.56 [GradientBoosting_V2_Calibrated]
+[SELL] GTLINFRA.NS: Sell (73.0%) - INR 1.30 [GradientBoosting_V2_Calibrated]
+[SELL] GATECH.NS: Sell (73.0%) - INR 0.51 [GradientBoosting_V2_Calibrated]
+[SELL] FLFL.NS: Sell (73.0%) - INR 1.58 [GradientBoosting_V2_Calibrated]
+[SELL] KANANIIND.NS: Sell (73.0%) - INR 1.65 [GradientBoosting_V2_Calibrated]

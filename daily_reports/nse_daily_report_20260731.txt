@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-31
+[TIME] Report Generated (EST): 2026-07-31 16:43:18
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-31
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1892
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1876
+[DATA] Medium Confidence: 13
+[LOW] Low Confidence: 3
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 79.82
+[DATA] Average RSI: 45.1
+[COMPANY] Stocks Processed: 1892
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] HINDWAREAP.NS: Sell (86.5%) - INR 220.45 [LightGBM_V2]
+[SELL] CORALFINAC.NS: Sell (86.3%) - INR 33.60 [LightGBM_V2]
+[SELL] BAJAJHCARE.NS: Sell (86.3%) - INR 336.45 [LightGBM_V2]
+[SELL] BHARATSE.NS: Sell (86.1%) - INR 221.65 [LightGBM_V2]
+[SELL] EMKAY.NS: Sell (86.1%) - INR 241.75 [LightGBM_V2]
+[SELL] MARATHON.NS: Sell (86.0%) - INR 389.70 [LightGBM_V2]
+[SELL] ADVENTHTL.NS: Sell (85.9%) - INR 147.67 [LightGBM_V2]
+[SELL] GOCOLORS.NS: Sell (85.8%) - INR 327.05 [LightGBM_V2]
+[SELL] MSTCLTD.NS: Sell (85.8%) - INR 618.20 [LightGBM_V2]
+[SELL] LANCORHOL.NS: Sell (85.8%) - INR 26.16 [LightGBM_V2]

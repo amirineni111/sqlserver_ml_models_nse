@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-01",
+  "generated_at": "2026-09-01T16:45:06.794858",
+  "summary": {
+    "analysis_date": "2026-09-01",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1880,
+    "medium_confidence_count": 14,
+    "low_confidence_count": 1,
+    "avg_confidence": 79.7872577463519,
+    "avg_rsi": 46.77859954869811,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-01 16:44:29.373000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RSYSTEMS.NS",
+      "company": "R Systems International Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.31723691793253,
+      "close_price": 255.74,
+      "rsi": 68.12702828001855,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "63MOONS.NS",
+      "company": "63 moons technologies limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.2162052264947,
+      "close_price": 775.55,
+      "rsi": 33.595284872298635,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RPPL.NS",
+      "company": "Rajshree Polypack Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.0212574696363,
+      "close_price": 23.14,
+      "rsi": 44.84210526315791,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GABRIEL.NS",
+      "company": "Gabriel India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.00931858811008,
+      "close_price": 1426.3,
+      "rsi": 41.9457735247209,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELCHEMQ.NS",
+      "company": "Reliance Chemotex Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.00081633951173,
+      "close_price": 113.19,
+      "rsi": 29.240506329113884,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IZMO.NS",
+      "company": "IZMO Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.93746212184884,
+      "close_price": 916.3,
+      "rsi": 43.08452250274423,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PARACABLES.NS",
+      "company": "Paramount Communications Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.92586131475116,
+      "close_price": 63.45,
+      "rsi": 37.087168381158655,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JAMNAAUTO.NS",
+      "company": "Jamna Auto Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.88591984730904,
+      "close_price": 120.85,
+      "rsi": 42.07084468664849,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CCAVENUE.NS",
+      "company": "AvenuesAI Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.8104017558928,
+      "close_price": 15.31,
+      "rsi": 34.83606557377048,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SARLAPOLY.NS",
+      "company": "Sarla Performance Fibers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.80995923792496,
+      "close_price": 103.81,
+      "rsi": 60.26812918951861,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

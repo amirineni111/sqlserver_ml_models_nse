@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-14
+[TIME] Report Generated (EST): 2026-05-14 16:51:58
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-14
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2055
+[BUY] Buy Signals: 120
+[SELL] Sell Signals: 1935
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 184
+[DATA] Medium Confidence: 445
+[LOW] Low Confidence: 1426
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.82
+[DATA] Average RSI: 47.7
+[COMPANY] Stocks Processed: 2055
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] CALSOFT.NS: Sell (93.4%) - INR 23.94 [GradientBoosting_V2_Calibrated]
+[SELL] EMAMIREAL.NS: Sell (87.7%) - INR 97.14 [GradientBoosting_V2_Calibrated]
+[SELL] TIJARIA.NS: Sell (87.6%) - INR 4.50 [GradientBoosting_V2_Calibrated]
+[SELL] KEEPLEARN.NS: Sell (85.7%) - INR 2.15 [GradientBoosting_V2_Calibrated]
+[SELL] KSHITIJPOL.NS: Sell (85.7%) - INR 4.13 [GradientBoosting_V2_Calibrated]
+[SELL] MTEDUCARE.NS: Sell (85.7%) - INR 1.55 [GradientBoosting_V2_Calibrated]
+[SELL] FLEXITUFF.NS: Sell (82.8%) - INR 6.96 [GradientBoosting_V2_Calibrated]
+[SELL] AJOONI.NS: Sell (82.0%) - INR 4.22 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHOPTFBR.NS: Sell (82.0%) - INR 6.80 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (82.0%) - INR 0.49 [GradientBoosting_V2_Calibrated]

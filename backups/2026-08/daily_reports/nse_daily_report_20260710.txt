@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-10
+[TIME] Report Generated (EST): 2026-07-10 16:44:06
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-10
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1904
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1333
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 718
+[DATA] Medium Confidence: 1064
+[LOW] Low Confidence: 122
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 67.93
+[DATA] Average RSI: 49.9
+[COMPANY] Stocks Processed: 1904
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] OMFREIGHT.NS: Sell (78.1%) - INR 95.91 [LightGBM_V2]
+[SELL] ROTO.NS: Sell (78.0%) - INR 69.23 [LightGBM_V2]
+[SELL] RPOWER.NS: Sell (77.7%) - INR 25.12 [LightGBM_V2]
+[SELL] SUNFLAG.NS: Sell (77.3%) - INR 342.70 [LightGBM_V2]
+[SELL] CHEMPLASTS.NS: Sell (77.2%) - INR 201.07 [LightGBM_V2]
+[SELL] SHEMAROO.NS: Sell (77.1%) - INR 128.76 [LightGBM_V2]
+[SELL] CORDSCABLE.NS: Sell (77.1%) - INR 206.07 [LightGBM_V2]
+[SELL] SHK.NS: Sell (76.9%) - INR 130.92 [LightGBM_V2]
+[SELL] TIPSFILMS.NS: Sell (76.8%) - INR 332.85 [LightGBM_V2]
+[SELL] TCIEXP.NS: Sell (76.8%) - INR 559.75 [LightGBM_V2]

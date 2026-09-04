@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-06",
+  "generated_at": "2026-07-06T16:42:25.441929",
+  "summary": {
+    "analysis_date": "2026-07-06",
+    "total_predictions": 1907,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1335,
+    "total_hold_signals": 0,
+    "high_confidence_count": 173,
+    "medium_confidence_count": 1598,
+    "low_confidence_count": 136,
+    "avg_confidence": 65.11072833218219,
+    "avg_rsi": 54.22594153911903,
+    "total_stocks_processed": 1907,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-06 16:41:41.503000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ANMOL.NS",
+      "company": "Anmol India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.30262493728029,
+      "close_price": 11.04,
+      "rsi": 46.71052631578946,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GMRP&UI.NS",
+      "company": "GMR Power And Urban Infra Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.29834274995578,
+      "close_price": 100.18,
+      "rsi": 25.63492063492062,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DEN.NS",
+      "company": "DEN Networks Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.26061412998332,
+      "close_price": 29.25,
+      "rsi": 49.13941480206541,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HATHWAY.NS",
+      "company": "Hathway Cable and Datacom Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.75760007867774,
+      "close_price": 11.15,
+      "rsi": 48.94366197183097,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BPCL.NS",
+      "company": "Bharat Petroleum Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.73711448807832,
+      "close_price": 308.15,
+      "rsi": 47.76255707762552,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TTML.NS",
+      "company": "Tata Teleservices (Maharashtra) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.735548940134,
+      "close_price": 42.25,
+      "rsi": 28.714107365792756,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HINDPETRO.NS",
+      "company": "Hindustan Petroleum Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.65827135232239,
+      "close_price": 400.35,
+      "rsi": 49.09344490934451,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IOC.NS",
+      "company": "Indian Oil Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.62557321490908,
+      "close_price": 141.68,
+      "rsi": 42.731505431971044,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VALIANTORG.NS",
+      "company": "Valiant Organics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.49458069851784,
+      "close_price": 277.6,
+      "rsi": 46.44295302013426,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GULFPETRO.NS",
+      "company": "GP Petroleums Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.28805689445103,
+      "close_price": 38.64,
+      "rsi": 34.22053231939161,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

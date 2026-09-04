@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-21
+[TIME] Report Generated (EST): 2026-08-21 16:42:44
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-21
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1892
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 29
+[DATA] Medium Confidence: 1562
+[LOW] Low Confidence: 301
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 63.12
+[DATA] Average RSI: 47.8
+[COMPANY] Stocks Processed: 1892
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] KAYA.NS: Sell (73.3%) - INR 382.25 [LightGBM_V2]
+[SELL] KOTARISUG.NS: Sell (73.2%) - INR 33.29 [LightGBM_V2]
+[SELL] EXPLEOSOL.NS: Sell (72.1%) - INR 898.75 [LightGBM_V2]
+[SELL] GOODLUCK.NS: Sell (71.8%) - INR 490.90 [LightGBM_V2]
+[SELL] ORIENTLTD.NS: Sell (71.8%) - INR 81.16 [LightGBM_V2]
+[SELL] NITIRAJ.NS: Sell (71.8%) - INR 198.91 [LightGBM_V2]
+[SELL] SPECTRUM.NS: Sell (71.6%) - INR 2121.80 [LightGBM_V2]
+[SELL] HMVL.NS: Sell (71.6%) - INR 92.10 [LightGBM_V2]
+[SELL] BONLON.NS: Sell (71.6%) - INR 39.37 [LightGBM_V2]
+[SELL] SHEKHAWATI.NS: Sell (71.4%) - INR 18.60 [LightGBM_V2]

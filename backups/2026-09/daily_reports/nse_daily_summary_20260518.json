@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-18",
+  "generated_at": "2026-05-18T16:55:27.333077",
+  "summary": {
+    "analysis_date": "2026-05-18",
+    "total_predictions": 2055,
+    "total_buy_signals": 215,
+    "total_sell_signals": 1840,
+    "total_hold_signals": 0,
+    "high_confidence_count": 88,
+    "medium_confidence_count": 288,
+    "low_confidence_count": 1679,
+    "avg_confidence": 56.87035075631649,
+    "avg_rsi": 43.483212997124525,
+    "total_stocks_processed": 2055,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-18 16:55:25.867000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KSHITIJPOL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.61160714285714,
+      "close_price": 3.74,
+      "rsi": 66.66666666666669,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CYBERMEDIA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.91304347826087,
+      "close_price": 17.56,
+      "rsi": 59.20205920205921,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMAMIREAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.91304347826087,
+      "close_price": 93.3,
+      "rsi": 38.86558817655282,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SEMAC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.91304347826087,
+      "close_price": 371.15,
+      "rsi": 73.2806482268794,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 0.49,
+      "rsi": 62.50000000000001,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COMPINFO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 1.33,
+      "rsi": 37.14285714285714,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ESSENTIA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 1.63,
+      "rsi": 69.23076923076923,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.76494023904382,
+      "close_price": 0.52,
+      "rsi": 60.86956521739131,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANTGRAPHIC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.82828282828282,
+      "close_price": 0.85,
+      "rsi": 44.827586206896555,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MEP.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.82828282828282,
+      "close_price": 1.01,
+      "rsi": 58.33333333333333,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

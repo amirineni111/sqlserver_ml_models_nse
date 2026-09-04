@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-03
+[TIME] Report Generated (EST): 2026-09-03 16:42:24
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-03
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1894
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 17
+[DATA] Medium Confidence: 1487
+[LOW] Low Confidence: 390
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 63.05
+[DATA] Average RSI: 48.0
+[COMPANY] Stocks Processed: 1894
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] MAHASTEEL.NS: Sell (75.7%) - INR 1258.20 [LightGBM_V2]
+[SELL] KRONOX.NS: Sell (73.2%) - INR 183.37 [LightGBM_V2]
+[SELL] MFML.NS: Sell (72.6%) - INR 18.36 [LightGBM_V2]
+[SELL] INDIAGLYCO.NS: Sell (72.2%) - INR 248.00 [LightGBM_V2]
+[SELL] DONEAR.NS: Sell (71.6%) - INR 88.56 [LightGBM_V2]
+[SELL] TAJGVK.NS: Sell (71.4%) - INR 333.80 [LightGBM_V2]
+[SELL] AUTOIND.NS: Sell (71.4%) - INR 92.75 [LightGBM_V2]
+[SELL] TIRUMALCHM.NS: Sell (71.3%) - INR 157.86 [LightGBM_V2]
+[SELL] AEGISLOG.NS: Sell (71.3%) - INR 1287.20 [LightGBM_V2]
+[SELL] LAMBODHARA.NS: Sell (71.3%) - INR 137.47 [LightGBM_V2]

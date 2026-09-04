@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-29
+[TIME] Report Generated (EST): 2026-05-29 16:57:21
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-29
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1917
+[BUY] Buy Signals: 874
+[SELL] Sell Signals: 1043
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 106
+[DATA] Medium Confidence: 317
+[LOW] Low Confidence: 1494
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.25
+[DATA] Average RSI: 42.7
+[COMPANY] Stocks Processed: 1917
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] MGEL.NS: Sell (77.1%) - INR 15.00 [GradientBoosting_V2_Calibrated]
+[BUY] MRF.NS: Buy (75.9%) - INR 123420.00 [GradientBoosting_V2_Calibrated]
+[SELL] STEELXIND.NS: Sell (73.4%) - INR 12.80 [GradientBoosting_V2_Calibrated]
+[SELL] GREENPOWER.NS: Sell (71.7%) - INR 11.53 [GradientBoosting_V2_Calibrated]
+[SELL] QUICKHEAL.NS: Sell (71.7%) - INR 186.02 [GradientBoosting_V2_Calibrated]
+[SELL] AFIL.NS: Sell (71.6%) - INR 10.07 [GradientBoosting_V2_Calibrated]
+[SELL] BLUSPRING.NS: Sell (71.6%) - INR 79.03 [GradientBoosting_V2_Calibrated]
+[SELL] COFFEEDAY.NS: Sell (71.6%) - INR 34.78 [GradientBoosting_V2_Calibrated]
+[SELL] MODISONLTD.NS: Sell (71.6%) - INR 284.60 [GradientBoosting_V2_Calibrated]
+[SELL] MOTOGENFIN.NS: Sell (71.6%) - INR 27.27 [GradientBoosting_V2_Calibrated]

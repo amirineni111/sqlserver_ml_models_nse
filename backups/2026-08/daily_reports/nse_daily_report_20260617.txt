@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-17
+[TIME] Report Generated (EST): 2026-06-17 16:39:04
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1911
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1338
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1433
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.91
+[DATA] Average RSI: 51.1
+[COMPANY] Stocks Processed: 1911
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] HALDER.NS: Sell (67.1%) - INR 232.72 [GradientBoosting_V2_Calibrated]
+[SELL] KCPSUGIND.NS: Sell (67.1%) - INR 22.24 [GradientBoosting_V2_Calibrated]
+[SELL] TCIFINANCE.NS: Sell (67.1%) - INR 25.17 [GradientBoosting_V2_Calibrated]
+[SELL] GRMOVER.NS: Sell (66.7%) - INR 92.81 [GradientBoosting_V2_Calibrated]
+[SELL] AVADHSUGAR.NS: Sell (64.8%) - INR 450.95 [GradientBoosting_V2_Calibrated]
+[SELL] FISCHER.NS: Sell (64.8%) - INR 34.71 [GradientBoosting_V2_Calibrated]
+[SELL] FDC.NS: Sell (64.8%) - INR 380.80 [GradientBoosting_V2_Calibrated]
+[SELL] ENTERO.NS: Sell (64.8%) - INR 1109.40 [GradientBoosting_V2_Calibrated]
+[SELL] DCMSRIND.NS: Sell (64.8%) - INR 38.17 [GradientBoosting_V2_Calibrated]
+[SELL] GTECJAINX.NS: Sell (64.8%) - INR 26.80 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-10",
+  "generated_at": "2026-07-10T16:44:06.534232",
+  "summary": {
+    "analysis_date": "2026-07-10",
+    "total_predictions": 1904,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1333,
+    "total_hold_signals": 0,
+    "high_confidence_count": 718,
+    "medium_confidence_count": 1064,
+    "low_confidence_count": 122,
+    "avg_confidence": 67.93256716677195,
+    "avg_rsi": 49.917846426616485,
+    "total_stocks_processed": 1904,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-10 16:43:28.170000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "OMFREIGHT.NS",
+      "company": "OM FREIGHT FORWARDERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.14203970307835,
+      "close_price": 95.91,
+      "rsi": 63.981762917933125,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ROTO.NS",
+      "company": "Roto Pumps Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.96819358520261,
+      "close_price": 69.23,
+      "rsi": 59.78172999191593,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RPOWER.NS",
+      "company": "Reliance Power Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.70421412638674,
+      "close_price": 25.12,
+      "rsi": 44.41913439635535,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUNFLAG.NS",
+      "company": "Sunflag Iron and Steel Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.32083941632607,
+      "close_price": 342.7,
+      "rsi": 40.916905444126066,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CHEMPLASTS.NS",
+      "company": "Chemplast Sanmar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.19990196756703,
+      "close_price": 201.07,
+      "rsi": 36.2873516168645,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHEMAROO.NS",
+      "company": "Shemaroo Entertainment Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.0956223326984,
+      "close_price": 128.76,
+      "rsi": 48.04504887377815,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CORDSCABLE.NS",
+      "company": "Cords Cable Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.05642399785695,
+      "close_price": 206.07,
+      "rsi": 32.956193791702944,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHK.NS",
+      "company": "S H Kelkar and Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.87801563296975,
+      "close_price": 130.92,
+      "rsi": 30.961298377028655,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TIPSFILMS.NS",
+      "company": "Tips Films Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.8374989470495,
+      "close_price": 332.85,
+      "rsi": 37.88359788359791,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TCIEXP.NS",
+      "company": "TCI Express",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.7782048865766,
+      "close_price": 559.75,
+      "rsi": 53.94596516174902,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

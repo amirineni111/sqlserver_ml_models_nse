@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-16
+[TIME] Report Generated (EST): 2026-06-16 16:51:47
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-16
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1911
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1338
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1433
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.90
+[DATA] Average RSI: 51.0
+[COMPANY] Stocks Processed: 1911
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SCPL.NS: Sell (70.6%) - INR 470.85 [GradientBoosting_V2_Calibrated]
+[SELL] ACUTAAS.NS: Sell (64.8%) - INR 2996.50 [GradientBoosting_V2_Calibrated]
+[SELL] FISCHER.NS: Sell (64.8%) - INR 34.47 [GradientBoosting_V2_Calibrated]
+[SELL] FDC.NS: Sell (64.8%) - INR 384.25 [GradientBoosting_V2_Calibrated]
+[SELL] ENTERO.NS: Sell (64.8%) - INR 1116.70 [GradientBoosting_V2_Calibrated]
+[SELL] DJML.NS: Sell (64.8%) - INR 106.42 [GradientBoosting_V2_Calibrated]
+[SELL] LEMERITE.NS: Sell (64.8%) - INR 28.51 [GradientBoosting_V2_Calibrated]
+[SELL] MAHASTEEL.NS: Sell (64.8%) - INR 806.20 [GradientBoosting_V2_Calibrated]
+[SELL] MOTISONS.NS: Sell (64.8%) - INR 14.04 [GradientBoosting_V2_Calibrated]
+[SELL] PRIMO.NS: Sell (64.8%) - INR 24.07 [GradientBoosting_V2_Calibrated]

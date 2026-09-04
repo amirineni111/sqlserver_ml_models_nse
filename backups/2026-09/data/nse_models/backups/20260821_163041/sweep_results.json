@@ -1,0 +1,96 @@
+{
+  "timestamp": "20260704_165149",
+  "n_folds": 2,
+  "results": [
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "lgbm_300x63",
+      "mean_accuracy": 0.5228,
+      "mean_auc": 0.5568,
+      "mean_top_decile_precision": 0.7131,
+      "mean_proba_std": 0.1853
+    },
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "lgbm_500x31",
+      "mean_accuracy": 0.5195,
+      "mean_auc": 0.5439,
+      "mean_top_decile_precision": 0.7125,
+      "mean_proba_std": 0.1805
+    },
+    {
+      "data_window": "extended (2022-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_shallow_400x3",
+      "mean_accuracy": 0.5207,
+      "mean_auc": 0.5518,
+      "mean_top_decile_precision": 0.6581,
+      "mean_proba_std": 0.1352
+    },
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_shallow_400x3",
+      "mean_accuracy": 0.4903,
+      "mean_auc": 0.5289,
+      "mean_top_decile_precision": 0.6375,
+      "mean_proba_std": 0.162
+    },
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_slow_300x4",
+      "mean_accuracy": 0.4968,
+      "mean_auc": 0.5333,
+      "mean_top_decile_precision": 0.6368,
+      "mean_proba_std": 0.1648
+    },
+    {
+      "data_window": "extended (2022-06-01)",
+      "label_mode": "absolute",
+      "model": "lgbm_300x63",
+      "mean_accuracy": 0.5213,
+      "mean_auc": 0.5438,
+      "mean_top_decile_precision": 0.6141,
+      "mean_proba_std": 0.1518
+    },
+    {
+      "data_window": "extended (2022-06-01)",
+      "label_mode": "absolute",
+      "model": "lgbm_500x31",
+      "mean_accuracy": 0.5134,
+      "mean_auc": 0.5457,
+      "mean_top_decile_precision": 0.6096,
+      "mean_proba_std": 0.1576
+    },
+    {
+      "data_window": "extended (2022-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_slow_300x4",
+      "mean_accuracy": 0.5192,
+      "mean_auc": 0.5451,
+      "mean_top_decile_precision": 0.5921,
+      "mean_proba_std": 0.1421
+    },
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_baseline_200x5",
+      "mean_accuracy": 0.4861,
+      "mean_auc": 0.5296,
+      "mean_top_decile_precision": 0.5738,
+      "mean_proba_std": 0.1804
+    },
+    {
+      "data_window": "extended (2022-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_baseline_200x5",
+      "mean_accuracy": 0.5262,
+      "mean_auc": 0.5413,
+      "mean_top_decile_precision": 0.566,
+      "mean_proba_std": 0.1587
+    }
+  ]
+}

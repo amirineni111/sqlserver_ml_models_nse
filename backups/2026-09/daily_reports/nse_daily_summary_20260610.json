@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-10",
+  "generated_at": "2026-06-10T16:53:57.332117",
+  "summary": {
+    "analysis_date": "2026-06-10",
+    "total_predictions": 1908,
+    "total_buy_signals": 741,
+    "total_sell_signals": 1167,
+    "total_hold_signals": 0,
+    "high_confidence_count": 102,
+    "medium_confidence_count": 340,
+    "low_confidence_count": 1466,
+    "avg_confidence": 78.6690836580373,
+    "avg_rsi": 48.22495315647764,
+    "total_stocks_processed": 1908,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-10 16:53:25.050000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AHCL.NS",
+      "company": "ANLON HEALTHCARE LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 95.0,
+      "close_price": 14.42,
+      "rsi": 62.52821670428892,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NEULANDLAB.NS",
+      "company": "Neuland Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.4914675767918,
+      "close_price": 16946.0,
+      "rsi": 56.86860068259386,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AAREYDRUGS.NS",
+      "company": "Aarey Drugs & Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 78.22,
+      "rsi": 32.49744114636641,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AMANTA.NS",
+      "company": "AMANTA HEALTHCARE LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 140.92,
+      "rsi": 63.025210084033596,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANUHPHR.NS",
+      "company": "Anuh Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 75.87,
+      "rsi": 31.39860139860143,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BIOFILCHEM.NS",
+      "company": "Biofil Chemicals and Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 36.39,
+      "rsi": 72.54901960784315,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANGALAM.NS",
+      "company": "Mangalam Drugs & Organics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 28.3,
+      "rsi": 11.320754716981114,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SAGILITY.NS",
+      "company": "Sagility Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 40.14,
+      "rsi": 37.139107611548546,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ZIMLAB.NS",
+      "company": "ZIM Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.03084832904884,
+      "close_price": 111.66,
+      "rsi": 75.67567567567565,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BALPHARMA.NS",
+      "company": "Bal Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 91.85336048879837,
+      "close_price": 86.15,
+      "rsi": 57.312806158152576,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

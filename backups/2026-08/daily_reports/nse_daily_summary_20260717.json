@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-17",
+  "generated_at": "2026-07-17T16:42:55.223655",
+  "summary": {
+    "analysis_date": "2026-07-17",
+    "total_predictions": 1898,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1329,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1844,
+    "medium_confidence_count": 53,
+    "low_confidence_count": 1,
+    "avg_confidence": 78.18114233308224,
+    "avg_rsi": 50.213253220761324,
+    "total_stocks_processed": 1898,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-17 16:42:25.970000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SHIVAMAUTO.NS",
+      "company": "Shivam Autotech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 90.71509821813868,
+      "close_price": 17.42,
+      "rsi": 58.10218978102193,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MHLXMIRU.NS",
+      "company": "Mahalaxmi Rubtech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.89683279417058,
+      "close_price": 137.96,
+      "rsi": 74.03314917127074,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PENINLAND.NS",
+      "company": "Peninsula Land Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.02672566878124,
+      "close_price": 17.77,
+      "rsi": 68.63354037267081,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BODALCHEM.NS",
+      "company": "Bodal Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.37069819933936,
+      "close_price": 64.16,
+      "rsi": 48.58272907053393,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PREMIERPOL.NS",
+      "company": "Premier Polyfilm Ltd.",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.27824604518139,
+      "close_price": 73.75,
+      "rsi": 59.55651964328755,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHIVAUM.NS",
+      "company": "SHIV AUM STEELS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.24642661251384,
+      "close_price": 416.65,
+      "rsi": 49.005049005048996,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CAMPUS.NS",
+      "company": "Campus Activewear Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.23713293052633,
+      "close_price": 235.97,
+      "rsi": 55.742385786802025,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GARFIBRES.NS",
+      "company": "Garware Technical Fibres Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.04164532488274,
+      "close_price": 765.5,
+      "rsi": 54.739336492891,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MANAKALUCO.NS",
+      "company": "Manaksia Aluminium Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.0224866540218,
+      "close_price": 36.79,
+      "rsi": 55.528255528255514,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CENTEXT.NS",
+      "company": "Century Extrusions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.9631043127545,
+      "close_price": 19.41,
+      "rsi": 52.98507462686564,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

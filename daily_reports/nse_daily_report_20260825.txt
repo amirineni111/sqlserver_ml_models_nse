@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-25
+[TIME] Report Generated (EST): 2026-08-25 16:45:14
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-25
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1894
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 16
+[DATA] Medium Confidence: 1333
+[LOW] Low Confidence: 545
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 62.03
+[DATA] Average RSI: 46.8
+[COMPANY] Stocks Processed: 1894
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] JAGSNPHARM.NS: Sell (75.7%) - INR 241.43 [LightGBM_V2]
+[SELL] MOLDTECH.NS: Sell (72.3%) - INR 191.54 [LightGBM_V2]
+[SELL] SHIVAUM.NS: Sell (71.5%) - INR 440.05 [LightGBM_V2]
+[SELL] NAHARINDUS.NS: Sell (71.3%) - INR 139.23 [LightGBM_V2]
+[SELL] TIL.NS: Sell (71.0%) - INR 240.60 [LightGBM_V2]
+[SELL] DGCONTENT.NS: Sell (70.8%) - INR 24.58 [LightGBM_V2]
+[SELL] KOTARISUG.NS: Sell (70.5%) - INR 35.25 [LightGBM_V2]
+[SELL] COMSYN.NS: Sell (70.5%) - INR 287.68 [LightGBM_V2]
+[SELL] IMAGICAA.NS: Sell (70.4%) - INR 49.79 [LightGBM_V2]
+[SELL] LAMBODHARA.NS: Sell (70.3%) - INR 142.03 [LightGBM_V2]

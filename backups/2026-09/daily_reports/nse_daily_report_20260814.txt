@@ -1,0 +1,34 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-14
+[TIME] Report Generated (EST): 2026-08-14 16:43:37
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-14
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1890
+[BUY] Buy Signals: 506
+[SELL] Sell Signals: 1384
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2
+[DATA] Medium Confidence: 109
+[LOW] Low Confidence: 1779
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.62
+[DATA] Average RSI: 50.6
+[COMPANY] Stocks Processed: 1890
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] INDOTHAI.NS: Sell (73.5%) - INR 77.08 [LightGBM_V2]
+[BUY] SHALPAINTS.NS: Buy (72.5%) - INR 91.39 [LightGBM_V2]

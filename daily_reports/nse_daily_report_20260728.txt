@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-28
+[TIME] Report Generated (EST): 2026-07-28 16:42:47
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-28
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1892
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1586
+[DATA] Medium Confidence: 305
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 73.97
+[DATA] Average RSI: 50.2
+[COMPANY] Stocks Processed: 1892
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ORIENTLTD.NS: Sell (81.3%) - INR 89.85 [LightGBM_V2]
+[SELL] AEROFLEX.NS: Sell (80.9%) - INR 446.30 [LightGBM_V2]
+[SELL] RKSWAMY.NS: Sell (80.8%) - INR 104.03 [LightGBM_V2]
+[SELL] ICIL.NS: Sell (80.6%) - INR 410.75 [LightGBM_V2]
+[SELL] EPACKPEB.NS: Sell (80.6%) - INR 253.19 [LightGBM_V2]
+[SELL] JTEKTINDIA.NS: Sell (80.2%) - INR 135.17 [LightGBM_V2]
+[SELL] BHARATGEAR.NS: Sell (80.2%) - INR 123.96 [LightGBM_V2]
+[SELL] NAVKARCORP.NS: Sell (80.1%) - INR 102.40 [LightGBM_V2]
+[SELL] TRENT.NS: Sell (80.1%) - INR 2930.70 [LightGBM_V2]
+[SELL] POWERMECH.NS: Sell (80.1%) - INR 2636.10 [LightGBM_V2]

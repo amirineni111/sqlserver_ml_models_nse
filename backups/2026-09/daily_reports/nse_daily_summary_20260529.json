@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-29",
+  "generated_at": "2026-05-29T16:57:21.956810",
+  "summary": {
+    "analysis_date": "2026-05-29",
+    "total_predictions": 1917,
+    "total_buy_signals": 874,
+    "total_sell_signals": 1043,
+    "total_hold_signals": 0,
+    "high_confidence_count": 106,
+    "medium_confidence_count": 317,
+    "low_confidence_count": 1494,
+    "avg_confidence": 55.24808478811045,
+    "avg_rsi": 42.6590630210973,
+    "total_stocks_processed": 1917,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-29 16:56:40.037000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MGEL.NS",
+      "company": "Mangalam Global Enterprise Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.09654686398872,
+      "close_price": 15.0,
+      "rsi": 58.31533477321813,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MRF.NS",
+      "company": "MRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.90361445783132,
+      "close_price": 123420.0,
+      "rsi": 30.834473324213405,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "STEELXIND.NS",
+      "company": "Steel Exchange India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.39857651245552,
+      "close_price": 12.8,
+      "rsi": 70.7843137254902,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GREENPOWER.NS",
+      "company": "Orient Green Power Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.72236503856041,
+      "close_price": 11.53,
+      "rsi": 40.65573770491803,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "QUICKHEAL.NS",
+      "company": "Quick Heal Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.72236503856041,
+      "close_price": 186.02,
+      "rsi": 28.114917806114633,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AFIL.NS",
+      "company": "AKME FINTRADE (INDIA) LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.62038449801648,
+      "close_price": 10.07,
+      "rsi": 64.15770609318997,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BLUSPRING.NS",
+      "company": "Bluspring Enterprises Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.62038449801648,
+      "close_price": 79.03,
+      "rsi": 67.1727395411606,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COFFEEDAY.NS",
+      "company": "CoffeeDay",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.62038449801648,
+      "close_price": 34.78,
+      "rsi": 81.69542385596401,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MODISONLTD.NS",
+      "company": "Modison Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.62038449801648,
+      "close_price": 284.6,
+      "rsi": 90.42422589005594,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MOTOGENFIN.NS",
+      "company": "The Motor & General Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.62038449801648,
+      "close_price": 27.27,
+      "rsi": 70.6081081081081,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

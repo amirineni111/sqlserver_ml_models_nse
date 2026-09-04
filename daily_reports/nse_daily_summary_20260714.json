@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-14",
+  "generated_at": "2026-07-14T16:42:53.392616",
+  "summary": {
+    "analysis_date": "2026-07-14",
+    "total_predictions": 1902,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1332,
+    "total_hold_signals": 0,
+    "high_confidence_count": 793,
+    "medium_confidence_count": 1051,
+    "low_confidence_count": 58,
+    "avg_confidence": 68.77405233350996,
+    "avg_rsi": 49.12613759337539,
+    "total_stocks_processed": 1902,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-14 16:42:23.757000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "JTEKTINDIA.NS",
+      "company": "JTEKT India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.78155509508066,
+      "close_price": 141.3,
+      "rsi": 58.68763824035392,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ONMOBILE.NS",
+      "company": "OnMobile Global Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.31353193918027,
+      "close_price": 69.41,
+      "rsi": 68.67151354923992,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELAXO.NS",
+      "company": "RELAXO FOOTWEAR",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.54679859930096,
+      "close_price": 389.15,
+      "rsi": 59.82532751091701,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUBROS.NS",
+      "company": "Subros Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.53230087531672,
+      "close_price": 811.35,
+      "rsi": 37.667723835081745,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELIABLE.NS",
+      "company": "Reliable Data Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.52246992742369,
+      "close_price": 145.78,
+      "rsi": 34.32971014492762,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "OMFREIGHT.NS",
+      "company": "OM FREIGHT FORWARDERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.47368491271723,
+      "close_price": 91.38,
+      "rsi": 56.92483784814955,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BSOFT.NS",
+      "company": "Birlasoft Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.29042429688946,
+      "close_price": 289.05,
+      "rsi": 39.2013498312711,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "63MOONS.NS",
+      "company": "63 moons technologies limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.28723943526977,
+      "close_price": 721.8,
+      "rsi": 60.00908884344466,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SOLARWORLD.NS",
+      "company": "SOLARWORLD ENERGY SOL LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.21505438069568,
+      "close_price": 208.87,
+      "rsi": 69.9966532797858,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GENESYS.NS",
+      "company": "Genesys International Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.88787080412285,
+      "close_price": 334.6,
+      "rsi": 38.5206143896524,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

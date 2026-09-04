@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-17",
+  "generated_at": "2026-06-17T16:39:04.953523",
+  "summary": {
+    "analysis_date": "2026-06-17",
+    "total_predictions": 1911,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1338,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1433,
+    "avg_confidence": 55.90601167272913,
+    "avg_rsi": 51.066773555256894,
+    "total_stocks_processed": 1911,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-17 16:38:40.247000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "HALDER.NS",
+      "company": "Halder Venture Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 232.72,
+      "rsi": 53.10329861111111,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KCPSUGIND.NS",
+      "company": "K.C.P. Sugar and Industries Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 22.24,
+      "rsi": 35.900473933649266,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TCIFINANCE.NS",
+      "company": "TCI Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 25.17,
+      "rsi": 82.66888150609083,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GRMOVER.NS",
+      "company": "GRM Overseas Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 66.66666666666666,
+      "close_price": 92.81,
+      "rsi": 14.858920716661302,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AVADHSUGAR.NS",
+      "company": "Avadh Sugar & Energy Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 450.95,
+      "rsi": 52.97407219115402,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FISCHER.NS",
+      "company": "Fischer Medical Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 34.71,
+      "rsi": 41.63116250760803,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FDC.NS",
+      "company": "FDC Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 380.8,
+      "rsi": 27.272727272727295,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ENTERO.NS",
+      "company": "Entero Healthcare Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1109.4,
+      "rsi": 34.84848484848483,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DCMSRIND.NS",
+      "company": "DCM Shriram Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 38.17,
+      "rsi": 47.00544464609802,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GTECJAINX.NS",
+      "company": "G-Tec Jainx Education Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 26.8,
+      "rsi": 63.20396848555588,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,29 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-18
+[TIME] Report Generated (EST): 2026-08-18 16:49:52
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-18
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1889
+[BUY] Buy Signals: 285
+[SELL] Sell Signals: 1604
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 0
+[DATA] Medium Confidence: 74
+[LOW] Low Confidence: 1815
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 53.95
+[DATA] Average RSI: 50.2
+[COMPANY] Stocks Processed: 1889

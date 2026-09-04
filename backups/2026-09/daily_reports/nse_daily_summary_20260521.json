@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-21",
+  "generated_at": "2026-05-21T16:54:28.713371",
+  "summary": {
+    "analysis_date": "2026-05-21",
+    "total_predictions": 2052,
+    "total_buy_signals": 661,
+    "total_sell_signals": 1391,
+    "total_hold_signals": 0,
+    "high_confidence_count": 20,
+    "medium_confidence_count": 135,
+    "low_confidence_count": 1897,
+    "avg_confidence": 54.356667057917065,
+    "avg_rsi": 47.64453868646886,
+    "total_stocks_processed": 2052,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-21 16:54:27.560000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ONELIFECAP.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.40812870448772,
+      "close_price": 23.91,
+      "rsi": 86.2396204033215,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.31372549019606,
+      "close_price": 0.48,
+      "rsi": 50.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANTGRAPHIC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 0.86,
+      "rsi": 50.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IOLCP.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 121.17,
+      "rsi": 81.70011806375443,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IL&FSTRANS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 2.4,
+      "rsi": 53.260869565217384,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HAVISHA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 1.56,
+      "rsi": 46.42857142857143,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GTLINFRA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 1.3,
+      "rsi": 55.71428571428573,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GATECH.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 0.51,
+      "rsi": 54.54545454545455,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FLFL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 1.58,
+      "rsi": 53.488372093023266,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KANANIIND.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 1.65,
+      "rsi": 52.94117647058822,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

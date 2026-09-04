@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-08",
+  "generated_at": "2026-07-08T16:44:04.054306",
+  "summary": {
+    "analysis_date": "2026-07-08",
+    "total_predictions": 1905,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1334,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1905,
+    "medium_confidence_count": 0,
+    "low_confidence_count": 0,
+    "avg_confidence": 82.41699967366586,
+    "avg_rsi": 46.525377281571835,
+    "total_stocks_processed": 1905,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-08 16:43:26.750000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SECMARK.NS",
+      "company": "SecMark Consultancy Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.45047970433853,
+      "close_price": 125.6,
+      "rsi": 51.388044579533926,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PIIND.NS",
+      "company": "PI Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.27322257338402,
+      "close_price": 2572.3,
+      "rsi": 25.258799171842696,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BONLON.NS",
+      "company": "Bonlon Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.15292704385371,
+      "close_price": 42.57,
+      "rsi": 32.536764705882405,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SILVERTUC.NS",
+      "company": "Silver Touch Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.87234866251077,
+      "close_price": 187.9,
+      "rsi": 44.24354813784578,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KESORAMIND.NS",
+      "company": "Kesoram Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.7298629077255,
+      "close_price": 10.36,
+      "rsi": 11.372549019607817,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EMUDHRA.NS",
+      "company": "eMudhra Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.54981759833359,
+      "close_price": 432.3,
+      "rsi": 24.95361781076066,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TICL.NS",
+      "company": "Twamev Construction and Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.52801000265826,
+      "close_price": 11.75,
+      "rsi": 7.171314741035843,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MASTERTR.NS",
+      "company": "Master Trust Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.46909412340422,
+      "close_price": 80.51,
+      "rsi": 51.2553582363748,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NMDC.NS",
+      "company": "NMDC Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.42420804005539,
+      "close_price": 83.74,
+      "rsi": 28.1762295081967,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BERGEPAINT.NS",
+      "company": "Berger Paints India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.37321152774136,
+      "close_price": 498.1,
+      "rsi": 45.38043478260871,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

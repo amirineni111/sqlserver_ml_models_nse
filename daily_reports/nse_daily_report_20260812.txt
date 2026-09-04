@@ -1,0 +1,37 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-12
+[TIME] Report Generated (EST): 2026-08-12 16:43:41
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-12
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1891
+[BUY] Buy Signals: 566
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 5
+[DATA] Medium Confidence: 111
+[LOW] Low Confidence: 1775
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.73
+[DATA] Average RSI: 53.6
+[COMPANY] Stocks Processed: 1891
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] VIJIFIN.NS: Buy (82.2%) - INR 11.92 [LightGBM_V2]
+[BUY] PIDILITIND.NS: Buy (75.8%) - INR 1701.50 [LightGBM_V2]
+[BUY] KEI.NS: Buy (75.7%) - INR 5754.00 [LightGBM_V2]
+[BUY] AUTOIND.NS: Buy (72.3%) - INR 99.77 [LightGBM_V2]
+[BUY] MHLXMIRU.NS: Buy (71.3%) - INR 171.42 [LightGBM_V2]

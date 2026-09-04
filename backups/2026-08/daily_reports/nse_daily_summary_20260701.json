@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-01",
+  "generated_at": "2026-07-01T16:52:17.007817",
+  "summary": {
+    "analysis_date": "2026-07-01",
+    "total_predictions": 1909,
+    "total_buy_signals": 1395,
+    "total_sell_signals": 514,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1431,
+    "avg_confidence": 51.596531356141924,
+    "avg_rsi": 57.906313512350245,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-01 16:51:54.423000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MOTISONS.NS",
+      "company": "MOTISONS JEWELLERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 14.15,
+      "rsi": 63.92215568862277,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MOREPENLAB.NS",
+      "company": "Morepen Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 62.68,
+      "rsi": 78.11575834389524,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MMP.NS",
+      "company": "MMP Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 274.25,
+      "rsi": 56.59553831231815,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MIRZAINT.NS",
+      "company": "Mirza International Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 34.62,
+      "rsi": 72.83720930232556,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MENONBE.NS",
+      "company": "Menon Bearings Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 161.51,
+      "rsi": 48.28565631974032,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MEDICAMEQ.NS",
+      "company": "Medicamen Biotech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 262.6,
+      "rsi": 68.25842696629213,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MBLINFRA.NS",
+      "company": "MBL Infrastructures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 26.76,
+      "rsi": 55.18617021276597,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANOMAY.NS",
+      "company": "Manomay Tex India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 183.65,
+      "rsi": 37.47927031509123,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANALIPETC.NS",
+      "company": "Manali Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 65.38,
+      "rsi": 61.1494252873563,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "LYKALABS.NS",
+      "company": "Lyka Labs Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 52.15713259932983,
+      "close_price": 74.83,
+      "rsi": 56.24729788153911,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

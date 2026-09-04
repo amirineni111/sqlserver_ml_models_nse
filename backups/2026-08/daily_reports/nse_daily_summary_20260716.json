@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-16",
+  "generated_at": "2026-07-16T16:43:02.484707",
+  "summary": {
+    "analysis_date": "2026-07-16",
+    "total_predictions": 1901,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1331,
+    "total_hold_signals": 0,
+    "high_confidence_count": 262,
+    "medium_confidence_count": 1437,
+    "low_confidence_count": 202,
+    "avg_confidence": 65.39931035012009,
+    "avg_rsi": 50.36483790891074,
+    "total_stocks_processed": 1901,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-16 16:42:24.317000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MHLXMIRU.NS",
+      "company": "Mahalaxmi Rubtech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.98370444245148,
+      "close_price": 137.72,
+      "rsi": 53.65546747200202,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHIVAUM.NS",
+      "company": "SHIV AUM STEELS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.5399386327665,
+      "close_price": 409.0,
+      "rsi": 51.13830392714855,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "COMSYN.NS",
+      "company": "Commercial Syn Bags Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.4781637630651,
+      "close_price": 187.84,
+      "rsi": 66.90335305719918,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STERTOOLS.NS",
+      "company": "Sterling Tools Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.11736638918313,
+      "close_price": 250.0,
+      "rsi": 49.274019153537225,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "FAIRCHEMOR.NS",
+      "company": "Fairchem Organics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.16518330222466,
+      "close_price": 702.05,
+      "rsi": 60.94837352322382,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MANAKALUCO.NS",
+      "company": "Manaksia Aluminium Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.00002650092385,
+      "close_price": 37.36,
+      "rsi": 48.13631522896698,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IFGLEXPOR.NS",
+      "company": "IFGL Refractories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.85854214471492,
+      "close_price": 219.11,
+      "rsi": 63.7458029645402,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DIGITIDE.NS",
+      "company": "Digitide Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.79865324942539,
+      "close_price": 103.96,
+      "rsi": 62.68377053906024,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ARFIN.NS",
+      "company": "Arfin India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.30787312901484,
+      "close_price": 88.19,
+      "rsi": 47.397172236503856,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STEELCAS.NS",
+      "company": "Steelcast Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.13458332925589,
+      "close_price": 303.2,
+      "rsi": 53.415744957709826,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

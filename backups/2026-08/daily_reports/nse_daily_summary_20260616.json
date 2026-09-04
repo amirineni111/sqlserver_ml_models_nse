@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-16",
+  "generated_at": "2026-06-16T16:51:47.012388",
+  "summary": {
+    "analysis_date": "2026-06-16",
+    "total_predictions": 1911,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1338,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1433,
+    "avg_confidence": 55.90333832881352,
+    "avg_rsi": 51.00739255448528,
+    "total_stocks_processed": 1911,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-16 16:51:28.760000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SCPL.NS",
+      "company": "Sheetal Cool Products Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 470.85,
+      "rsi": 61.937452326468346,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ACUTAAS.NS",
+      "company": "Acutaas Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 2996.5,
+      "rsi": 48.02963267825908,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FISCHER.NS",
+      "company": "Fischer Medical Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 34.47,
+      "rsi": 40.690505548705296,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FDC.NS",
+      "company": "FDC Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 384.25,
+      "rsi": 42.74193548387099,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ENTERO.NS",
+      "company": "Entero Healthcare Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 1116.7,
+      "rsi": 25.585480093676793,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DJML.NS",
+      "company": "DJ Mediaprint & Logistics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 106.42,
+      "rsi": 54.93348115299335,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "LEMERITE.NS",
+      "company": "LE MERITE EXPORTS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 28.51,
+      "rsi": 1.7850039777247417,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MAHASTEEL.NS",
+      "company": "Mahamaya Steel Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 806.2,
+      "rsi": 25.489715964740455,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MOTISONS.NS",
+      "company": "MOTISONS JEWELLERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 14.04,
+      "rsi": 65.8974358974359,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PRIMO.NS",
+      "company": "Primo Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 64.76582827406764,
+      "close_price": 24.07,
+      "rsi": 58.68210151380231,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

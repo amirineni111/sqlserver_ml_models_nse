@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T16:42:17.405046",
+  "summary": {
+    "analysis_date": "2026-07-07",
+    "total_predictions": 1908,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1336,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1460,
+    "medium_confidence_count": 443,
+    "low_confidence_count": 5,
+    "avg_confidence": 72.59830544058057,
+    "avg_rsi": 51.75503257294064,
+    "total_stocks_processed": 1908,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-07 16:41:35.890000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NITIRAJ.NS",
+      "company": "Nitiraj Engineers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.07281738612521,
+      "close_price": 185.5,
+      "rsi": 34.75065616797903,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "XTGLOBAL.NS",
+      "company": "XTGlobal Infotech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.79669858035248,
+      "close_price": 29.01,
+      "rsi": 49.024199843871976,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SONATSOFTW.NS",
+      "company": "Sonata Software Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.7387213064726,
+      "close_price": 279.9,
+      "rsi": 29.197080291970764,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IDEAFORGE.NS",
+      "company": "ideaForge Technology Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.71714292953953,
+      "close_price": 840.45,
+      "rsi": 38.859591298615705,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CHEMPLASTS.NS",
+      "company": "Chemplast Sanmar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.70312724127979,
+      "close_price": 204.6,
+      "rsi": 49.91023339317775,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PROTEAN.NS",
+      "company": "Protean eGov Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.391020614759,
+      "close_price": 589.85,
+      "rsi": 31.654381654381666,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VALIANTORG.NS",
+      "company": "Valiant Organics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.3773594687658,
+      "close_price": 276.6,
+      "rsi": 42.75717284814558,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SOTL.NS",
+      "company": "Savita Oil Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.26703053761186,
+      "close_price": 558.9,
+      "rsi": 40.49502941773178,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TRIGYN.NS",
+      "company": "Trigyn Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.0062059799208,
+      "close_price": 51.04,
+      "rsi": 36.87423687423686,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ZUARI.NS",
+      "company": "Zuari Agro Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.94312456421181,
+      "close_price": 233.35,
+      "rsi": 48.628850488354615,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

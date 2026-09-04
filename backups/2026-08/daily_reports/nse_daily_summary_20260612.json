@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-12",
+  "generated_at": "2026-06-12T18:11:05.021346",
+  "summary": {
+    "analysis_date": "2026-06-12",
+    "total_predictions": 1911,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1338,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1433,
+    "avg_confidence": 56.06196237953069,
+    "avg_rsi": 49.45942946913295,
+    "total_stocks_processed": 1911,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-12 18:10:29.510000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.84789644012946,
+      "close_price": 76.41,
+      "rsi": 26.331045003813884,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CHEMBOND.NS",
+      "company": "Chembond Material Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 66.07785410533204,
+      "close_price": 152.67,
+      "rsi": 24.487077005062645,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BONLON.NS",
+      "company": "Bonlon Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 66.07785410533204,
+      "close_price": 42.83,
+      "rsi": 47.16361931551805,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RMDRIP.NS",
+      "company": "R M DRIP & SPRINK SYS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 61.664190193164934,
+      "close_price": 18.57,
+      "rsi": 48.37500000000002,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MANAKALUCO.NS",
+      "company": "Manaksia Aluminium Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 60.16949152542372,
+      "close_price": 39.59,
+      "rsi": 65.27918781725889,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SERVOTECH.NS",
+      "company": "Servotech Renewable Power System Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 59.79431929480901,
+      "close_price": 102.53,
+      "rsi": 59.044432050567025,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TINNARUBR.NS",
+      "company": "Tinna Rubber and Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.867543591312334,
+      "close_price": 853.65,
+      "rsi": 68.74174372523117,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BHAGYANGR.NS",
+      "company": "Bhagyanagar India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.867543591312334,
+      "close_price": 310.6,
+      "rsi": 61.90948133465477,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VERANDA.NS",
+      "company": "Veranda Learning Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.03059691299001,
+      "close_price": 226.92,
+      "rsi": 36.02078121993456,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VENUSREM.NS",
+      "company": "Venus Remedies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.03059691299001,
+      "close_price": 1797.5,
+      "rsi": 90.42775611685596,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

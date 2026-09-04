@@ -1,0 +1,69 @@
+{
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T16:44:04.949474",
+  "summary": {
+    "analysis_date": "2026-08-13",
+    "total_predictions": 1891,
+    "total_buy_signals": 586,
+    "total_sell_signals": 1305,
+    "total_hold_signals": 0,
+    "high_confidence_count": 5,
+    "medium_confidence_count": 90,
+    "low_confidence_count": 1796,
+    "avg_confidence": 54.03017562633649,
+    "avg_rsi": 53.43641667706493,
+    "total_stocks_processed": 1891,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-13 16:43:24.227000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 80.13821312873537,
+      "close_price": 12.15,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RADICO.NS",
+      "company": "Radico Khaitan Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.9826408828267,
+      "close_price": 4675.2,
+      "rsi": 83.86498086068897,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MPHASIS.NS",
+      "company": "Mphasis Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.30683542188989,
+      "close_price": 2541.0,
+      "rsi": 72.20368744512733,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AKSHARCHEM.NS",
+      "company": "AksharChem (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.7625635064176,
+      "close_price": 296.12,
+      "rsi": 91.19845004151676,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UNIVASTU.NS",
+      "company": "Univastu India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.32653520046746,
+      "close_price": 153.04,
+      "rsi": 74.96598639455782,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

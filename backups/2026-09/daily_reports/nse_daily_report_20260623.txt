@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-23
+[TIME] Report Generated (EST): 2026-06-23 16:38:52
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1906
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1335
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 381
+[LOW] Low Confidence: 1429
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 61.73
+[DATA] Average RSI: 55.8
+[COMPANY] Stocks Processed: 1906
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] GPTINFRA.NS: Sell (75.7%) - INR 134.21 [GradientBoosting_V2_Calibrated]
+[SELL] THEMISMED.NS: Sell (75.7%) - INR 121.25 [GradientBoosting_V2_Calibrated]
+[SELL] TIL.NS: Sell (75.7%) - INR 215.08 [GradientBoosting_V2_Calibrated]
+[SELL] BALAJITELE.NS: Sell (74.1%) - INR 87.12 [GradientBoosting_V2_Calibrated]
+[SELL] ALPHAGEO.NS: Sell (74.1%) - INR 212.56 [GradientBoosting_V2_Calibrated]
+[SELL] AIRAN.NS: Sell (74.1%) - INR 16.26 [GradientBoosting_V2_Calibrated]
+[SELL] AGROPHOS.NS: Sell (74.1%) - INR 31.18 [GradientBoosting_V2_Calibrated]
+[SELL] BCG.NS: Sell (74.1%) - INR 10.16 [GradientBoosting_V2_Calibrated]
+[SELL] DPWIRES.NS: Sell (74.1%) - INR 203.73 [GradientBoosting_V2_Calibrated]
+[SELL] EMMBI.NS: Sell (74.1%) - INR 102.83 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-29",
+  "generated_at": "2026-07-29T16:42:54.724213",
+  "summary": {
+    "analysis_date": "2026-07-29",
+    "total_predictions": 1893,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 521,
+    "medium_confidence_count": 1119,
+    "low_confidence_count": 253,
+    "avg_confidence": 66.34846630371358,
+    "avg_rsi": 48.617429452760575,
+    "total_stocks_processed": 1893,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-29 16:42:19.740000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MCLOUD.NS",
+      "company": "Magellanic Cloud Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.86285031380392,
+      "close_price": 29.57,
+      "rsi": 49.6902106567534,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TIPSFILMS.NS",
+      "company": "Tips Films Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.33705553737155,
+      "close_price": 408.4,
+      "rsi": 67.04274246040356,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BANSALWIRE.NS",
+      "company": "BANSAL WIRE INDUSTRIES L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.37579329714592,
+      "close_price": 318.35,
+      "rsi": 46.24946420917274,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MSPL.NS",
+      "company": "MSP Steel & Power Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.08912364141717,
+      "close_price": 37.13,
+      "rsi": 36.94874851013112,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PARACABLES.NS",
+      "company": "Paramount Communications Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.06959850450524,
+      "close_price": 63.48,
+      "rsi": 37.785467128027676,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.95571255093641,
+      "close_price": 153.98,
+      "rsi": 56.118833469610216,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MBAPL.NS",
+      "company": "Madhya Bharat Agro Products Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.64615620688161,
+      "close_price": 164.0,
+      "rsi": 74.41029306647606,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IRIS.NS",
+      "company": "IRIS RegTech Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.37741176562658,
+      "close_price": 248.4,
+      "rsi": 37.92415169660679,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DSSL.NS",
+      "company": "Dynacons Systems & Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.37325462392535,
+      "close_price": 1241.1,
+      "rsi": 42.947247706422004,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CAMLINFINE.NS",
+      "company": "Camlin Fine Sciences Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.34321872109582,
+      "close_price": 130.15,
+      "rsi": 51.65257494235207,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

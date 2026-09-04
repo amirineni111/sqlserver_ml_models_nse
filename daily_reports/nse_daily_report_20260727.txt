@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-27
+[TIME] Report Generated (EST): 2026-07-27 16:42:56
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-27
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1892
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 880
+[DATA] Medium Confidence: 987
+[LOW] Low Confidence: 25
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 69.39
+[DATA] Average RSI: 47.5
+[COMPANY] Stocks Processed: 1892
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] PPAP.NS: Sell (78.4%) - INR 287.43 [LightGBM_V2]
+[SELL] AEROENTER.NS: Sell (78.2%) - INR 122.10 [LightGBM_V2]
+[SELL] STYLAMIND.NS: Sell (78.2%) - INR 3415.20 [LightGBM_V2]
+[SELL] KRONOX.NS: Sell (77.9%) - INR 155.55 [LightGBM_V2]
+[SELL] GNA.NS: Sell (77.8%) - INR 511.85 [LightGBM_V2]
+[SELL] BANSALWIRE.NS: Sell (77.8%) - INR 316.45 [LightGBM_V2]
+[SELL] GOLDIAM.NS: Sell (77.6%) - INR 355.75 [LightGBM_V2]
+[SELL] ICIL.NS: Sell (77.5%) - INR 401.15 [LightGBM_V2]
+[SELL] EMAMIPAP.NS: Sell (77.5%) - INR 112.28 [LightGBM_V2]
+[SELL] HUHTAMAKI.NS: Sell (77.4%) - INR 312.61 [LightGBM_V2]

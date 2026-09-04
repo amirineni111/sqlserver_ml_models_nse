@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-08",
+  "generated_at": "2026-06-08T16:54:05.382062",
+  "summary": {
+    "analysis_date": "2026-06-08",
+    "total_predictions": 1910,
+    "total_buy_signals": 663,
+    "total_sell_signals": 1247,
+    "total_hold_signals": 0,
+    "high_confidence_count": 103,
+    "medium_confidence_count": 334,
+    "low_confidence_count": 1473,
+    "avg_confidence": 93.06500368970735,
+    "avg_rsi": 49.87877438375505,
+    "total_stocks_processed": 1910,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-08 16:53:42.440000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "BEARDSELL.NS",
+      "company": "Beardsell Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 29.4,
+      "rsi": 75.85812356979406,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BCLIND.NS",
+      "company": "BCL INDUSTRIES",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 37.02,
+      "rsi": 68.0680680680681,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BCG.NS",
+      "company": "Brightcom Group Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 11.12,
+      "rsi": 66.94490818030049,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BANKA.NS",
+      "company": "Banka BioLoo Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 90.65,
+      "rsi": 77.08202880400754,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BAJAJHIND.NS",
+      "company": "Bajaj Hindusthan Sugar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 19.44,
+      "rsi": 75.0577367205543,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ASPINWALL.NS",
+      "company": "Aspinwall and Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 236.12,
+      "rsi": 59.76416450963471,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "APTECHT.NS",
+      "company": "Aptech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 101.79,
+      "rsi": 55.60154525386314,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AHCL.NS",
+      "company": "ANLON HEALTHCARE LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 14.06,
+      "rsi": 60.14234875444839,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AGRITECH.NS",
+      "company": "Agri-tech (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 152.16,
+      "rsi": 88.25751072961374,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AFIL.NS",
+      "company": "AKME FINTRADE (INDIA) LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 10.21,
+      "rsi": 71.51515151515156,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

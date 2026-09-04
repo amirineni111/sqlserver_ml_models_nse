@@ -1,0 +1,23 @@
+{
+  "date": "2026-06-05",
+  "generated_at": "2026-06-05T17:16:07.849554",
+  "summary": {
+    "analysis_date": "2026-06-05",
+    "total_predictions": 1913,
+    "total_buy_signals": 949,
+    "total_sell_signals": 964,
+    "total_hold_signals": 0,
+    "high_confidence_count": 0,
+    "medium_confidence_count": 343,
+    "low_confidence_count": 1570,
+    "avg_confidence": 97.37161545449811,
+    "avg_rsi": 50.630009104177496,
+    "total_stocks_processed": 1913,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-05 17:15:32.753000"
+  },
+  "high_confidence_signals": [],
+  "model_type": "NSE-trained ensemble"
+}

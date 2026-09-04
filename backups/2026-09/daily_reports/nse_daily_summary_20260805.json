@@ -1,0 +1,42 @@
+{
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T16:43:33.836330",
+  "summary": {
+    "analysis_date": "2026-08-05",
+    "total_predictions": 1891,
+    "total_buy_signals": 479,
+    "total_sell_signals": 1412,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2,
+    "medium_confidence_count": 51,
+    "low_confidence_count": 1838,
+    "avg_confidence": 53.466844371289454,
+    "avg_rsi": 51.23505542439981,
+    "total_stocks_processed": 1891,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-05 16:43:02.253000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "21STCENMGM.NS",
+      "company": "Twentyfirst Century Management Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.64344517820987,
+      "close_price": 42.6,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.88956084330411,
+      "close_price": 10.82,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

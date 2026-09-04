@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-02",
+  "generated_at": "2026-09-02T16:45:33.125226",
+  "summary": {
+    "analysis_date": "2026-09-02",
+    "total_predictions": 1892,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1325,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1888,
+    "medium_confidence_count": 3,
+    "low_confidence_count": 1,
+    "avg_confidence": 82.44240488822032,
+    "avg_rsi": 45.731495038495495,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-02 16:45:07.580000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "UEL.NS",
+      "company": "Ujaas Energy Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.52441121427829,
+      "close_price": 219.15,
+      "rsi": 40.1270666377879,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DCAL.NS",
+      "company": "Dishman Carbogen Amcis Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.31849452787833,
+      "close_price": 176.85,
+      "rsi": 30.28592241850299,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KILITCH.NS",
+      "company": "Kilitch Drugs (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.13035270815824,
+      "close_price": 171.37,
+      "rsi": 31.95126386615746,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EIFFL.NS",
+      "company": "Euro India Fresh Foods Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.7195344145592,
+      "close_price": 284.25,
+      "rsi": 50.45271629778671,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BROOKS.NS",
+      "company": "Brooks Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.69002451512105,
+      "close_price": 65.1,
+      "rsi": 48.85215794306704,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SPARC.NS",
+      "company": "Sun Pharma Advanced Research Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.67789285930866,
+      "close_price": 199.58,
+      "rsi": 45.29246794871796,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CENTUM.NS",
+      "company": "Centum Electronics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.67743117893355,
+      "close_price": 3555.3,
+      "rsi": 39.63409270824172,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUVEN.NS",
+      "company": "Suven Life Sciences Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.67496703670776,
+      "close_price": 372.85,
+      "rsi": 64.52723857232311,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PARACABLES.NS",
+      "company": "Paramount Communications Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.65823883888864,
+      "close_price": 64.16,
+      "rsi": 37.89417423837521,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CORDSCABLE.NS",
+      "company": "Cords Cable Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.65456541186455,
+      "close_price": 315.5,
+      "rsi": 83.36060696221364,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-04
+[TIME] Report Generated (EST): 2026-06-04 16:54:11
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-04
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1915
+[BUY] Buy Signals: 768
+[SELL] Sell Signals: 1147
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 83
+[DATA] Medium Confidence: 478
+[LOW] Low Confidence: 1354
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 68.09
+[DATA] Average RSI: 49.5
+[COMPANY] Stocks Processed: 1915
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ANANDRATHI.NS: Sell (88.5%) - INR 1750.60 [GradientBoosting_V2_Calibrated]
+[SELL] GICL.NS: Sell (87.0%) - INR 26.93 [GradientBoosting_V2_Calibrated]
+[SELL] KWIL.NS: Sell (87.0%) - INR 35.62 [GradientBoosting_V2_Calibrated]
+[SELL] TRENT.NS: Sell (87.0%) - INR 2837.60 [GradientBoosting_V2_Calibrated]
+[SELL] EMBDL.NS: Sell (85.6%) - INR 58.63 [GradientBoosting_V2_Calibrated]
+[SELL] RENUKA.NS: Sell (85.6%) - INR 22.14 [GradientBoosting_V2_Calibrated]
+[SELL] BAJAJHIND.NS: Sell (84.7%) - INR 19.31 [GradientBoosting_V2_Calibrated]
+[SELL] NIITMTS.NS: Sell (84.7%) - INR 219.29 [GradientBoosting_V2_Calibrated]
+[SELL] SETCO.NS: Sell (84.7%) - INR 16.56 [GradientBoosting_V2_Calibrated]
+[SELL] SUMIT.NS: Sell (83.6%) - INR 41.40 [GradientBoosting_V2_Calibrated]

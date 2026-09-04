@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-20
+[TIME] Report Generated (EST): 2026-05-20 16:51:45
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-20
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2053
+[BUY] Buy Signals: 28
+[SELL] Sell Signals: 2025
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 163
+[DATA] Medium Confidence: 777
+[LOW] Low Confidence: 1113
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 60.77
+[DATA] Average RSI: 45.7
+[COMPANY] Stocks Processed: 2053
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] COMPINFO.NS: Sell (83.9%) - INR 1.39 [GradientBoosting_V2_Calibrated]
+[SELL] IL&FSTRANS.NS: Sell (83.8%) - INR 2.37 [GradientBoosting_V2_Calibrated]
+[SELL] KEEPLEARN.NS: Sell (82.8%) - INR 2.08 [GradientBoosting_V2_Calibrated]
+[SELL] GATECHDVR.NS: Sell (82.0%) - INR 0.50 [GradientBoosting_V2_Calibrated]
+[SELL] GLOBE.NS: Sell (82.0%) - INR 2.46 [GradientBoosting_V2_Calibrated]
+[SELL] HAVISHA.NS: Sell (82.0%) - INR 1.58 [GradientBoosting_V2_Calibrated]
+[SELL] NAVKARURB.NS: Sell (82.0%) - INR 0.80 [GradientBoosting_V2_Calibrated]
+[SELL] ORCHASP.NS: Sell (82.0%) - INR 2.03 [GradientBoosting_V2_Calibrated]
+[SELL] ANKITMETAL.NS: Sell (81.0%) - INR 1.60 [GradientBoosting_V2_Calibrated]
+[SELL] SAMBHAAV.NS: Sell (79.8%) - INR 7.00 [GradientBoosting_V2_Calibrated]

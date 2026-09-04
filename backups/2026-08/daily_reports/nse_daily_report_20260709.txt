@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-09
+[TIME] Report Generated (EST): 2026-07-09 16:43:33
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-09
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1905
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1334
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 103
+[DATA] Medium Confidence: 1010
+[LOW] Low Confidence: 792
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 61.15
+[DATA] Average RSI: 48.3
+[COMPANY] Stocks Processed: 1905
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] BPL.NS: Sell (78.7%) - INR 58.84 [LightGBM_V2]
+[SELL] AEGISLOG.NS: Sell (77.3%) - INR 1264.10 [LightGBM_V2]
+[SELL] EVERESTIND.NS: Sell (77.3%) - INR 481.35 [LightGBM_V2]
+[SELL] SHIVAUM.NS: Sell (76.7%) - INR 427.15 [LightGBM_V2]
+[SELL] SUBROS.NS: Sell (75.5%) - INR 813.60 [LightGBM_V2]
+[SELL] CARRARO.NS: Sell (75.4%) - INR 561.00 [LightGBM_V2]
+[SELL] PANAMAPET.NS: Sell (74.9%) - INR 427.00 [LightGBM_V2]
+[SELL] EMKAY.NS: Sell (74.6%) - INR 265.10 [LightGBM_V2]
+[SELL] RAMCOSYS.NS: Sell (74.4%) - INR 837.35 [LightGBM_V2]
+[SELL] AEGISVOPAK.NS: Sell (74.4%) - INR 275.53 [LightGBM_V2]

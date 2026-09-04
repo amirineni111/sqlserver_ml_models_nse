@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-15
+[TIME] Report Generated (EST): 2026-05-15 16:55:22
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-15
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2054
+[BUY] Buy Signals: 376
+[SELL] Sell Signals: 1678
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 54
+[DATA] Medium Confidence: 195
+[LOW] Low Confidence: 1805
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.81
+[DATA] Average RSI: 49.2
+[COMPANY] Stocks Processed: 2054
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] AKSHOPTFBR.NS: Sell (80.5%) - INR 6.67 [GradientBoosting_V2_Calibrated]
+[SELL] CALSOFT.NS: Sell (78.5%) - INR 22.75 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (78.5%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] COMPINFO.NS: Sell (78.5%) - INR 1.33 [GradientBoosting_V2_Calibrated]
+[SELL] HAVISHA.NS: Sell (78.5%) - INR 1.58 [GradientBoosting_V2_Calibrated]
+[SELL] KEEPLEARN.NS: Sell (78.5%) - INR 2.07 [GradientBoosting_V2_Calibrated]
+[SELL] MTEDUCARE.NS: Sell (78.5%) - INR 1.57 [GradientBoosting_V2_Calibrated]
+[SELL] PRAXIS.NS: Sell (78.5%) - INR 7.70 [GradientBoosting_V2_Calibrated]
+[SELL] SUVIDHAA.NS: Sell (76.9%) - INR 2.95 [GradientBoosting_V2_Calibrated]
+[SELL] ANTGRAPHIC.NS: Sell (76.2%) - INR 0.89 [GradientBoosting_V2_Calibrated]

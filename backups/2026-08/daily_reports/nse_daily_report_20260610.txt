@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-10
+[TIME] Report Generated (EST): 2026-06-10 16:53:57
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-10
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1908
+[BUY] Buy Signals: 741
+[SELL] Sell Signals: 1167
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 102
+[DATA] Medium Confidence: 340
+[LOW] Low Confidence: 1466
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 78.67
+[DATA] Average RSI: 48.2
+[COMPANY] Stocks Processed: 1908
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] AHCL.NS: Sell (95.0%) - INR 14.42 [GradientBoosting_V2_Calibrated]
+[SELL] NEULANDLAB.NS: Sell (92.5%) - INR 16946.00 [GradientBoosting_V2_Calibrated]
+[SELL] AAREYDRUGS.NS: Sell (92.0%) - INR 78.22 [GradientBoosting_V2_Calibrated]
+[SELL] AMANTA.NS: Sell (92.0%) - INR 140.92 [GradientBoosting_V2_Calibrated]
+[SELL] ANUHPHR.NS: Sell (92.0%) - INR 75.87 [GradientBoosting_V2_Calibrated]
+[SELL] BIOFILCHEM.NS: Sell (92.0%) - INR 36.39 [GradientBoosting_V2_Calibrated]
+[SELL] MANGALAM.NS: Sell (92.0%) - INR 28.30 [GradientBoosting_V2_Calibrated]
+[SELL] SAGILITY.NS: Sell (92.0%) - INR 40.14 [GradientBoosting_V2_Calibrated]
+[SELL] ZIMLAB.NS: Sell (92.0%) - INR 111.66 [GradientBoosting_V2_Calibrated]
+[SELL] BALPHARMA.NS: Sell (91.9%) - INR 86.15 [GradientBoosting_V2_Calibrated]

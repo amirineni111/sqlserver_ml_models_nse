@@ -1,0 +1,51 @@
+{
+  "date": "2026-08-27",
+  "generated_at": "2026-08-27T16:55:09.528750",
+  "summary": {
+    "analysis_date": "2026-08-27",
+    "total_predictions": 1894,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 3,
+    "medium_confidence_count": 1230,
+    "low_confidence_count": 661,
+    "avg_confidence": 61.07544988074155,
+    "avg_rsi": 46.8994316693535,
+    "total_stocks_processed": 1894,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-27 16:52:58.283000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ABINFRA.NS",
+      "company": "A B INFRABUILD LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.75039962600044,
+      "close_price": 11.36,
+      "rsi": 60.17441860465116,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.57299643531512,
+      "close_price": 188.26,
+      "rsi": 58.515404231856074,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.53139615818941,
+      "close_price": 14.75,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

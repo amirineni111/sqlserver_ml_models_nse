@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-25
+[TIME] Report Generated (EST): 2026-06-26 16:37:51
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-25
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1913
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1340
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 383
+[LOW] Low Confidence: 1434
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.58
+[DATA] Average RSI: 54.2
+[COMPANY] Stocks Processed: 1913
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] COASTCORP.NS: Sell (70.6%) - INR 50.11 [GradientBoosting_V2_Calibrated]
+[SELL] AVANTIFEED.NS: Sell (70.6%) - INR 962.20 [GradientBoosting_V2_Calibrated]
+[SELL] KRITINUT.NS: Sell (70.6%) - INR 82.93 [GradientBoosting_V2_Calibrated]
+[SELL] MGEL.NS: Sell (70.6%) - INR 16.10 [GradientBoosting_V2_Calibrated]
+[SELL] NARMADA.NS: Sell (70.6%) - INR 42.73 [GradientBoosting_V2_Calibrated]
+[SELL] OILCOUNTUB.NS: Sell (70.6%) - INR 59.13 [GradientBoosting_V2_Calibrated]
+[SELL] RKDL.NS: Sell (70.6%) - INR 19.38 [GradientBoosting_V2_Calibrated]
+[SELL] CYBERMEDIA.NS: Sell (67.1%) - INR 16.74 [GradientBoosting_V2_Calibrated]
+[SELL] CTE.NS: Sell (67.1%) - INR 31.18 [GradientBoosting_V2_Calibrated]
+[SELL] CLSEL.NS: Sell (67.1%) - INR 285.35 [GradientBoosting_V2_Calibrated]

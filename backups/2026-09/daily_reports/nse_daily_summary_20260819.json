@@ -1,0 +1,33 @@
+{
+  "date": "2026-08-19",
+  "generated_at": "2026-08-19T16:43:05.766350",
+  "summary": {
+    "analysis_date": "2026-08-19",
+    "total_predictions": 1888,
+    "total_buy_signals": 566,
+    "total_sell_signals": 1322,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1,
+    "medium_confidence_count": 371,
+    "low_confidence_count": 1516,
+    "avg_confidence": 57.16212799517062,
+    "avg_rsi": 50.573335947072884,
+    "total_stocks_processed": 1888,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-19 16:42:34.457000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KOHINOOR.NS",
+      "company": "Kohinoor Foods Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.41080287149714,
+      "close_price": 31.27,
+      "rsi": 89.60915157292659,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

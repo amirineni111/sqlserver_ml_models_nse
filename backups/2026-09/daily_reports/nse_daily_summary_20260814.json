@@ -1,0 +1,42 @@
+{
+  "date": "2026-08-14",
+  "generated_at": "2026-08-14T16:43:37.750994",
+  "summary": {
+    "analysis_date": "2026-08-14",
+    "total_predictions": 1890,
+    "total_buy_signals": 506,
+    "total_sell_signals": 1384,
+    "total_hold_signals": 0,
+    "high_confidence_count": 2,
+    "medium_confidence_count": 109,
+    "low_confidence_count": 1779,
+    "avg_confidence": 54.62106305302487,
+    "avg_rsi": 50.587799795569126,
+    "total_stocks_processed": 1890,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-14 16:43:15.200000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "INDOTHAI.NS",
+      "company": "Indo Thai Securities Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.50970131317416,
+      "close_price": 77.08,
+      "rsi": 0.39542143600415613,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHALPAINTS.NS",
+      "company": "Shalimar Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.46881899317265,
+      "close_price": 91.39,
+      "rsi": 76.23857623857627,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

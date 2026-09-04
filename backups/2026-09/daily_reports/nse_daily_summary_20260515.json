@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-15",
+  "generated_at": "2026-05-15T16:55:22.313743",
+  "summary": {
+    "analysis_date": "2026-05-15",
+    "total_predictions": 2054,
+    "total_buy_signals": 376,
+    "total_sell_signals": 1678,
+    "total_hold_signals": 0,
+    "high_confidence_count": 54,
+    "medium_confidence_count": 195,
+    "low_confidence_count": 1805,
+    "avg_confidence": 54.81259416470206,
+    "avg_rsi": 49.19235883236945,
+    "total_stocks_processed": 2054,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-15 16:55:20.560000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AKSHOPTFBR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.4733727810651,
+      "close_price": 6.67,
+      "rsi": 58.24175824175825,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 22.75,
+      "rsi": 79.1101465002713,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 0.49,
+      "rsi": 55.55555555555556,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "COMPINFO.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 1.33,
+      "rsi": 40.54054054054055,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HAVISHA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 1.58,
+      "rsi": 47.916666666666664,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KEEPLEARN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 2.07,
+      "rsi": 46.80851063829787,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MTEDUCARE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 1.57,
+      "rsi": 61.11111111111112,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PRAXIS.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.46186621218575,
+      "close_price": 7.7,
+      "rsi": 64.94464944649448,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SUVIDHAA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.93208430913349,
+      "close_price": 2.95,
+      "rsi": 45.45454545454548,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANTGRAPHIC.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.18493748182611,
+      "close_price": 0.89,
+      "rsi": 50.0,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}
