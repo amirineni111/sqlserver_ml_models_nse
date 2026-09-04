@@ -721,13 +721,26 @@ def flag_degenerate_inputs(df):
     return df
 
 
+def _drop_dq_columns(df):
+    """Strip the dq_* diagnostics once the gate has used them.
+
+    They are diagnostics, never model inputs. Feature selection takes every
+    column not in EXCLUDE_COLS, so leaving them on the frame silently promoted
+    them to candidate features -- and dq_reason is a string, which blew up
+    RandomForest.fit with "could not convert string to float". Dropping them
+    here keeps train and predict identical and makes the guarantee structural
+    rather than a naming convention.
+    """
+    return df.drop(columns=[c for c in df.columns if c.startswith('dq_')]).copy()
+
+
 def quarantine_degenerate_rows(df, context='prediction'):
     """Drop degenerate rows and report exactly which tickers were dropped and why."""
     df = flag_degenerate_inputs(df)
     bad = df[df['dq_degenerate'] == 1]
     if bad.empty:
         print(f"[INFO] Data-quality gate: 0 degenerate rows in {len(df):,} {context} rows")
-        return df[df['dq_degenerate'] == 0].copy()
+        return _drop_dq_columns(df[df['dq_degenerate'] == 0])
 
     print(f"[WARNING] Data-quality gate: quarantining {len(bad):,} degenerate "
           f"{context} row(s) across {bad['ticker'].nunique()} ticker(s)")
@@ -735,7 +748,7 @@ def quarantine_degenerate_rows(df, context='prediction'):
         tickers = sorted(grp['ticker'].unique())
         shown = ', '.join(tickers[:10]) + (f" (+{len(tickers) - 10} more)" if len(tickers) > 10 else '')
         print(f"          {reason}: {len(tickers)} ticker(s) -- {shown}")
-    return df[df['dq_degenerate'] == 0].copy()
+    return _drop_dq_columns(df[df['dq_degenerate'] == 0])
 
 
 def merge_fundamental_features(conn, df):
@@ -1770,7 +1783,12 @@ def main():
         # non-stationary market levels -- see module-level EXCLUDE_COLS)
         exclude_cols = EXCLUDE_COLS
 
-        feature_cols = [c for c in df.columns if c not in exclude_cols]
+        # dq_* are data-quality diagnostics, never features. quarantine_degenerate_rows()
+        # already strips them; this is the backstop so a newly added dq_ column can
+        # never silently become a model input (dq_reason is a string and would fail
+        # RandomForest.fit outright -- a loud failure, but only after a full data load).
+        feature_cols = [c for c in df.columns
+                        if c not in exclude_cols and not c.startswith('dq_')]
         
         print(f"[INFO] Available features: {len(feature_cols)}")
         print(f"[INFO] Excluded columns: {len(exclude_cols)}")
