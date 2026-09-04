@@ -493,6 +493,10 @@ def calculate_technical_indicators(df):
             (ticker_df['close_price'].diff() == 0).rolling(20).sum()
         )
         ticker_df['dq_close_std_20d'] = ticker_df['close_price'].rolling(20).std()
+        # Sessions of history behind this row. The 14/20-period rolling windows
+        # are NaN until they fill, which is ordinary warmup, NOT a broken feed --
+        # label the two separately or the run log buries real faults in noise.
+        ticker_df['dq_history_len'] = np.arange(1, len(ticker_df) + 1)
 
         results.append(ticker_df)
     
@@ -667,6 +671,7 @@ FUNDAMENTAL_METRICS = [
 DQ_MAX_RSI_SATURATED_RUN = 10   # consecutive sessions at exactly RSI 0.0 / 100.0
 DQ_MAX_REPEATED_CLOSE_20D = 12  # of the last 20 closes, how many repeat the prior close
 DQ_MIN_CLOSE_STD_20D = 1e-9     # a 20-session window with zero dispersion is frozen
+DQ_MIN_HISTORY_SESSIONS = 20    # below this the rolling windows have not filled yet
 
 
 def flag_degenerate_inputs(df):
@@ -688,14 +693,21 @@ def flag_degenerate_inputs(df):
         df['dq_reason'] = ''
         return df
 
+    # Warmup is evaluated first and excludes the other checks, so a row is never
+    # reported as a broken feed when it simply has not accumulated 20 sessions yet.
+    warmup = (df['dq_history_len'] < DQ_MIN_HISTORY_SESSIONS
+              if 'dq_history_len' in df.columns
+              else pd.Series(False, index=df.index))
+
     checks = [
-        (df['dq_rsi_saturated_run'].fillna(0) >= DQ_MAX_RSI_SATURATED_RUN,
+        (warmup, 'insufficient_history'),
+        (~warmup & (df['dq_rsi_saturated_run'].fillna(0) >= DQ_MAX_RSI_SATURATED_RUN),
          f'rsi_saturated_{DQ_MAX_RSI_SATURATED_RUN}d+'),
-        (df['dq_repeated_close_20d'].fillna(0) >= DQ_MAX_REPEATED_CLOSE_20D,
+        (~warmup & (df['dq_repeated_close_20d'].fillna(0) >= DQ_MAX_REPEATED_CLOSE_20D),
          'stale_close_series'),
-        (df['dq_close_std_20d'].notna() & (df['dq_close_std_20d'] <= DQ_MIN_CLOSE_STD_20D),
+        (~warmup & df['dq_close_std_20d'].notna() & (df['dq_close_std_20d'] <= DQ_MIN_CLOSE_STD_20D),
          'zero_price_dispersion'),
-        (~np.isfinite(df['rsi'].astype(float)) if 'rsi' in df.columns
+        (~warmup & ~np.isfinite(df['rsi'].astype(float)) if 'rsi' in df.columns
          else pd.Series(False, index=df.index), 'rsi_not_finite'),
     ]
 

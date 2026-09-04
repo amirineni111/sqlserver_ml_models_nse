@@ -158,6 +158,10 @@ RSI 100 for a session or two, so only sustained saturation is caught:
 | `dq_repeated_close_20d` | ≥ 12 of last 20 closes repeat the prior close | stale price series |
 | `dq_close_std_20d` | ≤ 1e-9 | zero dispersion / frozen series |
 | `rsi` not finite | — | NaN/inf leaking into scoring |
+| `dq_history_len` | < 20 sessions | warmup, reported as `insufficient_history` — evaluated first and suppresses the other reasons, so ordinary rolling-window warmup is never reported as a broken feed |
+
+Measured over the 2024-06-01+ training window (1,092,369 rows): **0.57% genuinely
+degenerate** (6,189 rows, 91 of 2,079 tickers), plus 3.61% warmup labelled separately.
 
 Quarantined tickers are listed by reason in the run log. `dq_*` columns are
 diagnostics only — they are never model features.

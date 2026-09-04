@@ -280,6 +280,10 @@ def calculate_technical_indicators(df):
         )
         # Zero dispersion over 20 sessions -- a frozen series.
         ticker_df['dq_close_std_20d'] = ticker_df['close_price'].rolling(20).std()
+        # Sessions of history behind this row. The 14/20-period rolling windows
+        # are NaN until they fill, which is ordinary warmup, NOT a broken feed --
+        # label the two separately or the run log buries real faults in noise.
+        ticker_df['dq_history_len'] = np.arange(1, len(ticker_df) + 1)
 
         results.append(ticker_df)
     
