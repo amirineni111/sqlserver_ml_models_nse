@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T16:38:49.243748",
+  "summary": {
+    "analysis_date": "2026-09-18",
+    "total_predictions": 1902,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1332,
+    "total_hold_signals": 0,
+    "high_confidence_count": 860,
+    "medium_confidence_count": 489,
+    "low_confidence_count": 553,
+    "avg_confidence": 61.99054449598569,
+    "avg_rsi": 44.08001457110724,
+    "total_stocks_processed": 1902,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-18 16:38:17.913000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ADANIPORTS.NS",
+      "company": "Adani Ports and Special Economic Zone Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 41.24049740240292,
+      "conviction_score": 96.50176951763736,
+      "close_price": 1824.0,
+      "rsi": 61.798663155762604,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SSDL.NS",
+      "company": "SARASWATI SAREE DEPOT LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.83390447017389,
+      "conviction_score": 96.20939633631865,
+      "close_price": 61.35,
+      "rsi": 58.147713950762025,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KHADIM.NS",
+      "company": "Khadim India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.732901873380314,
+      "conviction_score": 96.02537559642616,
+      "close_price": 125.84,
+      "rsi": 63.79831932773111,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UMAEXPORTS.NS",
+      "company": "Uma Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.61704395052485,
+      "conviction_score": 95.99726408139277,
+      "close_price": 20.02,
+      "rsi": 0.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UEL.NS",
+      "company": "Ujaas Energy Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.58978066238413,
+      "conviction_score": 95.96980318117136,
+      "close_price": 203.73,
+      "rsi": 55.045550105115616,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EVEREADY.NS",
+      "company": "Eveready Industries India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.16529326612883,
+      "conviction_score": 95.51827930222254,
+      "close_price": 331.0,
+      "rsi": 47.0388349514563,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "COFORGE.NS",
+      "company": "Coforge Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.00137990601453,
+      "conviction_score": 95.33132954437824,
+      "close_price": 1841.0,
+      "rsi": 28.321678321678334,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IKIO.NS",
+      "company": "IKIO Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.86341590613245,
+      "conviction_score": 95.16825007808447,
+      "close_price": 210.25,
+      "rsi": 48.11063922465425,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STLNETWORK.NS",
+      "company": "STL NETWORKS LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 39.7755015963611,
+      "conviction_score": 94.95275930161667,
+      "close_price": 42.95,
+      "rsi": 91.96572040707017,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STLTECH.NS",
+      "company": "Sterlite Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.63242884314225,
+      "conviction_score": 94.88305041432267,
+      "close_price": 818.8,
+      "rsi": 63.018764552800974,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

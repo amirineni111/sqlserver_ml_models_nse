@@ -121,6 +121,13 @@ def update_summaries(conn, start, end):
             )
             sr_10d = correct_10d.mean()
         auc, top_decile = ranking_metrics(day)
+        # Market-relative 5d success: Buy beat / Sell lagged the universe mean
+        settled_5d = day.dropna(subset=['actual_return_5d'])
+        xsr_5d = None
+        if len(settled_5d):
+            excess = settled_5d['actual_return_5d'] - settled_5d['actual_return_5d'].mean()
+            xsr_5d = np.where(settled_5d['predicted_signal'] == 'Buy',
+                              excess > 0, excess < 0).mean()
 
         n_settled = day['direction_correct_5d'].notna().sum()
         if n_settled == 0 and pd.isna(sr_1d):
@@ -130,6 +137,7 @@ def update_summaries(conn, start, end):
         pct = lambda v: None if v is None or pd.isna(v) else round(float(v) * 100, 2)
         metrics_note = (f"metrics: auc_5d={'' if auc is None else round(float(auc), 4)}, "
                         f"top_decile_precision_5d={'' if top_decile is None or pd.isna(top_decile) else round(float(top_decile), 4)}, "
+                        f"excess_success_5d={'' if xsr_5d is None else round(float(xsr_5d), 4)}, "
                         f"settled_5d={int(n_settled)}")
         # Idempotent notes update: keep original text, replace any previous metrics suffix
         cursor.execute("""
@@ -259,6 +267,95 @@ def confidence_reliability(conn, start, end):
         print(f"{strength:>10} {len(grp):>8,} {grp['direction_correct_5d'].mean() * 100:>8.1f}%")
 
 
+def market_relative_scoring(conn, start, end, top_n=10):
+    """Hit rates net of the day's market move, and how they depend on regime.
+
+    Raw direction scoring is mostly a bet on market direction: ~2/3 of rows are
+    Sell, so a down day flatters them and an up day sinks them. Measured on the
+    first 56 LightGBM_V2 days (Jul 6 - Sep 25 2026), the top 20 by conviction hit
+    74.5% 1d on days the universe fell > 0.5% but 50.0% on days it rose > 0.5%,
+    while the MARKET-RELATIVE hit rate held at 59-62% in every regime. That second
+    number is the model's actual stock-picking skill, and it is the one any
+    downstream "edge" baseline should be quoted in.
+
+    Market = equal-weight mean return of the scored universe that day (the NSE
+    500 average), so excess = the stock's return minus that. Buys and Sells are
+    ranked separately (top_n each by that side's own probability) because a
+    single shared ranking buries the Buy book.
+    """
+    df = pd.read_sql(f"""
+        SELECT trading_date, predicted_signal, buy_probability,
+               COALESCE(conviction_score, confidence_percentage) AS conviction_score,
+               CAST(close_price AS FLOAT) AS close_price,
+               actual_return_1d, actual_return_5d
+        FROM ml_nse_trading_predictions
+        WHERE {V2_FILTER} AND trading_date BETWEEN ? AND ?
+          AND actual_return_1d IS NOT NULL
+    """, conn, params=(start, end))
+    if df.empty:
+        return
+
+    side = np.where(df['predicted_signal'] == 'Buy', 1.0, -1.0)
+    for h in ('1d', '5d'):
+        ret = df[f'actual_return_{h}']
+        mkt = df.groupby('trading_date')[f'actual_return_{h}'].transform('mean')
+        df[f'mkt_{h}'] = mkt
+        df[f'hit_{h}'] = (side * ret > 0).where(ret.notna())
+        df[f'excess_{h}'] = (side * (ret - mkt)).where(ret.notna())
+        df[f'xhit_{h}'] = (df[f'excess_{h}'] > 0).where(ret.notna())
+
+    # Rank each side by its own class probability rather than conviction_score:
+    # rows written before Sep 2026 have no conviction, and the COALESCE fallback
+    # (old max(buy, sell) confidence) is P(Sell) for relative-mode Buys, which
+    # would rank the WEAKEST Buys first. For current rows the order is identical.
+    df['side_prob'] = np.where(side > 0, df['buy_probability'], 1 - df['buy_probability'])
+    ranked = df.sort_values('side_prob', ascending=False)
+    top = ranked.groupby(['trading_date', 'predicted_signal']).head(top_n)
+
+    print()
+    print("=" * 80)
+    print(f"MARKET-RELATIVE SCORING (market = universe mean; top {top_n} per side by own-class probability)")
+    print("=" * 80)
+    print(f"{'cut':<22} {'n':>7} {'hit_1d':>7} {'xhit_1d':>8} {'ex_1d':>8} "
+          f"{'hit_5d':>7} {'xhit_5d':>8} {'ex_5d':>8}")
+    rows = [(f'all {s}', g) for s, g in df.groupby('predicted_signal')]
+    rows += [(f'top{top_n} {s}', g) for s, g in top.groupby('predicted_signal')]
+    rows += [(f'top{top_n} {s} px>=100', g[g['close_price'] >= 100])
+             for s, g in top.groupby('predicted_signal')]
+    for label, g in rows:
+        if g.empty:
+            continue
+        print(f"{label:<22} {len(g):>7,} {g['hit_1d'].mean() * 100:>6.1f}% "
+              f"{g['xhit_1d'].mean() * 100:>7.1f}% {g['excess_1d'].mean() * 1e4:>6.1f}bp "
+              f"{g['hit_5d'].mean() * 100:>6.1f}% {g['xhit_5d'].mean() * 100:>7.1f}% "
+              f"{g['excess_5d'].mean() * 1e4:>6.1f}bp")
+
+    # Regime split: the top book's raw hit rate should swing with the market
+    # while its excess hit rate should not. If excess ALSO collapses on up days,
+    # the ranking itself is failing, not just the market-direction bet.
+    daily = top.groupby('trading_date').agg(
+        mkt=('mkt_1d', 'first'), hit=('hit_1d', 'mean'), xhit=('xhit_1d', 'mean'))
+    daily['regime'] = pd.cut(daily['mkt'], [-np.inf, -0.005, 0.005, np.inf],
+                             labels=['down >0.5%', 'flat', 'up >0.5%'])
+    print()
+    print(f"{'regime (1d)':<12} {'days':>5} {'hit':>7} {'worst':>7} {'xhit':>7}")
+    for regime, g in daily.groupby('regime', observed=True):
+        print(f"{regime:<12} {len(g):>5} {g['hit'].mean() * 100:>6.1f}% "
+              f"{g['hit'].min() * 100:>6.1f}% {g['xhit'].mean() * 100:>6.1f}%")
+
+    # Hedged book: long the top Buys, short the top Sells, equal weight.
+    # Market beta cancels, so this is the tradeable form of the ranking edge.
+    by_side = top.groupby(['trading_date', 'predicted_signal'])['actual_return_1d'].mean().unstack()
+    if {'Buy', 'Sell'} <= set(by_side.columns):
+        spread = (by_side['Buy'] - by_side['Sell']).dropna()
+        if len(spread):
+            print()
+            print(f"[INFO] Long top-{top_n} Buy / short top-{top_n} Sell, 1d: "
+                  f"mean {spread.mean() * 1e4:.1f}bp, median {spread.median() * 1e4:.1f}bp, "
+                  f"positive on {(spread > 0).mean() * 100:.0f}% of {len(spread)} days "
+                  f"(pre-cost; small caps dominate -- check the px>=100 rows)")
+
+
 def rolling_success_rate_5d(conn, sessions=10):
     """Rolling success_rate_5d over the last N settled sessions (retrain-trigger input)."""
     df = pd.read_sql(f"""
@@ -294,6 +391,8 @@ def main():
     update_summaries(conn, args.start, args.end)
 
     confidence_reliability(conn, args.start, args.end)
+
+    market_relative_scoring(conn, args.start, args.end)
 
     rolling, n = rolling_success_rate_5d(conn)
     if rolling is not None:

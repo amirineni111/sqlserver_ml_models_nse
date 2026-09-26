@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-23",
+  "generated_at": "2026-09-23T16:43:39.607260",
+  "summary": {
+    "analysis_date": "2026-09-23",
+    "total_predictions": 1901,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1331,
+    "total_hold_signals": 0,
+    "high_confidence_count": 782,
+    "medium_confidence_count": 560,
+    "low_confidence_count": 559,
+    "avg_confidence": 65.66437304827598,
+    "avg_rsi": 49.07444012931448,
+    "total_stocks_processed": 1901,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-23 16:43:03.913000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "WELINV.NS",
+      "company": "Welspun Investments and Commercials Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 39.000209471994815,
+      "conviction_score": 99.92103486841383,
+      "close_price": 2457.0,
+      "rsi": 75.34900159038699,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "OILCOUNTUB.NS",
+      "company": "Oil Country Tubular Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.08801266035796,
+      "conviction_score": 99.7176833486676,
+      "close_price": 69.5,
+      "rsi": 55.66563467492259,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "APOLLOHOSP.NS",
+      "company": "Apollo Hospitals Enterprise Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.63953430198445,
+      "conviction_score": 99.67335725334978,
+      "close_price": 9069.0,
+      "rsi": 64.0336808340016,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LYKALABS.NS",
+      "company": "Lyka Labs Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.28810231462127,
+      "conviction_score": 99.63382964551704,
+      "close_price": 87.1,
+      "rsi": 79.49874686716791,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LAURUSLABS.NS",
+      "company": "Laurus Labs Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.78825707317803,
+      "conviction_score": 99.40414195330109,
+      "close_price": 2034.0,
+      "rsi": 71.4754926730672,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SANOFI.NS",
+      "company": "Sanofi India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.080922014195885,
+      "conviction_score": 99.25067537796338,
+      "close_price": 3052.4,
+      "rsi": 31.50105708245249,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SYSTMTXC.NS",
+      "company": "Systematix Corporate Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 31.74186722176452,
+      "conviction_score": 99.16378348091806,
+      "close_price": 77.5,
+      "rsi": 93.51851851851849,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DIVISLAB.NS",
+      "company": "Divi's Laboratories Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 30.081660855684504,
+      "conviction_score": 98.5714518519838,
+      "close_price": 9624.0,
+      "rsi": 62.205438066465256,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BAJAJHLDNG.NS",
+      "company": "Bajaj Holdings & Investment Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 28.448336163217274,
+      "conviction_score": 97.5905299509532,
+      "close_price": 11449.0,
+      "rsi": 59.721448467966574,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DPWIRES.NS",
+      "company": "D.P. Wires Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 28.256665790739504,
+      "conviction_score": 97.43906699517032,
+      "close_price": 161.94,
+      "rsi": 59.021739130434796,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

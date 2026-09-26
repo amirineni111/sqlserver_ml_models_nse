@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T16:39:32.066030",
+  "summary": {
+    "analysis_date": "2026-09-09",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 895,
+    "medium_confidence_count": 555,
+    "low_confidence_count": 445,
+    "avg_confidence": 65.27998226439763,
+    "avg_rsi": 47.17491305202622,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-09 16:38:52.990000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "APOLLOHOSP.NS",
+      "company": "Apollo Hospitals Enterprise Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 37.834307348861124,
+      "conviction_score": 99.65733796284118,
+      "close_price": 8967.0,
+      "rsi": 60.964083175803395,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PFIZER.NS",
+      "company": "Pfizer Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.51945472958641,
+      "conviction_score": 99.07140630962424,
+      "close_price": 4171.0,
+      "rsi": 12.04135414555033,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AMANTA.NS",
+      "company": "AMANTA HEALTHCARE LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.082100783714154,
+      "conviction_score": 98.94143581517231,
+      "close_price": 205.89,
+      "rsi": 64.56704750450993,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LYKALABS.NS",
+      "company": "Lyka Labs Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.91211067632002,
+      "conviction_score": 98.4986294440472,
+      "close_price": 83.14,
+      "rsi": 78.48232848232847,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUNPHARMA.NS",
+      "company": "Sun Pharmaceutical Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.38295926941567,
+      "conviction_score": 98.24256304740304,
+      "close_price": 1864.9,
+      "rsi": 42.31222965001967,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "FISCHER.NS",
+      "company": "Fischer Medical Ventures Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 30.76240411084515,
+      "conviction_score": 97.16212592381137,
+      "close_price": 34.78,
+      "rsi": 30.085959885386785,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ULTRACEMCO.NS",
+      "company": "UltraTech Cement Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 30.07762689966405,
+      "conviction_score": 96.53155651303786,
+      "close_price": 10900.0,
+      "rsi": 25.310899780541334,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDBANK.NS",
+      "company": "Indbank Merchant Banking Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 30.021337145231858,
+      "conviction_score": 96.47408694114722,
+      "close_price": 26.61,
+      "rsi": 15.577190542420041,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHREEJISPG.NS",
+      "company": "SHREEJI SHIPPING GLOBAL L",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 29.824532016943568,
+      "conviction_score": 96.26586173638165,
+      "close_price": 713.1,
+      "rsi": 83.98637137989783,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AAREYDRUGS.NS",
+      "company": "Aarey Drugs & Pharmaceuticals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 29.70930362330555,
+      "conviction_score": 96.13851167396771,
+      "close_price": 99.98,
+      "rsi": 81.16361298617805,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

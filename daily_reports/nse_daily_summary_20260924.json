@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-24",
+  "generated_at": "2026-09-24T16:44:34.324010",
+  "summary": {
+    "analysis_date": "2026-09-24",
+    "total_predictions": 1899,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1330,
+    "total_hold_signals": 0,
+    "high_confidence_count": 904,
+    "medium_confidence_count": 473,
+    "low_confidence_count": 522,
+    "avg_confidence": 64.31208400374659,
+    "avg_rsi": 45.07736207825582,
+    "total_stocks_processed": 1899,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-24 16:43:49.277000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "WELINV.NS",
+      "company": "Welspun Investments and Commercials Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 50.30077677757245,
+      "conviction_score": 99.91524208613563,
+      "close_price": 2457.0,
+      "rsi": 78.83157700129414,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SYSTMTXC.NS",
+      "company": "Systematix Corporate Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.36011231770959,
+      "conviction_score": 99.49752543158075,
+      "close_price": 79.05,
+      "rsi": 93.78029079159933,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "OILCOUNTUB.NS",
+      "company": "Oil Country Tubular Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.332574693833145,
+      "conviction_score": 99.49397441048437,
+      "close_price": 70.89,
+      "rsi": 64.11365040148243,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MANKIND.NS",
+      "company": "Mankind Pharma Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 36.95275535042323,
+      "conviction_score": 97.44561230343285,
+      "close_price": 2500.0,
+      "rsi": 63.360488798370646,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KOTAKBANK.NS",
+      "company": "Kotak Mahindra Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 36.69059266477527,
+      "conviction_score": 97.2724156060843,
+      "close_price": 405.0,
+      "rsi": 34.48607108549476,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EICHERMOT.NS",
+      "company": "Eicher Motors Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 36.3906304174746,
+      "conviction_score": 97.06023122004612,
+      "close_price": 7338.5,
+      "rsi": 28.342575477510778,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IDFCFIRSTB.NS",
+      "company": "IDFC First Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.61903445984833,
+      "conviction_score": 96.43835029519613,
+      "close_price": 83.76,
+      "rsi": 36.31039531478773,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LTF.NS",
+      "company": "L&T Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.33091717542453,
+      "conviction_score": 96.17505636559632,
+      "close_price": 282.0,
+      "rsi": 29.638273045507617,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BAJFINANCE.NS",
+      "company": "Bajaj Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.076416377204936,
+      "conviction_score": 95.9270202080902,
+      "close_price": 982.0,
+      "rsi": 35.76890399320307,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AUBANK.NS",
+      "company": "AU Small Finance Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.01424898447906,
+      "conviction_score": 95.8641299381733,
+      "close_price": 1000.1,
+      "rsi": 33.36418324849605,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-17
+[TIME] Report Generated (EST): 2026-09-17 16:38:27
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1900
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1330
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 894
+[DATA] Medium Confidence: 491
+[LOW] Low Confidence: 515
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 60.22
+[DATA] Average RSI: 42.3
+[COMPANY] Stocks Processed: 1900
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[SELL] VIJIFIN.NS: Sell (conviction 98.3, P=87.1%) - INR 14.71 [LightGBM_V2]
+[SELL] DCI.NS: Sell (conviction 96.8, P=82.6%) - INR 282.75 [LightGBM_V2]
+[SELL] AFSL.NS: Sell (conviction 96.7, P=82.3%) - INR 201.00 [LightGBM_V2]
+[SELL] STEL.NS: Sell (conviction 95.9, P=80.7%) - INR 631.90 [LightGBM_V2]
+[SELL] NIACL.NS: Sell (conviction 95.9, P=80.7%) - INR 197.05 [LightGBM_V2]
+[SELL] UMAEXPORTS.NS: Sell (conviction 95.7, P=80.5%) - INR 20.42 [LightGBM_V2]
+[SELL] PREMIERENE.NS: Sell (conviction 95.5, P=80.1%) - INR 880.00 [LightGBM_V2]
+[SELL] UYFINCORP.NS: Sell (conviction 95.1, P=79.5%) - INR 19.28 [LightGBM_V2]
+[SELL] OFSS.NS: Sell (conviction 94.7, P=78.9%) - INR 11620.00 [LightGBM_V2]
+[SELL] SATIN.NS: Sell (conviction 94.7, P=78.9%) - INR 219.82 [LightGBM_V2]

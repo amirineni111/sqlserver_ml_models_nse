@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T16:39:19.312673",
+  "summary": {
+    "analysis_date": "2026-09-10",
+    "total_predictions": 1891,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1324,
+    "total_hold_signals": 0,
+    "high_confidence_count": 894,
+    "medium_confidence_count": 524,
+    "low_confidence_count": 473,
+    "avg_confidence": 58.31536660787732,
+    "avg_rsi": 46.113329376160124,
+    "total_stocks_processed": 1891,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-10 16:38:40.857000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "GENESYS.NS",
+      "company": "Genesys International Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.54271473277976,
+      "conviction_score": 98.44310023957513,
+      "close_price": 299.67,
+      "rsi": 79.70277476054113,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KESORAMIND.NS",
+      "company": "Kesoram Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 57.31293427699603,
+      "conviction_score": 97.50202136923461,
+      "close_price": 11.78,
+      "rsi": 56.36363636363635,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDIAGLYCO.NS",
+      "company": "India Glycols Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.83759453756362,
+      "conviction_score": 97.27071944709822,
+      "close_price": 310.4,
+      "rsi": 13.319294551197686,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHAHALLOYS.NS",
+      "company": "Shah Alloys Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.69845019010725,
+      "conviction_score": 97.19132814248925,
+      "close_price": 96.76,
+      "rsi": 66.29251130842688,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": "California Software Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.2664611646232,
+      "conviction_score": 96.93030546623734,
+      "close_price": 36.9,
+      "rsi": 68.13099041533545,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KAVDEFENCE.NS",
+      "company": "KAVVERI DFS & WIR TEC LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.25910512143118,
+      "conviction_score": 96.92566321098512,
+      "close_price": 74.77,
+      "rsi": 76.14866842259292,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UMAEXPORTS.NS",
+      "company": "Uma Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.81564694883997,
+      "conviction_score": 96.63290433411615,
+      "close_price": 22.12,
+      "rsi": 42.79228149829739,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MVGJL.NS",
+      "company": "Manoj Vaibhav Gems 'N' Jewellers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.73548077131153,
+      "conviction_score": 96.57718216410896,
+      "close_price": 208.78,
+      "rsi": 81.5862510674637,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ASTEC.NS",
+      "company": "Astec LifeSciences Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.70730150895298,
+      "conviction_score": 96.55738474237634,
+      "close_price": 715.8,
+      "rsi": 66.87898089171975,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HEG.NS",
+      "company": "HEG Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.6757748851532,
+      "conviction_score": 95.75188380500423,
+      "close_price": 249.65,
+      "rsi": 11.160714285714292,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-11",
+  "generated_at": "2026-09-14T16:38:28.929697",
+  "summary": {
+    "analysis_date": "2026-09-11",
+    "total_predictions": 1904,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1333,
+    "total_hold_signals": 0,
+    "high_confidence_count": 892,
+    "medium_confidence_count": 521,
+    "low_confidence_count": 491,
+    "avg_confidence": 62.375795721017596,
+    "avg_rsi": 45.165374847393075,
+    "total_stocks_processed": 1904,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-14 16:38:10.017000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ATALREAL.NS",
+      "company": "Atal Realtech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.42329126376067,
+      "conviction_score": 98.26958720453382,
+      "close_price": 13.75,
+      "rsi": 11.037181996086119,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HEG.NS",
+      "company": "HEG Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.10180802806981,
+      "conviction_score": 98.11180691839053,
+      "close_price": 237.2,
+      "rsi": 9.132227926942178,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UMAEXPORTS.NS",
+      "company": "Uma Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.73471648454331,
+      "conviction_score": 97.91435032692034,
+      "close_price": 21.68,
+      "rsi": 33.89626055488539,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KESORAMIND.NS",
+      "company": "Kesoram Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.98460790506407,
+      "conviction_score": 97.84038218681306,
+      "close_price": 12.01,
+      "rsi": 64.47368421052632,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "Reliance Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.51940063920587,
+      "conviction_score": 97.10572153020811,
+      "close_price": 53.66,
+      "rsi": 14.814814814814852,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PGIL.NS",
+      "company": "Pearl Global Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.89316859320708,
+      "conviction_score": 96.57743844608015,
+      "close_price": 1187.7,
+      "rsi": 20.09291521486645,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ZENSARTECH.NS",
+      "company": "Zensar Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 39.10103501064443,
+      "conviction_score": 96.41786455039217,
+      "close_price": 425.25,
+      "rsi": 24.26507224713501,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UGARSUGAR.NS",
+      "company": "The Ugar Sugar Works Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.6243105515719,
+      "conviction_score": 96.3230916276427,
+      "close_price": 54.3,
+      "rsi": 44.661870503597115,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KWIL.NS",
+      "company": "KWALITY WALL'S (INDIA) L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.4210004445278,
+      "conviction_score": 96.11877944389781,
+      "close_price": 43.04,
+      "rsi": 23.902894491129757,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NIRAJISPAT.NS",
+      "company": "Niraj Ispat Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.37217640492484,
+      "conviction_score": 96.06811555220985,
+      "close_price": 300.3,
+      "rsi": 62.288629737609334,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

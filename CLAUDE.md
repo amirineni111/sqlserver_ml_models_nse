@@ -87,6 +87,20 @@ from the `signal_strength` table printed by `score_nse_predictions.py`.
 | Confidence 65–70 (peak) | 57.3% |
 | Confidence 85+ | 50.1% (n=10,152) |
 
+### Market-relative view (first 56 LightGBM_V2 days, Jul 6–Sep 25 2026)
+Raw hit rate is mostly a bet on market direction (~67% of rows are Sell). The top 20
+on one shared conviction ranking hit 74.5% 1d on down >0.5% days but 50.0% on up >0.5%
+days. Ranked **per side** (top 10 Buy + top 10 Sell), regime dependence mostly goes away:
+65% / 59% / 61% (down / flat / up). `score_nse_predictions.py` prints this table plus
+excess-vs-universe hit rates, and stores `excess_success_5d` in the summary notes.
+Quote downstream "edges" in excess terms.
+- Top-10 Sell edge is robust: 61.6% excess hit 1d, holds for price ≥ ₹100.
+- Top-10 Buy edge is mostly **small caps**. For price ≥ ₹100, excess hit is 49.6% 1d / 44.9% 5d.
+  The long/short spread (+139bp/day, pre-cost) is inflated by illiquid names. Don't trade it at face value.
+- A market-relative **training label** was already tested (`walkforward_results_market_relative.json`)
+  and lost (acc 47.5% vs 49.8%, AUC 0.488 vs 0.501), but on the pre-LightGBM model. Re-run
+  `NSE_LABEL_MODE=market_relative python walkforward_validation_v2.py` on LightGBM before re-adopting.
+
 **Buy signals materially underperform Sell signals** — the opposite of what
 per-ticker anecdotes suggest. Beware reasoning from a handful of names:
 VIJIFIN.NS looked "undefeated" only because it was locked at its 2% upper

@@ -677,25 +677,36 @@ def generate_daily_report(target_date=None):
         else:
             actual_trading_date = target_date or datetime.now().strftime('%Y-%m-%d')
         
-        # Get high conviction signals using the actual trading date.
-        # Ranked by conviction_score (Sep 2026): signal_strength/high_confidence
-        # band conviction, so ordering by confidence_percentage would rank the
-        # selected set by a different quantity than the one that selected it.
+        # Top signals using the actual trading date, ranked by conviction_score
+        # WITHIN each side (Sep 2026). A single shared ranking buried the Buy
+        # book: ~2/3 of rows are Sell, so 27 of the first 56 LightGBM_V2 days had
+        # no Buy in the top 20. Within one side conviction is monotone in that
+        # side's own probability, so this is a per-class ranking.
         # COALESCE keeps this working on a database not yet carrying the column.
         high_conf_query = f"""
-        SELECT TOP 10
-            ticker,
-            company,
-            predicted_signal,
-            confidence_percentage,
-            COALESCE(conviction_score, confidence_percentage) AS conviction_score,
-            close_price,
-            rsi,
-            model_name
-        FROM ml_nse_trading_predictions
-        WHERE trading_date = '{actual_trading_date}'
-            AND high_confidence = 1
-        ORDER BY COALESCE(conviction_score, confidence_percentage) DESC
+        SELECT ticker, company, predicted_signal, confidence_percentage,
+               conviction_score, signal_strength, close_price, rsi, model_name
+        FROM (
+            SELECT
+                ticker,
+                company,
+                predicted_signal,
+                confidence_percentage,
+                COALESCE(conviction_score, confidence_percentage) AS conviction_score,
+                signal_strength,
+                close_price,
+                rsi,
+                model_name,
+                ROW_NUMBER() OVER (
+                    PARTITION BY predicted_signal
+                    ORDER BY COALESCE(conviction_score, confidence_percentage) DESC
+                ) AS side_rank
+            FROM ml_nse_trading_predictions
+            WHERE trading_date = '{actual_trading_date}'
+                AND predicted_signal IN ('Buy', 'Sell')
+        ) ranked
+        WHERE side_rank <= 5
+        ORDER BY predicted_signal, side_rank
         """
         
         high_conf_result = db.execute_query(high_conf_query)
@@ -748,17 +759,26 @@ NSE 500 Daily Trading Report
         
         if not high_conf_result.empty:
             report_content += """
-[TARGET] TOP HIGH CONVICTION SIGNALS
+[TARGET] TOP CONVICTION SIGNALS (top 5 per side, ranked separately)
 -------------------------------
+[NOTE] P = probability of the predicted class. On relative-threshold days a Buy
+[NOTE] can carry P < 50%: it is a top-30% relative pick, not a >50% call.
+[NOTE] Raw hit rate tracks market direction; pair Buys against Sells to hedge.
 """
-            for _, row in high_conf_result.iterrows():
-                signal_tag = "[BUY]" if row['predicted_signal'] == 'Buy' else "[SELL]" if row['predicted_signal'] == 'Sell' else "[HOLD]"
-                model_info = f" [{row.get('model_name', '')}]" if row.get('model_name') else ""
-                report_content += (
-                    f"{signal_tag} {row['ticker']}: {row['predicted_signal']} "
-                    f"(conviction {row['conviction_score']:.1f}, P={row['confidence_percentage']:.1f}%) "
-                    f"- INR {row['close_price']:.2f}{model_info}\n"
-                )
+            for signal in ('Buy', 'Sell'):
+                side = high_conf_result[high_conf_result['predicted_signal'] == signal]
+                if side.empty:
+                    continue
+                report_content += f"\n{signal} side:\n"
+                for _, row in side.iterrows():
+                    signal_tag = "[BUY]" if signal == 'Buy' else "[SELL]"
+                    model_info = f" [{row.get('model_name', '')}]" if row.get('model_name') else ""
+                    report_content += (
+                        f"{signal_tag} {row['ticker']}: {signal} "
+                        f"(conviction {row['conviction_score']:.1f}, {row['signal_strength']}, "
+                        f"P={row['confidence_percentage']:.1f}%) "
+                        f"- INR {row['close_price']:.2f}{model_info}\n"
+                    )
         
         # Save report
         reports_dir = Path("daily_reports")

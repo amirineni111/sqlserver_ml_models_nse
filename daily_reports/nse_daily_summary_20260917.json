@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-17",
+  "generated_at": "2026-09-17T16:38:27.948601",
+  "summary": {
+    "analysis_date": "2026-09-17",
+    "total_predictions": 1900,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1330,
+    "total_hold_signals": 0,
+    "high_confidence_count": 894,
+    "medium_confidence_count": 491,
+    "low_confidence_count": 515,
+    "avg_confidence": 60.219321060219016,
+    "avg_rsi": 42.34264945129821,
+    "total_stocks_processed": 1900,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-17 16:38:00.133000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.12006558254197,
+      "conviction_score": 98.33539655993219,
+      "close_price": 14.71,
+      "rsi": 49.54128440366974,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DCI.NS",
+      "company": "DC Infotech and Communication Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.59253433625126,
+      "conviction_score": 96.82772194156486,
+      "close_price": 282.75,
+      "rsi": 14.277929155313345,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AFSL.NS",
+      "company": "Abans Financial Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.28775867585188,
+      "conviction_score": 96.6883092636098,
+      "close_price": 201.0,
+      "rsi": 48.16513761467892,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STEL.NS",
+      "company": "STEL Holdings Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.73697386755742,
+      "conviction_score": 95.88243492413974,
+      "close_price": 631.9,
+      "rsi": 52.32035928143711,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NIACL.NS",
+      "company": "The New India Assurance Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.6921851243306,
+      "conviction_score": 95.85656832536498,
+      "close_price": 197.05,
+      "rsi": 54.664987008896944,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UMAEXPORTS.NS",
+      "company": "Uma Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.4615386089429,
+      "conviction_score": 95.72088463787665,
+      "close_price": 20.42,
+      "rsi": 6.34674922600621,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PREMIERENE.NS",
+      "company": "Premier Energies",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.05681429408962,
+      "conviction_score": 95.47247931397112,
+      "close_price": 880.0,
+      "rsi": 22.875226039783,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UYFINCORP.NS",
+      "company": "U. Y. Fincorp Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.45031230703461,
+      "conviction_score": 95.07437734554438,
+      "close_price": 19.28,
+      "rsi": 40.04854368932038,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "OFSS.NS",
+      "company": "Oracle Financial Services Software Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.9011059319114,
+      "conviction_score": 94.68544141660716,
+      "close_price": 11620.0,
+      "rsi": 44.58774758175955,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SATIN.NS",
+      "company": "Satin Creditcare Network Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.87593937433047,
+      "conviction_score": 94.66694125578655,
+      "close_price": 219.82,
+      "rsi": 40.40904865199878,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

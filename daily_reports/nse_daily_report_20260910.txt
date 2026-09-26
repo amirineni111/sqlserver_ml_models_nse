@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-10
+[TIME] Report Generated (EST): 2026-09-10 16:39:19
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-10
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1891
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1324
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 894
+[DATA] Medium Confidence: 524
+[LOW] Low Confidence: 473
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.32
+[DATA] Average RSI: 46.1
+[COMPANY] Stocks Processed: 1891
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[SELL] GENESYS.NS: Sell (conviction 98.4, P=79.5%) - INR 299.67 [LightGBM_V2]
+[BUY] KESORAMIND.NS: Buy (conviction 97.5, P=57.3%) - INR 11.78 [LightGBM_V2]
+[SELL] INDIAGLYCO.NS: Sell (conviction 97.3, P=76.8%) - INR 310.40 [LightGBM_V2]
+[SELL] SHAHALLOYS.NS: Sell (conviction 97.2, P=76.7%) - INR 96.76 [LightGBM_V2]
+[SELL] CALSOFT.NS: Sell (conviction 96.9, P=76.3%) - INR 36.90 [LightGBM_V2]
+[SELL] KAVDEFENCE.NS: Sell (conviction 96.9, P=76.3%) - INR 74.77 [LightGBM_V2]
+[SELL] UMAEXPORTS.NS: Sell (conviction 96.6, P=75.8%) - INR 22.12 [LightGBM_V2]
+[SELL] MVGJL.NS: Sell (conviction 96.6, P=75.7%) - INR 208.78 [LightGBM_V2]
+[SELL] ASTEC.NS: Sell (conviction 96.6, P=75.7%) - INR 715.80 [LightGBM_V2]
+[SELL] HEG.NS: Sell (conviction 95.8, P=74.7%) - INR 249.65 [LightGBM_V2]

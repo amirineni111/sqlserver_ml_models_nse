@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-23
+[TIME] Report Generated (EST): 2026-09-23 16:43:39
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1901
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1331
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 782
+[DATA] Medium Confidence: 560
+[LOW] Low Confidence: 559
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 65.66
+[DATA] Average RSI: 49.1
+[COMPANY] Stocks Processed: 1901
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] WELINV.NS: Buy (conviction 99.9, P=39.0%) - INR 2457.00 [LightGBM_V2]
+[BUY] OILCOUNTUB.NS: Buy (conviction 99.7, P=35.1%) - INR 69.50 [LightGBM_V2]
+[BUY] APOLLOHOSP.NS: Buy (conviction 99.7, P=34.6%) - INR 9069.00 [LightGBM_V2]
+[BUY] LYKALABS.NS: Buy (conviction 99.6, P=34.3%) - INR 87.10 [LightGBM_V2]
+[BUY] LAURUSLABS.NS: Buy (conviction 99.4, P=32.8%) - INR 2034.00 [LightGBM_V2]
+[BUY] SANOFI.NS: Buy (conviction 99.3, P=32.1%) - INR 3052.40 [LightGBM_V2]
+[BUY] SYSTMTXC.NS: Buy (conviction 99.2, P=31.7%) - INR 77.50 [LightGBM_V2]
+[BUY] DIVISLAB.NS: Buy (conviction 98.6, P=30.1%) - INR 9624.00 [LightGBM_V2]
+[BUY] BAJAJHLDNG.NS: Buy (conviction 97.6, P=28.4%) - INR 11449.00 [LightGBM_V2]
+[BUY] DPWIRES.NS: Buy (conviction 97.4, P=28.3%) - INR 161.94 [LightGBM_V2]
