@@ -809,31 +809,11 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     # This finds the relative outperformers regardless of absolute market direction.
     # In balanced markets (avg ~45%), this naturally selects ~50% buys.
     # In bear markets (avg ~25%), this selects the best 30% as relative outperformers.
-    avg_buy_prob = predictions['buy_probability'].mean()
-    if avg_buy_prob >= 0.45:
-        # Normal/bull market: use standard 50% threshold
-        threshold_mode = "absolute (50%)"
-        decision_threshold = 0.50
-        predictions['predicted_signal'] = np.where(
-            predictions['buy_probability'] >= 0.50,
-            'Buy',
-            'Sell'
-        )
-    else:
-        # Bear market: select the EXACT top 30% by buy probability.
-        # Isotonic calibration produces many TIED probabilities, so a quantile
-        # threshold with >= can sweep in the whole tie cluster (observed:
-        # "top 30%" rule yielding 82% Buy). nlargest gives an exact count.
-        n_buy = int(len(predictions) * 0.30)
-        buy_idx = predictions['buy_probability'].nlargest(n_buy).index
-        threshold_mode = f"relative (top 30% = {n_buy} stocks)"
-        predictions['predicted_signal'] = 'Sell'
-        predictions.loc[buy_idx, 'predicted_signal'] = 'Buy'
-        # The effective boundary is the weakest probability that still bought.
-        # Falls back to the median if the Buy set is empty (tiny universe), which
-        # keeps conviction finite instead of NaN-ing every row.
-        decision_threshold = (float(predictions.loc[buy_idx, 'buy_probability'].min())
-                              if n_buy > 0 else float(predictions['buy_probability'].median()))
+    # The rule lives in the retrain module (Sep 2026) so the pre-save validation
+    # gate checks exactly what this function will do with the model.
+    from retrain_nse_model_v2 import decide_signals
+    is_buy, decision_threshold, threshold_mode = decide_signals(predictions['buy_probability'])
+    predictions['predicted_signal'] = np.where(is_buy, 'Buy', 'Sell')
     print(f"[INFO] Signal threshold mode: {threshold_mode}")
 
     # -- Confidence: probability of the PREDICTED class ---------------------

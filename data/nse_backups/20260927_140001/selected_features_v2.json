@@ -6,17 +6,17 @@
   "price_to_sma200",
   "return_10d",
   "bb_position",
+  "risk_adjusted_momentum",
   "stochastic_d",
   "stochastic_k",
-  "risk_adjusted_momentum",
   "sector_return_5d",
-  "sector_return_1d",
   "sector_rsi_avg",
+  "sector_return_1d",
   "sector_breadth_score",
   "sector_volume_ratio",
   "stock_return_vs_nifty_5d",
   "beta",
   "defensive_risk_score",
-  "global_market_sync",
-  "sector_momentum_confirmed"
+  "contrarian_strength",
+  "global_market_sync"
 ]

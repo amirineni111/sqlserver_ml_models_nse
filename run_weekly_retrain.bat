@@ -103,7 +103,10 @@ echo ============================================================
 if %RETRAIN_RESULT%==0 (
     echo [SUCCESS] NSE Model Retraining: SUCCESS
 ) else (
-    echo [ERROR] NSE Model Retraining: FAILED (Exit Code: %RETRAIN_RESULT%)
+    REM Parentheses MUST stay escaped (^( ^)) inside this block. An unescaped ")"
+    REM here closed the else-branch early, so the restore below ran after EVERY
+    REM retrain -- successful weekly retrains were silently rolled back Jun-Sep 2026.
+    echo [ERROR] NSE Model Retraining: FAILED ^(Exit Code: %RETRAIN_RESULT%^)
     echo [RESTORE] Restoring backup models...
     if exist "%BACKUP_DIR%\nse_gb_model_v2.joblib" (
         if not exist "%~dp0data\nse_models" mkdir "%~dp0data\nse_models"
@@ -120,7 +123,7 @@ if %RETRAIN_RESULT%==0 (
 if %TEST_RESULT%==0 (
     echo [SUCCESS] Model Testing: SUCCESS
 ) else (
-    echo [ERROR] Model Testing: FAILED (Exit Code: %TEST_RESULT%)
+    echo [ERROR] Model Testing: FAILED ^(Exit Code: %TEST_RESULT%^)
 )
 
 echo [FILE] Backup location: %BACKUP_DIR%

@@ -30,7 +30,8 @@ Trains a **single LightGBM classifier (V2 architecture, LightGBM since Jul 2026 
 ### Daily Schedule (Windows Task Scheduler)
 ```
 4:30 PM (Mon-Fri)   Daily prediction run  → ml_nse_trading_predictions
-Sunday 12:00 PM     Weekly full retrain    → Updated model + regressor files
+Sunday 2:00 PM      Weekly full retrain    → Updated model files (task NSE_ML_Weekly_Retrain_Models)
+1st of month 2 PM   Model backup cleanup   (task NSE_ML_Models_Monthly_Backup_Clean)
 ```
 
 **Data Pipeline:**
@@ -109,6 +110,10 @@ circuit for 58 straight sessions and could not actually be bought.
 ### Model Architecture
 **Single LightGBM Classifier** (`Config.MODEL_TYPE='lgbm'`; 300 estimators × 63 leaves, lr 0.05 — adopted Jul 2026 after beating GradientBoosting on 2-fold AND 4-fold walk-forward; GB path retained behind `NSE_MODEL_TYPE=gb`)
 - Training: 60% train / 20% calibration / 20% test (chronological by date, 5-day embargo)
+  - Fresher training data was tested Sep 27 2026 and did NOT help. On the Apr–Sep 2026 test window: train through
+    Oct 2025 (current) scored per-day AUC 0.517 / prod-rule acc 52.6%; through Mar 2026 scored 0.512 / 50.4%;
+    last 12 months only scored 0.517 / 48.9%. The model is signal-limited, not staleness-limited. Keep the held-out
+    test block: it is what the pre-save gate (CHECK 3/6) validates on.
 - Calibration: isotonic → Platt → raw fallback chain, validated on realistic inputs (this data's weak signal collapses under honest calibration, so production serves raw probabilities)
 - Class + time-based sample weighting
 - Label: absolute 5-day direction (`NSE_LABEL_MODE=market_relative` was tested Jul 2026 and LOST — do not re-adopt without new walk-forward evidence)
@@ -199,6 +204,8 @@ diagnostics only — they are never model features.
 | Jun 9–Jul 2 | Frozen confidence (all Buys at 55.8%) | Degenerate isotonic calibrators from Jun 7 retrain returned constant predict_proba; base signal too weak (~50% acc) for ANY calibration — Platt also collapsed daily variance to ~0 | Train-time three-tier fallback (isotonic → Platt → raw base model, validated on realistic inputs); frozen-proba guard + distinct-confidence validation at predict time |
 | Aug 17–Sep 3 | High-confidence Buys on VIJIFIN.NS with RSI pinned at exactly 100.0 for 25+ sessions | `rs = gain/loss` is +inf when a 14d window has no down-day, so a stale/repeated close series lands on exactly RSI 100.0. Nothing inspected inputs between feature engineering and scoring | `flag_degenerate_inputs()` / `quarantine_degenerate_rows()` in `retrain_nse_model_v2.py`, shared by train and predict |
 | Aug 17–Sep 3 | Buy confidence structurally below Sell (avg 59.6% vs 66.3%); 21.4% of rows reported the probability of the class that was NOT predicted; reliability non-monotonic — peaks at 57.3% in the 65–70 band then decays to ~50% above it | `confidence_percentage = max(buy_prob, sell_prob)`. Under the relative top-30% rule a Buy is emitted with buy_prob < 0.50, so the reported figure was P(Sell) — and the top of the scale filled with confident Sells | Split into `confidence_percentage` = P(predicted class) and `conviction_score` = rank distance from the day's boundary; `signal_strength` bands conviction |
+| Jun 7–Sep 27 | Every Sunday retrain logged SUCCESS but production kept the old model (19 runs; only manual retrains ever landed, last one Sep 4) | `run_weekly_retrain.bat`: unescaped `)` in `echo ... FAILED (Exit Code: ...)` closed the `else (` block early, so the backup restore ran after **every** retrain | Escaped as `^(`/`^)`. Check: after a retrain, `model_metadata_v2.json` timestamp must be today's and the log must have no `[RESTORE]` line |
+| Sep 13–27 | Weekly retrain aborted 3× at pre-save CHECK 3 (test Up share 17% → 16% → 11%) | CHECK 3 applied a pooled 0.50 cut. Production uses `decide_signals()` per day (top 30% when the day's mean P(Up) < 0.45). The deployed model scored 15% on the same window, so the bearish Apr–Sep test window tripped it, not a worse model | CHECK 3 now runs the production rule per day. New CHECK 6: challenger's per-day AUC must be within 0.01 of the deployed model's on the same test window. `decide_signals()` is shared with `predict_nse_signals_v2.py` |
 | Jun 23–Jul 3 | Summary H/M/L counts frozen at 96/382/1431 | signal_strength used percentile rank (top 5%/20% of fixed 1909-ticker universe) | Absolute confidence thresholds (High ≥ 70, Medium ≥ 60); historical rows backfilled |
 
 ### Output Table: `ml_nse_trading_predictions`

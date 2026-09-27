@@ -1614,7 +1614,55 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
 # Training Validation (MANDATORY - Prevents Production Bugs)
 # ============================================================================
 
-def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal, y_cal, X_test, y_test):
+RELATIVE_MODE_MEAN_PROB = 0.45   # below this day-mean P(Up), switch to the relative rule
+RELATIVE_BUY_FRACTION = 0.30     # relative rule: top 30% of the day by P(Up) = Buy
+
+
+def decide_signals(buy_prob):
+    """Production Buy/Sell rule for ONE trading day's cross-section.
+
+    Shared by predict_nse_signals_v2.generate_predictions and the pre-save
+    validation, so the gate checks the rule production actually applies.
+
+    Absolute 0.50 cut when the day's mean P(Up) >= 0.45; otherwise the exact top
+    30% by P(Up) are Buys. nlargest-style argsort gives an exact count -- raw and
+    isotonic outputs have ties, and a quantile threshold with >= once swept in a
+    whole tie cluster ("top 30%" yielding 82% Buy).
+
+    Returns (is_buy bool ndarray, decision_threshold, mode description).
+    """
+    p = np.asarray(buy_prob, dtype=float)
+    if p.mean() >= RELATIVE_MODE_MEAN_PROB:
+        return p >= 0.50, 0.50, "absolute (50%)"
+    n_buy = int(len(p) * RELATIVE_BUY_FRACTION)
+    is_buy = np.zeros(len(p), dtype=bool)
+    is_buy[np.argsort(-p, kind='stable')[:n_buy]] = True
+    # Effective boundary = weakest probability that still bought; the median
+    # keeps it finite if the Buy set is empty (tiny universe).
+    threshold = float(p[is_buy].min()) if n_buy > 0 else float(np.median(p))
+    return is_buy, threshold, f"relative (top {RELATIVE_BUY_FRACTION:.0%} = {n_buy} stocks)"
+
+
+def _daily_ranking_metrics(buy_prob, y_up, dates):
+    """Per-date cross-sectional AUC and top-decile Up rate, averaged over dates.
+
+    The product is the daily ranking, so it is scored one cross-section at a
+    time -- pooled AUC mixes market-level shifts between days into the score.
+    """
+    frame = pd.DataFrame({'p': np.asarray(buy_prob), 'y': np.asarray(y_up), 'd': np.asarray(dates)})
+    aucs, tops = [], []
+    for _, g in frame.groupby('d'):
+        n_pos = g['y'].sum()
+        n_neg = len(g) - n_pos
+        if n_pos and n_neg:
+            ranks = g['p'].rank(method='average')
+            aucs.append((ranks[g['y'] == 1].sum() - n_pos * (n_pos + 1) / 2) / (n_pos * n_neg))
+        tops.append(g.nlargest(max(int(len(g) * 0.10), 1), 'p')['y'].mean())
+    return float(np.mean(aucs)) if aucs else float('nan'), float(np.mean(tops))
+
+
+def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal, y_cal, X_test, y_test,
+                                test_dates=None, X_test_raw=None):
     """
     CRITICAL: Validate model artifacts before saving
     
@@ -1661,27 +1709,42 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     else:
         print(f"  [OK] PASS: Training balance OK ({train_imbalance:.1%})")
     
-    # CHECK 3: Prediction distribution on test set (should be 20-80% for either class)
-    print("\n[CHECK 3] Test Set Prediction Distribution...")
-    y_test_pred = model.predict(scaler.transform(X_test) if not isinstance(X_test, np.ndarray) or X_test.shape[1] != scaler.n_features_in_ else X_test)
-    unique, counts = np.unique(y_test_pred, return_counts=True)
-    
-    pred_dist = {}
-    for cls in unique:
-        cls_name = encoder.classes_[cls]
-        cls_count = counts[list(unique).index(cls)]
-        cls_pct = cls_count / len(y_test_pred) * 100
-        pred_dist[cls_name] = cls_pct
-        
-        if cls_pct < 20 or cls_pct > 80:
-            issues.append(f"Test predictions for '{cls_name}' = {cls_pct:.1f}% (outside 20-80%)")
-            print(f"  [FAIL] FAIL: {cls_name}: {cls_pct:.1f}% (outside 20-80%)")
+    # CHECK 3: Buy/Sell distribution under the PRODUCTION decision rule.
+    # Until Sep 2026 this applied a pooled 0.50 cut to the whole test window.
+    # Production never does that: decide_signals() runs per day and switches to
+    # top-30% when the day's mean P(Up) < 0.45. As the test window rolled into the
+    # bearish Apr-Sep 2026 stretch, the pooled-0.50 Up share slid 38% -> 11% and
+    # failed three Sundays running (Sep 13/20/27) -- the DEPLOYED model scored 15%
+    # on the same window, so it was the window tripping the gate, not the model.
+    # The pooled number is still printed as a diagnostic of absolute-level drift.
+    print("\n[CHECK 3] Test Set Prediction Distribution (production decision rule, per day)...")
+    up_idx = list(encoder.classes_).index('Up') if 'Up' in encoder.classes_ else 1
+    y_test_proba = model.predict_proba(X_test)
+    test_buy_prob = y_test_proba[:, up_idx]
+    print(f"  [INFO] Pooled 0.50-threshold Up share: {(test_buy_prob >= 0.5).mean():.1%} "
+          f"(diagnostic only; production does not apply a pooled cut)")
+
+    if test_dates is None:
+        issues.append("test_dates not supplied -- cannot apply the per-day production rule")
+        print("  [FAIL] FAIL: test_dates not supplied")
+    else:
+        daily = pd.DataFrame({'p': test_buy_prob, 'd': np.asarray(test_dates)})
+        buy_share = daily.groupby('d')['p'].apply(lambda p: decide_signals(p.to_numpy())[0].mean())
+        extreme_days = ((buy_share < 0.05) | (buy_share > 0.95)).mean()
+        print(f"  [INFO] Daily Buy share: mean {buy_share.mean():.1%}, "
+              f"min {buy_share.min():.1%}, max {buy_share.max():.1%} over {len(buy_share)} days")
+        if not 0.20 <= buy_share.mean() <= 0.80:
+            issues.append(f"Mean daily Buy share {buy_share.mean():.1%} (outside 20-80%)")
+            print(f"  [FAIL] FAIL: mean daily Buy share {buy_share.mean():.1%} (outside 20-80%)")
+        elif extreme_days > 0.10:
+            # The Apr 2026 failure mode (97-99% one side) showing up day by day
+            issues.append(f"{extreme_days:.0%} of test days are >95% one-sided")
+            print(f"  [FAIL] FAIL: {extreme_days:.0%} of test days are >95% one-sided (limit 10%)")
         else:
-            print(f"  [OK] PASS: {cls_name}: {cls_pct:.1f}%")
+            print(f"  [OK] PASS: Buy share within 20-80%; {extreme_days:.0%} of days >95% one-sided")
     
     # CHECK 4: Probability calibration sanity
     print("\n[CHECK 4] Probability Calibration...")
-    y_test_proba = model.predict_proba(scaler.transform(X_test) if not isinstance(X_test, np.ndarray) or X_test.shape[1] != scaler.n_features_in_ else X_test)
     avg_proba = y_test_proba.mean(axis=0)
     
     for i, cls_name in enumerate(encoder.classes_):
@@ -1706,7 +1769,50 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     except Exception as e:
         issues.append(f"Model serialization error: {e}")
         print(f"  [FAIL] FAIL: Model serialization error: {e}")
-    
+
+    # CHECK 6: Challenger vs the currently deployed model on the SAME test window.
+    # The distribution checks above catch a broken model, not a worse one. Ranking
+    # quality is scored per day (the product is the daily ranking). The deployed
+    # model's training block ends earlier than the challenger's (the window only
+    # grows), so it has not been fitted on these test dates either.
+    print("\n[CHECK 6] Ranking quality vs deployed model (per-day AUC, same test window)...")
+    if test_dates is None:
+        print("  [SKIP] test_dates not supplied")
+    else:
+        y_up = (np.asarray(y_test) == up_idx).astype(int)
+        new_auc, new_top = _daily_ranking_metrics(test_buy_prob, y_up, test_dates)
+        print(f"  [INFO] Challenger: per-day AUC {new_auc:.4f}, top-decile Up rate {new_top:.4f} "
+              f"(base rate {y_up.mean():.4f})")
+        if new_auc < 0.50:
+            print(f"  [WARN] Challenger per-day AUC is below 0.50")
+        deployed = None
+        try:
+            if X_test_raw is not None and (Config.MODELS_DIR / 'nse_gb_model_v2.joblib').exists():
+                old_features = json.load(open(Config.MODELS_DIR / 'selected_features_v2.json'))
+                missing = [f for f in old_features if f not in X_test_raw.columns]
+                if missing:
+                    print(f"  [SKIP] Deployed model needs features no longer built: {missing}")
+                else:
+                    old_model = joblib.load(Config.MODELS_DIR / 'nse_gb_model_v2.joblib')
+                    old_scaler = joblib.load(Config.MODELS_DIR / 'nse_scaler_v2.joblib')
+                    old_encoder = joblib.load(Config.MODELS_DIR / 'nse_direction_encoder_v2.joblib')
+                    X_old = old_scaler.transform(X_test_raw[old_features].replace([np.inf, -np.inf], np.nan).fillna(0))
+                    old_up = list(old_encoder.classes_).index('Up')
+                    deployed = _daily_ranking_metrics(old_model.predict_proba(X_old)[:, old_up], y_up, test_dates)
+            else:
+                print("  [SKIP] No deployed model to compare against")
+        except Exception as e:
+            print(f"  [SKIP] Could not score deployed model ({e})")
+        if deployed is not None:
+            old_auc, old_top = deployed
+            print(f"  [INFO] Deployed:   per-day AUC {old_auc:.4f}, top-decile Up rate {old_top:.4f}")
+            # 0.01 is ~2 standard errors of a ~100-day mean of daily AUCs.
+            if new_auc < old_auc - 0.01:
+                issues.append(f"Per-day AUC {new_auc:.4f} is worse than deployed {old_auc:.4f} by > 0.01")
+                print(f"  [FAIL] FAIL: challenger ranks worse than the deployed model")
+            else:
+                print(f"  [OK] PASS: challenger within tolerance of (or better than) deployed")
+
     # FINAL VERDICT
     print("\n" + "="*80)
     if issues:
@@ -1935,9 +2041,11 @@ def main():
             model, scaler, encoder,
             X_train_scaled, y_train,
             X_cal_scaled, y_cal,
-            X_test_scaled, y_test
+            X_test_scaled, y_test,
+            test_dates=dates.to_numpy()[test_mask],
+            X_test_raw=X.loc[test_mask]
         )
-        
+
         # Only save if validation passed (function exits with code 1 if validation fails)
         save_model_artifacts(model, base_model, scaler, encoder, selected_features, importances,
                              test_results=results.get('Test'), split_info=split_info)

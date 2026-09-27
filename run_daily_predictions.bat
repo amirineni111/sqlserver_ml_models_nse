@@ -81,7 +81,7 @@ if %AUTO_RESULT%==0 (
     echo [INFO] Summary saved to: ml_nse_predict_summary
     echo [INFO] Report saved to: daily_reports\
 ) else (
-    echo [ERROR] NSE Daily Automation: FAILED (Exit Code: %AUTO_RESULT%)
+    echo [ERROR] NSE Daily Automation: FAILED ^(Exit Code: %AUTO_RESULT%^)
     echo [INFO] Check log for details: %LOGFILE%
 )
 
