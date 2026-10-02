@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-01
+[TIME] Report Generated (EST): 2026-06-01 16:55:29
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-01
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1915
+[BUY] Buy Signals: 975
+[SELL] Sell Signals: 940
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 108
+[DATA] Medium Confidence: 0
+[LOW] Low Confidence: 1807
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 93.87
+[DATA] Average RSI: 43.4
+[COMPANY] Stocks Processed: 1915
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] AFIL.NS: Sell (100.0%) - INR 10.17 [GradientBoosting_V2_Calibrated]
+[SELL] CORDSCABLE.NS: Sell (100.0%) - INR 227.91 [GradientBoosting_V2_Calibrated]
+[SELL] DMCC.NS: Sell (100.0%) - INR 261.20 [GradientBoosting_V2_Calibrated]
+[SELL] GLOTTIS.NS: Sell (100.0%) - INR 65.07 [GradientBoosting_V2_Calibrated]
+[SELL] GTECJAINX.NS: Sell (100.0%) - INR 20.02 [GradientBoosting_V2_Calibrated]
+[SELL] KECL.NS: Sell (100.0%) - INR 115.36 [GradientBoosting_V2_Calibrated]
+[SELL] LAMBODHARA.NS: Sell (100.0%) - INR 118.34 [GradientBoosting_V2_Calibrated]
+[SELL] MODISONLTD.NS: Sell (100.0%) - INR 298.80 [GradientBoosting_V2_Calibrated]
+[SELL] RPPL.NS: Sell (100.0%) - INR 18.67 [GradientBoosting_V2_Calibrated]
+[SELL] VALIANTLAB.NS: Sell (99.1%) - INR 80.31 [GradientBoosting_V2_Calibrated]

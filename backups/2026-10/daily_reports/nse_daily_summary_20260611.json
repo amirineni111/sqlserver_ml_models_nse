@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-11",
+  "generated_at": "2026-06-11T16:54:46.758585",
+  "summary": {
+    "analysis_date": "2026-06-11",
+    "total_predictions": 1909,
+    "total_buy_signals": 689,
+    "total_sell_signals": 1220,
+    "total_hold_signals": 0,
+    "high_confidence_count": 59,
+    "medium_confidence_count": 363,
+    "low_confidence_count": 1487,
+    "avg_confidence": 87.98078134770428,
+    "avg_rsi": 44.89111005916757,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-11 16:54:23.890000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "FISCHER.NS",
+      "company": "Fischer Medical Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 34.83,
+      "rsi": 50.21406727828746,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NEPHROPLUS.NS",
+      "company": "NEPHROCARE HEALTH SERV L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 751.3,
+      "rsi": 85.96833658642372,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TCIFINANCE.NS",
+      "company": "TCI Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 100.0,
+      "close_price": 25.3,
+      "rsi": 93.78238341968913,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ABBOTINDIA.NS",
+      "company": "Abbott India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 99.75071106902811,
+      "close_price": 26065.0,
+      "rsi": 28.900255754475694,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BIOFILCHEM.NS",
+      "company": "Biofil Chemicals and Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 35.4,
+      "rsi": 66.46706586826346,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BCLIND.NS",
+      "company": "BCL INDUSTRIES",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 38.14,
+      "rsi": 66.53094462540717,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANUHPHR.NS",
+      "company": "Anuh Pharma Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 76.28,
+      "rsi": 50.56759545923632,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AMANTA.NS",
+      "company": "AMANTA HEALTHCARE LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 148.62,
+      "rsi": 67.61649874055415,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ALIVUS.NS",
+      "company": "Alivus Life Sciences Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 1017.2,
+      "rsi": 40.58457115476762,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ALBERTDAVD.NS",
+      "company": "Albert David Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 97.01492537313433,
+      "close_price": 694.85,
+      "rsi": 44.626935710933864,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,50 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-10-01
+[TIME] Report Generated (EST): 2026-10-01 20:26:25
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-10-01
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1896
+[BUY] Buy Signals: 1328
+[SELL] Sell Signals: 568
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 865
+[DATA] Medium Confidence: 506
+[LOW] Low Confidence: 525
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.31
+[DATA] Average RSI: 40.5
+[COMPANY] Stocks Processed: 1896
+
+[TARGET] TOP CONVICTION SIGNALS (top 5 per side, ranked separately)
+-------------------------------
+[NOTE] P = probability of the predicted class. On relative-threshold days a Buy
+[NOTE] can carry P < 50%: it is a top-30% relative pick, not a >50% call.
+[NOTE] Likewise a Sell can carry P < 50% when the whole universe scores bullish.
+[NOTE] Raw hit rate tracks market direction; pair Buys against Sells to hedge.
+
+Buy side:
+[BUY] ABFRL.NS: Buy (conviction 97.7, High, P=79.3%) - INR 44.53 [LightGBM_V2]
+[BUY] SWIGGY.NS: Buy (conviction 97.4, High, P=78.7%) - INR 238.00 [LightGBM_V2]
+[BUY] SBICARD.NS: Buy (conviction 97.2, High, P=78.2%) - INR 563.20 [LightGBM_V2]
+[BUY] JUBLFOOD.NS: Buy (conviction 96.7, High, P=77.3%) - INR 443.40 [LightGBM_V2]
+[BUY] IFCI.NS: Buy (conviction 96.7, High, P=77.2%) - INR 65.14 [LightGBM_V2]
+
+Sell side:
+[SELL] XELPMOC.NS: Sell (conviction 98.1, High, P=65.7%) - INR 93.67 [LightGBM_V2]
+[SELL] THOMASCOTT.NS: Sell (conviction 97.3, High, P=63.4%) - INR 300.20 [LightGBM_V2]
+[SELL] BIRLACABLE.NS: Sell (conviction 94.1, High, P=58.7%) - INR 383.00 [LightGBM_V2]
+[SELL] JHS.NS: Sell (conviction 93.7, High, P=58.3%) - INR 11.70 [LightGBM_V2]
+[SELL] PVP.NS: Sell (conviction 93.6, High, P=58.2%) - INR 50.47 [LightGBM_V2]

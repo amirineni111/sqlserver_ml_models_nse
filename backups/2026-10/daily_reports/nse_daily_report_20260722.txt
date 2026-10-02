@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-22
+[TIME] Report Generated (EST): 2026-07-22 16:41:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-22
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1837
+[DATA] Medium Confidence: 53
+[LOW] Low Confidence: 5
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 78.07
+[DATA] Average RSI: 45.2
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] INOXGREEN.NS: Sell (87.5%) - INR 193.49 [LightGBM_V2]
+[SELL] BAJEL.NS: Sell (86.9%) - INR 184.57 [LightGBM_V2]
+[SELL] KAYA.NS: Sell (86.8%) - INR 266.32 [LightGBM_V2]
+[SELL] GKENERGY.NS: Sell (86.7%) - INR 138.62 [LightGBM_V2]
+[SELL] ENERGYDEV.NS: Sell (86.6%) - INR 17.02 [LightGBM_V2]
+[SELL] APOLLO.NS: Sell (86.3%) - INR 404.90 [LightGBM_V2]
+[SELL] ENRIN.NS: Sell (86.3%) - INR 3373.40 [LightGBM_V2]
+[SELL] IGL.NS: Sell (86.2%) - INR 151.38 [LightGBM_V2]
+[SELL] VPRPL.NS: Sell (86.0%) - INR 26.93 [LightGBM_V2]
+[SELL] PPL.NS: Sell (85.9%) - INR 263.20 [LightGBM_V2]

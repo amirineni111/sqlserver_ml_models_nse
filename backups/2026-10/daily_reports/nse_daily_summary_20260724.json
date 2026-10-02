@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-24",
+  "generated_at": "2026-07-24T16:43:00.371677",
+  "summary": {
+    "analysis_date": "2026-07-24",
+    "total_predictions": 1894,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 862,
+    "medium_confidence_count": 951,
+    "low_confidence_count": 81,
+    "avg_confidence": 69.07375589550287,
+    "avg_rsi": 43.791054567387604,
+    "total_stocks_processed": 1894,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-24 16:42:21.890000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SUMEETINDS.NS",
+      "company": "Sumeet Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.4680427902399,
+      "close_price": 28.77,
+      "rsi": 39.368616527390905,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TRIVENI.NS",
+      "company": "Triveni Engineering & Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.35423759263381,
+      "close_price": 248.7,
+      "rsi": 13.585481682496578,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GAUDIUMIVF.NS",
+      "company": "GAUDIUM IVF N WOMEN H L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.64111415483853,
+      "close_price": 151.9,
+      "rsi": 72.33455882352943,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RAJRATAN.NS",
+      "company": "Rajratan Global Wire Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.98542621177818,
+      "close_price": 488.3,
+      "rsi": 57.51517315244556,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BEPL.NS",
+      "company": "Bhansali Engineering Polymers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.96160149611163,
+      "close_price": 121.81,
+      "rsi": 70.76865532074062,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SKMEGGPROD.NS",
+      "company": "SKM Egg Products Export (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.95770834735961,
+      "close_price": 324.75,
+      "rsi": 51.82158665304734,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BANSALWIRE.NS",
+      "company": "BANSAL WIRE INDUSTRIES L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.87735951052025,
+      "close_price": 324.0,
+      "rsi": 34.92001560671089,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GANDHAR.NS",
+      "company": "Gandhar Oil Refinery (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.64541286926747,
+      "close_price": 282.46,
+      "rsi": 91.32800842622663,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IPL.NS",
+      "company": "India Pesticides Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.63691608346454,
+      "close_price": 149.98,
+      "rsi": 26.129426129426136,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.63257485088234,
+      "close_price": 154.39,
+      "rsi": 47.10526315789472,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

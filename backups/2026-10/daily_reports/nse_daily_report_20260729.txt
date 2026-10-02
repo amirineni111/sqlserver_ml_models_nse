@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-29
+[TIME] Report Generated (EST): 2026-07-29 16:42:54
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-29
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1893
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 521
+[DATA] Medium Confidence: 1119
+[LOW] Low Confidence: 253
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 66.35
+[DATA] Average RSI: 48.6
+[COMPANY] Stocks Processed: 1893
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] MCLOUD.NS: Sell (78.9%) - INR 29.57 [LightGBM_V2]
+[SELL] TIPSFILMS.NS: Sell (78.3%) - INR 408.40 [LightGBM_V2]
+[SELL] BANSALWIRE.NS: Sell (77.4%) - INR 318.35 [LightGBM_V2]
+[SELL] MSPL.NS: Sell (77.1%) - INR 37.13 [LightGBM_V2]
+[SELL] PARACABLES.NS: Sell (77.1%) - INR 63.48 [LightGBM_V2]
+[SELL] KRONOX.NS: Sell (77.0%) - INR 153.98 [LightGBM_V2]
+[SELL] MBAPL.NS: Sell (76.6%) - INR 164.00 [LightGBM_V2]
+[SELL] IRIS.NS: Sell (76.4%) - INR 248.40 [LightGBM_V2]
+[SELL] DSSL.NS: Sell (76.4%) - INR 1241.10 [LightGBM_V2]
+[SELL] CAMLINFINE.NS: Sell (76.3%) - INR 130.15 [LightGBM_V2]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-07
+[TIME] Report Generated (EST): 2026-07-07 16:42:17
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-07
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1908
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1336
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1460
+[DATA] Medium Confidence: 443
+[LOW] Low Confidence: 5
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 72.60
+[DATA] Average RSI: 51.8
+[COMPANY] Stocks Processed: 1908
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] NITIRAJ.NS: Sell (81.1%) - INR 185.50 [LightGBM_V2]
+[SELL] XTGLOBAL.NS: Sell (80.8%) - INR 29.01 [LightGBM_V2]
+[SELL] SONATSOFTW.NS: Sell (80.7%) - INR 279.90 [LightGBM_V2]
+[SELL] IDEAFORGE.NS: Sell (80.7%) - INR 840.45 [LightGBM_V2]
+[SELL] CHEMPLASTS.NS: Sell (80.7%) - INR 204.60 [LightGBM_V2]
+[SELL] PROTEAN.NS: Sell (80.4%) - INR 589.85 [LightGBM_V2]
+[SELL] VALIANTORG.NS: Sell (80.4%) - INR 276.60 [LightGBM_V2]
+[SELL] SOTL.NS: Sell (80.3%) - INR 558.90 [LightGBM_V2]
+[SELL] TRIGYN.NS: Sell (80.0%) - INR 51.04 [LightGBM_V2]
+[SELL] ZUARI.NS: Sell (79.9%) - INR 233.35 [LightGBM_V2]

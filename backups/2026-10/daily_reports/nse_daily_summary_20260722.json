@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-22",
+  "generated_at": "2026-07-22T16:41:53.147536",
+  "summary": {
+    "analysis_date": "2026-07-22",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1837,
+    "medium_confidence_count": 53,
+    "low_confidence_count": 5,
+    "avg_confidence": 78.07118226841214,
+    "avg_rsi": 45.16178563966414,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-22 16:41:29.353000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "INOXGREEN.NS",
+      "company": "Inox Green Energy Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.4989693869413,
+      "close_price": 193.49,
+      "rsi": 43.38935007086455,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BAJEL.NS",
+      "company": "Bajel Projects Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.93915037253299,
+      "close_price": 184.57,
+      "rsi": 39.99999999999998,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KAYA.NS",
+      "company": "Kaya Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.83148793132949,
+      "close_price": 266.32,
+      "rsi": 70.66599732262382,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GKENERGY.NS",
+      "company": "GK ENERGY LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.66054154696634,
+      "close_price": 138.62,
+      "rsi": 47.27919059338254,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ENERGYDEV.NS",
+      "company": "Energy Development Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.64582293156616,
+      "close_price": 17.02,
+      "rsi": 46.21513944223104,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "APOLLO.NS",
+      "company": "Apollo Micro Systems Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.33579211627898,
+      "close_price": 404.9,
+      "rsi": 35.723114956736694,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ENRIN.NS",
+      "company": "Siemens Energy India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.3045563941313,
+      "close_price": 3373.4,
+      "rsi": 41.39548519495751,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IGL.NS",
+      "company": "Indraprastha Gas Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.22720138701798,
+      "close_price": 151.38,
+      "rsi": 39.166666666666615,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VPRPL.NS",
+      "company": "Vishnu Prakash R Punglia Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.96182800606407,
+      "close_price": 26.93,
+      "rsi": 40.86629001883241,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PPL.NS",
+      "company": "Prakash Pipes Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.88657816695088,
+      "close_price": 263.2,
+      "rsi": 27.68124625524267,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

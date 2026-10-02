@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-20",
+  "generated_at": "2026-07-20T16:42:34.951609",
+  "summary": {
+    "analysis_date": "2026-07-20",
+    "total_predictions": 1896,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1328,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1720,
+    "medium_confidence_count": 173,
+    "low_confidence_count": 3,
+    "avg_confidence": 76.02707706289073,
+    "avg_rsi": 49.637870976882525,
+    "total_stocks_processed": 1896,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-20 16:42:03.953000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "PENINLAND.NS",
+      "company": "Peninsula Land Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.24089664515873,
+      "close_price": 17.42,
+      "rsi": 65.28803545051701,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STERTOOLS.NS",
+      "company": "Sterling Tools Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.71788868331653,
+      "close_price": 245.11,
+      "rsi": 53.2198865532199,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GKENERGY.NS",
+      "company": "GK ENERGY LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.26447150265099,
+      "close_price": 142.79,
+      "rsi": 51.575413223140494,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GREENPOWER.NS",
+      "company": "Orient Green Power Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.6373394474962,
+      "close_price": 10.2,
+      "rsi": 40.36697247706418,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INOXGREEN.NS",
+      "company": "Inox Green Energy Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.05118835786341,
+      "close_price": 195.33,
+      "rsi": 46.661221155809706,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BETA.NS",
+      "company": "BETA DRUGS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.04453221886887,
+      "close_price": 2439.4,
+      "rsi": 62.36527818234781,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ADANIPOWER.NS",
+      "company": "Adani Power Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.40982124089268,
+      "close_price": 219.97,
+      "rsi": 45.93147751605994,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "FCL.NS",
+      "company": "Fineotex Chemical Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.36486105799294,
+      "close_price": 39.39,
+      "rsi": 52.158010241404554,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SAURASHCEM.NS",
+      "company": "Saurashtra Cement Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.33642511435828,
+      "close_price": 60.41,
+      "rsi": 60.35818005808324,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.2280364026004,
+      "close_price": 153.37,
+      "rsi": 53.3203505355404,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

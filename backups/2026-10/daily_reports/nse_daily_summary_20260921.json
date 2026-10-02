@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T16:42:46.279581",
+  "summary": {
+    "analysis_date": "2026-09-21",
+    "total_predictions": 1901,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1331,
+    "total_hold_signals": 0,
+    "high_confidence_count": 908,
+    "medium_confidence_count": 476,
+    "low_confidence_count": 517,
+    "avg_confidence": 63.06955299149968,
+    "avg_rsi": 45.09493785853205,
+    "total_stocks_processed": 1901,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-21 16:42:10.513000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "STLNETWORK.NS",
+      "company": "STL NETWORKS LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 45.86387070066451,
+      "conviction_score": 99.00635386751603,
+      "close_price": 45.09,
+      "rsi": 92.47743229689067,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SYSTMTXC.NS",
+      "company": "Systematix Corporate Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 44.009551738152545,
+      "conviction_score": 98.45995949995378,
+      "close_price": 75.6,
+      "rsi": 88.57890148212726,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LYKALABS.NS",
+      "company": "Lyka Labs Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.07956940064827,
+      "conviction_score": 98.08347887296193,
+      "close_price": 85.0,
+      "rsi": 73.15081652257444,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CASTROLIND.NS",
+      "company": "Castrol India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 42.109354164757725,
+      "conviction_score": 97.59469426949289,
+      "close_price": 193.5,
+      "rsi": 70.3938433680398,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "WELINV.NS",
+      "company": "Welspun Investments and Commercials Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 41.33092065223433,
+      "conviction_score": 97.1164148353221,
+      "close_price": 2366.4,
+      "rsi": 59.496810772501796,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDOAMIN.NS",
+      "company": "Indo Amines Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.90538312855328,
+      "conviction_score": 96.81715846240273,
+      "close_price": 132.87,
+      "rsi": 76.82347863616747,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GESHIP.NS",
+      "company": "The Great Eastern Shipping Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.71176857410517,
+      "conviction_score": 96.67125314322992,
+      "close_price": 1485.0,
+      "rsi": 84.33283358320841,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "COALINDIA.NS",
+      "company": "Coal India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.08626690736362,
+      "conviction_score": 96.15447140379072,
+      "close_price": 414.7,
+      "rsi": 58.888126286890866,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STLTECH.NS",
+      "company": "Sterlite Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.70915734889353,
+      "conviction_score": 95.04286255499116,
+      "close_price": 813.65,
+      "rsi": 61.655266757865924,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MRPL.NS",
+      "company": "Mangalore Refinery and Petrochemicals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 38.94221816267249,
+      "conviction_score": 95.00402833006106,
+      "close_price": 167.03,
+      "rsi": 46.213151927437636,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,36 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-20
+[TIME] Report Generated (EST): 2026-08-20 16:42:11
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-20
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1890
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1323
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 4
+[DATA] Medium Confidence: 607
+[LOW] Low Confidence: 1279
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.03
+[DATA] Average RSI: 50.4
+[COMPANY] Stocks Processed: 1890
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] BAJAJHIND.NS: Sell (72.6%) - INR 23.33 [LightGBM_V2]
+[SELL] KOHINOOR.NS: Sell (71.6%) - INR 34.81 [LightGBM_V2]
+[SELL] KMSUGAR.NS: Sell (71.5%) - INR 35.30 [LightGBM_V2]
+[SELL] UTTAMSUGAR.NS: Sell (71.1%) - INR 336.22 [LightGBM_V2]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-11
+[TIME] Report Generated (EST): 2026-05-11 16:53:52
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-11
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2060
+[BUY] Buy Signals: 38
+[SELL] Sell Signals: 2022
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 79
+[DATA] Medium Confidence: 473
+[LOW] Low Confidence: 1508
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 57.67
+[DATA] Average RSI: 54.5
+[COMPANY] Stocks Processed: 2060
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] OMAXAUTO.NS: Sell (85.7%) - INR 229.81 [GradientBoosting_V2_Calibrated]
+[SELL] CALSOFT.NS: Sell (83.9%) - INR 25.25 [GradientBoosting_V2_Calibrated]
+[SELL] TPHQ.NS: Sell (78.5%) - INR 0.57 [GradientBoosting_V2_Calibrated]
+[SELL] SUNDARAM.NS: Sell (77.2%) - INR 1.43 [GradientBoosting_V2_Calibrated]
+[SELL] GAYAHWS.NS: Sell (76.2%) - INR 2.41 [GradientBoosting_V2_Calibrated]
+[SELL] GLOBE.NS: Sell (76.2%) - INR 2.48 [GradientBoosting_V2_Calibrated]
+[SELL] IL&FSTRANS.NS: Sell (76.2%) - INR 2.51 [GradientBoosting_V2_Calibrated]
+[SELL] NAVKARURB.NS: Sell (76.2%) - INR 0.84 [GradientBoosting_V2_Calibrated]
+[SELL] NDL.NS: Sell (76.2%) - INR 2.79 [GradientBoosting_V2_Calibrated]
+[SELL] PREMIER.NS: Sell (76.2%) - INR 2.98 [GradientBoosting_V2_Calibrated]

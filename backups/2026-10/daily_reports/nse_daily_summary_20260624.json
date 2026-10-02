@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-24",
+  "generated_at": "2026-06-24T16:40:29.173054",
+  "summary": {
+    "analysis_date": "2026-06-24",
+    "total_predictions": 1907,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1335,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 381,
+    "low_confidence_count": 1430,
+    "avg_confidence": 61.39161817916804,
+    "avg_rsi": 55.58972221921606,
+    "total_stocks_processed": 1907,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-24 16:39:17.510000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KOTYARK.NS",
+      "company": "KOTYARK INDUSTRIES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.33333333333334,
+      "close_price": 43.3,
+      "rsi": 14.085049066769287,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.33333333333334,
+      "close_price": 102.12,
+      "rsi": 48.592870544090054,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "THEMISMED.NS",
+      "company": "Themis Medicare Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.33333333333334,
+      "close_price": 118.2,
+      "rsi": 63.91158097068717,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GPTINFRA.NS",
+      "company": "GPT Infraprojects Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.54175527667427,
+      "close_price": 133.56,
+      "rsi": 75.51385165326187,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DENTA.NS",
+      "company": "DENTA WATER N INFRA SOL L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 315.9,
+      "rsi": 78.05630543771693,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DHRUV.NS",
+      "company": "Dhruv Consultancy Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 28.55,
+      "rsi": 55.73580533024336,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MARSONS.NS",
+      "company": "Marsons Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 117.14,
+      "rsi": 35.8672166568454,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RKEC.NS",
+      "company": "RKEC Projects Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 29.61,
+      "rsi": 46.060991105463785,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BSL.NS",
+      "company": "BSL Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 127.9,
+      "rsi": 54.836065573770504,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BIRLACABLE.NS",
+      "company": "Birla Cable Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 213.32,
+      "rsi": 39.5786726323639,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

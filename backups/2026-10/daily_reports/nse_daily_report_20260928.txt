@@ -1,0 +1,49 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-28
+[TIME] Report Generated (EST): 2026-09-28 16:38:49
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-28
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1898
+[BUY] Buy Signals: 569
+[SELL] Sell Signals: 1329
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 847
+[DATA] Medium Confidence: 551
+[LOW] Low Confidence: 500
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 63.22
+[DATA] Average RSI: 42.1
+[COMPANY] Stocks Processed: 1898
+
+[TARGET] TOP CONVICTION SIGNALS (top 5 per side, ranked separately)
+-------------------------------
+[NOTE] P = probability of the predicted class. On relative-threshold days a Buy
+[NOTE] can carry P < 50%: it is a top-30% relative pick, not a >50% call.
+[NOTE] Raw hit rate tracks market direction; pair Buys against Sells to hedge.
+
+Buy side:
+[BUY] ARMANFIN.NS: Buy (conviction 98.3, High, P=45.3%) - INR 1700.10 [LightGBM_V2]
+[BUY] YESBANK.NS: Buy (conviction 98.0, High, P=44.6%) - INR 21.18 [LightGBM_V2]
+[BUY] IDFCFIRSTB.NS: Buy (conviction 97.6, High, P=43.8%) - INR 80.55 [LightGBM_V2]
+[BUY] CHOLAFIN.NS: Buy (conviction 97.3, High, P=43.3%) - INR 1634.20 [LightGBM_V2]
+[BUY] ICICIBANK.NS: Buy (conviction 97.2, High, P=43.1%) - INR 1302.00 [LightGBM_V2]
+
+Sell side:
+[SELL] MANAKSTEEL.NS: Sell (conviction 95.3, High, P=86.9%) - INR 110.13 [LightGBM_V2]
+[SELL] RELINFRA.NS: Sell (conviction 94.2, High, P=85.9%) - INR 44.30 [LightGBM_V2]
+[SELL] INDOBORAX.NS: Sell (conviction 93.9, High, P=85.7%) - INR 477.55 [LightGBM_V2]
+[SELL] INDTERRAIN.NS: Sell (conviction 93.9, High, P=85.7%) - INR 29.49 [LightGBM_V2]
+[SELL] SSDL.NS: Sell (conviction 93.3, High, P=85.2%) - INR 81.52 [LightGBM_V2]

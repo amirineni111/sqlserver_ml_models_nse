@@ -1,0 +1,60 @@
+{
+  "date": "2026-08-26",
+  "generated_at": "2026-08-26T16:45:53.377067",
+  "summary": {
+    "analysis_date": "2026-08-26",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 4,
+    "medium_confidence_count": 760,
+    "low_confidence_count": 1131,
+    "avg_confidence": 58.781373365760956,
+    "avg_rsi": 47.56632150064837,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-26 16:44:59"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ABINFRA.NS",
+      "company": "A B INFRABUILD LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.95133356141126,
+      "close_price": 11.95,
+      "rsi": 65.29968454258676,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JAGSNPHARM.NS",
+      "company": "Jagsonpal Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.00193934270509,
+      "close_price": 242.2,
+      "rsi": 54.484547222822535,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GENESYS.NS",
+      "company": "Genesys International Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.31594202962803,
+      "close_price": 246.3,
+      "rsi": 55.758988015978694,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TARSONS.NS",
+      "company": "Tarsons Products Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.4642593886612,
+      "close_price": 342.65,
+      "rsi": 59.109018471568255,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

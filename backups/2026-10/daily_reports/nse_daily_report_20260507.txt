@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-07
+[TIME] Report Generated (EST): 2026-05-07 16:49:46
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-07
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2059
+[BUY] Buy Signals: 0
+[SELL] Sell Signals: 2059
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 2035
+[DATA] Medium Confidence: 23
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 78.44
+[DATA] Average RSI: 58.7
+[COMPANY] Stocks Processed: 2059
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] CALSOFT.NS: Sell (100.0%) - INR 22.91 [GradientBoosting_V2_Calibrated]
+[SELL] OMAXAUTO.NS: Sell (100.0%) - INR 226.65 [GradientBoosting_V2_Calibrated]
+[SELL] BANARISUG.NS: Sell (84.8%) - INR 3685.70 [GradientBoosting_V2_Calibrated]
+[SELL] EMBDL.NS: Sell (84.8%) - INR 69.96 [GradientBoosting_V2_Calibrated]
+[SELL] RAYMONDREL.NS: Sell (84.8%) - INR 635.20 [GradientBoosting_V2_Calibrated]
+[SELL] ABLBL.NS: Sell (82.1%) - INR 118.21 [GradientBoosting_V2_Calibrated]
+[SELL] AEROFLEX.NS: Sell (82.1%) - INR 413.60 [GradientBoosting_V2_Calibrated]
+[SELL] AJMERA.NS: Sell (82.1%) - INR 133.94 [GradientBoosting_V2_Calibrated]
+[SELL] APOLLOPIPE.NS: Sell (82.1%) - INR 498.80 [GradientBoosting_V2_Calibrated]
+[SELL] ARVIND.NS: Sell (82.1%) - INR 447.90 [GradientBoosting_V2_Calibrated]

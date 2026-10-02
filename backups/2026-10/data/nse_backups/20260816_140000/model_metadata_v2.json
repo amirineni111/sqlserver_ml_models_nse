@@ -1,0 +1,40 @@
+{
+  "timestamp": "20260814_163504",
+  "model_type": "LGBMClassifier",
+  "calibration": "none (raw base model -- calibration collapsed variance)",
+  "n_features": 20,
+  "top_features": [
+    "india_vix_vs_60d",
+    "nifty50_vs_200d",
+    "sp500_vs_200d",
+    "stochastic_d",
+    "bb_position",
+    "price_to_high_20d",
+    "price_to_sma20",
+    "volume_ratio",
+    "price_to_sma200",
+    "stochastic_k"
+  ],
+  "data_range": "2024-06-01 to 2026-08-04",
+  "hyperparameters": {
+    "n_estimators": 150,
+    "num_leaves": 63,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_samples": 100,
+    "random_state": 42,
+    "verbose": -1
+  },
+  "test_accuracy": 0.51,
+  "test_f1": 0.4921,
+  "test_auc": 0.4924,
+  "test_brier": 0.3173,
+  "test_top_decile_precision": 0.5338,
+  "split": {
+    "train_range": "2024-06-03 to 2025-09-12",
+    "cal_range": "2025-09-22 to 2026-02-17",
+    "test_range": "2026-02-25 to 2026-07-28",
+    "embargo_days": 5
+  }
+}

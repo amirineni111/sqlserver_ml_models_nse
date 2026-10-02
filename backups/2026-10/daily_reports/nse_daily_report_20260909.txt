@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-09
+[TIME] Report Generated (EST): 2026-09-09 16:39:32
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-09
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 895
+[DATA] Medium Confidence: 555
+[LOW] Low Confidence: 445
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 65.28
+[DATA] Average RSI: 47.2
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] APOLLOHOSP.NS: Buy (conviction 99.7, P=37.8%) - INR 8967.00 [LightGBM_V2]
+[BUY] PFIZER.NS: Buy (conviction 99.1, P=34.5%) - INR 4171.00 [LightGBM_V2]
+[BUY] AMANTA.NS: Buy (conviction 98.9, P=34.1%) - INR 205.89 [LightGBM_V2]
+[BUY] LYKALABS.NS: Buy (conviction 98.5, P=32.9%) - INR 83.14 [LightGBM_V2]
+[BUY] SUNPHARMA.NS: Buy (conviction 98.2, P=32.4%) - INR 1864.90 [LightGBM_V2]
+[BUY] FISCHER.NS: Buy (conviction 97.2, P=30.8%) - INR 34.78 [LightGBM_V2]
+[BUY] ULTRACEMCO.NS: Buy (conviction 96.5, P=30.1%) - INR 10900.00 [LightGBM_V2]
+[BUY] INDBANK.NS: Buy (conviction 96.5, P=30.0%) - INR 26.61 [LightGBM_V2]
+[BUY] SHREEJISPG.NS: Buy (conviction 96.3, P=29.8%) - INR 713.10 [LightGBM_V2]
+[BUY] AAREYDRUGS.NS: Buy (conviction 96.1, P=29.7%) - INR 99.98 [LightGBM_V2]

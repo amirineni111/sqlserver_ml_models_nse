@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-29",
+  "generated_at": "2026-09-30T16:37:57.129436",
+  "summary": {
+    "analysis_date": "2026-09-29",
+    "total_predictions": 1898,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1329,
+    "total_hold_signals": 0,
+    "high_confidence_count": 525,
+    "medium_confidence_count": 675,
+    "low_confidence_count": 698,
+    "avg_confidence": 64.58397591557059,
+    "avg_rsi": 41.698976271095525,
+    "total_stocks_processed": 1898,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-29 16:38:09.303000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "IITL.NS",
+      "company": "Industrial Investment Trust Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.44036678635769,
+      "conviction_score": 96.88789327089381,
+      "signal_strength": "High",
+      "close_price": 125.64,
+      "rsi": 15.489749430523915,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IDFCFIRSTB.NS",
+      "company": "IDFC First Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.00339043272679,
+      "conviction_score": 96.7678684709257,
+      "signal_strength": "High",
+      "close_price": 79.46,
+      "rsi": 29.196217494089822,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CDSL.NS",
+      "company": "Central Depository Services (India) Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.82223656566426,
+      "conviction_score": 96.71680917514342,
+      "signal_strength": "High",
+      "close_price": 1261.9,
+      "rsi": 29.467737139458805,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDIANB.NS",
+      "company": "Indian Bank",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.81947885384807,
+      "conviction_score": 96.71602590725031,
+      "signal_strength": "High",
+      "close_price": 795.25,
+      "rsi": 10.067943174799353,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ICICIPRULI.NS",
+      "company": "ICICI Prudential Life Insurance Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.77810025620438,
+      "conviction_score": 96.70425152229276,
+      "signal_strength": "High",
+      "close_price": 444.55,
+      "rsi": 39.101717305151915,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHALPAINTS.NS",
+      "company": "Shalimar Paints Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.33544699750053,
+      "conviction_score": 86.03776957602085,
+      "signal_strength": "High",
+      "close_price": 78.09,
+      "rsi": 35.744680851063805,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MAHASTEEL.NS",
+      "company": "Mahamaya Steel Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 84.48479560605547,
+      "conviction_score": 83.92846728647245,
+      "signal_strength": "High",
+      "close_price": 1201.6,
+      "rsi": 40.397775876817775,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DELTACORP.NS",
+      "company": "Delta Corp Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.25547082008052,
+      "conviction_score": 82.38959408805721,
+      "signal_strength": "High",
+      "close_price": 78.69,
+      "rsi": 82.44487859335752,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UTTAMSUGAR.NS",
+      "company": "Uttam Sugar Mills Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.6313789591976,
+      "conviction_score": 81.5650534197902,
+      "signal_strength": "High",
+      "close_price": 290.8,
+      "rsi": 51.533742331288344,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TCIEXP.NS",
+      "company": "TCI Express",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.58436751360546,
+      "conviction_score": 81.5017482681748,
+      "signal_strength": "High",
+      "close_price": 531.85,
+      "rsi": 44.75169300225733,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

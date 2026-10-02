@@ -1,0 +1,114 @@
+{
+  "date": "2026-08-24",
+  "generated_at": "2026-08-24T16:43:26.860776",
+  "summary": {
+    "analysis_date": "2026-08-24",
+    "total_predictions": 1893,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 54,
+    "medium_confidence_count": 1578,
+    "low_confidence_count": 261,
+    "avg_confidence": 64.05895189551664,
+    "avg_rsi": 47.8862781251901,
+    "total_stocks_processed": 1893,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-24 16:43:01.890000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "EQUIPPP.NS",
+      "company": "Equippp Social Impact Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.50072192660468,
+      "close_price": 23.97,
+      "rsi": 53.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BAJAJHIND.NS",
+      "company": "Bajaj Hindusthan Sugar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.93700062476674,
+      "close_price": 24.23,
+      "rsi": 83.42361863488625,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "QUADFUTURE.NS",
+      "company": "QUADRANT FUTURE TEK LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.35819665899943,
+      "close_price": 447.3,
+      "rsi": 73.07692307692308,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SOMICONVEY.NS",
+      "company": "Somi Conveyor Beltings Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.31498979371145,
+      "close_price": 97.36,
+      "rsi": 53.12499999999999,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "OPTIEMUS.NS",
+      "company": "Optiemus Infracom Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.12313989918616,
+      "close_price": 585.7,
+      "rsi": 39.338137176407805,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IGPL.NS",
+      "company": "I G Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.94181317546334,
+      "close_price": 501.05,
+      "rsi": 48.89061891786689,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TVSSCS.NS",
+      "company": "TVS Supply Chain Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.82839367603246,
+      "close_price": 132.99,
+      "rsi": 46.86501106466685,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BALAMINES.NS",
+      "company": "Balaji Amines Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.71417172112949,
+      "close_price": 2224.5,
+      "rsi": 70.18284106891699,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KIRIINDUS.NS",
+      "company": "Kiri Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.51320180397924,
+      "close_price": 502.4,
+      "rsi": 76.47989870212092,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ALLCARGO.NS",
+      "company": "ALL CARGO",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.33250794394222,
+      "close_price": 13.33,
+      "rsi": 83.33333333333334,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-20
+[TIME] Report Generated (EST): 2026-07-20 16:42:34
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-20
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1896
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1328
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1720
+[DATA] Medium Confidence: 173
+[LOW] Low Confidence: 3
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 76.03
+[DATA] Average RSI: 49.6
+[COMPANY] Stocks Processed: 1896
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] PENINLAND.NS: Sell (89.2%) - INR 17.42 [LightGBM_V2]
+[SELL] STERTOOLS.NS: Sell (86.7%) - INR 245.11 [LightGBM_V2]
+[SELL] GKENERGY.NS: Sell (86.3%) - INR 142.79 [LightGBM_V2]
+[SELL] GREENPOWER.NS: Sell (85.6%) - INR 10.20 [LightGBM_V2]
+[SELL] INOXGREEN.NS: Sell (85.1%) - INR 195.33 [LightGBM_V2]
+[SELL] BETA.NS: Sell (85.0%) - INR 2439.40 [LightGBM_V2]
+[SELL] ADANIPOWER.NS: Sell (84.4%) - INR 219.97 [LightGBM_V2]
+[SELL] FCL.NS: Sell (84.4%) - INR 39.39 [LightGBM_V2]
+[SELL] SAURASHCEM.NS: Sell (84.3%) - INR 60.41 [LightGBM_V2]
+[SELL] KRONOX.NS: Sell (84.2%) - INR 153.37 [LightGBM_V2]

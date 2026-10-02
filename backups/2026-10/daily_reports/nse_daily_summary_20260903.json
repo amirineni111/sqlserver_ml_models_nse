@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-03",
+  "generated_at": "2026-09-03T16:42:24.461768",
+  "summary": {
+    "analysis_date": "2026-09-03",
+    "total_predictions": 1894,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 17,
+    "medium_confidence_count": 1487,
+    "low_confidence_count": 390,
+    "avg_confidence": 63.054564995963425,
+    "avg_rsi": 48.03707266722489,
+    "total_stocks_processed": 1894,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-03 16:41:50.287000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MAHASTEEL.NS",
+      "company": "Mahamaya Steel Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.66876779574271,
+      "close_price": 1258.2,
+      "rsi": 70.71120689655174,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.1937257962738,
+      "close_price": 183.37,
+      "rsi": 61.75039358809217,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MFML.NS",
+      "company": "Mahalaxmi Fabric Mills Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.64820101176109,
+      "close_price": 18.36,
+      "rsi": 40.27777777777775,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDIAGLYCO.NS",
+      "company": "India Glycols Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.16640695154172,
+      "close_price": 248.0,
+      "rsi": 17.14216439020447,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DONEAR.NS",
+      "company": "Donear Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.5539983131529,
+      "close_price": 88.56,
+      "rsi": 54.34782608695651,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TAJGVK.NS",
+      "company": "TAJGVK Hotels & Resorts Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.40449299194151,
+      "close_price": 333.8,
+      "rsi": 44.797879390324745,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AUTOIND.NS",
+      "company": "Autoline Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.3791171441822,
+      "close_price": 92.75,
+      "rsi": 42.6517571884984,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TIRUMALCHM.NS",
+      "company": "Thirumalai Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.34758178224547,
+      "close_price": 157.86,
+      "rsi": 48.20931157978514,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AEGISLOG.NS",
+      "company": "AEGIS LOGISTICS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.31914316114056,
+      "close_price": 1287.2,
+      "rsi": 52.17045001991238,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LAMBODHARA.NS",
+      "company": "Lambodhara Textiles Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.2646687134981,
+      "close_price": 137.47,
+      "rsi": 72.473565609291,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

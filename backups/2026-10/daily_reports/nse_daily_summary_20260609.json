@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-09",
+  "generated_at": "2026-06-09T16:53:42.273070",
+  "summary": {
+    "analysis_date": "2026-06-09",
+    "total_predictions": 1910,
+    "total_buy_signals": 599,
+    "total_sell_signals": 1311,
+    "total_hold_signals": 0,
+    "high_confidence_count": 98,
+    "medium_confidence_count": 428,
+    "low_confidence_count": 1384,
+    "avg_confidence": 73.32690455219907,
+    "avg_rsi": 50.622844432265765,
+    "total_stocks_processed": 1910,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-09 16:53:05.833000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "GTECJAINX.NS",
+      "company": "G-Tec Jainx Education Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.4914675767918,
+      "close_price": 36.44,
+      "rsi": 80.18531717747683,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TCIFINANCE.NS",
+      "company": "TCI Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 92.4914675767918,
+      "close_price": 20.91,
+      "rsi": 87.90406673618352,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AHCL.NS",
+      "company": "ANLON HEALTHCARE LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 91.30901287553648,
+      "close_price": 15.14,
+      "rsi": 71.57622739018086,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AFIL.NS",
+      "company": "AKME FINTRADE (INDIA) LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.78201634877384,
+      "close_price": 10.01,
+      "rsi": 67.14697406340059,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DIGJAMLMTD.NS",
+      "company": "Digjam Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.78201634877384,
+      "close_price": 44.98,
+      "rsi": 42.52964426877469,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FINKURVE.NS",
+      "company": "Finkurve Financial Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.78201634877384,
+      "close_price": 62.33,
+      "rsi": 35.4874651810585,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PANACEABIO.NS",
+      "company": "Panacea Biotec Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.78201634877384,
+      "close_price": 607.75,
+      "rsi": 87.5416911908966,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KWIL.NS",
+      "company": "KWALITY WALL'S (INDIA) L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.35721812434141,
+      "close_price": 32.81,
+      "rsi": 71.00753941055518,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "NEULANDLAB.NS",
+      "company": "Neuland Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.35721812434141,
+      "close_price": 17188.0,
+      "rsi": 58.77425044091711,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VITAL.NS",
+      "company": "VITAL CHEMTECH LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 89.35721812434141,
+      "close_price": 56.1,
+      "rsi": 47.17636837532581,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

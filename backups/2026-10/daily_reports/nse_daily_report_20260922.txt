@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-22
+[TIME] Report Generated (EST): 2026-09-22 16:42:35
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-22
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1900
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1330
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 801
+[DATA] Medium Confidence: 522
+[LOW] Low Confidence: 577
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 62.15
+[DATA] Average RSI: 46.1
+[COMPANY] Stocks Processed: 1900
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] WELINV.NS: Buy (conviction 99.1, P=45.8%) - INR 2408.90 [LightGBM_V2]
+[BUY] SYSTMTXC.NS: Buy (conviction 98.9, P=45.0%) - INR 76.30 [LightGBM_V2]
+[BUY] PRUDMOULI.NS: Buy (conviction 98.6, P=43.9%) - INR 13.71 [LightGBM_V2]
+[BUY] TATAELXSI.NS: Buy (conviction 98.0, P=42.6%) - INR 3220.00 [LightGBM_V2]
+[BUY] GSLSU.NS: Buy (conviction 97.8, P=42.2%) - INR 30.91 [LightGBM_V2]
+[BUY] EUROPRATIK.NS: Buy (conviction 97.5, P=41.7%) - INR 218.45 [LightGBM_V2]
+[BUY] NUCLEUS.NS: Buy (conviction 97.5, P=41.7%) - INR 685.95 [LightGBM_V2]
+[BUY] AHCL.NS: Buy (conviction 97.0, P=41.0%) - INR 28.86 [LightGBM_V2]
+[BUY] STLNETWORK.NS: Buy (conviction 96.9, P=40.9%) - INR 47.34 [LightGBM_V2]
+[BUY] RELAXO.NS: Buy (conviction 96.5, P=40.4%) - INR 292.65 [LightGBM_V2]

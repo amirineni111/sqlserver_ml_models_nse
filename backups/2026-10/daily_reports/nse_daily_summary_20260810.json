@@ -1,0 +1,87 @@
+{
+  "date": "2026-08-10",
+  "generated_at": "2026-08-11T16:44:55.969675",
+  "summary": {
+    "analysis_date": "2026-08-10",
+    "total_predictions": 1892,
+    "total_buy_signals": 1659,
+    "total_sell_signals": 233,
+    "total_hold_signals": 0,
+    "high_confidence_count": 7,
+    "medium_confidence_count": 230,
+    "low_confidence_count": 1655,
+    "avg_confidence": 55.72929577801608,
+    "avg_rsi": 51.282858369680184,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-10 16:43:11.123000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 81.70306212976543,
+      "close_price": 11.47,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LT.NS",
+      "company": "Larsen & Toubro Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 77.97031786054178,
+      "close_price": 4080.0,
+      "rsi": 76.70480549199083,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LOKESHMACH.NS",
+      "company": "Lokesh Machines Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.98235037204341,
+      "close_price": 351.25,
+      "rsi": 58.12562313060813,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JSWENERGY.NS",
+      "company": "JSW Energy Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.85257188879783,
+      "close_price": 578.0,
+      "rsi": 57.89825970548859,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IRFC.NS",
+      "company": "Indian Railway Finance Corporation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.56847402812684,
+      "close_price": 88.5,
+      "rsi": 51.00956429330499,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "APLAPOLLO.NS",
+      "company": "APL Apollo Tubes Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.39132982810649,
+      "close_price": 2020.0,
+      "rsi": 73.84578772013327,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ICICIBANK.NS",
+      "company": "ICICI Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.30103115469208,
+      "close_price": 1431.8,
+      "rsi": 40.200375704445854,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

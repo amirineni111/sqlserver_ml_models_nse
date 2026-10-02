@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-30",
+  "generated_at": "2026-07-30T16:43:58.004741",
+  "summary": {
+    "analysis_date": "2026-07-30",
+    "total_predictions": 1890,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1323,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1307,
+    "medium_confidence_count": 581,
+    "low_confidence_count": 2,
+    "avg_confidence": 71.14691385351259,
+    "avg_rsi": 44.586931059211686,
+    "total_stocks_processed": 1890,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-30 16:42:52.773000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "DIACABS.NS",
+      "company": "Diamond Power Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.03322212273409,
+      "close_price": 328.5,
+      "rsi": 87.20921534894158,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KALPATARU.NS",
+      "company": "KALPATARU LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.96081404129403,
+      "close_price": 290.75,
+      "rsi": 51.99409158050221,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CPEDU.NS",
+      "company": "Career Point Edutech Ltd.",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.21347406911042,
+      "close_price": 206.68,
+      "rsi": 58.546339766997065,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CORALFINAC.NS",
+      "company": "Coral India",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.18949094046522,
+      "close_price": 32.83,
+      "rsi": 41.753343239227355,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GOKULAGRO.NS",
+      "company": "Gokul Agro",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.14333951289866,
+      "close_price": 225.15,
+      "rsi": 60.36211699164345,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUNTECK.NS",
+      "company": "Sunteck Realty Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.97595768072249,
+      "close_price": 303.5,
+      "rsi": 35.224438902743145,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PAVNAIND.NS",
+      "company": "Pavna Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.90023901173474,
+      "close_price": 18.0,
+      "rsi": 59.760273972602754,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ALMONDZ.NS",
+      "company": "Almondz Global Securities Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.6763005238066,
+      "close_price": 14.35,
+      "rsi": 62.42038216560509,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "Embassy Developments Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.56614802921725,
+      "close_price": 61.41,
+      "rsi": 29.054640069384263,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RAYMONDREL.NS",
+      "company": "Raymond Realty Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.54356162352977,
+      "close_price": 644.6,
+      "rsi": 36.454767726161386,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

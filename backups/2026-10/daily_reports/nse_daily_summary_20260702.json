@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-02",
+  "generated_at": "2026-07-02T16:53:20.381950",
+  "summary": {
+    "analysis_date": "2026-07-02",
+    "total_predictions": 1909,
+    "total_buy_signals": 1039,
+    "total_sell_signals": 870,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1431,
+    "avg_confidence": 51.44643002281743,
+    "avg_rsi": 61.92784030827684,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-02 16:52:54.483000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ZFCVINDIA.NS",
+      "company": "ZF Commercial Vehicle Control Systems India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 63.10679611650486,
+      "close_price": 2433.2,
+      "rsi": 12.219959266802434,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KOTYARK.NS",
+      "company": "KOTYARK INDUSTRIES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 57.32484076433122,
+      "close_price": 37.05,
+      "rsi": 13.903426483657555,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ABINFRA.NS",
+      "company": "A B INFRABUILD LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.34469696969697,
+      "close_price": 10.93,
+      "rsi": 68.23529411764704,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GOLDTECH.NS",
+      "company": "AION-TECH Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.34469696969697,
+      "close_price": 67.86,
+      "rsi": 84.3197540353574,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BANG.NS",
+      "company": "Bang Overseas Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.34469696969697,
+      "close_price": 30.32,
+      "rsi": 41.69558750619732,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SECURKLOUD.NS",
+      "company": "SecureKloud Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 53.15091210613602,
+      "close_price": 19.03,
+      "rsi": 36.89320388349517,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SAKSOFT.NS",
+      "company": "Saksoft Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 53.15091210613602,
+      "close_price": 179.86,
+      "rsi": 69.31344389882332,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AVROIND.NS",
+      "company": "Avro India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 53.15091210613602,
+      "close_price": 10.33,
+      "rsi": 45.81939799331103,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DIGIDRIVE.NS",
+      "company": "Digidrive Distributors Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 53.15091210613602,
+      "close_price": 18.84,
+      "rsi": 64.09495548961425,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DAMODARIND.NS",
+      "company": "Damodar Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 53.15091210613602,
+      "close_price": 30.52,
+      "rsi": 55.370370370370374,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

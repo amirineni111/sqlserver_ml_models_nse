@@ -1614,8 +1614,10 @@ def save_model_artifacts(model, base_model, scaler, encoder, selected_features, 
 # Training Validation (MANDATORY - Prevents Production Bugs)
 # ============================================================================
 
-RELATIVE_MODE_MEAN_PROB = 0.45   # below this day-mean P(Up), switch to the relative rule
-RELATIVE_BUY_FRACTION = 0.30     # relative rule: top 30% of the day by P(Up) = Buy
+RELATIVE_MODE_MEAN_PROB = 0.45        # below this day-mean P(Up), switch to the relative rule
+RELATIVE_BUY_FRACTION = 0.30          # relative rule: top 30% of the day by P(Up) = Buy
+RELATIVE_MODE_MEAN_PROB_HIGH = 0.55   # above this day-mean P(Up), switch to the mirrored relative rule
+RELATIVE_SELL_FRACTION = 0.30         # mirrored rule: bottom 30% of the day by P(Up) = Sell
 
 
 def decide_signals(buy_prob):
@@ -1624,23 +1626,38 @@ def decide_signals(buy_prob):
     Shared by predict_nse_signals_v2.generate_predictions and the pre-save
     validation, so the gate checks the rule production actually applies.
 
-    Absolute 0.50 cut when the day's mean P(Up) >= 0.45; otherwise the exact top
-    30% by P(Up) are Buys. nlargest-style argsort gives an exact count -- raw and
-    isotonic outputs have ties, and a quantile threshold with >= once swept in a
-    whole tie cluster ("top 30%" yielding 82% Buy).
+    Absolute 0.50 cut when the day's mean P(Up) is within 0.45-0.55. Below 0.45
+    the exact top 30% by P(Up) are Buys; above 0.55 the exact bottom 30% are
+    Sells. nlargest-style argsort gives an exact count -- raw and isotonic
+    outputs have ties, and a quantile threshold with >= once swept in a whole
+    tie cluster ("top 30%" yielding 82% Buy).
+
+    The high side was added Oct 2026. The market-wide features are identical for
+    every ticker on a day, so one tree split on them moves the whole universe at
+    once: when NIFTY fell below ~0.9345x its 200d average (Sep 29 2026) mean
+    P(Up) went 0.33 -> 0.62, the absolute cut emitted 97-98% Buy, and the
+    predict-time >95% guard aborted the DB write two days running. The level is
+    not calibrated (pooled AUC ~0.50); the cross-sectional ranking is the product.
 
     Returns (is_buy bool ndarray, decision_threshold, mode description).
     """
     p = np.asarray(buy_prob, dtype=float)
-    if p.mean() >= RELATIVE_MODE_MEAN_PROB:
+    mean_p = p.mean()
+    if RELATIVE_MODE_MEAN_PROB <= mean_p <= RELATIVE_MODE_MEAN_PROB_HIGH:
         return p >= 0.50, 0.50, "absolute (50%)"
-    n_buy = int(len(p) * RELATIVE_BUY_FRACTION)
+    if mean_p < RELATIVE_MODE_MEAN_PROB:
+        n_buy = int(len(p) * RELATIVE_BUY_FRACTION)
+        mode = f"relative (top {RELATIVE_BUY_FRACTION:.0%} = {n_buy} stocks)"
+    else:
+        n_sell = int(len(p) * RELATIVE_SELL_FRACTION)
+        n_buy = len(p) - n_sell
+        mode = f"relative (bottom {RELATIVE_SELL_FRACTION:.0%} = {n_sell} stocks Sell)"
     is_buy = np.zeros(len(p), dtype=bool)
     is_buy[np.argsort(-p, kind='stable')[:n_buy]] = True
     # Effective boundary = weakest probability that still bought; the median
     # keeps it finite if the Buy set is empty (tiny universe).
     threshold = float(p[is_buy].min()) if n_buy > 0 else float(np.median(p))
-    return is_buy, threshold, f"relative (top {RELATIVE_BUY_FRACTION:.0%} = {n_buy} stocks)"
+    return is_buy, threshold, mode
 
 
 def _daily_ranking_metrics(buy_prob, y_up, dates):
@@ -1712,7 +1729,8 @@ def validate_training_artifacts(model, scaler, encoder, X_train, y_train, X_cal,
     # CHECK 3: Buy/Sell distribution under the PRODUCTION decision rule.
     # Until Sep 2026 this applied a pooled 0.50 cut to the whole test window.
     # Production never does that: decide_signals() runs per day and switches to
-    # top-30% when the day's mean P(Up) < 0.45. As the test window rolled into the
+    # top-30% when the day's mean P(Up) < 0.45 (and, since Oct 2026, to
+    # bottom-30%-Sell when it is > 0.55). As the test window rolled into the
     # bearish Apr-Sep 2026 stretch, the pooled-0.50 Up share slid 38% -> 11% and
     # failed three Sundays running (Sep 13/20/27) -- the DEPLOYED model scored 15%
     # on the same window, so it was the window tripping the gate, not the model.

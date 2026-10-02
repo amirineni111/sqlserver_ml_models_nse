@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-16
+[TIME] Report Generated (EST): 2026-09-16 16:40:09
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-16
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1900
+[BUY] Buy Signals: 1255
+[SELL] Sell Signals: 645
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 991
+[DATA] Medium Confidence: 436
+[LOW] Low Confidence: 473
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 59.21
+[DATA] Average RSI: 39.6
+[COMPANY] Stocks Processed: 1900
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[SELL] ANMOL.NS: Sell (conviction 96.1, P=81.6%) - INR 14.39 [LightGBM_V2]
+[BUY] ACC.NS: Buy (conviction 92.9, P=75.3%) - INR 1226.60 [LightGBM_V2]
+[BUY] ORIENTCEM.NS: Buy (conviction 92.8, P=75.2%) - INR 121.64 [LightGBM_V2]
+[BUY] AMBUJACEM.NS: Buy (conviction 92.8, P=75.2%) - INR 381.05 [LightGBM_V2]
+[BUY] GALLANTT.NS: Buy (conviction 91.4, P=73.3%) - INR 524.95 [LightGBM_V2]
+[BUY] RVNL.NS: Buy (conviction 91.4, P=73.3%) - INR 197.50 [LightGBM_V2]
+[BUY] SHREECEM.NS: Buy (conviction 91.1, P=73.0%) - INR 21795.00 [LightGBM_V2]
+[BUY] LINC.NS: Buy (conviction 90.9, P=72.7%) - INR 90.37 [LightGBM_V2]
+[BUY] MAANALU.NS: Buy (conviction 90.9, P=72.7%) - INR 103.41 [LightGBM_V2]
+[SELL] DEEPINDS.NS: Sell (conviction 90.8, P=72.6%) - INR 735.15 [LightGBM_V2]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-15",
+  "generated_at": "2026-06-15T16:51:49.620266",
+  "summary": {
+    "analysis_date": "2026-06-15",
+    "total_predictions": 1910,
+    "total_buy_signals": 573,
+    "total_sell_signals": 1337,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1432,
+    "avg_confidence": 56.469255833297595,
+    "avg_rsi": 50.535718887216994,
+    "total_stocks_processed": 1910,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-15 16:51:29.413000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CIFL.NS",
+      "company": "Capital India Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 24.63,
+      "rsi": 46.265560165975096,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AUSOMENT.NS",
+      "company": "AuSom Enterprise Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 118.74,
+      "rsi": 28.20174280433058,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMBDL.NS",
+      "company": "Embassy Developments Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 61.46,
+      "rsi": 47.058823529411775,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FMNL.NS",
+      "company": "Future Market Networks Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 10.62,
+      "rsi": 55.62499999999999,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "IITL.NS",
+      "company": "Industrial Investment Trust Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 141.14,
+      "rsi": 28.04190169218373,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HESTERBIO.NS",
+      "company": "Hester Biosciences Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 2066.6,
+      "rsi": 61.36754397566459,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ONELIFECAP.NS",
+      "company": "Onelife Capital Advisors Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 26.93,
+      "rsi": 52.48287671232876,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RNBDENIMS.NS",
+      "company": "R & B Denims Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 11.27,
+      "rsi": 52.188552188552194,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SKYGOLD.NS",
+      "company": "Sky Gold and Diamonds Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 533.65,
+      "rsi": 59.46984248943526,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SURAJEST.NS",
+      "company": "SURAJ ESTATE DEVELOPERS L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.6081081081081,
+      "close_price": 195.99,
+      "rsi": 29.48126801152739,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

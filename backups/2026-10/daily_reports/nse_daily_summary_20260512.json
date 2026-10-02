@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-12",
+  "generated_at": "2026-05-12T16:56:30.153968",
+  "summary": {
+    "analysis_date": "2026-05-12",
+    "total_predictions": 2057,
+    "total_buy_signals": 1466,
+    "total_sell_signals": 591,
+    "total_hold_signals": 0,
+    "high_confidence_count": 22,
+    "medium_confidence_count": 673,
+    "low_confidence_count": 1362,
+    "avg_confidence": 58.12425250444391,
+    "avg_rsi": 47.46883484445088,
+    "total_stocks_processed": 2057,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-12 16:56:26.980000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "LTM.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 84.64447806354009,
+      "close_price": 4143.8,
+      "rsi": 25.27180478376421,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MUTHOOTFIN.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.56896551724138,
+      "close_price": 3353.4,
+      "rsi": 30.680108335841126,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.31372549019606,
+      "close_price": 26.51,
+      "rsi": 96.87707641196013,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KRIDHANINF.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 3.28,
+      "rsi": 77.62237762237763,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SADHNANIQ.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.95511948707986,
+      "close_price": 2.58,
+      "rsi": 63.8095238095238,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANKITMETAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.48972602739725,
+      "close_price": 1.64,
+      "rsi": 59.016393442622956,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JSWHL.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.1282410651717,
+      "close_price": 12339.0,
+      "rsi": 29.275244299674256,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TVSSRICHAK.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.1282410651717,
+      "close_price": 3722.3,
+      "rsi": 34.499322576672014,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TVSHLTD.NS",
+      "company": null,
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.96774193548387,
+      "close_price": 13996.0,
+      "rsi": 38.70862012454932,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "GLOBE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.85545722713864,
+      "close_price": 2.49,
+      "rsi": 51.11111111111114,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

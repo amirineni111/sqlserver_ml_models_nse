@@ -1,0 +1,37 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-13
+[TIME] Report Generated (EST): 2026-08-13 16:44:04
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-13
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1891
+[BUY] Buy Signals: 586
+[SELL] Sell Signals: 1305
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 5
+[DATA] Medium Confidence: 90
+[LOW] Low Confidence: 1796
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 54.03
+[DATA] Average RSI: 53.4
+[COMPANY] Stocks Processed: 1891
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] VIJIFIN.NS: Buy (80.1%) - INR 12.15 [LightGBM_V2]
+[BUY] RADICO.NS: Buy (74.0%) - INR 4675.20 [LightGBM_V2]
+[BUY] MPHASIS.NS: Buy (73.3%) - INR 2541.00 [LightGBM_V2]
+[BUY] AKSHARCHEM.NS: Buy (72.8%) - INR 296.12 [LightGBM_V2]
+[BUY] UNIVASTU.NS: Buy (72.3%) - INR 153.04 [LightGBM_V2]

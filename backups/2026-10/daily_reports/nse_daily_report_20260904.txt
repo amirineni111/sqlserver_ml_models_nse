@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-04
+[TIME] Report Generated (EST): 2026-09-04 16:37:49
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-04
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 838
+[DATA] Medium Confidence: 608
+[LOW] Low Confidence: 449
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 60.69
+[DATA] Average RSI: 48.8
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] PROTEAN.NS: Buy (conviction 99.1, P=58.4%) - INR 496.30 [LightGBM_V2]
+[BUY] HAPPSTMNDS.NS: Buy (conviction 97.9, P=54.0%) - INR 354.00 [LightGBM_V2]
+[BUY] GSS.NS: Buy (conviction 97.6, P=53.5%) - INR 11.03 [LightGBM_V2]
+[BUY] UBL.NS: Buy (conviction 97.6, P=53.4%) - INR 1279.40 [LightGBM_V2]
+[BUY] PICCADIL.NS: Buy (conviction 97.5, P=53.2%) - INR 615.75 [LightGBM_V2]
+[BUY] IVALUE.NS: Buy (conviction 97.2, P=52.6%) - INR 230.26 [LightGBM_V2]
+[BUY] GODREJCP.NS: Buy (conviction 96.4, P=51.3%) - INR 878.00 [LightGBM_V2]
+[BUY] CRIZAC.NS: Buy (conviction 96.1, P=50.8%) - INR 160.29 [LightGBM_V2]
+[BUY] AVANTIFEED.NS: Buy (conviction 95.9, P=50.6%) - INR 798.60 [LightGBM_V2]
+[BUY] BIKAJI.NS: Buy (conviction 95.2, P=49.7%) - INR 584.20 [LightGBM_V2]

@@ -1,0 +1,36 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-04
+[TIME] Report Generated (EST): 2026-08-04 16:42:57
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-04
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1893
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 4
+[DATA] Medium Confidence: 217
+[LOW] Low Confidence: 1672
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.64
+[DATA] Average RSI: 50.1
+[COMPANY] Stocks Processed: 1893
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] VIJIFIN.NS: Buy (79.7%) - INR 10.61 [LightGBM_V2]
+[BUY] E2E.NS: Buy (73.2%) - INR 570.15 [LightGBM_V2]
+[BUY] LAURUSLABS.NS: Buy (71.8%) - INR 1850.00 [LightGBM_V2]
+[BUY] BIRLACABLE.NS: Buy (71.0%) - INR 224.70 [LightGBM_V2]

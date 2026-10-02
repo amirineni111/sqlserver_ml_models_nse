@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-23
+[TIME] Report Generated (EST): 2026-07-23 16:42:00
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-23
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1893
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 827
+[DATA] Medium Confidence: 1037
+[LOW] Low Confidence: 29
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 69.13
+[DATA] Average RSI: 43.5
+[COMPANY] Stocks Processed: 1893
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] OMAXE.NS: Sell (83.9%) - INR 86.88 [LightGBM_V2]
+[SELL] TRIVENI.NS: Sell (82.5%) - INR 261.75 [LightGBM_V2]
+[SELL] GAUDIUMIVF.NS: Sell (80.9%) - INR 155.00 [LightGBM_V2]
+[SELL] ORIENTPPR.NS: Sell (78.3%) - INR 17.76 [LightGBM_V2]
+[SELL] RHIM.NS: Sell (78.0%) - INR 395.60 [LightGBM_V2]
+[SELL] HUHTAMAKI.NS: Sell (78.0%) - INR 297.38 [LightGBM_V2]
+[SELL] INDOAMIN.NS: Sell (77.8%) - INR 130.29 [LightGBM_V2]
+[SELL] DIACABS.NS: Sell (77.7%) - INR 273.93 [LightGBM_V2]
+[SELL] BLUESTONE.NS: Sell (77.6%) - INR 747.00 [LightGBM_V2]
+[SELL] DIGITIDE.NS: Sell (77.5%) - INR 101.42 [LightGBM_V2]

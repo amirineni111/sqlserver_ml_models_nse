@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-02
+[TIME] Report Generated (EST): 2026-09-02 16:45:33
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-02
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1892
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1325
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1888
+[DATA] Medium Confidence: 3
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 82.44
+[DATA] Average RSI: 45.7
+[COMPANY] Stocks Processed: 1892
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] UEL.NS: Sell (88.5%) - INR 219.15 [LightGBM_V2]
+[SELL] DCAL.NS: Sell (88.3%) - INR 176.85 [LightGBM_V2]
+[SELL] KILITCH.NS: Sell (88.1%) - INR 171.37 [LightGBM_V2]
+[SELL] EIFFL.NS: Sell (87.7%) - INR 284.25 [LightGBM_V2]
+[SELL] BROOKS.NS: Sell (87.7%) - INR 65.10 [LightGBM_V2]
+[SELL] SPARC.NS: Sell (87.7%) - INR 199.58 [LightGBM_V2]
+[SELL] CENTUM.NS: Sell (87.7%) - INR 3555.30 [LightGBM_V2]
+[SELL] SUVEN.NS: Sell (87.7%) - INR 372.85 [LightGBM_V2]
+[SELL] PARACABLES.NS: Sell (87.7%) - INR 64.16 [LightGBM_V2]
+[SELL] CORDSCABLE.NS: Sell (87.7%) - INR 315.50 [LightGBM_V2]

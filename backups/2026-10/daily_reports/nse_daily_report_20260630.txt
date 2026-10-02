@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-30
+[TIME] Report Generated (EST): 2026-06-30 16:39:25
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-30
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1909
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1337
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1431
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 55.95
+[DATA] Average RSI: 54.9
+[COMPANY] Stocks Processed: 1909
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] KOTYARK.NS: Sell (87.1%) - INR 41.05 [GradientBoosting_V2_Calibrated]
+[SELL] ZFCVINDIA.NS: Sell (67.1%) - INR 2566.00 [GradientBoosting_V2_Calibrated]
+[SELL] CCCL.NS: Sell (64.8%) - INR 17.31 [GradientBoosting_V2_Calibrated]
+[SELL] ELECTHERM.NS: Sell (64.8%) - INR 1097.90 [GradientBoosting_V2_Calibrated]
+[SELL] IITL.NS: Sell (64.8%) - INR 135.19 [GradientBoosting_V2_Calibrated]
+[SELL] MOREPENLAB.NS: Sell (64.8%) - INR 59.12 [GradientBoosting_V2_Calibrated]
+[SELL] NACLIND.NS: Sell (64.8%) - INR 220.76 [GradientBoosting_V2_Calibrated]
+[SELL] NECCLTD.NS: Sell (64.8%) - INR 17.18 [GradientBoosting_V2_Calibrated]
+[SELL] OMAXE.NS: Sell (64.8%) - INR 80.85 [GradientBoosting_V2_Calibrated]
+[SELL] PANACEABIO.NS: Sell (64.8%) - INR 565.85 [GradientBoosting_V2_Calibrated]

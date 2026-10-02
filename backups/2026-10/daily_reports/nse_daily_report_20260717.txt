@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-17
+[TIME] Report Generated (EST): 2026-07-17 16:42:55
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1898
+[BUY] Buy Signals: 569
+[SELL] Sell Signals: 1329
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1844
+[DATA] Medium Confidence: 53
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 78.18
+[DATA] Average RSI: 50.2
+[COMPANY] Stocks Processed: 1898
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SHIVAMAUTO.NS: Sell (90.7%) - INR 17.42 [LightGBM_V2]
+[SELL] MHLXMIRU.NS: Sell (89.9%) - INR 137.96 [LightGBM_V2]
+[SELL] PENINLAND.NS: Sell (89.0%) - INR 17.77 [LightGBM_V2]
+[SELL] BODALCHEM.NS: Sell (86.4%) - INR 64.16 [LightGBM_V2]
+[SELL] PREMIERPOL.NS: Sell (86.3%) - INR 73.75 [LightGBM_V2]
+[SELL] SHIVAUM.NS: Sell (86.2%) - INR 416.65 [LightGBM_V2]
+[SELL] CAMPUS.NS: Sell (86.2%) - INR 235.97 [LightGBM_V2]
+[SELL] GARFIBRES.NS: Sell (86.0%) - INR 765.50 [LightGBM_V2]
+[SELL] MANAKALUCO.NS: Sell (86.0%) - INR 36.79 [LightGBM_V2]
+[SELL] CENTEXT.NS: Sell (86.0%) - INR 19.41 [LightGBM_V2]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-02
+[TIME] Report Generated (EST): 2026-07-02 16:53:20
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-02
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1909
+[BUY] Buy Signals: 1039
+[SELL] Sell Signals: 870
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1431
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 51.45
+[DATA] Average RSI: 61.9
+[COMPANY] Stocks Processed: 1909
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ZFCVINDIA.NS: Sell (63.1%) - INR 2433.20 [GradientBoosting_V2_Calibrated]
+[SELL] KOTYARK.NS: Sell (57.3%) - INR 37.05 [GradientBoosting_V2_Calibrated]
+[SELL] ABINFRA.NS: Sell (56.3%) - INR 10.93 [GradientBoosting_V2_Calibrated]
+[SELL] GOLDTECH.NS: Sell (56.3%) - INR 67.86 [GradientBoosting_V2_Calibrated]
+[SELL] BANG.NS: Sell (56.3%) - INR 30.32 [GradientBoosting_V2_Calibrated]
+[SELL] SECURKLOUD.NS: Sell (53.2%) - INR 19.03 [GradientBoosting_V2_Calibrated]
+[SELL] SAKSOFT.NS: Sell (53.2%) - INR 179.86 [GradientBoosting_V2_Calibrated]
+[SELL] AVROIND.NS: Sell (53.2%) - INR 10.33 [GradientBoosting_V2_Calibrated]
+[SELL] DIGIDRIVE.NS: Sell (53.2%) - INR 18.84 [GradientBoosting_V2_Calibrated]
+[SELL] DAMODARIND.NS: Sell (53.2%) - INR 30.52 [GradientBoosting_V2_Calibrated]

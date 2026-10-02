@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-03
+[TIME] Report Generated (EST): 2026-07-03 16:53:44
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-03
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1909
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1337
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1431
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 66.31
+[DATA] Average RSI: 57.7
+[COMPANY] Stocks Processed: 1909
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SETL.NS: Sell (85.2%) - INR 281.75 [GradientBoosting_V2_Calibrated]
+[SELL] ANMOL.NS: Sell (82.3%) - INR 11.31 [GradientBoosting_V2_Calibrated]
+[SELL] TIRUPATIFL.NS: Sell (80.5%) - INR 66.82 [GradientBoosting_V2_Calibrated]
+[SELL] BETA.NS: Sell (79.9%) - INR 2090.50 [GradientBoosting_V2_Calibrated]
+[SELL] RKSWAMY.NS: Sell (79.5%) - INR 106.22 [GradientBoosting_V2_Calibrated]
+[SELL] HINDOILEXP.NS: Sell (79.5%) - INR 160.21 [GradientBoosting_V2_Calibrated]
+[SELL] ONGC.NS: Sell (79.4%) - INR 237.84 [GradientBoosting_V2_Calibrated]
+[SELL] HINDPETRO.NS: Sell (79.4%) - INR 399.25 [GradientBoosting_V2_Calibrated]
+[SELL] OMFREIGHT.NS: Sell (79.2%) - INR 102.87 [GradientBoosting_V2_Calibrated]
+[SELL] MRPL.NS: Sell (79.2%) - INR 150.19 [GradientBoosting_V2_Calibrated]

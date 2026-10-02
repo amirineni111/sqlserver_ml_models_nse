@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-24
+[TIME] Report Generated (EST): 2026-07-24 16:43:00
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1894
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 862
+[DATA] Medium Confidence: 951
+[LOW] Low Confidence: 81
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 69.07
+[DATA] Average RSI: 43.8
+[COMPANY] Stocks Processed: 1894
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SUMEETINDS.NS: Sell (82.5%) - INR 28.77 [LightGBM_V2]
+[SELL] TRIVENI.NS: Sell (81.4%) - INR 248.70 [LightGBM_V2]
+[SELL] GAUDIUMIVF.NS: Sell (80.6%) - INR 151.90 [LightGBM_V2]
+[SELL] RAJRATAN.NS: Sell (79.0%) - INR 488.30 [LightGBM_V2]
+[SELL] BEPL.NS: Sell (79.0%) - INR 121.81 [LightGBM_V2]
+[SELL] SKMEGGPROD.NS: Sell (79.0%) - INR 324.75 [LightGBM_V2]
+[SELL] BANSALWIRE.NS: Sell (78.9%) - INR 324.00 [LightGBM_V2]
+[SELL] GANDHAR.NS: Sell (78.6%) - INR 282.46 [LightGBM_V2]
+[SELL] IPL.NS: Sell (78.6%) - INR 149.98 [LightGBM_V2]
+[SELL] KRONOX.NS: Sell (78.6%) - INR 154.39 [LightGBM_V2]

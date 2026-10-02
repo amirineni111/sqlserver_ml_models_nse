@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-03",
+  "generated_at": "2026-07-03T16:53:44.645137",
+  "summary": {
+    "analysis_date": "2026-07-03",
+    "total_predictions": 1909,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1337,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1431,
+    "avg_confidence": 66.30656636046919,
+    "avg_rsi": 57.71217734548137,
+    "total_stocks_processed": 1909,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-03 16:53:11.467000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "SETL.NS",
+      "company": "Standard Engineering Technology Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.24362514865335,
+      "close_price": 281.75,
+      "rsi": 85.49552152557064,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ANMOL.NS",
+      "company": "Anmol India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.2843572928246,
+      "close_price": 11.31,
+      "rsi": 53.92491467576793,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TIRUPATIFL.NS",
+      "company": "Tirupati Forge Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 80.53435866028893,
+      "close_price": 66.82,
+      "rsi": 85.48070634401569,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BETA.NS",
+      "company": "BETA DRUGS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.89854472293813,
+      "close_price": 2090.5,
+      "rsi": 70.22165927802405,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RKSWAMY.NS",
+      "company": "R K SWAMY LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.47144236778749,
+      "close_price": 106.22,
+      "rsi": 61.15951742627344,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HINDOILEXP.NS",
+      "company": "Hindustan Oil Exploration Company Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.45011165936005,
+      "close_price": 160.21,
+      "rsi": 40.98915989159896,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ONGC.NS",
+      "company": "Oil and Natural Gas Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.41453976252302,
+      "close_price": 237.84,
+      "rsi": 35.80163043478262,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HINDPETRO.NS",
+      "company": "Hindustan Petroleum Corporation Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.37529118390032,
+      "close_price": 399.25,
+      "rsi": 56.20875824835036,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "OMFREIGHT.NS",
+      "company": "OM FREIGHT FORWARDERS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.2332586513951,
+      "close_price": 102.87,
+      "rsi": 72.51195132551064,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MRPL.NS",
+      "company": "Mangalore Refinery and Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 79.21735394633397,
+      "close_price": 150.19,
+      "rsi": 35.40205072854832,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

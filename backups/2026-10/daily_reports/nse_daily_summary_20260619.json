@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-19",
+  "generated_at": "2026-06-19T16:38:04.345348",
+  "summary": {
+    "analysis_date": "2026-06-19",
+    "total_predictions": 1908,
+    "total_buy_signals": 572,
+    "total_sell_signals": 1336,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 382,
+    "low_confidence_count": 1430,
+    "avg_confidence": 55.816784754427644,
+    "avg_rsi": 56.93242489030872,
+    "total_stocks_processed": 1908,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-19 16:37:34.880000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "E2E.NS",
+      "company": "E2E Networks",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 67.08526107072042,
+      "close_price": 425.9,
+      "rsi": 10.328749462827687,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SURANAT&P.NS",
+      "company": "Surana Telecom and Power Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 19.35,
+      "rsi": 66.58823529411767,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SPAL.NS",
+      "company": "S.P. Apparels Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 1028.4,
+      "rsi": 78.16536041505685,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RAJESHEXPO.NS",
+      "company": "Rajesh Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 97.51,
+      "rsi": 38.02794282961298,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MCLOUD.NS",
+      "company": "Magellanic Cloud Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 29.24,
+      "rsi": 59.91949396204714,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HATHWAY.NS",
+      "company": "Hathway Cable and Datacom Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 12.18,
+      "rsi": 72.67605633802816,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VPRPL.NS",
+      "company": "Vishnu Prakash R Punglia Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 56.256256256256265,
+      "close_price": 31.47,
+      "rsi": 34.10547067520946,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "CARBORUNIV.NS",
+      "company": "Carborundum Universal Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 55.88673621460506,
+      "close_price": 1241.7,
+      "rsi": 79.06912696226935,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VERANDA.NS",
+      "company": "Veranda Learning Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 55.80942935611844,
+      "close_price": 244.89,
+      "rsi": 59.40256045519204,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "VENUSREM.NS",
+      "company": "Venus Remedies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 55.80942935611844,
+      "close_price": 1739.1,
+      "rsi": 73.17531095986857,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

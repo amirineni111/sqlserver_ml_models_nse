@@ -1,0 +1,114 @@
+{
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T16:42:44.689888",
+  "summary": {
+    "analysis_date": "2026-08-21",
+    "total_predictions": 1892,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1325,
+    "total_hold_signals": 0,
+    "high_confidence_count": 29,
+    "medium_confidence_count": 1562,
+    "low_confidence_count": 301,
+    "avg_confidence": 63.12276365466883,
+    "avg_rsi": 47.777314076936435,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-21 16:42:18.077000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "KAYA.NS",
+      "company": "Kaya Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.30809110408742,
+      "close_price": 382.25,
+      "rsi": 80.60141509433964,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KOTARISUG.NS",
+      "company": "Kothari Sugars and Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 73.1699280164954,
+      "close_price": 33.29,
+      "rsi": 89.77777777777776,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EXPLEOSOL.NS",
+      "company": "Expleo Solutions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.10082164844289,
+      "close_price": 898.75,
+      "rsi": 70.94897045658016,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GOODLUCK.NS",
+      "company": "Goodluck India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.83366701346155,
+      "close_price": 490.9,
+      "rsi": 15.09239541114242,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ORIENTLTD.NS",
+      "company": "Orient Press Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.8163533461988,
+      "close_price": 81.16,
+      "rsi": 61.53846153846152,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NITIRAJ.NS",
+      "company": "Nitiraj Engineers Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.7981303442645,
+      "close_price": 198.91,
+      "rsi": 23.523556735235573,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SPECTRUM.NS",
+      "company": "SPECTRUM ELECTRIC IND LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.60264199008886,
+      "close_price": 2121.8,
+      "rsi": 32.01183431952664,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HMVL.NS",
+      "company": "Hindustan Media Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.60029012484569,
+      "close_price": 92.1,
+      "rsi": 46.16572310859495,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BONLON.NS",
+      "company": "Bonlon Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.58457688987438,
+      "close_price": 39.37,
+      "rsi": 39.455782312925166,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHEKHAWATI.NS",
+      "company": "Shekhawati Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.41101827586394,
+      "close_price": 18.6,
+      "rsi": 72.58791704238052,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-21
+[TIME] Report Generated (EST): 2026-07-21 16:41:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-21
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1897
+[BUY] Buy Signals: 569
+[SELL] Sell Signals: 1328
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1855
+[DATA] Medium Confidence: 40
+[LOW] Low Confidence: 2
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 78.67
+[DATA] Average RSI: 49.2
+[COMPANY] Stocks Processed: 1897
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] STERTOOLS.NS: Sell (87.6%) - INR 249.46 [LightGBM_V2]
+[SELL] SUMEETINDS.NS: Sell (87.0%) - INR 33.54 [LightGBM_V2]
+[SELL] SHADOWFAX.NS: Sell (86.8%) - INR 219.41 [LightGBM_V2]
+[SELL] ADVAIT.NS: Sell (86.8%) - INR 2251.70 [LightGBM_V2]
+[SELL] SEJALLTD.NS: Sell (86.8%) - INR 739.60 [LightGBM_V2]
+[SELL] GKENERGY.NS: Sell (86.8%) - INR 142.82 [LightGBM_V2]
+[SELL] SNOWMAN.NS: Sell (86.7%) - INR 36.99 [LightGBM_V2]
+[SELL] VINDHYATEL.NS: Sell (86.7%) - INR 1934.60 [LightGBM_V2]
+[SELL] BIRLANU.NS: Sell (86.6%) - INR 1346.70 [LightGBM_V2]
+[SELL] HPL.NS: Sell (86.5%) - INR 347.55 [LightGBM_V2]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-24
+[TIME] Report Generated (EST): 2026-06-24 16:40:29
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1907
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1335
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 381
+[LOW] Low Confidence: 1430
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 61.39
+[DATA] Average RSI: 55.6
+[COMPANY] Stocks Processed: 1907
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] KOTYARK.NS: Sell (83.3%) - INR 43.30 [GradientBoosting_V2_Calibrated]
+[SELL] RAJESHEXPO.NS: Sell (83.3%) - INR 102.12 [GradientBoosting_V2_Calibrated]
+[SELL] THEMISMED.NS: Sell (83.3%) - INR 118.20 [GradientBoosting_V2_Calibrated]
+[SELL] GPTINFRA.NS: Sell (80.5%) - INR 133.56 [GradientBoosting_V2_Calibrated]
+[SELL] DENTA.NS: Sell (75.7%) - INR 315.90 [GradientBoosting_V2_Calibrated]
+[SELL] DHRUV.NS: Sell (75.7%) - INR 28.55 [GradientBoosting_V2_Calibrated]
+[SELL] MARSONS.NS: Sell (75.7%) - INR 117.14 [GradientBoosting_V2_Calibrated]
+[SELL] RKEC.NS: Sell (75.7%) - INR 29.61 [GradientBoosting_V2_Calibrated]
+[SELL] BSL.NS: Sell (74.1%) - INR 127.90 [GradientBoosting_V2_Calibrated]
+[SELL] BIRLACABLE.NS: Sell (74.1%) - INR 213.32 [GradientBoosting_V2_Calibrated]

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-11
+[TIME] Report Generated (EST): 2026-09-14 16:38:28
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-11
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1904
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1333
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 892
+[DATA] Medium Confidence: 521
+[LOW] Low Confidence: 491
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 62.38
+[DATA] Average RSI: 45.2
+[COMPANY] Stocks Processed: 1904
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[SELL] ATALREAL.NS: Sell (conviction 98.3, P=87.4%) - INR 13.75 [LightGBM_V2]
+[SELL] HEG.NS: Sell (conviction 98.1, P=87.1%) - INR 237.20 [LightGBM_V2]
+[SELL] UMAEXPORTS.NS: Sell (conviction 97.9, P=86.7%) - INR 21.68 [LightGBM_V2]
+[BUY] KESORAMIND.NS: Buy (conviction 97.8, P=41.0%) - INR 12.01 [LightGBM_V2]
+[SELL] RELINFRA.NS: Sell (conviction 97.1, P=85.5%) - INR 53.66 [LightGBM_V2]
+[SELL] PGIL.NS: Sell (conviction 96.6, P=84.9%) - INR 1187.70 [LightGBM_V2]
+[BUY] ZENSARTECH.NS: Buy (conviction 96.4, P=39.1%) - INR 425.25 [LightGBM_V2]
+[SELL] UGARSUGAR.NS: Sell (conviction 96.3, P=84.6%) - INR 54.30 [LightGBM_V2]
+[SELL] KWIL.NS: Sell (conviction 96.1, P=84.4%) - INR 43.04 [LightGBM_V2]
+[SELL] NIRAJISPAT.NS: Sell (conviction 96.1, P=84.4%) - INR 300.30 [LightGBM_V2]

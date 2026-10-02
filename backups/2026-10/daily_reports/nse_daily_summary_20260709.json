@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T16:43:33.951398",
+  "summary": {
+    "analysis_date": "2026-07-09",
+    "total_predictions": 1905,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1334,
+    "total_hold_signals": 0,
+    "high_confidence_count": 103,
+    "medium_confidence_count": 1010,
+    "low_confidence_count": 792,
+    "avg_confidence": 61.15077192067596,
+    "avg_rsi": 48.25777056467158,
+    "total_stocks_processed": 1905,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-09 16:43:00.207000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "BPL.NS",
+      "company": "BPL Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.70170890393611,
+      "close_price": 58.84,
+      "rsi": 57.68639508070715,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AEGISLOG.NS",
+      "company": "AEGIS LOGISTICS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.32486793302856,
+      "close_price": 1264.1,
+      "rsi": 70.97537106507912,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EVERESTIND.NS",
+      "company": "Everest Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.26253046738788,
+      "close_price": 481.35,
+      "rsi": 70.34283353985956,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHIVAUM.NS",
+      "company": "SHIV AUM STEELS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.65143158037799,
+      "close_price": 427.15,
+      "rsi": 63.00603891746813,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUBROS.NS",
+      "company": "Subros Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.47631244502413,
+      "close_price": 813.6,
+      "rsi": 62.34557997753891,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CARRARO.NS",
+      "company": "CARRARO INDIA LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.37300556239266,
+      "close_price": 561.0,
+      "rsi": 56.00508905852418,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PANAMAPET.NS",
+      "company": "Panama Petrochem Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.92318191036466,
+      "close_price": 427.0,
+      "rsi": 53.35720680393912,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EMKAY.NS",
+      "company": "Emkay Global Financial Services Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.57083718978677,
+      "close_price": 265.1,
+      "rsi": 31.206181141794247,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RAMCOSYS.NS",
+      "company": "Ramco Systems Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.44298765199484,
+      "close_price": 837.35,
+      "rsi": 80.69241011984023,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AEGISVOPAK.NS",
+      "company": "AEGIS VOPAK TERMINALS LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.4250171800567,
+      "close_price": 275.53,
+      "rsi": 64.58576954214266,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,33 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-28
+[TIME] Report Generated (EST): 2026-08-28 16:40:03
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-28
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1894
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1
+[DATA] Medium Confidence: 516
+[LOW] Low Confidence: 1377
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.14
+[DATA] Average RSI: 47.6
+[COMPANY] Stocks Processed: 1894
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] NRL.NS: Buy (72.4%) - INR 125.00 [LightGBM_V2]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-21",
+  "generated_at": "2026-07-21T16:41:53.290648",
+  "summary": {
+    "analysis_date": "2026-07-21",
+    "total_predictions": 1897,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1328,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1855,
+    "medium_confidence_count": 40,
+    "low_confidence_count": 2,
+    "avg_confidence": 78.67095313885424,
+    "avg_rsi": 49.231061272424725,
+    "total_stocks_processed": 1897,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-21 16:41:25.520000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "STERTOOLS.NS",
+      "company": "Sterling Tools Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.61038849100898,
+      "close_price": 249.46,
+      "rsi": 49.3405600722674,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUMEETINDS.NS",
+      "company": "Sumeet Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.97574459248399,
+      "close_price": 33.54,
+      "rsi": 76.78100263852244,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHADOWFAX.NS",
+      "company": "SHADOWFAX TECHNOLOGIES L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.83451600984824,
+      "close_price": 219.41,
+      "rsi": 40.86466597677359,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ADVAIT.NS",
+      "company": "Advait Energy Transitions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.8023953996547,
+      "close_price": 2251.7,
+      "rsi": 45.723421262989596,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SEJALLTD.NS",
+      "company": "Sejal Glass Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.798715865812,
+      "close_price": 739.6,
+      "rsi": 47.29489458978919,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GKENERGY.NS",
+      "company": "GK ENERGY LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.76045655066324,
+      "close_price": 142.82,
+      "rsi": 57.01254275940705,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SNOWMAN.NS",
+      "company": "Snowman Logistics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.70422822341388,
+      "close_price": 36.99,
+      "rsi": 49.33333333333332,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VINDHYATEL.NS",
+      "company": "Vindhya Telelinks Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.66696065813974,
+      "close_price": 1934.6,
+      "rsi": 37.37911025145068,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BIRLANU.NS",
+      "company": "BirlaNu Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.61893866961086,
+      "close_price": 1346.7,
+      "rsi": 48.194382523406176,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HPL.NS",
+      "company": "HPL Electric & Power Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.54740548271192,
+      "close_price": 347.55,
+      "rsi": 41.605301914580274,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

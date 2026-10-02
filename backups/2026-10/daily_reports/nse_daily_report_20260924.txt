@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-24
+[TIME] Report Generated (EST): 2026-09-24 16:44:34
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1899
+[BUY] Buy Signals: 569
+[SELL] Sell Signals: 1330
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 904
+[DATA] Medium Confidence: 473
+[LOW] Low Confidence: 522
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 64.31
+[DATA] Average RSI: 45.1
+[COMPANY] Stocks Processed: 1899
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] WELINV.NS: Buy (conviction 99.9, P=50.3%) - INR 2457.00 [LightGBM_V2]
+[BUY] SYSTMTXC.NS: Buy (conviction 99.5, P=43.4%) - INR 79.05 [LightGBM_V2]
+[BUY] OILCOUNTUB.NS: Buy (conviction 99.5, P=43.3%) - INR 70.89 [LightGBM_V2]
+[BUY] MANKIND.NS: Buy (conviction 97.4, P=37.0%) - INR 2500.00 [LightGBM_V2]
+[BUY] KOTAKBANK.NS: Buy (conviction 97.3, P=36.7%) - INR 405.00 [LightGBM_V2]
+[BUY] EICHERMOT.NS: Buy (conviction 97.1, P=36.4%) - INR 7338.50 [LightGBM_V2]
+[BUY] IDFCFIRSTB.NS: Buy (conviction 96.4, P=35.6%) - INR 83.76 [LightGBM_V2]
+[BUY] LTF.NS: Buy (conviction 96.2, P=35.3%) - INR 282.00 [LightGBM_V2]
+[BUY] BAJFINANCE.NS: Buy (conviction 95.9, P=35.1%) - INR 982.00 [LightGBM_V2]
+[BUY] AUBANK.NS: Buy (conviction 95.9, P=35.0%) - INR 1000.10 [LightGBM_V2]

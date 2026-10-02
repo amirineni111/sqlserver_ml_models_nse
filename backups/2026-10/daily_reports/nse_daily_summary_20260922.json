@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-22",
+  "generated_at": "2026-09-22T16:42:35.763873",
+  "summary": {
+    "analysis_date": "2026-09-22",
+    "total_predictions": 1900,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1330,
+    "total_hold_signals": 0,
+    "high_confidence_count": 801,
+    "medium_confidence_count": 522,
+    "low_confidence_count": 577,
+    "avg_confidence": 62.1459763673814,
+    "avg_rsi": 46.123193888801225,
+    "total_stocks_processed": 1900,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-22 16:42:06.727000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "WELINV.NS",
+      "company": "Welspun Investments and Commercials Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 45.81590168071163,
+      "conviction_score": 99.13744951336673,
+      "close_price": 2408.9,
+      "rsi": 67.3371306514774,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SYSTMTXC.NS",
+      "company": "Systematix Corporate Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 44.96220818500235,
+      "conviction_score": 98.92401440252056,
+      "close_price": 76.3,
+      "rsi": 89.59931798806477,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PRUDMOULI.NS",
+      "company": "Prudential Sugar Corporation Ltd.",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.92214167814351,
+      "conviction_score": 98.5924188527124,
+      "close_price": 13.71,
+      "rsi": 25.318761384335147,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TATAELXSI.NS",
+      "company": "Tata Elxsi Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 42.63122483880813,
+      "conviction_score": 98.03826221307511,
+      "close_price": 3220.0,
+      "rsi": 17.45562130177518,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GSLSU.NS",
+      "company": "Global Surfaces Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 42.221705308043624,
+      "conviction_score": 97.82133735103227,
+      "close_price": 30.91,
+      "rsi": 75.37728355837966,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EUROPRATIK.NS",
+      "company": "EURO PRATIK SALES LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 41.72700519516093,
+      "conviction_score": 97.52787432714811,
+      "close_price": 218.45,
+      "rsi": 13.612099644128065,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NUCLEUS.NS",
+      "company": "Nucleus Software Exports Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 41.67045567382965,
+      "conviction_score": 97.4919671986274,
+      "close_price": 685.95,
+      "rsi": 3.4042553191489446,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AHCL.NS",
+      "company": "ANLON HEALTHCARE LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.98605592842167,
+      "conviction_score": 97.01507071244629,
+      "close_price": 28.86,
+      "rsi": 97.58007117437722,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STLNETWORK.NS",
+      "company": "STL NETWORKS LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.86856094967346,
+      "conviction_score": 96.92479422287353,
+      "close_price": 47.34,
+      "rsi": 97.5943396226415,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELAXO.NS",
+      "company": "RELAXO FOOTWEAR",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 40.35105358447665,
+      "conviction_score": 96.49475232537584,
+      "close_price": 292.65,
+      "rsi": 7.838179519595428,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-27",
+  "generated_at": "2026-07-27T16:42:56.547687",
+  "summary": {
+    "analysis_date": "2026-07-27",
+    "total_predictions": 1892,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1325,
+    "total_hold_signals": 0,
+    "high_confidence_count": 880,
+    "medium_confidence_count": 987,
+    "low_confidence_count": 25,
+    "avg_confidence": 69.39397600216293,
+    "avg_rsi": 47.49592042539093,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-27 16:42:35.550000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "PPAP.NS",
+      "company": "PPAP Automotive Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.37614886776171,
+      "close_price": 287.43,
+      "rsi": 58.108701729164174,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AEROENTER.NS",
+      "company": "Aeroflex Enterprises Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.21688481594317,
+      "close_price": 122.1,
+      "rsi": 50.66789497927222,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "STYLAMIND.NS",
+      "company": "STYLAM INDUSTRIES",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 78.21066366358616,
+      "close_price": 3415.2,
+      "rsi": 67.19203649937782,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KRONOX.NS",
+      "company": "KRONOX LAB SCIENCES LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.9346725904661,
+      "close_price": 155.55,
+      "rsi": 54.72564660381922,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GNA.NS",
+      "company": "G N A Axles Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.83501381736464,
+      "close_price": 511.85,
+      "rsi": 57.64342774146695,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BANSALWIRE.NS",
+      "company": "BANSAL WIRE INDUSTRIES L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.75566277051622,
+      "close_price": 316.45,
+      "rsi": 35.1808176100629,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GOLDIAM.NS",
+      "company": "Goldiam International Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.58643258542024,
+      "close_price": 355.75,
+      "rsi": 11.333878887070384,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ICIL.NS",
+      "company": "Indo Count Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.53942484171054,
+      "close_price": 401.15,
+      "rsi": 32.67457180500659,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EMAMIPAP.NS",
+      "company": "Emami Paper Mills Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.4946365530279,
+      "close_price": 112.28,
+      "rsi": 72.82021604938271,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HUHTAMAKI.NS",
+      "company": "Huhtamaki India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.42304349245266,
+      "close_price": 312.61,
+      "rsi": 84.94865663243777,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

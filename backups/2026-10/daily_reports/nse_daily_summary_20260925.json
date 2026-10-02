@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-25",
+  "generated_at": "2026-09-26T14:50:50.415520",
+  "summary": {
+    "analysis_date": "2026-09-25",
+    "total_predictions": 1898,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1329,
+    "total_hold_signals": 0,
+    "high_confidence_count": 837,
+    "medium_confidence_count": 534,
+    "low_confidence_count": 527,
+    "avg_confidence": 61.766240830020365,
+    "avg_rsi": 44.89579017311393,
+    "total_stocks_processed": 1898,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-25 16:56:28.437000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "OILCOUNTUB.NS",
+      "company": "Oil Country Tubular Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 55.94615477696955,
+      "conviction_score": 99.69994687391072,
+      "signal_strength": "High",
+      "close_price": 72.2,
+      "rsi": 72.24969097651422,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "WELINV.NS",
+      "company": "Welspun Investments and Commercials Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 51.15740994251073,
+      "conviction_score": 99.11466055539276,
+      "signal_strength": "High",
+      "close_price": 2499.9,
+      "rsi": 78.87064033954604,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CASTROLIND.NS",
+      "company": "Castrol India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 44.138119897491364,
+      "conviction_score": 95.78489496700425,
+      "signal_strength": "High",
+      "close_price": 201.67,
+      "rsi": 69.49384404924751,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHREEJISPG.NS",
+      "company": "SHREEJI SHIPPING GLOBAL L",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.85606121715524,
+      "conviction_score": 95.51846026704827,
+      "signal_strength": "High",
+      "close_price": 752.45,
+      "rsi": 77.03814510097236,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHEKHAWATI.NS",
+      "company": "Shekhawati Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.11375893726198,
+      "conviction_score": 94.73856732202958,
+      "signal_strength": "High",
+      "close_price": 27.39,
+      "rsi": 98.37000814995926,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "Reliance Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 88.07965348584621,
+      "conviction_score": 98.51640003627097,
+      "signal_strength": "High",
+      "close_price": 45.2,
+      "rsi": 8.584686774942043,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UTLSOLAR.NS",
+      "company": "FUJIYAMA POWER SYSTEMS L",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.83654756724032,
+      "conviction_score": 96.20139332613908,
+      "signal_strength": "High",
+      "close_price": 422.1,
+      "rsi": 47.75066157012644,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CYBERMEDIA.NS",
+      "company": "Cyber Media (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.70996842414813,
+      "conviction_score": 96.09490227592647,
+      "signal_strength": "High",
+      "close_price": 20.18,
+      "rsi": 17.536534446764122,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DWARKESH.NS",
+      "company": "Dwarikesh Sugar Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.68089510110086,
+      "conviction_score": 96.07004139054168,
+      "signal_strength": "High",
+      "close_price": 45.01,
+      "rsi": 42.4540682414698,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ASTRAMICRO.NS",
+      "company": "Astra Microwave Products Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.66549341006085,
+      "conviction_score": 96.05680981470505,
+      "signal_strength": "High",
+      "close_price": 1622.4,
+      "rsi": 36.89773844641105,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

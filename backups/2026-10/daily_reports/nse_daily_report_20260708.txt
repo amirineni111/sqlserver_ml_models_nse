@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-08
+[TIME] Report Generated (EST): 2026-07-08 16:44:04
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-08
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1905
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1334
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1905
+[DATA] Medium Confidence: 0
+[LOW] Low Confidence: 0
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 82.42
+[DATA] Average RSI: 46.5
+[COMPANY] Stocks Processed: 1905
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] SECMARK.NS: Sell (89.5%) - INR 125.60 [LightGBM_V2]
+[SELL] PIIND.NS: Sell (88.3%) - INR 2572.30 [LightGBM_V2]
+[SELL] BONLON.NS: Sell (88.2%) - INR 42.57 [LightGBM_V2]
+[SELL] SILVERTUC.NS: Sell (87.9%) - INR 187.90 [LightGBM_V2]
+[SELL] KESORAMIND.NS: Sell (87.7%) - INR 10.36 [LightGBM_V2]
+[SELL] EMUDHRA.NS: Sell (87.5%) - INR 432.30 [LightGBM_V2]
+[SELL] TICL.NS: Sell (87.5%) - INR 11.75 [LightGBM_V2]
+[SELL] MASTERTR.NS: Sell (87.5%) - INR 80.51 [LightGBM_V2]
+[SELL] NMDC.NS: Sell (87.4%) - INR 83.74 [LightGBM_V2]
+[SELL] BERGEPAINT.NS: Sell (87.4%) - INR 498.10 [LightGBM_V2]

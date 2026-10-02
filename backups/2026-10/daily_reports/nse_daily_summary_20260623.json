@@ -1,0 +1,114 @@
+{
+  "date": "2026-06-23",
+  "generated_at": "2026-06-23T16:38:52.950661",
+  "summary": {
+    "analysis_date": "2026-06-23",
+    "total_predictions": 1906,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1335,
+    "total_hold_signals": 0,
+    "high_confidence_count": 96,
+    "medium_confidence_count": 381,
+    "low_confidence_count": 1429,
+    "avg_confidence": 61.7321950777299,
+    "avg_rsi": 55.838290525204584,
+    "total_stocks_processed": 1906,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-06-23 16:38:15.547000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "GPTINFRA.NS",
+      "company": "GPT Infraprojects Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 134.21,
+      "rsi": 77.55041518386719,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "THEMISMED.NS",
+      "company": "Themis Medicare Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 121.25,
+      "rsi": 64.23569186186913,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TIL.NS",
+      "company": "TIL Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.67567567567568,
+      "close_price": 215.08,
+      "rsi": 69.58879349299593,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BALAJITELE.NS",
+      "company": "Balaji Telefilms Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 87.12,
+      "rsi": 44.64285714285713,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "ALPHAGEO.NS",
+      "company": "Alphageo (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 212.56,
+      "rsi": 57.735339506172856,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AIRAN.NS",
+      "company": "Airan Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 16.26,
+      "rsi": 35.71428571428572,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AGROPHOS.NS",
+      "company": "Agro Phos (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 31.18,
+      "rsi": 56.09065155807366,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "BCG.NS",
+      "company": "Brightcom Group Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 10.16,
+      "rsi": 40.51724137931034,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "DPWIRES.NS",
+      "company": "D.P. Wires Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 203.73,
+      "rsi": 71.04254153733794,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMMBI.NS",
+      "company": "Emmbi Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10714285714286,
+      "close_price": 102.83,
+      "rsi": 81.93236714975842,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

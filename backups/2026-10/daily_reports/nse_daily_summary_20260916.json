@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T16:40:09.121820",
+  "summary": {
+    "analysis_date": "2026-09-16",
+    "total_predictions": 1900,
+    "total_buy_signals": 1255,
+    "total_sell_signals": 645,
+    "total_hold_signals": 0,
+    "high_confidence_count": 991,
+    "medium_confidence_count": 436,
+    "low_confidence_count": 473,
+    "avg_confidence": 59.21194587188115,
+    "avg_rsi": 39.571415373707026,
+    "total_stocks_processed": 1900,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-16 16:39:41.750000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ANMOL.NS",
+      "company": "Anmol India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.5702245354907,
+      "conviction_score": 96.07490049562148,
+      "close_price": 14.39,
+      "rsi": 72.61410788381744,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ACC.NS",
+      "company": "ACC Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.31318175118187,
+      "conviction_score": 92.8505968800578,
+      "close_price": 1226.6,
+      "rsi": 13.070976809557223,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ORIENTCEM.NS",
+      "company": "Orient Cement Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.22422870453428,
+      "conviction_score": 92.79055457688837,
+      "close_price": 121.64,
+      "rsi": 11.785714285714306,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AMBUJACEM.NS",
+      "company": "Ambuja Cements Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.1814193189745,
+      "conviction_score": 92.76149324619993,
+      "close_price": 381.05,
+      "rsi": 10.135841170323971,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GALLANTT.NS",
+      "company": "Gallantt Ispat Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.28976434512705,
+      "conviction_score": 91.3647860272664,
+      "close_price": 524.95,
+      "rsi": 21.56386595434681,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RVNL.NS",
+      "company": "Rail Vikas Nigam Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.27150973695572,
+      "conviction_score": 91.350187077398,
+      "close_price": 197.5,
+      "rsi": 17.602386764307056,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHREECEM.NS",
+      "company": "Shree Cement Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.97670974607986,
+      "conviction_score": 91.11131154990117,
+      "close_price": 21795.0,
+      "rsi": 15.812917594654792,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LINC.NS",
+      "company": "Linc Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.74442094569768,
+      "conviction_score": 90.918911877001,
+      "close_price": 90.37,
+      "rsi": 31.122166943062496,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MAANALU.NS",
+      "company": "Maan Aluminium Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.72185048403259,
+      "conviction_score": 90.90001875097718,
+      "close_price": 103.41,
+      "rsi": 26.258005489478478,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DEEPINDS.NS",
+      "company": "Deep Industries Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.62886876133922,
+      "conviction_score": 90.82181277190446,
+      "close_price": 735.15,
+      "rsi": 61.77748078850651,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

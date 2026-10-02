@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-09
+[TIME] Report Generated (EST): 2026-06-09 16:53:42
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-09
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1910
+[BUY] Buy Signals: 599
+[SELL] Sell Signals: 1311
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 98
+[DATA] Medium Confidence: 428
+[LOW] Low Confidence: 1384
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 73.33
+[DATA] Average RSI: 50.6
+[COMPANY] Stocks Processed: 1910
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] GTECJAINX.NS: Sell (92.5%) - INR 36.44 [GradientBoosting_V2_Calibrated]
+[SELL] TCIFINANCE.NS: Sell (92.5%) - INR 20.91 [GradientBoosting_V2_Calibrated]
+[SELL] AHCL.NS: Sell (91.3%) - INR 15.14 [GradientBoosting_V2_Calibrated]
+[SELL] AFIL.NS: Sell (89.8%) - INR 10.01 [GradientBoosting_V2_Calibrated]
+[SELL] DIGJAMLMTD.NS: Sell (89.8%) - INR 44.98 [GradientBoosting_V2_Calibrated]
+[SELL] FINKURVE.NS: Sell (89.8%) - INR 62.33 [GradientBoosting_V2_Calibrated]
+[SELL] PANACEABIO.NS: Sell (89.8%) - INR 607.75 [GradientBoosting_V2_Calibrated]
+[SELL] KWIL.NS: Sell (89.4%) - INR 32.81 [GradientBoosting_V2_Calibrated]
+[SELL] NEULANDLAB.NS: Sell (89.4%) - INR 17188.00 [GradientBoosting_V2_Calibrated]
+[SELL] VITAL.NS: Sell (89.4%) - INR 56.10 [GradientBoosting_V2_Calibrated]

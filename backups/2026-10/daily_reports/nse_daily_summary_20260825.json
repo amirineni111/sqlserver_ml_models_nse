@@ -1,0 +1,114 @@
+{
+  "date": "2026-08-25",
+  "generated_at": "2026-08-25T16:45:14.400670",
+  "summary": {
+    "analysis_date": "2026-08-25",
+    "total_predictions": 1894,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 16,
+    "medium_confidence_count": 1333,
+    "low_confidence_count": 545,
+    "avg_confidence": 62.033183575410284,
+    "avg_rsi": 46.808632292604244,
+    "total_stocks_processed": 1894,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-25 16:44:46.900000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "JAGSNPHARM.NS",
+      "company": "Jagsonpal Pharmaceuticals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.70001316289888,
+      "close_price": 241.43,
+      "rsi": 51.922668366263025,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MOLDTECH.NS",
+      "company": "Mold-Tek Technologies Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.25577067385616,
+      "close_price": 191.54,
+      "rsi": 62.51992031872509,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SHIVAUM.NS",
+      "company": "SHIV AUM STEELS LIMITED",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.49094758946835,
+      "close_price": 440.05,
+      "rsi": 61.80555555555557,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NAHARINDUS.NS",
+      "company": "Nahar Industrial Enterprises Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.30403413261755,
+      "close_price": 139.23,
+      "rsi": 64.56671251719395,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "TIL.NS",
+      "company": "TIL Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.96387264073624,
+      "close_price": 240.6,
+      "rsi": 38.74709976798144,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DGCONTENT.NS",
+      "company": "Digicontent Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.76206971580639,
+      "close_price": 24.58,
+      "rsi": 35.613682092555294,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KOTARISUG.NS",
+      "company": "Kothari Sugars and Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.52936143167064,
+      "close_price": 35.25,
+      "rsi": 75.57755775577559,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "COMSYN.NS",
+      "company": "Commercial Syn Bags Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.47216195573081,
+      "close_price": 287.68,
+      "rsi": 85.94614533382523,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IMAGICAA.NS",
+      "company": "Imagicaaworld Entertainment Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.44706852744423,
+      "close_price": 49.79,
+      "rsi": 50.5859375,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LAMBODHARA.NS",
+      "company": "Lambodhara Textiles Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 70.34244517279383,
+      "close_price": 142.03,
+      "rsi": 77.45568300312824,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-05-13
+[TIME] Report Generated (EST): 2026-05-13 16:55:48
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-05-13
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 2056
+[BUY] Buy Signals: 270
+[SELL] Sell Signals: 1786
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 121
+[DATA] Medium Confidence: 389
+[LOW] Low Confidence: 1546
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 57.43
+[DATA] Average RSI: 46.9
+[COMPANY] Stocks Processed: 2056
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] CALSOFT.NS: Sell (83.8%) - INR 25.19 [GradientBoosting_V2_Calibrated]
+[SELL] GATECHDVR.NS: Sell (83.8%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] AKSHAR.NS: Sell (82.0%) - INR 0.49 [GradientBoosting_V2_Calibrated]
+[SELL] GATECH.NS: Sell (82.0%) - INR 0.52 [GradientBoosting_V2_Calibrated]
+[SELL] GVKPIL.NS: Sell (82.0%) - INR 3.32 [GradientBoosting_V2_Calibrated]
+[SELL] HAVISHA.NS: Sell (82.0%) - INR 1.59 [GradientBoosting_V2_Calibrated]
+[SELL] FLEXITUFF.NS: Sell (81.0%) - INR 7.04 [GradientBoosting_V2_Calibrated]
+[SELL] FLFL.NS: Sell (81.0%) - INR 1.71 [GradientBoosting_V2_Calibrated]
+[SELL] MTEDUCARE.NS: Sell (81.0%) - INR 1.62 [GradientBoosting_V2_Calibrated]
+[SELL] SADHNANIQ.NS: Sell (81.0%) - INR 2.53 [GradientBoosting_V2_Calibrated]

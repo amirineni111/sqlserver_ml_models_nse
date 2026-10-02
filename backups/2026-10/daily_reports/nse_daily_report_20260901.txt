@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-01
+[TIME] Report Generated (EST): 2026-09-01 16:45:06
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-01
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 1880
+[DATA] Medium Confidence: 14
+[LOW] Low Confidence: 1
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 79.79
+[DATA] Average RSI: 46.8
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] RSYSTEMS.NS: Sell (86.3%) - INR 255.74 [LightGBM_V2]
+[SELL] 63MOONS.NS: Sell (86.2%) - INR 775.55 [LightGBM_V2]
+[SELL] RPPL.NS: Sell (86.0%) - INR 23.14 [LightGBM_V2]
+[SELL] GABRIEL.NS: Sell (86.0%) - INR 1426.30 [LightGBM_V2]
+[SELL] RELCHEMQ.NS: Sell (86.0%) - INR 113.19 [LightGBM_V2]
+[SELL] IZMO.NS: Sell (85.9%) - INR 916.30 [LightGBM_V2]
+[SELL] PARACABLES.NS: Sell (85.9%) - INR 63.45 [LightGBM_V2]
+[SELL] JAMNAAUTO.NS: Sell (85.9%) - INR 120.85 [LightGBM_V2]
+[SELL] CCAVENUE.NS: Sell (85.8%) - INR 15.31 [LightGBM_V2]
+[SELL] SARLAPOLY.NS: Sell (85.8%) - INR 103.81 [LightGBM_V2]

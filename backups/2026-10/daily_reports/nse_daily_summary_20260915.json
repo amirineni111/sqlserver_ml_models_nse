@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T16:38:28.286617",
+  "summary": {
+    "analysis_date": "2026-09-15",
+    "total_predictions": 1901,
+    "total_buy_signals": 570,
+    "total_sell_signals": 1331,
+    "total_hold_signals": 0,
+    "high_confidence_count": 967,
+    "medium_confidence_count": 517,
+    "low_confidence_count": 417,
+    "avg_confidence": 58.238877189955474,
+    "avg_rsi": 40.685350751957785,
+    "total_stocks_processed": 1901,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-15 16:38:00.660000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "UMAEXPORTS.NS",
+      "company": "Uma Exports Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 83.48690342684552,
+      "conviction_score": 98.87535003250028,
+      "close_price": 21.25,
+      "rsi": 22.134387351778656,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HEG.NS",
+      "company": "HEG Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.90137343902327,
+      "conviction_score": 98.5455980878132,
+      "close_price": 225.35,
+      "rsi": 8.971390772283783,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 81.00174362486807,
+      "conviction_score": 98.31785782748628,
+      "close_price": 15.31,
+      "rsi": 62.962962962962976,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PNCINFRA.NS",
+      "company": "PNC Infratech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 77.60092923827006,
+      "conviction_score": 97.0955953413701,
+      "close_price": 140.32,
+      "rsi": 6.603121978173803,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BHEL.NS",
+      "company": "Bharat Heavy Electricals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.78042124447396,
+      "conviction_score": 96.12238880538779,
+      "close_price": 412.85,
+      "rsi": 47.978567949342434,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ANMOL.NS",
+      "company": "Anmol India Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 75.37112376414694,
+      "conviction_score": 95.86385763867906,
+      "close_price": 15.27,
+      "rsi": 79.36507936507937,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NMDC.NS",
+      "company": "NMDC Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.89359178686537,
+      "conviction_score": 95.54137399104403,
+      "close_price": 80.5,
+      "rsi": 36.386386386386405,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BEL.NS",
+      "company": "Bharat Electronics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.52168162047134,
+      "conviction_score": 95.27375365937121,
+      "close_price": 382.9,
+      "rsi": 26.381322957198464,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SIEMENS.NS",
+      "company": "Siemens Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.49958575940656,
+      "conviction_score": 95.25738222241502,
+      "close_price": 3770.0,
+      "rsi": 18.646057522989665,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JINDALPHOT.NS",
+      "company": "Jindal Photo Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.48840474530279,
+      "conviction_score": 95.24907737916651,
+      "close_price": 1099.6,
+      "rsi": 62.372188139059276,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

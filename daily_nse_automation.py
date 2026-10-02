@@ -763,6 +763,7 @@ NSE 500 Daily Trading Report
 -------------------------------
 [NOTE] P = probability of the predicted class. On relative-threshold days a Buy
 [NOTE] can carry P < 50%: it is a top-30% relative pick, not a >50% call.
+[NOTE] Likewise a Sell can carry P < 50% when the whole universe scores bullish.
 [NOTE] Raw hit rate tracks market direction; pair Buys against Sells to hedge.
 """
             for signal in ('Buy', 'Sell'):

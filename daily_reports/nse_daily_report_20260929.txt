@@ -1,0 +1,49 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-29
+[TIME] Report Generated (EST): 2026-10-01 16:37:34
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-29
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1898
+[BUY] Buy Signals: 569
+[SELL] Sell Signals: 1329
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 525
+[DATA] Medium Confidence: 675
+[LOW] Low Confidence: 698
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 64.58
+[DATA] Average RSI: 41.7
+[COMPANY] Stocks Processed: 1898
+
+[TARGET] TOP CONVICTION SIGNALS (top 5 per side, ranked separately)
+-------------------------------
+[NOTE] P = probability of the predicted class. On relative-threshold days a Buy
+[NOTE] can carry P < 50%: it is a top-30% relative pick, not a >50% call.
+[NOTE] Raw hit rate tracks market direction; pair Buys against Sells to hedge.
+
+Buy side:
+[BUY] IITL.NS: Buy (conviction 96.9, High, P=72.4%) - INR 125.64 [LightGBM_V2]
+[BUY] IDFCFIRSTB.NS: Buy (conviction 96.8, High, P=72.0%) - INR 79.46 [LightGBM_V2]
+[BUY] CDSL.NS: Buy (conviction 96.7, High, P=71.8%) - INR 1261.90 [LightGBM_V2]
+[BUY] INDIANB.NS: Buy (conviction 96.7, High, P=71.8%) - INR 795.25 [LightGBM_V2]
+[BUY] ICICIPRULI.NS: Buy (conviction 96.7, High, P=71.8%) - INR 444.55 [LightGBM_V2]
+
+Sell side:
+[SELL] SHALPAINTS.NS: Sell (conviction 86.0, High, P=86.3%) - INR 78.09 [LightGBM_V2]
+[SELL] MAHASTEEL.NS: Sell (conviction 83.9, High, P=84.5%) - INR 1201.60 [LightGBM_V2]
+[SELL] DELTACORP.NS: Sell (conviction 82.4, High, P=83.3%) - INR 78.69 [LightGBM_V2]
+[SELL] UTTAMSUGAR.NS: Sell (conviction 81.6, High, P=82.6%) - INR 290.80 [LightGBM_V2]
+[SELL] TCIEXP.NS: Sell (conviction 81.5, High, P=82.6%) - INR 531.85 [LightGBM_V2]

@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-14",
+  "generated_at": "2026-05-14T16:51:58.992574",
+  "summary": {
+    "analysis_date": "2026-05-14",
+    "total_predictions": 2055,
+    "total_buy_signals": 120,
+    "total_sell_signals": 1935,
+    "total_hold_signals": 0,
+    "high_confidence_count": 184,
+    "medium_confidence_count": 445,
+    "low_confidence_count": 1426,
+    "avg_confidence": 58.820134058443294,
+    "avg_rsi": 47.657163600733334,
+    "total_stocks_processed": 2055,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-14 16:51:58.300000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "CALSOFT.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 93.35585585585585,
+      "close_price": 23.94,
+      "rsi": 83.64888123924268,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "EMAMIREAL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.65822784810126,
+      "close_price": 97.14,
+      "rsi": 64.26378320651449,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "TIJARIA.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 87.61160714285714,
+      "close_price": 4.5,
+      "rsi": 39.28571428571426,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KEEPLEARN.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.68853640951694,
+      "close_price": 2.15,
+      "rsi": 48.88888888888889,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "KSHITIJPOL.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.68853640951694,
+      "close_price": 4.13,
+      "rsi": 79.90654205607477,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MTEDUCARE.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.68853640951694,
+      "close_price": 1.55,
+      "rsi": 61.64383561643837,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "FLEXITUFF.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.82828282828282,
+      "close_price": 6.96,
+      "rsi": 47.598253275109165,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AJOONI.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 4.22,
+      "rsi": 41.46341463414631,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHOPTFBR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 6.8,
+      "rsi": 54.63917525773195,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "AKSHAR.NS",
+      "company": null,
+      "predicted_signal": "Sell",
+      "confidence_percentage": 82.04833141542002,
+      "close_price": 0.49,
+      "rsi": 55.55555555555556,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

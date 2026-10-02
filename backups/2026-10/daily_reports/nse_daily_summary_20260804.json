@@ -1,0 +1,60 @@
+{
+  "date": "2026-08-04",
+  "generated_at": "2026-08-04T16:42:57.083762",
+  "summary": {
+    "analysis_date": "2026-08-04",
+    "total_predictions": 1893,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 4,
+    "medium_confidence_count": 217,
+    "low_confidence_count": 1672,
+    "avg_confidence": 55.640364640597305,
+    "avg_rsi": 50.07387175427438,
+    "total_stocks_processed": 1893,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-04 16:42:18.800000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 79.69979348203762,
+      "close_price": 10.61,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "E2E.NS",
+      "company": "E2E Networks",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 73.21004462342114,
+      "close_price": 570.15,
+      "rsi": 76.67951080583012,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "LAURUSLABS.NS",
+      "company": "Laurus Labs Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 71.82633746430062,
+      "close_price": 1850.0,
+      "rsi": 85.99951302654006,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BIRLACABLE.NS",
+      "company": "Birla Cable Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 70.98078339981633,
+      "close_price": 224.7,
+      "rsi": 74.780340472268,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

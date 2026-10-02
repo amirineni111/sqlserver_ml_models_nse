@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-15
+[TIME] Report Generated (EST): 2026-09-15 16:38:28
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-15
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1901
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1331
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 967
+[DATA] Medium Confidence: 517
+[LOW] Low Confidence: 417
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.24
+[DATA] Average RSI: 40.7
+[COMPANY] Stocks Processed: 1901
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[SELL] UMAEXPORTS.NS: Sell (conviction 98.9, P=83.5%) - INR 21.25 [LightGBM_V2]
+[SELL] HEG.NS: Sell (conviction 98.5, P=81.9%) - INR 225.35 [LightGBM_V2]
+[SELL] VIJIFIN.NS: Sell (conviction 98.3, P=81.0%) - INR 15.31 [LightGBM_V2]
+[SELL] PNCINFRA.NS: Sell (conviction 97.1, P=77.6%) - INR 140.32 [LightGBM_V2]
+[SELL] BHEL.NS: Sell (conviction 96.1, P=75.8%) - INR 412.85 [LightGBM_V2]
+[SELL] ANMOL.NS: Sell (conviction 95.9, P=75.4%) - INR 15.27 [LightGBM_V2]
+[SELL] NMDC.NS: Sell (conviction 95.5, P=74.9%) - INR 80.50 [LightGBM_V2]
+[SELL] BEL.NS: Sell (conviction 95.3, P=74.5%) - INR 382.90 [LightGBM_V2]
+[SELL] SIEMENS.NS: Sell (conviction 95.3, P=74.5%) - INR 3770.00 [LightGBM_V2]
+[SELL] JINDALPHOT.NS: Sell (conviction 95.2, P=74.5%) - INR 1099.60 [LightGBM_V2]

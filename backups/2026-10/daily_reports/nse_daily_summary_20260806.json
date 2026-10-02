@@ -1,0 +1,33 @@
+{
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T16:44:19.113032",
+  "summary": {
+    "analysis_date": "2026-08-06",
+    "total_predictions": 1892,
+    "total_buy_signals": 902,
+    "total_sell_signals": 990,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1,
+    "medium_confidence_count": 46,
+    "low_confidence_count": 1845,
+    "avg_confidence": 53.34073641431816,
+    "avg_rsi": 52.62728498379519,
+    "total_stocks_processed": 1892,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-06 16:43:39.800000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.58014992832922,
+      "close_price": 11.03,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -185,6 +185,19 @@ degenerate** (6,189 rows, 91 of 2,079 tickers), plus 3.61% warmup labelled separ
 Quarantined tickers are listed by reason in the run log. `dq_*` columns are
 diagnostics only — they are never model features.
 
+### ⚠️ Open issue: same-day India market context is NULL at run time (found Oct 1 2026)
+At 4:30 PM the current day's row in `market_context_daily` has `nifty50_close`,
+`india_vix_close` and `nifty50_return_1d` NULL (the 4:25 PM fetch fills US columns only;
+India columns arrive the next day). `merge_market_context()` forward-fills the previous
+day's levels and sets today's NIFTY return to 0, so production scores on market features
+that are one session stale, while training sees the backfilled values. Replaying Sep 29
+with those three columns NULL reproduces the stored predictions exactly (corr 1.0000);
+with the backfilled row the same model gives mean P(Up) 0.62 instead of 0.33. Stored-vs-
+backfilled rank correlation was 0.85 / 0.83 / 0.73 on Sep 25 / 28 / 29. The fix belongs
+in the `stockanalysis` ETL (fetch ^NSEI / India VIX for the same day before 4:30 PM).
+Consequence for debugging: re-scoring a past date will NOT match what was stored unless
+you NULL that date's India columns first.
+
 ### Expected Behavior
 - **Bearish market + Weak stock** → Sell
 - **Bearish market + Strong stock** → Buy (contrarian opportunity)
@@ -206,6 +219,7 @@ diagnostics only — they are never model features.
 | Aug 17–Sep 3 | Buy confidence structurally below Sell (avg 59.6% vs 66.3%); 21.4% of rows reported the probability of the class that was NOT predicted; reliability non-monotonic — peaks at 57.3% in the 65–70 band then decays to ~50% above it | `confidence_percentage = max(buy_prob, sell_prob)`. Under the relative top-30% rule a Buy is emitted with buy_prob < 0.50, so the reported figure was P(Sell) — and the top of the scale filled with confident Sells | Split into `confidence_percentage` = P(predicted class) and `conviction_score` = rank distance from the day's boundary; `signal_strength` bands conviction |
 | Jun 7–Sep 27 | Every Sunday retrain logged SUCCESS but production kept the old model (19 runs; only manual retrains ever landed, last one Sep 4) | `run_weekly_retrain.bat`: unescaped `)` in `echo ... FAILED (Exit Code: ...)` closed the `else (` block early, so the backup restore ran after **every** retrain | Escaped as `^(`/`^)`. Check: after a retrain, `model_metadata_v2.json` timestamp must be today's and the log must have no `[RESTORE]` line |
 | Sep 13–27 | Weekly retrain aborted 3× at pre-save CHECK 3 (test Up share 17% → 16% → 11%) | CHECK 3 applied a pooled 0.50 cut. Production uses `decide_signals()` per day (top 30% when the day's mean P(Up) < 0.45). The deployed model scored 15% on the same window, so the bearish Apr–Sep test window tripped it, not a worse model | CHECK 3 now runs the production rule per day. New CHECK 6: challenger's per-day AUC must be within 0.01 of the deployed model's on the same test window. `decide_signals()` is shared with `predict_nse_signals_v2.py` |
+| Sep 30–Oct 1 | Daily run aborted at the predict-time guard: 98.5% / 96.9% Buy (limit 95%). No rows written for two sessions | The model has one hard split on `nifty50_vs_200d` at ≈0.9345 (z = −2.1 vs training). Market-wide features are identical for every ticker, so crossing it moved the whole universe's mean P(Up) 0.33 → 0.62 in one day. `decide_signals()` only had a relative rule for the bearish side; the bullish side fell through to the absolute 0.50 cut. Inputs, model file and code were all fine | `decide_signals()` is now symmetric: mean P(Up) < 0.45 → top 30% Buy; > 0.55 → bottom 30% Sell; in between → absolute 0.50. Sep 30 backfilled, Oct 1 re-run (both 70/30). Expect 70% Buy every day while NIFTY stays below ~0.9345× its 200d average |
 | Jun 23–Jul 3 | Summary H/M/L counts frozen at 96/382/1431 | signal_strength used percentile rank (top 5%/20% of fixed 1909-ticker universe) | Absolute confidence thresholds (High ≥ 70, Medium ≥ 60); historical rows backfilled |
 
 ### Output Table: `ml_nse_trading_predictions`
@@ -214,7 +228,7 @@ diagnostics only — they are never model features.
 | ticker | VARCHAR | NSE stock symbol |
 | trading_date | DATE | Prediction date |
 | predicted_signal | VARCHAR | 'Buy' or 'Sell' |
-| confidence_percentage | FLOAT | P(**predicted** class) × 100. Since Sep 2026 — was `max(buy_prob, sell_prob)`, which reported P(Sell) as the confidence of a Buy whenever the relative top-30% rule was active |
+| confidence_percentage | FLOAT | P(**predicted** class) × 100. Since Sep 2026 — was `max(buy_prob, sell_prob)`, which reported P(Sell) as the confidence of a Buy whenever the relative top-30% rule was active. Can be < 50 for Buys on bearish relative days and (since Oct 2026) for Sells on bullish relative days — rank on `conviction_score` |
 | conviction_score | FLOAT | Selection rank, 50–100: `50 + 50·tanh(|buy_prob − decision_threshold| / 2σ)`, σ = that day's cross-sectional std of buy_probability. **NOT a probability.** Added Sep 2026 |
 | signal_strength | VARCHAR | 'High' (≥ 70) / 'Medium' (60–70) / 'Low' (< 60), banded on **conviction_score** since Sep 2026 (was confidence_percentage). Absolute thresholds, not percentiles — the Jul 2026 move off percentile bands still stands |
 | RSI | FLOAT | Current RSI value |

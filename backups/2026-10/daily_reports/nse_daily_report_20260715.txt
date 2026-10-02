@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-15
+[TIME] Report Generated (EST): 2026-07-15 16:42:11
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-15
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1902
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1332
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 445
+[DATA] Medium Confidence: 1308
+[LOW] Low Confidence: 149
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 66.67
+[DATA] Average RSI: 49.2
+[COMPANY] Stocks Processed: 1902
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] EIFFL.NS: Sell (77.9%) - INR 329.25 [LightGBM_V2]
+[SELL] TARSONS.NS: Sell (77.8%) - INR 298.25 [LightGBM_V2]
+[SELL] TOTAL.NS: Sell (77.1%) - INR 53.50 [LightGBM_V2]
+[SELL] TCIEXP.NS: Sell (75.8%) - INR 563.00 [LightGBM_V2]
+[SELL] RAMCOIND.NS: Sell (75.7%) - INR 366.85 [LightGBM_V2]
+[SELL] JTEKTINDIA.NS: Sell (75.7%) - INR 141.19 [LightGBM_V2]
+[SELL] DIGITIDE.NS: Sell (75.6%) - INR 103.62 [LightGBM_V2]
+[SELL] SHEMAROO.NS: Sell (75.6%) - INR 123.70 [LightGBM_V2]
+[SELL] STERTOOLS.NS: Sell (75.5%) - INR 251.46 [LightGBM_V2]
+[SELL] RACLGEAR.NS: Sell (75.5%) - INR 1354.40 [LightGBM_V2]

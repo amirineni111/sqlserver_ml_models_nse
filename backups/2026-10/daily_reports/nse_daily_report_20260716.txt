@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-16
+[TIME] Report Generated (EST): 2026-07-16 16:43:02
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-16
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1901
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1331
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 262
+[DATA] Medium Confidence: 1437
+[LOW] Low Confidence: 202
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 65.40
+[DATA] Average RSI: 50.4
+[COMPANY] Stocks Processed: 1901
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] MHLXMIRU.NS: Sell (77.0%) - INR 137.72 [LightGBM_V2]
+[SELL] SHIVAUM.NS: Sell (76.5%) - INR 409.00 [LightGBM_V2]
+[SELL] COMSYN.NS: Sell (76.5%) - INR 187.84 [LightGBM_V2]
+[SELL] STERTOOLS.NS: Sell (76.1%) - INR 250.00 [LightGBM_V2]
+[SELL] FAIRCHEMOR.NS: Sell (75.2%) - INR 702.05 [LightGBM_V2]
+[SELL] MANAKALUCO.NS: Sell (75.0%) - INR 37.36 [LightGBM_V2]
+[SELL] IFGLEXPOR.NS: Sell (74.9%) - INR 219.11 [LightGBM_V2]
+[SELL] DIGITIDE.NS: Sell (74.8%) - INR 103.96 [LightGBM_V2]
+[SELL] ARFIN.NS: Sell (74.3%) - INR 88.19 [LightGBM_V2]
+[SELL] STEELCAS.NS: Sell (74.1%) - INR 303.20 [LightGBM_V2]

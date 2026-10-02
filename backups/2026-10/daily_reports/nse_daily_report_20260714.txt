@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-14
+[TIME] Report Generated (EST): 2026-07-14 16:42:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-14
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1902
+[BUY] Buy Signals: 570
+[SELL] Sell Signals: 1332
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 793
+[DATA] Medium Confidence: 1051
+[LOW] Low Confidence: 58
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 68.77
+[DATA] Average RSI: 49.1
+[COMPANY] Stocks Processed: 1902
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] JTEKTINDIA.NS: Sell (79.8%) - INR 141.30 [LightGBM_V2]
+[SELL] ONMOBILE.NS: Sell (78.3%) - INR 69.41 [LightGBM_V2]
+[SELL] RELAXO.NS: Sell (77.5%) - INR 389.15 [LightGBM_V2]
+[SELL] SUBROS.NS: Sell (77.5%) - INR 811.35 [LightGBM_V2]
+[SELL] RELIABLE.NS: Sell (77.5%) - INR 145.78 [LightGBM_V2]
+[SELL] OMFREIGHT.NS: Sell (77.5%) - INR 91.38 [LightGBM_V2]
+[SELL] BSOFT.NS: Sell (77.3%) - INR 289.05 [LightGBM_V2]
+[SELL] 63MOONS.NS: Sell (77.3%) - INR 721.80 [LightGBM_V2]
+[SELL] SOLARWORLD.NS: Sell (77.2%) - INR 208.87 [LightGBM_V2]
+[SELL] GENESYS.NS: Sell (76.9%) - INR 334.60 [LightGBM_V2]

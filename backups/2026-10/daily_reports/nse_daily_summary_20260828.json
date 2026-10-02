@@ -1,0 +1,33 @@
+{
+  "date": "2026-08-28",
+  "generated_at": "2026-08-28T16:40:03.360997",
+  "summary": {
+    "analysis_date": "2026-08-28",
+    "total_predictions": 1894,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1326,
+    "total_hold_signals": 0,
+    "high_confidence_count": 1,
+    "medium_confidence_count": 516,
+    "low_confidence_count": 1377,
+    "avg_confidence": 58.142942798778684,
+    "avg_rsi": 47.56334494712081,
+    "total_stocks_processed": 1894,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-28 16:39:38.140000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "NRL.NS",
+      "company": "Nupur Recyclers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.39799964794649,
+      "close_price": 125.0,
+      "rsi": 72.764598540146,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

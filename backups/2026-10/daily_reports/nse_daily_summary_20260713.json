@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-13",
+  "generated_at": "2026-07-13T16:42:33.913187",
+  "summary": {
+    "analysis_date": "2026-07-13",
+    "total_predictions": 1904,
+    "total_buy_signals": 571,
+    "total_sell_signals": 1333,
+    "total_hold_signals": 0,
+    "high_confidence_count": 49,
+    "medium_confidence_count": 1637,
+    "low_confidence_count": 218,
+    "avg_confidence": 64.3103194867526,
+    "avg_rsi": 49.047134172502275,
+    "total_stocks_processed": 1904,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-07-13 16:42:02.380000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ROTO.NS",
+      "company": "Roto Pumps Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 74.10995523623549,
+      "close_price": 68.32,
+      "rsi": 56.35048231511253,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MANALIPETC.NS",
+      "company": "Manali Petrochemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.28294523021562,
+      "close_price": 65.27,
+      "rsi": 47.25014784151388,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MAITHANALL.NS",
+      "company": "Maithan Alloys Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.99930342836446,
+      "close_price": 1034.8,
+      "rsi": 42.79015240328249,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MOL.NS",
+      "company": "Meghmani Organics Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.99020293845425,
+      "close_price": 48.8,
+      "rsi": 41.758241758241766,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "EPIGRAL.NS",
+      "company": "Epigral Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.90634537106928,
+      "close_price": 1068.5,
+      "rsi": 41.18288361951483,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "NIBE.NS",
+      "company": "Nibe Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.7426870801207,
+      "close_price": 1594.4,
+      "rsi": 27.67377201112143,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SPAL.NS",
+      "company": "S.P. Apparels Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.5255036015115,
+      "close_price": 1124.8,
+      "rsi": 64.80146237432723,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RITES.NS",
+      "company": "RITES Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.50945514494767,
+      "close_price": 226.65,
+      "rsi": 57.03108019995653,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GUJALKALI.NS",
+      "company": "Gujarat Alkalies and Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.3280012853536,
+      "close_price": 610.5,
+      "rsi": 32.16867469879517,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PVP.NS",
+      "company": "PVP Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.27352077931224,
+      "close_price": 29.49,
+      "rsi": 48.97218863361547,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

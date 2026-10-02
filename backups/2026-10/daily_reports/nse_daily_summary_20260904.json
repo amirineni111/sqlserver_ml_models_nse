@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-04",
+  "generated_at": "2026-09-04T16:37:49.822680",
+  "summary": {
+    "analysis_date": "2026-09-04",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 838,
+    "medium_confidence_count": 608,
+    "low_confidence_count": 449,
+    "avg_confidence": 60.694631111210896,
+    "avg_rsi": 48.754190412386805,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-04 16:37:17.153000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "PROTEAN.NS",
+      "company": "Protean eGov Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 58.374079487371354,
+      "conviction_score": 99.06657457694982,
+      "close_price": 496.3,
+      "rsi": 25.60747663551402,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "HAPPSTMNDS.NS",
+      "company": "Happiest Minds Technologies Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 54.04100055240387,
+      "conviction_score": 97.86456628823893,
+      "close_price": 354.0,
+      "rsi": 27.858880778588826,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GSS.NS",
+      "company": "GSS Infotech Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 53.495424435511104,
+      "conviction_score": 97.6320460320854,
+      "close_price": 11.03,
+      "rsi": 25.125628140703512,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UBL.NS",
+      "company": "United Breweries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 53.444640811675384,
+      "conviction_score": 97.60918524828821,
+      "close_price": 1279.4,
+      "rsi": 15.239591516103872,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PICCADIL.NS",
+      "company": "Piccadily Agro Industries Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 53.22024903956866,
+      "conviction_score": 97.50556982855086,
+      "close_price": 615.75,
+      "rsi": 14.92077464788727,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IVALUE.NS",
+      "company": "iValue Infosolutions Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 52.55026397627949,
+      "conviction_score": 97.16949824046117,
+      "close_price": 230.26,
+      "rsi": 18.732394366197198,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GODREJCP.NS",
+      "company": "Godrej Consumer Products Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 51.320301091694674,
+      "conviction_score": 96.4347421137569,
+      "close_price": 878.0,
+      "rsi": 24.59349593495942,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CRIZAC.NS",
+      "company": "CRIZAC LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 50.80491767153927,
+      "conviction_score": 96.07493805400028,
+      "close_price": 160.29,
+      "rsi": 25.325884543761674,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "AVANTIFEED.NS",
+      "company": "Avanti Feeds Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 50.62976596503653,
+      "conviction_score": 95.94490931924709,
+      "close_price": 798.6,
+      "rsi": 18.494271685761063,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BIKAJI.NS",
+      "company": "Bikaji Foods International Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 49.70234137635151,
+      "conviction_score": 95.18488748634863,
+      "close_price": 584.2,
+      "rsi": 32.18390804597709,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

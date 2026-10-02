@@ -1,0 +1,35 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-17
+[TIME] Report Generated (EST): 2026-08-17 16:47:15
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-17
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1890
+[BUY] Buy Signals: 1534
+[SELL] Sell Signals: 356
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bullish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 3
+[DATA] Medium Confidence: 360
+[LOW] Low Confidence: 1527
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.17
+[DATA] Average RSI: 52.1
+[COMPANY] Stocks Processed: 1890
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[BUY] LT.NS: Buy (75.3%) - INR 4086.70 [LightGBM_V2]
+[BUY] VIJIFIN.NS: Buy (74.5%) - INR 12.63 [LightGBM_V2]
+[BUY] 21STCENMGM.NS: Buy (72.7%) - INR 44.93 [LightGBM_V2]

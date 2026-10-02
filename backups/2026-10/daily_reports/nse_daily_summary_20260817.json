@@ -1,0 +1,51 @@
+{
+  "date": "2026-08-17",
+  "generated_at": "2026-08-17T16:47:15.502577",
+  "summary": {
+    "analysis_date": "2026-08-17",
+    "total_predictions": 1890,
+    "total_buy_signals": 1534,
+    "total_sell_signals": 356,
+    "total_hold_signals": 0,
+    "high_confidence_count": 3,
+    "medium_confidence_count": 360,
+    "low_confidence_count": 1527,
+    "avg_confidence": 56.170495446680285,
+    "avg_rsi": 52.14756849301646,
+    "total_stocks_processed": 1890,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-17 16:46:49.160000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "LT.NS",
+      "company": "Larsen & Toubro Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 75.25856691737496,
+      "close_price": 4086.7,
+      "rsi": 76.3283026669423,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "VIJIFIN.NS",
+      "company": "Viji Finance Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 74.46447228538737,
+      "close_price": 12.63,
+      "rsi": 100.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "21STCENMGM.NS",
+      "company": "Twentyfirst Century Management Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 72.687980521026,
+      "close_price": 44.93,
+      "rsi": 85.68207440811727,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-06
+[TIME] Report Generated (EST): 2026-07-06 16:42:25
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-06
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1907
+[BUY] Buy Signals: 572
+[SELL] Sell Signals: 1335
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 173
+[DATA] Medium Confidence: 1598
+[LOW] Low Confidence: 136
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 65.11
+[DATA] Average RSI: 54.2
+[COMPANY] Stocks Processed: 1907
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ANMOL.NS: Sell (76.3%) - INR 11.04 [LightGBM_V2]
+[SELL] GMRP&UI.NS: Sell (76.3%) - INR 100.18 [LightGBM_V2]
+[SELL] DEN.NS: Sell (75.3%) - INR 29.25 [LightGBM_V2]
+[SELL] HATHWAY.NS: Sell (74.8%) - INR 11.15 [LightGBM_V2]
+[SELL] BPCL.NS: Sell (74.7%) - INR 308.15 [LightGBM_V2]
+[SELL] TTML.NS: Sell (74.7%) - INR 42.25 [LightGBM_V2]
+[SELL] HINDPETRO.NS: Sell (74.7%) - INR 400.35 [LightGBM_V2]
+[SELL] IOC.NS: Sell (74.6%) - INR 141.68 [LightGBM_V2]
+[SELL] VALIANTORG.NS: Sell (74.5%) - INR 277.60 [LightGBM_V2]
+[SELL] GULFPETRO.NS: Sell (74.3%) - INR 38.64 [LightGBM_V2]

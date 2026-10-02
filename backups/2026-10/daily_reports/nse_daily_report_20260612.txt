@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-06-12
+[TIME] Report Generated (EST): 2026-06-12 18:11:05
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-06-12
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1911
+[BUY] Buy Signals: 573
+[SELL] Sell Signals: 1338
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 96
+[DATA] Medium Confidence: 382
+[LOW] Low Confidence: 1433
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 56.06
+[DATA] Average RSI: 49.5
+[COMPANY] Stocks Processed: 1911
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] RAJESHEXPO.NS: Sell (82.8%) - INR 76.41 [GradientBoosting_V2_Calibrated]
+[SELL] CHEMBOND.NS: Sell (66.1%) - INR 152.67 [GradientBoosting_V2_Calibrated]
+[SELL] BONLON.NS: Sell (66.1%) - INR 42.83 [GradientBoosting_V2_Calibrated]
+[SELL] RMDRIP.NS: Sell (61.7%) - INR 18.57 [GradientBoosting_V2_Calibrated]
+[SELL] MANAKALUCO.NS: Sell (60.2%) - INR 39.59 [GradientBoosting_V2_Calibrated]
+[SELL] SERVOTECH.NS: Sell (59.8%) - INR 102.53 [GradientBoosting_V2_Calibrated]
+[SELL] TINNARUBR.NS: Sell (56.9%) - INR 853.65 [GradientBoosting_V2_Calibrated]
+[SELL] BHAGYANGR.NS: Sell (56.9%) - INR 310.60 [GradientBoosting_V2_Calibrated]
+[SELL] VERANDA.NS: Sell (56.0%) - INR 226.92 [GradientBoosting_V2_Calibrated]
+[SELL] VENUSREM.NS: Sell (56.0%) - INR 1797.50 [GradientBoosting_V2_Calibrated]

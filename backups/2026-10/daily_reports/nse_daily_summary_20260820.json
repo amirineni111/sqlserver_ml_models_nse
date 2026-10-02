@@ -1,0 +1,60 @@
+{
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T16:42:11.951649",
+  "summary": {
+    "analysis_date": "2026-08-20",
+    "total_predictions": 1890,
+    "total_buy_signals": 567,
+    "total_sell_signals": 1323,
+    "total_hold_signals": 0,
+    "high_confidence_count": 4,
+    "medium_confidence_count": 607,
+    "low_confidence_count": 1279,
+    "avg_confidence": 58.02903273116957,
+    "avg_rsi": 50.4046244107081,
+    "total_stocks_processed": 1890,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-08-20 16:41:49.977000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "BAJAJHIND.NS",
+      "company": "Bajaj Hindusthan Sugar Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 72.55980311023576,
+      "close_price": 23.33,
+      "rsi": 85.60606060606062,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KOHINOOR.NS",
+      "company": "Kohinoor Foods Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.57666633412663,
+      "close_price": 34.81,
+      "rsi": 92.05539358600583,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KMSUGAR.NS",
+      "company": "K.M. Sugar Mills Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.50169332075527,
+      "close_price": 35.3,
+      "rsi": 84.01060070671376,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "UTTAMSUGAR.NS",
+      "company": "Uttam Sugar Mills Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 71.14188252601215,
+      "close_price": 336.22,
+      "rsi": 91.73935351462288,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

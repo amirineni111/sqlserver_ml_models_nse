@@ -1,0 +1,24 @@
+{
+  "timestamp": "20260704_182006",
+  "n_folds": 4,
+  "results": [
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "lgbm_300x63",
+      "mean_accuracy": 0.5285,
+      "mean_auc": 0.5338,
+      "mean_top_decile_precision": 0.5793,
+      "mean_proba_std": 0.1627
+    },
+    {
+      "data_window": "standard (2024-06-01)",
+      "label_mode": "absolute",
+      "model": "gb_baseline_200x5",
+      "mean_accuracy": 0.5003,
+      "mean_auc": 0.5087,
+      "mean_top_decile_precision": 0.501,
+      "mean_proba_std": 0.1696
+    }
+  ]
+}

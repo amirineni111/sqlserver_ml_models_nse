@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-24
+[TIME] Report Generated (EST): 2026-08-24 16:43:26
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-24
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1893
+[BUY] Buy Signals: 567
+[SELL] Sell Signals: 1326
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 54
+[DATA] Medium Confidence: 1578
+[LOW] Low Confidence: 261
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 64.06
+[DATA] Average RSI: 47.9
+[COMPANY] Stocks Processed: 1893
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] EQUIPPP.NS: Sell (78.5%) - INR 23.97 [LightGBM_V2]
+[SELL] BAJAJHIND.NS: Sell (72.9%) - INR 24.23 [LightGBM_V2]
+[SELL] QUADFUTURE.NS: Sell (72.4%) - INR 447.30 [LightGBM_V2]
+[SELL] SOMICONVEY.NS: Sell (72.3%) - INR 97.36 [LightGBM_V2]
+[SELL] OPTIEMUS.NS: Sell (72.1%) - INR 585.70 [LightGBM_V2]
+[SELL] IGPL.NS: Sell (71.9%) - INR 501.05 [LightGBM_V2]
+[SELL] TVSSCS.NS: Sell (71.8%) - INR 132.99 [LightGBM_V2]
+[SELL] BALAMINES.NS: Sell (71.7%) - INR 2224.50 [LightGBM_V2]
+[SELL] KIRIINDUS.NS: Sell (71.5%) - INR 502.40 [LightGBM_V2]
+[SELL] ALLCARGO.NS: Sell (71.3%) - INR 13.33 [LightGBM_V2]

@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-28",
+  "generated_at": "2026-09-28T16:38:49.622675",
+  "summary": {
+    "analysis_date": "2026-09-28",
+    "total_predictions": 1898,
+    "total_buy_signals": 569,
+    "total_sell_signals": 1329,
+    "total_hold_signals": 0,
+    "high_confidence_count": 847,
+    "medium_confidence_count": 551,
+    "low_confidence_count": 500,
+    "avg_confidence": 63.22297794407642,
+    "avg_rsi": 42.12744187666473,
+    "total_stocks_processed": 1898,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-28 16:38:19.237000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ARMANFIN.NS",
+      "company": "Arman Financial Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 45.2813548588966,
+      "conviction_score": 98.27271319403877,
+      "signal_strength": "High",
+      "close_price": 1700.1,
+      "rsi": 19.323405037690762,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "YESBANK.NS",
+      "company": "Yes Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 44.555246291946695,
+      "conviction_score": 97.98100383072588,
+      "signal_strength": "High",
+      "close_price": 21.18,
+      "rsi": 38.967971530249066,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IDFCFIRSTB.NS",
+      "company": "IDFC First Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.80288933406721,
+      "conviction_score": 97.62793615593483,
+      "signal_strength": "High",
+      "close_price": 80.55,
+      "rsi": 31.46633102580239,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "company": "Cholamandalam Investment and Finance Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.26426842025802,
+      "conviction_score": 97.33885729154852,
+      "signal_strength": "High",
+      "close_price": 1634.2,
+      "rsi": 22.279792746113984,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ICICIBANK.NS",
+      "company": "ICICI Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 43.05195469410565,
+      "conviction_score": 97.21572480378103,
+      "signal_strength": "High",
+      "close_price": 1302.0,
+      "rsi": 9.594333547971601,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "MANAKSTEEL.NS",
+      "company": "Manaksia Steels Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 86.93783463272216,
+      "conviction_score": 95.32457330580795,
+      "signal_strength": "High",
+      "close_price": 110.13,
+      "rsi": 53.950722175021234,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "RELINFRA.NS",
+      "company": "Reliance Infrastructure Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.9235809469284,
+      "conviction_score": 94.22877168411677,
+      "signal_strength": "High",
+      "close_price": 44.3,
+      "rsi": 0.0,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDOBORAX.NS",
+      "company": "Indo Borax & Chemicals Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.6847464515351,
+      "conviction_score": 93.9376553741971,
+      "signal_strength": "High",
+      "close_price": 477.55,
+      "rsi": 39.743589743589766,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "INDTERRAIN.NS",
+      "company": "Indian Terrain Fashions Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.6694385612283,
+      "conviction_score": 93.91853530850628,
+      "signal_strength": "High",
+      "close_price": 29.49,
+      "rsi": 42.387332521315464,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SSDL.NS",
+      "company": "SARASWATI SAREE DEPOT LTD",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 85.17384159787606,
+      "conviction_score": 93.26824620735685,
+      "signal_strength": "High",
+      "close_price": 81.52,
+      "rsi": 76.7477536708306,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

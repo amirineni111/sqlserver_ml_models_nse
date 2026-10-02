@@ -1,0 +1,36 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-08-26
+[TIME] Report Generated (EST): 2026-08-26 16:45:53
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-08-26
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 4
+[DATA] Medium Confidence: 760
+[LOW] Low Confidence: 1131
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 58.78
+[DATA] Average RSI: 47.6
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ABINFRA.NS: Sell (75.0%) - INR 11.95 [LightGBM_V2]
+[SELL] JAGSNPHARM.NS: Sell (73.0%) - INR 242.20 [LightGBM_V2]
+[SELL] GENESYS.NS: Sell (71.3%) - INR 246.30 [LightGBM_V2]
+[SELL] TARSONS.NS: Sell (70.5%) - INR 342.65 [LightGBM_V2]

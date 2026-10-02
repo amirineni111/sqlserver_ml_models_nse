@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-07-13
+[TIME] Report Generated (EST): 2026-07-13 16:42:33
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-07-13
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1904
+[BUY] Buy Signals: 571
+[SELL] Sell Signals: 1333
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 49
+[DATA] Medium Confidence: 1637
+[LOW] Low Confidence: 218
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 64.31
+[DATA] Average RSI: 49.0
+[COMPANY] Stocks Processed: 1904
+
+[TARGET] TOP HIGH CONFIDENCE SIGNALS
+-------------------------------
+[SELL] ROTO.NS: Sell (74.1%) - INR 68.32 [LightGBM_V2]
+[SELL] MANALIPETC.NS: Sell (72.3%) - INR 65.27 [LightGBM_V2]
+[SELL] MAITHANALL.NS: Sell (72.0%) - INR 1034.80 [LightGBM_V2]
+[SELL] MOL.NS: Sell (72.0%) - INR 48.80 [LightGBM_V2]
+[SELL] EPIGRAL.NS: Sell (71.9%) - INR 1068.50 [LightGBM_V2]
+[SELL] NIBE.NS: Sell (71.7%) - INR 1594.40 [LightGBM_V2]
+[SELL] SPAL.NS: Sell (71.5%) - INR 1124.80 [LightGBM_V2]
+[SELL] RITES.NS: Sell (71.5%) - INR 226.65 [LightGBM_V2]
+[SELL] GUJALKALI.NS: Sell (71.3%) - INR 610.50 [LightGBM_V2]
+[SELL] PVP.NS: Sell (71.3%) - INR 29.49 [LightGBM_V2]

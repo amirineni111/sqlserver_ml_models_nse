@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-01",
+  "generated_at": "2026-10-01T20:26:25.311262",
+  "summary": {
+    "analysis_date": "2026-10-01",
+    "total_predictions": 1896,
+    "total_buy_signals": 1328,
+    "total_sell_signals": 568,
+    "total_hold_signals": 0,
+    "high_confidence_count": 865,
+    "medium_confidence_count": 506,
+    "low_confidence_count": 525,
+    "avg_confidence": 58.31224779883857,
+    "avg_rsi": 40.51057990098993,
+    "total_stocks_processed": 1896,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-10-01 20:25:54.180000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "ABFRL.NS",
+      "company": "Aditya Birla Fashion and Retail Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 79.32154543367537,
+      "conviction_score": 97.65187196331954,
+      "signal_strength": "High",
+      "close_price": 44.53,
+      "rsi": 22.443674176776412,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SWIGGY.NS",
+      "company": "SWIGGY LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.66742809161143,
+      "conviction_score": 97.38120298064919,
+      "signal_strength": "High",
+      "close_price": 238.0,
+      "rsi": 22.919418758256285,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SBICARD.NS",
+      "company": "SBI Cards and Payment Services Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.1600695834411,
+      "conviction_score": 97.15057737728085,
+      "signal_strength": "High",
+      "close_price": 563.2,
+      "rsi": 19.551092734790288,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JUBLFOOD.NS",
+      "company": "Jubilant FoodWorks Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 77.34647582932821,
+      "conviction_score": 96.73904999411762,
+      "signal_strength": "High",
+      "close_price": 443.4,
+      "rsi": 37.096774193548384,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "IFCI.NS",
+      "company": "IFCI Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 77.22954482679296,
+      "conviction_score": 96.67536953036027,
+      "signal_strength": "High",
+      "close_price": 65.14,
+      "rsi": 21.729302062729587,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "XELPMOC.NS",
+      "company": "Xelpmoc Design and Tech Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 65.67822165158034,
+      "conviction_score": 98.14474441739122,
+      "signal_strength": "High",
+      "close_price": 93.67,
+      "rsi": 70.27403622851836,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "THOMASCOTT.NS",
+      "company": "Thomas Scott (India) Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 63.447332899794986,
+      "conviction_score": 97.30611358282582,
+      "signal_strength": "High",
+      "close_price": 300.2,
+      "rsi": 77.70669291338581,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BIRLACABLE.NS",
+      "company": "Birla Cable Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 58.67825305741945,
+      "conviction_score": 94.11012938843473,
+      "signal_strength": "High",
+      "close_price": 383.0,
+      "rsi": 52.222517966462604,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JHS.NS",
+      "company": "JHS Svendgaard Laboratories Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 58.30330184712225,
+      "conviction_score": 93.74445692359444,
+      "signal_strength": "High",
+      "close_price": 11.7,
+      "rsi": 76.94566813509545,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "PVP.NS",
+      "company": "PVP Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 58.16936577136911,
+      "conviction_score": 93.60877265457617,
+      "signal_strength": "High",
+      "close_price": 50.47,
+      "rsi": 29.83225806451614,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

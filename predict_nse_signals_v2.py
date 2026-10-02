@@ -809,6 +809,9 @@ def generate_predictions(model, scaler, encoder, selected_features, df):
     # This finds the relative outperformers regardless of absolute market direction.
     # In balanced markets (avg ~45%), this naturally selects ~50% buys.
     # In bear markets (avg ~25%), this selects the best 30% as relative outperformers.
+    # Mirrored since Oct 2026: when avg buy_probability > 0.55 for the whole
+    # universe, the weakest 30% are Sells (a fixed 50% cut gave 97-98% Buy and
+    # tripped the >95% abort on Sep 30 / Oct 1).
     # The rule lives in the retrain module (Sep 2026) so the pre-save validation
     # gate checks exactly what this function will do with the model.
     from retrain_nse_model_v2 import decide_signals

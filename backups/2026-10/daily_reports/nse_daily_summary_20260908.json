@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T16:40:55.969273",
+  "summary": {
+    "analysis_date": "2026-09-08",
+    "total_predictions": 1895,
+    "total_buy_signals": 568,
+    "total_sell_signals": 1327,
+    "total_hold_signals": 0,
+    "high_confidence_count": 802,
+    "medium_confidence_count": 566,
+    "low_confidence_count": 527,
+    "avg_confidence": 65.25655498461005,
+    "avg_rsi": 49.44078240667277,
+    "total_stocks_processed": 1895,
+    "processing_time_seconds": null,
+    "market_trend": "Bearish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-09-08 16:40:21.177000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "AMNPLST.NS",
+      "company": "Amines & Plasticizers Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 35.41685369002946,
+      "conviction_score": 98.74856850787444,
+      "close_price": 167.82,
+      "rsi": 30.605381165919297,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "SUMICHEM.NS",
+      "company": "Sumitomo Chemical India Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.95716712294681,
+      "conviction_score": 98.58303340166596,
+      "close_price": 486.7,
+      "rsi": 10.48009367681503,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "JKLAKSHMI.NS",
+      "company": "JK Lakshmi Cement Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.744016574194916,
+      "conviction_score": 98.49912427351161,
+      "close_price": 498.75,
+      "rsi": 12.905236907730796,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "KSCL.NS",
+      "company": "Kaveri Seed Company Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 34.16913987511878,
+      "conviction_score": 98.24766159030739,
+      "close_price": 728.5,
+      "rsi": 31.554024967714113,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "CHEMCON.NS",
+      "company": "Chemcon Speciality Chemicals Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 33.92302420121451,
+      "conviction_score": 98.12775002566781,
+      "close_price": 209.53,
+      "rsi": 78.37555497518929,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ASIANPAINT.NS",
+      "company": "Asian Paints Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 33.087025987486065,
+      "conviction_score": 97.65727551789477,
+      "close_price": 2481.6,
+      "rsi": 25.731945348080714,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "ULTRACEMCO.NS",
+      "company": "UltraTech Cement Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 33.04670950648189,
+      "conviction_score": 97.6318782381897,
+      "close_price": 11009.0,
+      "rsi": 34.05639913232105,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "GULFOILLUB.NS",
+      "company": "Gulf Oil Lubricant",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.998340026909005,
+      "conviction_score": 97.60105334318106,
+      "close_price": 1057.6,
+      "rsi": 25.090720580611602,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "BHARATRAS.NS",
+      "company": "Bharat Rasayan Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.78306835585365,
+      "conviction_score": 97.45905351316483,
+      "close_price": 1159.5,
+      "rsi": 16.843279419966535,
+      "model_name": "LightGBM_V2"
+    },
+    {
+      "ticker": "DEEPAKFERT.NS",
+      "company": "Deepak Fertilisers And Petrochemicals Corporation Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 32.60725755593997,
+      "conviction_score": 97.3370395827076,
+      "close_price": 1345.9,
+      "rsi": 26.69051878354199,
+      "model_name": "LightGBM_V2"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

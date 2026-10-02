@@ -1,0 +1,114 @@
+{
+  "date": "2026-05-27",
+  "generated_at": "2026-05-28T16:56:20.383116",
+  "summary": {
+    "analysis_date": "2026-05-27",
+    "total_predictions": 1919,
+    "total_buy_signals": 1710,
+    "total_sell_signals": 209,
+    "total_hold_signals": 0,
+    "high_confidence_count": 102,
+    "medium_confidence_count": 412,
+    "low_confidence_count": 1405,
+    "avg_confidence": 61.105931018886494,
+    "avg_rsi": 44.26034494437642,
+    "total_stocks_processed": 1919,
+    "processing_time_seconds": null,
+    "market_trend": "Bullish",
+    "model_accuracy": null,
+    "run_timestamp": "2026-05-28 16:55:51.373000"
+  },
+  "high_confidence_signals": [
+    {
+      "ticker": "MRF.NS",
+      "company": "MRF Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 82.57798705120659,
+      "close_price": 127040.0,
+      "rsi": 40.324181276877276,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "HDFCBANK.NS",
+      "company": "HDFC Bank Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.32438878950506,
+      "close_price": 758.65,
+      "rsi": 36.14814814814815,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JUBLINGREA.NS",
+      "company": "Jubilant Ingrevia Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 78.32438878950506,
+      "close_price": 680.45,
+      "rsi": 29.182561307901864,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "JPPOWER.NS",
+      "company": "Jaiprakash Power Ventures Limited",
+      "predicted_signal": "Sell",
+      "confidence_percentage": 76.62811929397444,
+      "close_price": 22.87,
+      "rsi": 67.97520661157024,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SANOFICONR.NS",
+      "company": "SANOFI CONS HEALTHC IND L",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.32600258732212,
+      "close_price": 4529.9,
+      "rsi": 41.83297947629158,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "MIDWESTLTD.NS",
+      "company": "MIDWEST LIMITED",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.21082621082621,
+      "close_price": 1210.3,
+      "rsi": 24.44041137326073,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PHOENIXLTD.NS",
+      "company": "The Phoenix Mills Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.21082621082621,
+      "close_price": 1771.8,
+      "rsi": 40.469111331351165,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "PRESTIGE.NS",
+      "company": "Prestige Estates Projects Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.21082621082621,
+      "close_price": 1399.8,
+      "rsi": 34.528650646950084,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "RADICO.NS",
+      "company": "Radico Khaitan Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.21082621082621,
+      "close_price": 3439.3,
+      "rsi": 52.5993883792049,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    },
+    {
+      "ticker": "SOBHA.NS",
+      "company": "Sobha Limited",
+      "predicted_signal": "Buy",
+      "confidence_percentage": 76.21082621082621,
+      "close_price": 1395.0,
+      "rsi": 37.45519713261645,
+      "model_name": "GradientBoosting_V2_Calibrated"
+    }
+  ],
+  "model_type": "NSE-trained ensemble"
+}

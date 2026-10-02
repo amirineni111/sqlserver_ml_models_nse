@@ -1,0 +1,42 @@
+
+NSE 500 Daily Trading Report
+================================
+[DATE] NSE Trading Date (data from): 2026-09-08
+[TIME] Report Generated (EST): 2026-09-08 16:40:55
+[MODEL] Model Type: NSE-trained ensemble
+[NOTE] Predictions are for the NEXT trading day after 2026-09-08
+[NOTE] NSE closes 3:30 PM IST (~5:00 AM EST) - data available before this report runs
+
+
+[DATA] PREDICTION SUMMARY
+--------------------
+[PREDICTION] Total Predictions: 1895
+[BUY] Buy Signals: 568
+[SELL] Sell Signals: 1327
+[HOLD] Hold Signals: 0
+[TREND] Market Trend: Bearish
+
+[TARGET] CONFIDENCE BREAKDOWN
+-----------------------
+[HIGH] High Confidence: 802
+[DATA] Medium Confidence: 566
+[LOW] Low Confidence: 527
+
+[PREDICTION] ANALYSIS METRICS
+-------------------
+[STAR] Average Confidence: 65.26
+[DATA] Average RSI: 49.4
+[COMPANY] Stocks Processed: 1895
+
+[TARGET] TOP HIGH CONVICTION SIGNALS
+-------------------------------
+[BUY] AMNPLST.NS: Buy (conviction 98.7, P=35.4%) - INR 167.82 [LightGBM_V2]
+[BUY] SUMICHEM.NS: Buy (conviction 98.6, P=35.0%) - INR 486.70 [LightGBM_V2]
+[BUY] JKLAKSHMI.NS: Buy (conviction 98.5, P=34.7%) - INR 498.75 [LightGBM_V2]
+[BUY] KSCL.NS: Buy (conviction 98.2, P=34.2%) - INR 728.50 [LightGBM_V2]
+[BUY] CHEMCON.NS: Buy (conviction 98.1, P=33.9%) - INR 209.53 [LightGBM_V2]
+[BUY] ASIANPAINT.NS: Buy (conviction 97.7, P=33.1%) - INR 2481.60 [LightGBM_V2]
+[BUY] ULTRACEMCO.NS: Buy (conviction 97.6, P=33.0%) - INR 11009.00 [LightGBM_V2]
+[BUY] GULFOILLUB.NS: Buy (conviction 97.6, P=33.0%) - INR 1057.60 [LightGBM_V2]
+[BUY] BHARATRAS.NS: Buy (conviction 97.5, P=32.8%) - INR 1159.50 [LightGBM_V2]
+[BUY] DEEPAKFERT.NS: Buy (conviction 97.3, P=32.6%) - INR 1345.90 [LightGBM_V2]
